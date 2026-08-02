@@ -1,0 +1,114 @@
+generated: '2026-08-02'
+method: searched
+source: https://github.com/OutSystems/docs-odc/blob/main/src/eap/reference/apis/public-rest-apis/rate-limiting.md
+docs: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/rate_limits/
+scope: OutSystems Developer Cloud (ODC) public REST APIs
+model:
+  levels:
+  - name: domain-wide
+    description: >-
+      All requests to endpoints within one API domain share a total request pool per
+      minute.
+  - name: specific-endpoint
+    description: >-
+      Some endpoints carry an individual per-minute cap. Requests against them still
+      count toward the domain-wide pool.
+  scope: per organization
+  window: 1 minute
+  exceeded_status: 429
+  exceeded_response: 429 Too Many Requests
+  retry_after_header: false
+  rate_limit_headers: false
+limits:
+- api_domain: User and access management
+  spec: openapi/outsystems-user-access-management-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits:
+  - endpoint: POST /users/bulk
+    limit_count: 5
+- api_domain: Portfolio
+  spec: openapi/outsystems-portfolio-api-v2-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits: []
+- api_domain: Build operations
+  spec: openapi/outsystems-build-operations-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits:
+  - endpoint: POST methods (per endpoint)
+    limit_count: 10
+- api_domain: Deployments
+  spec: openapi/outsystems-deployments-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits:
+  - endpoint: POST methods (per endpoint)
+    limit_count: 10
+- api_domain: Asset repository
+  spec: openapi/outsystems-asset-repository-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits:
+  - endpoint: POST /assets
+    limit_count: 10
+- api_domain: Asset configurations
+  spec: openapi/outsystems-asset-configurations-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits: []
+- api_domain: Dependency management
+  spec: openapi/outsystems-dependency-management-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits: []
+- api_domain: Environment configurations
+  spec: openapi/outsystems-environment-configurations-api-v1-openapi.json
+  limit_count: 10
+  unit: requests
+  interval: minute
+  endpoint_limits: []
+  note: the tightest domain-wide limit in the ODC API set
+- api_domain: External library generation
+  spec: openapi/outsystems-external-library-generation-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits:
+  - endpoint: POST methods (per endpoint)
+    limit_count: 10
+- api_domain: Code quality
+  spec: openapi/outsystems-code-quality-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits:
+  - endpoint: POST /code-analyses
+    limit_count: 10
+- api_domain: Native mobile build
+  spec: openapi/outsystems-native-application-orchestration-service-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits:
+  - endpoint: POST methods (per endpoint)
+    limit_count: 5
+  - endpoint: PATCH methods (per endpoint)
+    limit_count: 10
+- api_domain: Subscription
+  spec: openapi/outsystems-subscription-api-v1-openapi.json
+  limit_count: 100
+  unit: requests
+  interval: minute
+  endpoint_limits: []
+observed_in_spec:
+  operations_declaring_429: 112
+  total_operations: 150

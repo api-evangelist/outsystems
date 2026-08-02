@@ -1,0 +1,32 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/outsystems-asset-configurations-api-v1-openapi.json, openapi/outsystems-asset-repository-api-v1-openapi.json,
+  openapi/outsystems-build-operations-api-v1-openapi.json, openapi/outsystems-code-quality-api-v1-openapi.json,
+  openapi/outsystems-dependency-management-api-v1-openapi.json, openapi/outsystems-deployments-api-v1-openapi.json,
+  openapi/outsystems-environment-configurations-api-v1-openapi.json, openapi/outsystems-external-library-generation-api-v1-openapi.json,
+  openapi/outsystems-native-application-orchestration-service-api-v1-openapi.json, openapi/outsystems-portfolio-api-v1-openapi.json,
+  openapi/outsystems-portfolio-api-v2-openapi.json, openapi/outsystems-subscription-api-v1-openapi.json
+  ...
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Enter your bearer token in the format 'Bearer {token}'
+  sources:
+  - openapi/outsystems-asset-configurations-api-v1-openapi.json
+  - openapi/outsystems-asset-repository-api-v1-openapi.json
+  - openapi/outsystems-build-operations-api-v1-openapi.json
+  - openapi/outsystems-code-quality-api-v1-openapi.json
+  - openapi/outsystems-dependency-management-api-v1-openapi.json
+  - openapi/outsystems-deployments-api-v1-openapi.json
+  - openapi/outsystems-environment-configurations-api-v1-openapi.json
+  - openapi/outsystems-external-library-generation-api-v1-openapi.json
+  - openapi/outsystems-native-application-orchestration-service-api-v1-openapi.json
+  - openapi/outsystems-portfolio-api-v1-openapi.json
+  - openapi/outsystems-portfolio-api-v2-openapi.json
+  - openapi/outsystems-subscription-api-v1-openapi.json
+  - openapi/outsystems-user-access-management-api-v1-openapi.json

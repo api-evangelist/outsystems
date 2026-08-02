@@ -1,0 +1,171 @@
+generated: '2026-08-02'
+method: searched
+source: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/
+sources:
+- https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/pagination/
+- https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/rate_limits/
+- https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/authentication/get_access_token/
+- https://github.com/OutSystems/docs-odc/tree/main/src/eap/reference/apis/public-rest-apis
+- openapi/*.json
+scope: OutSystems Developer Cloud (ODC) public REST APIs
+style:
+  architecture: >-
+    RESTful, resource-oriented URLs, JSON request and response bodies, standard HTTP
+    verbs and status codes.
+  base_url: https://{odc-portal-domain}/api/{domain}/{version}
+  base_url_note: >-
+    Every ODC REST API is tenant-scoped. ODC_PORTAL_DOMAIN is the domain of the
+    customer's organization; there is no shared public API host.
+  media_type: application/json
+authentication:
+  style: oauth2-client-credentials
+  token_type: Bearer JWT
+  header: 'Authorization: Bearer <ACCESS_TOKEN>'
+  discovery: https://{odc-portal-domain}/identity/.well-known/openid-configuration
+  token_request: >-
+    POST to the token_endpoint from the discovery document with
+    Content-Type: application/x-www-form-urlencoded and
+    grant_type=client_credentials&client_id=...&client_secret=...
+  token_lifetime_seconds: 43200
+  token_lifetime_note: >-
+    12 hours, independent of the expiry date of the client credentials themselves.
+    OutSystems recommends storing the token encrypted (AES_Encrypt) and reusing it
+    until expiry rather than minting a new one per call.
+  credential_source: >-
+    An API Client created in the ODC Portal issues the client ID + client secret and
+    carries the per-stage permission set the token inherits.
+  see_also: authentication/outsystems-authentication.yml
+authorization:
+  model: portal-assigned permissions (not requested OAuth scopes)
+  note: >-
+    The token request sends no `scope` parameter. Permissions are assigned to the API
+    Client per ODC stage in the Portal, and each operation's description names the
+    permission it requires (e.g. "User management > View end users"). An API Client
+    with no permissions assigned lands in a "Needs attention" state.
+  see_also: scopes/outsystems-scopes.yml
+pagination:
+  style: offset-limit
+  request_params:
+  - name: offset
+    in: query
+    default: 0
+    description: Zero-based index of the first result returned.
+  - name: limit
+    in: query
+    default: 100
+    minimum: 1
+    maximum: 100
+    description: Page size — maximum results returned for a single request.
+  response_envelope: page
+  response_fields:
+  - name: results
+    description: The array of resource items for the current page.
+  - name: page.count
+    description: Number of results on the current page.
+  - name: page.limit
+    description: Maximum number of results returned for the request.
+  - name: page.offset
+    description: The offset for the current page of results.
+  - name: page.nextPageOffset
+    description: Offset for the next page, calculated as limit + offset.
+  - name: page.totalResults
+    description: Total number of results for the request.
+  - name: page.totalPages
+    description: Total number of pages, calculated as totalResults / limit.
+  observed_in_spec: >-
+    `limit` and `offset` appear as query parameters on 27 operations each across the
+    13 specs (plus 6 operations using the capitalised `Limit`/`Offset` form in the
+    Code Quality API — a real casing inconsistency between API domains).
+  casing_deviation:
+    apis: [Code Quality API]
+    params: [Limit, Offset, AssetKeys, Categories, AssetType, Severities, Since, To]
+    note: >-
+      The Code Quality API uses PascalCase query parameters where every other ODC API
+      uses camelCase. Recorded as an observed inconsistency, not a recommendation.
+filtering_and_sorting:
+  sort:
+    param: sort
+    present_on_operations: 21
+  name_filter:
+    param: nameContains
+    present_on_operations: 12
+  field_selection:
+    param: fields
+    present_on_operations: 4
+  expansion:
+    param: embed
+    present_on_operations: 11
+    description: >-
+      Requests related sub-resources be embedded in the response rather than fetched
+      in a second call.
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, parameter or `x-idempotency` extension appears in any
+    of the 13 OpenAPI specs, and the ODC REST API documentation set contains no
+    idempotency section. Recorded as an honest absence — no Idempotency pointer is
+    wired in apis.yml.
+  mitigation_in_practice: >-
+    Long-running writes are modelled as operation resources: POST returns an operation
+    key, and the caller polls GET /{...}-operations/{operationKey} for terminal state.
+    That makes a repeated POST create a NEW operation rather than deduplicate, so
+    callers must track operation keys themselves.
+async_operations:
+  pattern: start-then-poll
+  description: >-
+    Build, deployment, publish, external-library generation, code analysis, native
+    mobile build and deletion/deployment impact analysis are all asynchronous. The POST
+    returns an operation or analysis key; the caller polls the matching GET status
+    resource until terminal, and a companion messages/log-messages resource carries
+    the human-readable progress.
+  operation_resources:
+  - POST /deployment-operations -> GET /deployment-operations/{operationKey}[/messages]
+  - POST /publish-operations -> GET /publish-operations/{operationKey}[/messages]
+  - POST /build-operations -> GET /build-operations/{operationKey}[/log-messages]
+  - POST /generation-operations -> GET /generation-operations/{operationKey}[/log-messages]
+  - POST /deployment-analyses -> GET /deployment-analyses/{analysisKey}
+  - POST /deletion-analyses -> GET /deletion-analyses/{analysisKey}
+  - POST /code-analyses -> GET code-quality analysis results
+identifiers:
+  scheme: UUID keys
+  note: >-
+    Resources are addressed by opaque UUID keys, not slugs or sequential ids. The
+    recurring path/query parameters are `key`, `assetKey`, `environmentKey`,
+    `applicationKey`, `operationKey`, `portfolioKey`, `analysisKey` and
+    `revisionNumber`. Display names are mutable; keys are the stable reference.
+rate_limits:
+  model: per-organization, two levels (domain-wide + specific endpoint)
+  default_domain_limit_rpm: 100
+  exceeded_response: 429 Too Many Requests
+  signaling:
+    retry_after_header: false
+    x_ratelimit_headers: false
+    note: >-
+      No Retry-After or X-RateLimit-* response headers are declared in any of the 13
+      specs, and none are documented. Clients learn the limit only from the published
+      table and the 429 status.
+  see_also: rate-limits/outsystems-rate-limits.yml
+errors:
+  envelope: application/json
+  rfc9457: false
+  note: >-
+    All 597 declared 4xx/5xx response bodies use `application/json`; none use
+    `application/problem+json`, so the ODC APIs do not implement RFC 9457 Problem
+    Details.
+  see_also: errors/outsystems-problem-types.yml
+versioning:
+  scheme: uri-path
+  form: /api/{domain}/v{n}
+  current:
+    portfolio: v2
+    all_others: v1
+  see_also: lifecycle/outsystems-lifecycle.yml
+request_tracing:
+  request_id_header: not documented
+  error_body_field: traceId
+  note: >-
+    No correlation/request-id request or response HEADER is declared in the specs or
+    the documentation. Tracing is carried instead as a `traceId` property on the
+    ProblemDetails error body, which the spec describes as the identifier to quote when
+    reporting an error occurrence to OutSystems support. It is therefore available on
+    failures only, not on successful calls.

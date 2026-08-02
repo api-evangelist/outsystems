@@ -1,0 +1,127 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/*.json + ODC REST API documentation + https://security.outsystems.com/
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    13 first-party specs published in OutSystems/docs-odc; 11 declare openapi 3.0.3 and
+    2 declare 3.0.1. 150 operations, all with unique operationIds.
+- id: openapi-3.1
+  conforms: false
+  evidence: no 3.1 documents published
+- id: oauth2
+  conforms: true
+  evidence: >-
+    OAuth 2.0 client-credentials grant against a token_endpoint discovered from the
+    tenant OIDC document; documented in the ODC REST API authentication guide.
+- id: oauth2-scopes
+  conforms: false
+  evidence: >-
+    No `scope` parameter is sent on the token request and no scopes map appears in any
+    securityScheme; authorization is portal-assigned permissions instead.
+- id: oidc
+  conforms: true
+  evidence: >-
+    "The ODC REST APIs use the OpenID Connect (OIDC) protocol for authorization and
+    authentication, which is based on the OAuth 2.0 framework." Discovery document
+    served at /identity/.well-known/openid-configuration per tenant.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: partial
+  evidence: >-
+    OIDC discovery is served at the tenant path /identity/.well-known/openid-configuration
+    rather than at the RFC 8414 /.well-known/oauth-authorization-server location; the
+    public marketing host returns 403 for both.
+- id: jwt-bearer
+  conforms: true
+  evidence: securitySchemes bearerAuth type http, scheme bearer, bearerFormat JWT across all 13 specs
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Error bodies use the RFC 7807/9457 member set (type/title/status/detail/instance
+    plus a traceId extension) via an ASP.NET Core ProblemDetails schema, but all 597
+    declared error responses are served as application/json, never
+    application/problem+json. Shape yes, media type no.
+- id: rfc9116-security-txt
+  conforms: partial
+  evidence: >-
+    PGP-signed security.txt served at https://www.outsystems.com/.well-known/security.txt
+    with Contact, Policy, Encryption, Canonical and Preferred-Languages. Its Expires
+    field reads 2025-10-24, so the document is past its own expiry as of 2026-08-02.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: >-
+    A dated deprecation and sunset policy exists (Portfolio v1 deprecated 2026-07-08,
+    sunset 2027-01-08) but is published in docs only — no Sunset or Deprecation
+    response header is declared in the specs.
+- id: rfc9110-http-semantics
+  conforms: true
+  evidence: >-
+    Resource-oriented URLs, standard verbs, and a broad status-code vocabulary in the
+    specs (400/401/403/404/405/409/410/422/429).
+- id: json-api
+  conforms: false
+  evidence: plain JSON with a `results` + `page` envelope, not the JSON:API media type
+- id: odata
+  conforms: false
+- id: scim2
+  conforms: false
+  evidence: >-
+    The User and Access Management API manages users, groups and roles but with its own
+    resource model, not SCIM 2.0 paths or schemas.
+- id: graphql
+  conforms: false
+  evidence: no GraphQL surface published
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    No AsyncAPI document and no webhook or event catalog was found in the ODC
+    documentation set (grep across the full docs-odc source returned no webhook or
+    asyncapi references). N/A rather than a gap.
+- id: grpc-protobuf
+  conforms: false
+  evidence: no published .proto definitions found in the OutSystems GitHub org or buf.build
+- id: model-context-protocol
+  conforms: true
+  evidence: >-
+    Official remote MCP server over streamable HTTP with OAuth Dynamic Client
+    Registration; distributed as a Claude plugin plus Copilot/Kiro configs from
+    OutSystems/outsystems-mcp. Early alpha.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on www.outsystems.com
+    (403, HTML) and success.outsystems.com (404, HTML). No agent card published.
+- id: pagination-offset-limit
+  conforms: true
+  evidence: >-
+    Documented offset/limit strategy with a `page` metadata envelope; limit and offset
+    appear on 27 operations each in the specs.
+- id: idempotency-key
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header, parameter or extension in any spec and no idempotency
+    section in the documentation.
+compliance_program:
+  published: true
+  trust_center: https://security.outsystems.com/
+  trust_center_platform: SafeBase
+  certifications:
+  - SOC 1 Type 2
+  - SOC 2 Type II
+  - ISO 27001
+  - ISO 27017
+  - ISO 27018
+  - ISO 22301
+  - FedRAMP
+  - GDPR
+  evidence:
+  - source: https://security.outsystems.com/
+    keywords: [iso/iec 27001, fedramp, trust center, gdpr]
+  - source: https://www.outsystems.com/news/odc-soc-2-attestation/
+    note: ODC SOC 2 attestation, evaluated and attested by Baker Tilly
+  - source: https://www.outsystems.com/product-updates/odc-soc1-type2-attested/
+    note: ODC SOC 1 Type 2 attestation
+  - source: https://www.outsystems.com/news/cloud-security-certifications/
+    note: ISO 27017 and ISO 27018 cloud security certifications
+  see_also: security/outsystems-trust-center.yml

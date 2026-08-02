@@ -1,0 +1,84 @@
+generated: '2026-08-02'
+method: searched
+source: https://github.com/OutSystems/outsystems-pipeline
+docs: https://github.com/OutSystems/outsystems-pipeline#readme
+summary: >-
+  OutSystems does not ship a single branded `outsystems` or `odc` CLI binary for the
+  public REST APIs. What it publishes first-party is `outsystems-pipeline`, a Python
+  package of command-invocable scripts that wrap the platform lifecycle APIs for CI/CD
+  automation, plus `@outsystems/assistant`, an internal engineering-workflow CLI. Both
+  are recorded honestly below; neither is a general-purpose ODC API client.
+clis:
+- name: outsystems-pipeline
+  official: true
+  primary: true
+  language: python
+  license: Apache-2.0
+  version: 0.10.3
+  repository: https://github.com/OutSystems/outsystems-pipeline
+  registry: https://pypi.org/project/outsystems-pipeline/
+  package: packages/outsystems-packages.yml
+  purpose: >-
+    "Provides functions to support the creation of OutSystems CI/CD pipelines using
+    your DevOps automation tool of choice." Ships example pipelines for common DevOps
+    automation tools alongside the library.
+  install:
+  - method: pip
+    command: pip install -U outsystems-pipeline
+  invocation_style: python module scripts
+  invocation_note: >-
+    Scripts are invoked as Python modules from a pipeline step rather than through a
+    single subcommand-dispatching binary, e.g.
+    `python -m outsystems.pipeline.<script> --<args>`.
+  command_surface:
+  - group: deployment
+    commands:
+    - name: continue_deployment_to_target_env.py
+      description: >-
+        Continues a two-stage deployment. Accepts an optional deployment plan key to
+        continue a specific plan.
+    note: >-
+      Every script that creates a new deployment plan writes a cache file named
+      `<environment_name>_deployment_key.cache` into the artifact folder, carrying the
+      deployment key for later pipeline steps.
+  surface_caveat: >-
+    Only the commands explicitly named in the published PyPI release notes are listed
+    here. The full script inventory lives in the project repository; it is not
+    enumerated on the package page, so it is not reproduced from memory.
+  targets: OutSystems 11 LifeTime lifecycle APIs and ODC pipeline automation
+- name: '@outsystems/assistant'
+  binary: os
+  official: true
+  primary: false
+  language: javascript
+  license: BSD-3-Clause
+  version: 0.1.1
+  registry: https://www.npmjs.com/package/@outsystems/assistant
+  purpose: >-
+    OutSystems-internal development assistant. Configures a developer machine to pull
+    packages from the OutSystems Artifactory and ships a shared ESLint config.
+  install:
+  - method: npm
+    command: npm install @outsystems/assistant
+  command_surface:
+  - group: auth
+    commands:
+    - name: os login
+      description: >-
+        Runs a configuration wizard that authenticates against the OutSystems Azure
+        environment, writes an .npmrc/.yarnrc pointing at the OutSystems Artifactory,
+        and creates an .env file with credentials for vendor services.
+  not_an_api_client: true
+  not_an_api_client_note: >-
+    Despite the name, this CLI does not call the ODC public REST APIs. It is an
+    engineering-workflow tool for developers working inside OutSystems.
+absent:
+- name: branded ODC CLI
+  searched: >-
+    npm, PyPI, NuGet, the OutSystems GitHub org and the ODC documentation set were
+    checked for an `odc` or `outsystems` command-line client for the public REST APIs.
+  result: none published
+  workaround: >-
+    The documented way to drive the ODC REST APIs from a shell is plain curl with a
+    bearer token obtained from the tenant token_endpoint, as shown throughout the ODC
+    REST API getting-started documentation.

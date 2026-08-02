@@ -1,0 +1,123 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/*.json (13 ODC OpenAPI specs, 150 operations, 597 declared 4xx/5xx responses)
+format: problem-details-shaped
+format_note: >-
+  The ODC APIs return an ASP.NET Core `ProblemDetails` object carrying the RFC 7807 /
+  RFC 9457 member set — `type`, `title`, `status`, `detail`, `instance` — plus a
+  `traceId` extension. It is NOT served as `application/problem+json`: every one of the
+  597 declared error responses uses `application/json`. So the ODC error contract is
+  Problem-Details-SHAPED but not RFC 9457 CONFORMANT on the media type, which is the
+  discriminator a client uses to detect a problem document. Recorded honestly rather
+  than claimed as rfc9457.
+envelope:
+  schema_refs:
+  - '#/components/schemas/ProblemDetails'
+  - '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+  media_type: application/json
+  fields:
+  - name: type
+    type: string
+    nullable: true
+    description: A URI reference that identifies the problem type.
+  - name: title
+    type: string
+    nullable: true
+    description: A short, human-readable summary of the problem.
+  - name: status
+    type: integer
+    nullable: true
+    description: The HTTP status code applicable to the problem.
+  - name: detail
+    type: string
+    nullable: true
+    description: A human-readable explanation of the error.
+  - name: instance
+    type: string
+    nullable: true
+    description: A URI that identifies the specific occurrence of the problem.
+  - name: traceId
+    type: string
+    nullable: true
+    extension: true
+    description: >-
+      OutSystems-specific. Identifier to quote when reporting a specific error
+      occurrence to OutSystems support.
+  schema_inconsistency: >-
+    Two names for the same shape are used across the specs — `ProblemDetails` in 560
+    responses and `Microsoft.AspNetCore.Mvc.ProblemDetails` (the raw framework type
+    name leaking into the public contract) in 37. Same members either way.
+problems:
+- status: 400
+  title: Bad Request
+  occurrences: 72
+  description: >-
+    Request is malformed. Also raised for domain-specific validation, e.g. an operation
+    key that is not a valid GUID, or an invalid BuildType.
+- status: 401
+  title: Unauthorized
+  occurrences: 147
+  description: >-
+    Not authorized to perform the requested operation — missing, expired or invalid
+    bearer token. ODC access tokens are valid for 12 hours.
+  remediation: >-
+    Request a fresh access token from the token_endpoint in the tenant OIDC discovery
+    document using the API Client's client_credentials.
+- status: 403
+  title: Forbidden
+  occurrences: 134
+  description: >-
+    Insufficient permissions to perform the requested operation. Distinct from 401 —
+    the token is valid but the API Client lacks the permission the operation requires
+    for that stage.
+  remediation: >-
+    In the ODC Portal, edit the API Client's permissions for the target stage to grant
+    the permission named in the operation's description (e.g. "User management >
+    Manage users").
+- status: 404
+  title: Not Found
+  occurrences: 121
+  description: >-
+    The addressed resource does not exist — commonly a specified environment,
+    application, generation operation or mobile configuration.
+- status: 405
+  title: Method Not Allowed
+  occurrences: 1
+- status: 409
+  title: Conflict
+  occurrences: 2
+- status: 410
+  title: Gone
+  occurrences: 5
+  description: Client cancelled the execution of the request.
+- status: 422
+  title: Unprocessable Content
+  occurrences: 7
+  description: >-
+    Semantically invalid request, e.g. a build that is not valid for generated-code
+    packaging.
+- status: 429
+  title: Too Many Requests
+  occurrences: 112
+  description: >-
+    The published rate limit for the API domain or the specific endpoint has been
+    exceeded. Several operations restate the applicable limit in the response
+    description (100 rpm domain-wide, 5 rpm for POST /users/bulk, and the per-endpoint
+    POST/PATCH caps).
+  remediation: >-
+    Back off and retry. No Retry-After or X-RateLimit-* header is returned, so the
+    caller must apply its own backoff against the published limits.
+  see_also: rate-limits/outsystems-rate-limits.yml
+gaps:
+  five_xx_declared: 0
+  note: >-
+    None of the 150 operations declares a 5xx response. Server-error handling is
+    undocumented in the contract, so clients cannot rely on the ProblemDetails shape
+    for 500-class failures.
+platform_error_codes:
+  note: >-
+    Separately from the REST contract, the OutSystems platform surfaces prefixed error
+    codes (observed in the remote-MCP skill: `OS-BEW-*` build/publish, `OS-DPL-*`
+    deployment, `OS-AISA-*` AI/mentor). These are not enumerated in the OpenAPI specs
+    and no public registry of them was found; recorded as a known surface, not a
+    catalog.

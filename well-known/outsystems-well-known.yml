@@ -1,0 +1,62 @@
+generated: '2026-08-02'
+method: searched
+source: live probes of https://www.outsystems.com and https://success.outsystems.com
+hosts_probed:
+- https://www.outsystems.com
+- https://success.outsystems.com
+documents:
+- host: www.outsystems.com
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/plain
+  file: outsystems-security.txt
+  note: >-
+    RFC 9116, PGP-signed. Canonical is declared as https://outsystems.com/.well-known/security.txt
+    (also 200). The Expires field reads "Sun, 24 Oct 2025 00:01 +0000" — the document
+    is past its own expiry as observed on 2026-08-02, which RFC 9116 says consumers
+    should treat as stale.
+- host: www.outsystems.com
+  path: /.well-known/openid-configuration
+  status: 403
+  note: marketing-site catch-all returns an HTML error body, not OIDC metadata
+- host: www.outsystems.com
+  path: /.well-known/oauth-authorization-server
+  status: 403
+- host: www.outsystems.com
+  path: /.well-known/oauth-protected-resource
+  status: 403
+- host: www.outsystems.com
+  path: /.well-known/api-catalog
+  status: 403
+- host: www.outsystems.com
+  path: /.well-known/ai-plugin.json
+  status: 403
+- host: www.outsystems.com
+  path: /.well-known/agent-card.json
+  status: 403
+- host: www.outsystems.com
+  path: /.well-known/agent.json
+  status: 403
+- host: success.outsystems.com
+  path: /.well-known/security.txt
+  status: 404
+- host: success.outsystems.com
+  path: /.well-known/openid-configuration
+  status: 404
+- host: success.outsystems.com
+  path: /.well-known/agent-card.json
+  status: 404
+- host: success.outsystems.com
+  path: /.well-known/agent.json
+  status: 404
+tenant_scoped:
+- path: /identity/.well-known/openid-configuration
+  host: '{odc-portal-domain}'
+  status: not-probeable-anonymously
+  note: >-
+    The real OIDC discovery document for the ODC REST APIs is served per tenant at
+    https://ODC_PORTAL_DOMAIN/identity/.well-known/openid-configuration and is
+    documented as the way to obtain the token_endpoint for the OAuth 2.0
+    client-credentials flow. There is no organization-wide public host to probe, so
+    this entry records the documented location rather than an observed status.
+  docs: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/authentication/get_access_token/

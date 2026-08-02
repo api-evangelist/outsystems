@@ -1,0 +1,306 @@
+# The AI development platform built for the enterprise | OutSystems
+
+> OutSystems combines low-code simplicity with AI software development, enabling businesses to innovate faster. Build scalable, intelligent applications using the OutSystems platform.
+
+## Mentor on OutSystems Developer Cloud is here! Read the news release
+[Mentor on OutSystems Developer Cloud is here! Read the news release](https://www.outsystems.com/news/mentor-ai-powered-sdlc-ga/)
+
+## Support
+[Support](https://success.outsystems.com/support/home/)
+
+## English version of the website
+[English](https://www.outsystems.com/)
+
+## Deutsch version of the website
+[Deutsch](https://www.outsystems.com/de-de/)
+
+## 日本語 version of the website
+[日本語](https://www.outsystems.com/ja-jp/)
+
+## Français version of the website
+[Français](https://www.outsystems.com/fr-fr/)
+
+## Português version of the website
+[Português](https://www.outsystems.com/pt-br/)
+
+## Platform
+[Platform](https://www.outsystems.com/low-code-platform/)
+
+## Use cases
+[Use cases](https://www.outsystems.com/case-studies/)
+
+## Solutions
+[Solutions](https://www.outsystems.com/industries/)
+
+## Developers
+[Developers](https://www.outsystems.com/community/)
+
+## About us
+[About us](https://www.outsystems.com/company/)
+
+## Overview The AI-powered low-code platform
+[Overview The AI-powered low-code platform](https://www.outsystems.com/low-code-platform/)
+
+## Apps built with OutSystems There's nothing you can’t do
+[Apps built with OutSystems There's nothing you can’t do](https://www.outsystems.com/application/)
+
+## Pricing The ROI snowballs pretty fast
+[Pricing The ROI snowballs pretty fast](https://www.outsystems.com/pricing-and-editions/)
+
+## Demos Seeing is believing
+[Demos Seeing is believing](https://www.outsystems.com/demos/)
+
+## What is low-code It's way more than you think
+[What is low-code It's way more than you think](https://www.outsystems.com/low-code/)
+
+## OutSystems Evaluation Guide
+[Go deep Our Evaluation Guide is your new best friend](https://www.outsystems.com/evaluation-guide/)
+
+## AI capabilities Meet Mentor
+[AI capabilities Meet Mentor](https://www.outsystems.com/ai/)
+
+## Enterprise-grade security Out-of-the-box peace of mind
+[Enterprise-grade security Out-of-the-box peace of mind](https://www.outsystems.com/low-code-platform/security/)
+
+## Full-stack development
+[Full-stack development](https://www.outsystems.com/low-code-platform/application-development/)
+
+## Gen AI toolset
+[Gen AI toolset](https://www.outsystems.com/low-code-platform/gen-ai/)
+
+## Pre-built integrations
+[Pre-built integrations](https://www.outsystems.com/low-code-platform/integration/)
+
+## Automated testing/QA
+[Automated testing/QA](https://www.outsystems.com/low-code-platform/accelerated-development/)
+
+## Built-in Dev Ops
+[Built-in Dev Ops](https://www.outsystems.com/low-code-platform/development-deployment/)
+
+## Monitoring tools
+[Monitoring tools](https://www.outsystems.com/low-code-platform/application-delivery/)
+
+## Cloud-native architecture
+[Cloud-native architecture](https://www.outsystems.com/low-code-platform/cloud-native/)
+
+## Developer experience
+[Developer experience](https://www.outsystems.com/low-code-platform/for-developers/)
+
+## Citizen portals
+[Citizen portals](https://www.outsystems.com/use-cases/e-citizen-apps/)
+
+## Mobile banking portals
+[Mobile banking portals](https://www.outsystems.com/use-cases/mobile-finance/)
+
+## Insurance portals
+[Insurance portals](https://www.outsystems.com/use-cases/insurance-portals-apps/)
+
+## Virtual care portals
+[Virtual care portals](https://www.outsystems.com/use-cases/virtual-care/)
+
+## Customer account creation portals
+[Customer account creation portals](https://www.outsystems.com/use-cases/digital-customer-onboarding/)
+
+## Customer self-service portals
+[Customer self-service portals](https://www.outsystems.com/use-cases/customer-self-service-portals/)
+
+## More about external apps
+[More about external apps](https://www.outsystems.com/use-cases/external-applications/)
+
+## Digital lending systems
+[Digital lending systems](https://www.outsystems.com/use-cases/digital-lending/)
+
+## Claims management systems
+[Claims management systems](https://www.outsystems.com/use-cases/claims-management/)
+
+## Field service systems
+[Field service systems](https://www.outsystems.com/use-cases/field-services/)
+
+## Supply chain systems
+[Supply chain systems](https://www.outsystems.com/use-cases/supply-chain/)
+
+## CRM systems (modernize Salesforce)
+[CRM systems (modernize Salesforce)](https://www.outsystems.com/use-cases/salesforce/)
+
+## ERP systems (modernize SAP)
+[ERP systems (modernize SAP)](https://www.outsystems.com/use-cases/sap-extend/)
+
+## More about core systems
+[More about core systems](https://www.outsystems.com/use-cases/core-systems/)
+
+## Employee onboarding
+[Employee onboarding](https://www.outsystems.com/use-cases/employee-onboarding/)
+
+## Employee self-service
+[Employee self-service](https://www.outsystems.com/use-cases/employee-self-service/)
+
+## Office management
+[Office management](https://www.outsystems.com/use-cases/office-management-system/)
+
+## Internal case management
+[Internal case management](https://www.outsystems.com/use-cases/case-management/)
+
+## Performance management
+[Performance management](https://www.outsystems.com/use-cases/performance-management-system/)
+
+## More about internal apps
+[More about internal apps](https://www.outsystems.com/use-cases/internal-business-apps/)
+
+## Find OutSystems use cases
+[See more use cases](https://www.outsystems.com/use-cases/)
+
+## Read customer stories
+[Read customer stories](https://www.outsystems.com/case-studies/)
+
+## Banking & Financial Services
+[Banking & Financial Services](https://www.outsystems.com/industries/financial-services/)
+
+## Insurance
+[Insurance](https://www.outsystems.com/industries/insurance/)
+
+## Government
+[Government](https://www.outsystems.com/industries/government/)
+
+## Manufacturing
+[Manufacturing](https://www.outsystems.com/industries/manufacturing/)
+
+## See more industries here
+[See more industries here](https://www.outsystems.com/industries/)
+
+## Healthcare
+[Healthcare](https://www.outsystems.com/industries/healthcare/)
+
+## Energy and Utilities
+[Energy and Utilities](https://www.outsystems.com/industries/energy-and-utilities/)
+
+## Retail
+[Retail](https://www.outsystems.com/industries/retail-and-wholesale/)
+
+## Education
+[Education](https://www.outsystems.com/industries/education/)
+
+## Gen AI innovation
+[Gen AI innovation](https://www.outsystems.com/initiatives/generative-ai-solutions/)
+
+## Legacy modernization
+[Legacy modernization](https://www.outsystems.com/initiatives/legacy-modernization/)
+
+## Customer experience
+[Customer experience](https://www.outsystems.com/initiatives/digital-experiences/)
+
+## Operational efficiency
+[Operational efficiency](https://www.outsystems.com/initiatives/automation-and-efficiency/)
+
+## Community
+[Community](https://www.outsystems.com/community/)
+
+## Forums
+[Forums](https://www.outsystems.com/forums/)
+
+## Forge marketplace
+[Forge marketplace](https://www.outsystems.com/forge/)
+
+## OutSystems Training
+[Training](https://learn.outsystems.com/training)
+
+## OutSystems Documentation
+[Documentation](https://success.outsystems.com/documentation/)
+
+## OutSystems Certifications
+[Certifications](https://www.outsystems.com/certifications/)
+
+## OutSystems MVP Program
+[OutSystems MVP](https://www.outsystems.com/community/advocacy-programs/mvps/)
+
+## OutSystems Champions program
+[Champions program](https://www.outsystems.com/community/advocacy-programs/champions/)
+
+## OutSystems Product updates
+[Product updates](https://www.outsystems.com/product-updates/)
+
+## The company
+[The company](https://www.outsystems.com/company/)
+
+## Partners
+[Partners](https://www.outsystems.com/partners/)
+
+## Blog
+[Blog](https://www.outsystems.com/blog/)
+
+## Events Come and say hi
+[Events Come and say hi](https://www.outsystems.com/events/)
+
+## Services Smart folks are here to help
+[Services Smart folks are here to help](https://www.outsystems.com/success-services/)
+
+## Start free
+[Start free](https://www.outsystems.com/Platform/Signup)
+
+## Schedule demo
+[Schedule demo](https://www.outsystems.com/schedule-demo/)
+
+## With the OutSystems platform you can take advantage of AI in every stage of software development Discover Mentor
+[With the OutSystems platform you can take advantage of AI in every stage of software development Discover Mentor](https://www.outsystems.com/low-code-platform/mentor-ai-app-generation/)
+
+## Gartner® Magic Quadrant™ for Low-Code Application Platforms. Get 2024 report
+[Gartner® Magic Quadrant™ for Low-Code Application Platforms. Get 2024 report](https://www.outsystems.com/1/low-code-application-platforms-gartner-/)
+
+## OutSystems recognized as a leader. "Continues to push the boundaries of rapid enterprise app dev" See ranking
+[OutSystems recognized as a leader. "Continues to push the boundaries of rapid enterprise app dev" See ranking](https://www.outsystems.com/1/low-code-development-platforms-wave-/)
+
+## See how HEINEKEN uses OutSystems
+[See how HEINEKEN did it](https://www.outsystems.com/case-studies/heineken-app-development-model/)
+
+## See how Key Bank uses OutSystems
+[See how Key Bank did it](https://www.outsystems.com/videos/keybank-hyperautomation/)
+
+## See how Bosch uses OutSystems
+[See how Bosch did it](https://www.outsystems.com/case-studies/bosch-digital-factory/)
+
+## See how Toyota uses OutSystems
+[See how Toyota did it](https://www.outsystems.com/case-studies/toyota-low-code-journey/)
+
+## Explore dev at scale
+[Explore dev at scale](https://www.outsystems.com/initiatives/agile-development-at-scale/)
+
+## Application Templates
+[Application Templates](https://www.outsystems.com/application-templates/)
+
+## Start Free
+[Start Free](https://www.outsystems.com/low-code-platform/free/)
+
+## Analyst Reviews
+[Analyst Reviews](https://www.outsystems.com/analysts/)
+
+## FAQs
+[FAQs](https://www.outsystems.com/company/faqs/)
+
+## Find a Partner
+[Find a Partner](https://www.outsystems.com/partners/list/)
+
+## Become a Partner
+[Become a Partner](https://www.outsystems.com/partners/become-a-partner/)
+
+## Technology Alliance
+[Technology Alliance](https://www.outsystems.com/partners/technology-alliance/)
+
+## Training Partners
+[Training Partners](https://www.outsystems.com/partners/training-partners/)
+
+## De/Coded Podcast
+[De/Coded Podcast](https://www.outsystems.com/events/decoded-podcast/)
+
+## Downloads
+[Software Downloads](https://www.outsystems.com/downloads/)
+
+## Local Offices
+[Local Offices](https://www.outsystems.com/company/offices/)
+
+## Press Room
+[Press Room](https://www.outsystems.com/newsroom/)
+
+## ESG Statement
+[ESG Statement](https://www.outsystems.com/company/esg-statement/)
+
+## Vendor Conduct Guidelines
+[Vendor Conduct Guidelines](https://www.outsystems.com/legal/vendor-conduct-guidelines/)

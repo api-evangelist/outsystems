@@ -1,0 +1,40 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Environment Configurations API (v1)
+  version: 1.0.0
+extends: openapi/outsystems-environment-configurations-api-v1-openapi.json
+x-generated: '2026-08-02'
+x-method: generated
+x-source: openapi/outsystems-environment-configurations-api-v1-openapi.json
+x-note: >-
+  Non-destructive Overlay 1.0.0 recording API Evangelist enrichment findings against the
+  OutSystems-published spec. The original document under openapi/ is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: outsystems
+    x-apievangelist-api-domain: environment-configurations
+    x-apievangelist-operations: 16
+    x-apievangelist-harvested-from: https://github.com/OutSystems/docs-odc/tree/main/src/eap/reference/apis/resources
+    x-apievangelist-auth-model: >-
+      OAuth 2.0 client-credentials against the tenant OIDC discovery document at
+      /identity/.well-known/openid-configuration; the resulting JWT is presented as a
+      bearer token. Authorization is portal-assigned permissions, not requested scopes.
+    x-apievangelist-artifacts:
+      authentication: authentication/outsystems-authentication.yml
+      permissions: scopes/outsystems-scopes.yml
+      conventions: conventions/outsystems-conventions.yml
+      errors: errors/outsystems-problem-types.yml
+      rate_limits: rate-limits/outsystems-rate-limits.yml
+      lifecycle: lifecycle/outsystems-lifecycle.yml
+      data_model: data-model/outsystems-data-model.yml
+- target: $.servers
+  description: >-
+    Both published server entries are templated on the tenant portal domain
+    (ODC_PORTAL_DOMAIN / {odc-portal-domain}). There is no shared public host; every
+    call is tenant-scoped.
+- target: $.components.schemas.ProblemDetails
+  description: >-
+    Error bodies carry the RFC 7807/9457 member set plus a traceId extension, but are
+    served as application/json rather than application/problem+json, so clients cannot
+    content-negotiate or detect them as problem documents.

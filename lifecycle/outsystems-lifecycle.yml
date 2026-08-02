@@ -1,0 +1,79 @@
+generated: '2026-08-02'
+method: searched
+source: https://github.com/OutSystems/docs-odc/blob/main/src/eap/reference/apis/portfolio-v1-to-v2-migration.md
+sources:
+- https://success.outsystems.com/support/release_notes/outsystems_developer_cloud_releases/
+- https://status.outsystems.com/
+- https://www.outsystems.com/product-updates/
+- openapi/*.json
+versioning:
+  scheme: uri-path
+  form: /api/{domain}/v{n}
+  current:
+    portfolio: v2
+    user-access-management: v1
+    asset-repository: v1
+    asset-configurations: v1
+    environment-configurations: v1
+    build-operations: v1
+    deployments: v1
+    dependency-management: v1
+    code-quality: v1
+    native-mobile-builds: v1
+    external-libraries: v1
+    subscription: v1
+  note: >-
+    Each ODC API domain versions independently in the URI path. Portfolio is the only
+    domain that has shipped a second major version so far.
+deprecation:
+  policy_documented: true
+  policy_style: per-API migration guide with a dated deprecation and a dated sunset
+  sunset_header: false
+  sunset_header_note: >-
+    No RFC 8594 `Sunset` or `Deprecation` response header is declared in any of the 13
+    OpenAPI specs; the deprecation signal is carried in the docs and by the
+    `deprecated: true` flag on the affected operations.
+  active_deprecations:
+  - api: Portfolio API v1
+    deprecated_on: '2026-07-08'
+    sunset_on: '2027-01-08'
+    replacement: Portfolio API v2
+    migration_guide: https://github.com/OutSystems/docs-odc/blob/main/src/eap/reference/apis/portfolio-v1-to-v2-migration.md
+    statement: >-
+      "v1 is deprecated as of July 8, 2026 and will be removed on January 8, 2027. All
+      v1 integrations must migrate to v2 before the sunset date."
+    compatibility: >-
+      v2 is described as a superset of v1 — authentication, query parameters,
+      pagination, error format and the top-level DeployedAsset structure are unchanged;
+      the migration is a URL path change plus removed Environment fields.
+deprecated_operations:
+- openapi/outsystems-portfolio-api-v1-openapi.json#DeployedAssets_ListAssets
+- openapi/outsystems-portfolio-api-v1-openapi.json#Environments_ListEnvironments
+status_page:
+  url: https://status.outsystems.com/
+  covers:
+  - OutSystems Developer Cloud services
+  - OutSystems 11
+  note: >-
+    The status page was extended to cover ODC services with real-time incident updates.
+release_notes:
+  odc: https://success.outsystems.com/support/release_notes/outsystems_developer_cloud_releases/outsystems_developer_cloud/
+  odc_studio: https://success.outsystems.com/support/release_notes/outsystems_developer_cloud_releases/odc_studio/
+  index: https://success.outsystems.com/support/release_notes/outsystems_developer_cloud_releases/
+  product_updates: https://www.outsystems.com/product-updates
+  see_also: changelog/outsystems-changelog.yml
+sla:
+  url: https://www.outsystems.com/legal/terms-and-conditions/
+  uptime_target: not published on a public page
+  note: >-
+    Availability commitments are contractual (subscription tier dependent) rather than
+    published as a public uptime figure. No public SLA number was found, so none is
+    asserted here.
+mcp_maturity:
+  surface: OutSystems Remote MCP
+  stage: early alpha
+  statement: >-
+    "Early alpha and is provided as-is... It is not production-ready, expect bugs,
+    incomplete features, breaking changes, and unstable behaviors." No production
+    support or SLAs are offered.
+  source: https://github.com/OutSystems/outsystems-mcp

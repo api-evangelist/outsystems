@@ -1,0 +1,115 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/*.json (operation descriptions) + ODC REST API authentication docs
+docs: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/authentication/create_api_client/
+model: portal-assigned-permissions
+model_note: >-
+  The ODC REST APIs use OAuth 2.0 client-credentials, but they do NOT use requested
+  OAuth scopes. The token request carries only grant_type, client_id and client_secret
+  — no `scope` parameter — and the OpenAPI specs declare a plain `bearerAuth` HTTP
+  bearer scheme with no oauth2 flows and no scopes map. Authorization is instead
+  attached to the API Client in the ODC Portal: permissions are granted per ODC stage,
+  and the issued access token inherits them. Each operation's description names the
+  permission it requires. The catalog below is therefore a PERMISSION model derived
+  from those descriptions, not a scope list lifted from a securityScheme.
+oauth2:
+  grant_type: client_credentials
+  scope_parameter_used: false
+  discovery: https://{odc-portal-domain}/identity/.well-known/openid-configuration
+  token_lifetime_seconds: 43200
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources: openapi/*.json (all 13 specs)
+permission_groups:
+- group: User management
+  permissions:
+  - name: User management > View end users
+    operations_referencing: 3
+  - name: User management > View members
+    operations_referencing: 1
+  - name: User management > Manage users
+    operations_referencing: 7
+  - name: User management > Manage end-user groups
+    operations_referencing: 11
+  - name: User management > Manage end-user access
+    operations_referencing: 2
+  - name: User management > Manage member access
+    operations_referencing: 2
+  - name: User management > Manage organization roles
+    operations_referencing: 3
+- group: Configuration management
+  permissions:
+  - name: Configuration management > View configurations
+    operations_referencing: 14
+  - name: Configuration management > Edit configurations
+    operations_referencing: 3
+  - name: Configuration management > Edit asset configurations
+    operations_referencing: 3
+  - name: Configuration management > Manage custom domains
+    operations_referencing: 4
+  - name: Configuration management > Manage IP filters
+    operations_referencing: 3
+  - name: Configuration management > Manage private gateways
+    operations_referencing: 3
+  - name: Configuration management > Manage Email SMTP configuration
+    operations_referencing: 1
+- group: Stage
+  permissions:
+  - name: Stage > View stage
+    operations_referencing: 12
+- group: Asset management
+  permissions:
+  - name: Asset management > Open
+    operations_referencing: 8
+  - name: Asset management > Create
+    operations_referencing: 1
+  - name: Asset management > Change
+    operations_referencing: 2
+  - name: Asset management > Delete
+    operations_referencing: 2
+- group: Release management
+  permissions:
+  - name: Release management > Deploy assets
+    operations_referencing: 3
+  - name: Release management > Release
+    operations_referencing: 1
+- group: Analyze
+  permissions:
+  - name: Analyze > View Code Quality findings
+    operations_referencing: 9
+  - name: Analyze > Manage code quality findings
+    operations_referencing: 1
+- group: Subscriptions
+  permissions:
+  - name: Subscriptions > View subscription
+    operations_referencing: 4
+  - name: Subscriptions > Manage subscription
+    operations_referencing: 1
+composite_requirements:
+- operations_requiring: Stage > View stage AND Subscriptions > View subscription
+  count: 2
+- operations_requiring: User management > View members OR User management > Manage users
+  count: 1
+- operations_requiring: Asset management > Change OR Release management > Release
+  count: 1
+- operations_requiring: at least one permission (unspecified) to fetch entitlements
+  count: 1
+enforcement:
+  insufficient_permission_status: 403
+  invalid_or_expired_token_status: 401
+  note: >-
+    An API Client created without any permissions is placed in a "Needs attention"
+    state in the ODC Portal until permissions are assigned.
+derivation:
+  method: >-
+    Regex extraction of "API Client needs the <X> permission" phrasing from the
+    description/summary of all 150 operations across the 13 OpenAPI specs, then
+    deduplicated and grouped by the "<Group> > <Action>" naming the platform uses.
+  caveat: >-
+    Counts are operations that reference each permission in prose; they are not a
+    machine-declared security requirement, because the specs apply only the bearerAuth
+    scheme uniformly. No published permissions-reference page was found to upgrade this
+    to method: searched.

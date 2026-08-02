@@ -1,0 +1,191 @@
+generated: '2026-08-02'
+method: derived
+source: mcp/outsystems-mcp.yml + openapi/*.json
+confidence_note: >-
+  The OutSystems remote MCP server is per-tenant and OAuth-protected, so `tools/list`
+  could not be introspected anonymously and no live tool NAMES or inputSchemas are
+  available. The provider's own SKILL.md says the same thing — it "names domains, not
+  tools" and instructs agents to read the live `tools/list` first. This crosswalk
+  therefore binds each published MCP tool DOMAIN to the ODC REST operations that back
+  the same capability, by domain semantics rather than by tool name. Confidence is set
+  accordingly: `medium` where the REST surface plainly covers the domain, `low` where
+  the MCP domain is a server-side composite. No tool names are invented.
+surfaces:
+  openapi:
+    files: openapi/*.json
+    specs: 13
+    operations: 150
+    servers: https://{odc-portal-domain}/api/<domain>/v1
+    auth: OAuth 2.0 client-credentials -> bearer JWT
+    gated: false
+  mcp:
+    url: https://{tenant}.outsystems.dev/mcp
+    transport: streamable HTTP
+    auth: OAuth with Dynamic Client Registration
+    gated: true
+    gated_reason: per-tenant endpoint, no anonymous or demo tenant to introspect
+  graphql:
+    present: false
+crosswalk:
+- tool: Apps (domain)
+  category: portfolio
+  rest:
+  - AssetRepository_ListAssets
+  - AssetRepository_GetAsset
+  - AssetRepository_ListAssetRevisions
+  - AssetRepository_GetAssetLatestRevision
+  - DeployedAssets_ListAssets
+  binding: rest
+  confidence: medium
+  note: >-
+    "List and inspect applications, their references, and revision history" maps onto
+    the Asset Repository API (assets + revisions) plus Portfolio v2 deployed-assets.
+    References are served by the Dependency Management API — see the row below.
+- tool: Apps — references (domain)
+  category: dependencies
+  rest:
+  - DependencyManagement_ListAssetProducers
+  - DependencyManagement_ListAssetConsumers
+  - DependencyManagement_ListAssetProducerGraph
+  - DependencyManagement_ListReferencedElements
+  binding: rest
+  confidence: medium
+- tool: Environments (domain)
+  category: environments
+  rest:
+  - Environments_ListEnvironments
+  binding: rest
+  confidence: high
+  note: >-
+    "Enumerate the tenant's environments" is a direct one-to-one with Portfolio v2
+    GET /environments. The MCP `env_key` argument is the same environmentKey used
+    across the REST specs (34 path occurrences).
+- tool: Deployments (domain)
+  category: deployment
+  rest:
+  - DeploymentOperations_Post
+  - DeploymentOperations_Filter
+  - DeploymentOperations_Get
+  - DeploymentOperations_GetMessages
+  binding: rest
+  confidence: high
+  note: >-
+    Promote/roll back plus the start-then-poll pattern the SKILL describes maps exactly
+    onto POST /deployment-operations returning an operationKey and the GET status +
+    messages pair.
+- tool: Deployments — impact analysis (domain)
+  category: dependencies
+  rest:
+  - DeploymentAnalysis_LaunchDeploymentAnalysis
+  - DeploymentAnalysis_GetResult
+  - DeletionAnalysis_LaunchDeletionAnalysis
+  - DeletionAnalysis_GetResult
+  binding: rest
+  confidence: high
+- tool: Publish (domain)
+  category: deployment
+  rest:
+  - PublishOperations_Post
+  - PublishOperations_Filter
+  - PublishOperations_Get
+  - PublishOperations_GetMessages
+  binding: rest
+  confidence: medium
+  note: >-
+    The REST publish operation takes an asset revision; the MCP publish derives its
+    app from `mentor_session_token` claims and publishes OML edited server-side. Same
+    backing operation family, different input contract.
+- tool: External libraries (domain)
+  category: extensibility
+  rest:
+  - GenerationOperations_CreateGenerationOperation
+  - GenerationOperations_GetGenerationOperations
+  - GenerationOperations_GetGenerationOperationByOperationKey
+  - GenerationOperations_GetGenerationOperationLogMessages
+  - GenerationOperations_GetGenerationOperationContents
+  - GenerationOperations_DeleteGenerationOperationByOperationKey
+  - Upload_UploadOperation
+  - Uploads_CreateUpload
+  binding: rest
+  confidence: high
+  note: >-
+    "Upload, publish, inspect and fetch source for .NET libraries" is the External
+    Library Generation API end to end. The MCP layer adds a 50 MB decoded upload cap
+    and per-replica concurrency gating that the REST spec does not declare.
+- tool: External libraries — fetch source (domain)
+  category: extensibility
+  rest:
+  - SourceCodeDownload_CreateDownloadOperation
+  - SourceCodeDownload_GetDownloadUri
+  - AssetRepository_GetAssetRevisionSourceCode
+  binding: rest
+  confidence: medium
+- tool: Context Service (domain)
+  category: metadata
+  rest:
+  - DependencyManagement_ListAssetRevisionPublicElements
+  - DependencyManagement_SearchPublicElements
+  - AssetRepository_GetAssetRevisionMetadata
+  binding: rest
+  confidence: low
+  note: >-
+    The seven typed Context Service lookups (entities, actions, screens, structures,
+    roles, themes, connections) have no equivalent typed REST endpoints. The nearest
+    REST surface is public-element search and revision metadata, which is coarser and
+    does not carry the `isReferenced` / `producerAssetKey` fields the MCP rows do.
+    Treated as a partial binding, not an equivalence.
+mcp_only:
+- tool: Mentor (domain)
+  reason: >-
+    Server-side OML editing as an async multi-turn session. There is no public REST
+    operation that loads, edits or returns OML — the SKILL states explicitly that OML
+    never crosses the wire and there is no download tool. This is the largest real
+    divergence between the two surfaces.
+- tool: Context Service (typed element lookups)
+  reason: >-
+    Seven typed read-only lookups over entities, actions, screens, structures, roles,
+    themes and connections, with visibility semantics (`owned_only`, `isReferenced`,
+    `producerAssetKey`). No public REST equivalent; partially approximated above.
+- tool: submit_feedback
+  reason: >-
+    MCP-server telemetry channel back to the OutSystems maintainers. Not a tenant
+    resource and has no REST representation.
+- tool: authenticate
+  reason: Harness-side deferred OAuth tool; not a tenant resource.
+rest_only:
+- capability: User and access management
+  operations: 37
+  spec: openapi/outsystems-user-access-management-api-v1-openapi.json
+  note: >-
+    Users, groups, application roles, organization roles, permissions, identity
+    providers, OIDC clients, realms, subjects, bulk user operations. The MCP tool
+    domains do not include identity at all — the single largest REST-only area.
+- capability: Code quality / technical debt
+  operations: 10
+  spec: openapi/outsystems-code-quality-api-v1-openapi.json
+- capability: Native mobile builds
+  operations: 13
+  spec: openapi/outsystems-native-application-orchestration-service-api-v1-openapi.json
+- capability: Environment configurations (custom domains, IP filters, private gateways)
+  operations: 16
+  spec: openapi/outsystems-environment-configurations-api-v1-openapi.json
+- capability: Asset configurations (agent + application settings)
+  operations: 8
+  spec: openapi/outsystems-asset-configurations-api-v1-openapi.json
+- capability: Subscription and entitlement usage
+  operations: 7
+  spec: openapi/outsystems-subscription-api-v1-openapi.json
+- capability: Build operations (source-code generation, build feedback)
+  operations: 6
+  spec: openapi/outsystems-build-operations-api-v1-openapi.json
+  note: >-
+    The MCP surface has no Builds domain of its own; builds are reachable only
+    indirectly through Publish and Deployments.
+coverage:
+  mcp_tool_domains_published: 7
+  mcp_tools_named_by_provider: 2
+  mcp_domains_bound_to_rest: 6
+  mcp_only_domains: 3
+  rest_operations_total: 150
+  rest_operations_with_a_bound_tool_domain: 33
+  rest_operations_with_no_tool_domain: 117

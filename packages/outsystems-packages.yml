@@ -1,0 +1,104 @@
+generated: '2026-08-02'
+method: searched
+source: https://registry.npmjs.org, https://pypi.org, https://www.nuget.org/profiles/OutSystems
+notes: >-
+  OutSystems does not publish per-language client SDKs for the ODC public REST APIs
+  (they are called with a plain bearer token over HTTPS). What it does publish
+  first-party are the platform extension/automation libraries below. Registry
+  ownership was verified per package: the npm packages are published under the
+  @outsystems scope / by the outsystems-eng + GitHub Actions publishers from the
+  OutSystems GitHub org, the PyPI package lists OutSystems as author with the
+  OutSystems/outsystems-pipeline repo as homepage, and the NuGet packages are owned
+  by the OutSystems NuGet profile (26 packages).
+packages:
+- language: python
+  registry: pypi
+  name: outsystems-pipeline
+  version: 0.10.3
+  url: https://pypi.org/project/outsystems-pipeline/
+  install: pip install -U outsystems-pipeline
+  source: https://github.com/OutSystems/outsystems-pipeline
+  license: Apache-2.0
+  official: true
+  role: >-
+    CI/CD automation library wrapping the OutSystems platform lifecycle APIs
+    (build, deploy, promote, test) for use in third-party DevOps pipelines.
+- language: csharp
+  registry: nuget
+  name: OutSystems.ExternalLibraries.SDK
+  version: 1.5.0
+  url: https://www.nuget.org/packages/OutSystems.ExternalLibraries.SDK
+  install: dotnet add package OutSystems.ExternalLibraries.SDK
+  official: true
+  role: >-
+    ODC External Logic SDK. Attributes that map a C#/.NET class library onto the
+    OutSystems visual language so ODC apps can consume custom high-code logic.
+    Pairs with the External Library Generation API.
+- language: javascript
+  registry: npm
+  name: outsystems-ui
+  version: 2.27.0
+  url: https://www.npmjs.com/package/outsystems-ui
+  install: npm install outsystems-ui
+  source: https://github.com/OutSystems/outsystems-ui
+  official: true
+  role: OutSystems UI Framework — the front-end component/pattern library.
+- language: javascript
+  registry: npm
+  name: outsystems-design-tokens
+  url: https://www.npmjs.com/package/outsystems-design-tokens
+  install: npm install outsystems-design-tokens
+  official: true
+  role: Design tokens shared by the Ionic Framework and widgets libraries.
+- language: javascript
+  registry: npm
+  name: create-outsystems-astro
+  url: https://www.npmjs.com/package/create-outsystems-astro
+  install: npm create outsystems-astro
+  official: true
+  role: Scaffolds an OutSystems Astro Island project for import as a component.
+- language: javascript
+  registry: npm
+  name: '@outsystems/assistant'
+  version: 0.1.1
+  url: https://www.npmjs.com/package/@outsystems/assistant
+  install: npm install @outsystems/assistant
+  license: BSD-3-Clause
+  official: true
+  role: >-
+    Internal OutSystems development assistant CLI (binary `os`). Configures the
+    OutSystems Artifactory registry and ships a shared ESLint config; it is an
+    engineering-workflow tool, NOT a client for the ODC public REST APIs.
+- language: csharp
+  registry: nuget
+  name: OutSystems.Application.ForDocumentation
+  version: 1.0.1
+  url: https://www.nuget.org/packages/OutSystems.Application.ForDocumentation
+  official: true
+  role: Generates OpenAPI documentation for OutSystems applications.
+- language: csharp
+  registry: nuget
+  name: CefGlue.Common
+  version: 120.6099.211
+  url: https://www.nuget.org/packages/CefGlue.Common
+  official: true
+  role: >-
+    .NET binding for the Chromium Embedded Framework, maintained by OutSystems and
+    used by the desktop IDE. Infrastructure, not an API client.
+registries_probed:
+- registry: npm
+  result: found (@outsystems scope + OutSystems org publishers)
+- registry: pypi
+  result: found (outsystems-pipeline)
+- registry: nuget
+  result: found (26 packages under the OutSystems profile)
+- registry: maven-central
+  result: none found
+- registry: rubygems
+  result: none found
+- registry: packagist
+  result: none found
+- registry: crates.io
+  result: none found
+- registry: pkg.go.dev
+  result: none found

@@ -1,0 +1,145 @@
+generated: '2026-08-02'
+method: searched
+status: published
+source: https://github.com/OutSystems/outsystems-mcp
+server:
+  name: outsystems
+  transport: http
+  transport_note: streamable HTTP
+  url: https://{tenant}.outsystems.dev/mcp
+  url_note: >-
+    Per-tenant endpoint. The canonical config published by OutSystems is
+    `https://<my-tenant>/mcp`, where the tenant hostname is the host portion of the
+    customer's OutSystems URL (typically `<tenant>.outsystems.dev`). There is no
+    single shared public MCP host.
+  maturity: early alpha
+  maturity_quote: >-
+    "Early alpha and is provided as-is, without warranties or guarantees of any kind.
+    It is not production-ready, expect bugs, incomplete features, breaking changes,
+    and unstable behaviors."
+  plugin_version: 0.9.0
+authentication:
+  type: oauth2
+  dynamic_client_registration: true
+  note: >-
+    OAuth with Dynamic Client Registration and OAuth discovery — hosts register their
+    own client and run the browser sign-in on first connection, so no manual client_id
+    is configured. Tenant and user identity are derived from the validated JWT, not
+    from tool arguments.
+distribution:
+  repository: https://github.com/OutSystems/outsystems-mcp
+  license: see repository LICENSE
+  claude_plugin: .claude-plugin/plugin.json (name "outsystems", version 0.9.0)
+  supported_hosts:
+  - Claude Code
+  - Claude Desktop
+  - Kiro Chat
+  - GitHub Copilot in VS Code
+  - GitHub Copilot CLI
+  - Visual Studio Copilot (Windows)
+  config_files:
+  - copilot/mcp.json
+  - kiro/outsystems/steering/skill.md
+  - skills/outsystems/SKILL.md
+  commands:
+  - /outsystems-feedback
+tools_introspection:
+  attempted: true
+  result: not-possible-anonymously
+  note: >-
+    `tools/list` could not be called: the endpoint is per-tenant and OAuth-protected,
+    and there is no anonymous or demo tenant to introspect. The tool DOMAINS below are
+    taken verbatim from the provider-published SKILL.md, which itself states that the
+    live `tools/list` is the source of truth for tool names and inputSchemas. No tool
+    names are invented here beyond the two the provider names explicitly.
+tool_domains:
+- domain: Apps
+  description: List and inspect applications, their references, and revision history.
+- domain: Context Service
+  description: >-
+    Seven typed, read-only lookups over a tenant's elements — entities, actions,
+    screens, structures, roles, themes, connections. Rows carry `isReferenced` and
+    `producerAssetKey`; `owned_only` defaults to true when `app` is set and false
+    tenant-wide.
+- domain: Mentor
+  description: >-
+    Server-side OML editing as an async, multi-turn session. Start a run, poll it with
+    a cursor until terminal, resume with `mentor_session_id` + `mentor_session_token`.
+    Sessions auto-GC after 30 minutes idle.
+- domain: Publish
+  description: >-
+    Compile and publish edited OML to an environment. Derives `app_key` from the
+    `mentor_session_token` claims; needs `mentor_session_id`, `mentor_session_token`
+    and `env_key`.
+- domain: Deployments
+  description: Promote builds across environments, roll back, run impact analyses.
+- domain: External libraries
+  description: >-
+    Upload, publish, inspect and fetch source for .NET libraries. 50 MB decoded upload
+    cap (~67 MB encoded zip_b64) with per-replica concurrency gating.
+- domain: Environments
+  description: Enumerate the tenant's environments. Every environment-scoped tool takes
+    `env_key` per call; the transport is stateless by design.
+tools_named_by_provider:
+- name: submit_feedback
+  description: >-
+    Push signal to the OutSystems maintainers about what is working and what is not.
+    Accepts `user_feedback` and `agent_observation`; `server_failure` is reserved for
+    the server's own auto-emit. Optional `mentor_session_id` / `mentor_turn_id` /
+    `agent_context` keys.
+  source: skills/outsystems/SKILL.md
+- name: mcp__outsystems__authenticate
+  description: >-
+    Deferred auth tool the agent calls before the first OutSystems tool call; returns
+    a URL the user opens to complete the OAuth flow.
+  source: skills/outsystems/SKILL.md
+- name: mcp__outsystems__complete_authentication
+  description: >-
+    Second half of the deferred auth pair, used when the browser callback cannot reach
+    the local harness and the authorization result must be handed back explicitly.
+  source: skills/outsystems/SKILL.md
+- name: context_search
+  description: >-
+    Named in the SKILL's worked feedback example as one of the Context Service lookups.
+  source: skills/outsystems/SKILL.md
+- name: publish_start
+  description: >-
+    Named in the SKILL's worked feedback example as the publish entry point that
+    returns an id to poll.
+  source: skills/outsystems/SKILL.md
+- name: env_info
+  description: Named in the SKILL's worked feedback example as an environment lookup.
+  source: skills/outsystems/SKILL.md
+tools_named_note: >-
+  These names appear verbatim in the provider-published SKILL.md (in the auth section
+  and in its worked `agent_context.recent_tool_calls` example). They are recorded as
+  observed names, not as a complete tool catalog — the SKILL itself insists the live
+  `tools/list` is the source of truth and that the set can change server-side.
+operational_semantics:
+  error_categories: [AuthError, ValidationError, UpstreamError, InternalError]
+  error_note: >-
+    Retry decisions read `data.category`, not message text. Upstream errors also carry
+    `data.upstream_status`. Platform error codes appear as `OS-BEW-*` / `OS-DPL-*` /
+    `OS-AISA-*`.
+  async_pattern: >-
+    Every deployment operation, publish, external-library operation and mentor run
+    returns an id and is polled to a terminal state. Reference cadence is ~30s for
+    mentor, 5-15s for publish/deployment/external-library status.
+  destructive_actions:
+  - start or roll back a deployment
+  - run a deployment-impact analysis
+  - publish OML
+  - upload, publish or delete an external library
+  - create an app
+  destructive_note: >-
+    The SKILL requires explicit per-change user confirmation before any of the above,
+    independent of the host's own `destructiveHint` gate.
+  no_oml_download: >-
+    OML never crosses the wire as bytes; there is no download tool and the server has
+    no view of the caller's filesystem.
+related:
+- type: AgentSkill
+  url: skills/outsystems-remote-mcp.md
+  note: provider-published SKILL.md, saved verbatim
+- type: ToolCrosswalk
+  url: mcp/outsystems-tool-crosswalk.yml

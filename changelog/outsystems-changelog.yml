@@ -1,0 +1,112 @@
+generated: '2026-08-02'
+method: searched
+source: https://github.com/OutSystems/docs-support/tree/main/src/release-notes/odc/ga
+docs: https://success.outsystems.com/support/release_notes/outsystems_developer_cloud_releases/outsystems_developer_cloud/
+related:
+- name: ODC Studio release notes
+  url: https://success.outsystems.com/support/release_notes/outsystems_developer_cloud_releases/odc_studio/
+- name: Product updates (marketing-facing)
+  url: https://www.outsystems.com/product-updates
+scheme:
+  style: dated continuous delivery
+  identifier: release date (YYYY-MM-DD), no semantic version
+  cadence: multiple releases per week for OutSystems Developer Cloud
+  sections: [New, Bug Fixing]
+  ticket_refs: >-
+    Every line carries an internal tracker reference (e.g. RDASS-4015, RPM-7046), which
+    makes individual changes citable across releases.
+  api_changes_included: true
+  api_changes_note: >-
+    ODC public REST API changes — including breaking parameter changes — are published
+    in the same stream as platform changes, not in a separate API changelog.
+window: recent (2026-07-16 through 2026-07-31)
+entries:
+- date: '2026-07-31'
+  title: OutSystems Developer Cloud 2026-07-31
+  breaking: false
+  additions:
+  - >-
+    Monthly Security Update (July 2026): updated application container base image with
+    .NET 8.0.29 security fixes. (RRCT-7463)
+- date: '2026-07-30'
+  title: OutSystems Developer Cloud 2026-07-30
+  breaking: false
+  affects_api: Code Quality API v1
+  additions:
+  - >-
+    GET /code-quality/v1/analysis-status takes an optional portfolioKey parameter to
+    scope the analysis status to one portfolio; omitted, it aggregates every
+    portfolio's latest run.
+  - >-
+    analysis-status now returns 200 with an empty result instead of 404 when no
+    analysis has run for the requested scope.
+  - >-
+    The isLatest filter on GET /code-quality/v1/findings follows the same portfolioKey
+    scoping rule. (RDASS-3893)
+- date: '2026-07-29'
+  title: OutSystems Developer Cloud 2026-07-29
+  breaking: true
+  affects_api: Code Quality API v1
+  breaking_changes:
+  - >-
+    The findings-trend endpoint now accepts ScoreRanges instead of Scores as its filter
+    parameter — integrations sending Scores must be updated.
+  - >-
+    ScoreRanges changed from an array to a comma-separated string across
+    assets-quality-metrics, findings-summary, findings-trend, common-findings-metrics
+    and quality-score-distribution (e.g. "0-49,50-84,85-100"). (RDASS-4015)
+- date: '2026-07-27'
+  title: OutSystems Developer Cloud 2026-07-27
+  breaking: false
+  deprecations:
+  - >-
+    Portfolios/v1 public API deprecated; remains functional until sunset on
+    2027-01-08. Transition guide published for Portfolios v2. (RDMAST-2881)
+  additions:
+  - >-
+    Workflow Editor merge revisions — element-level conflict detection that
+    automatically merges non-conflicting modifications, additions and deletions between
+    two workflow revisions. (RDODCT-4483)
+  fixes:
+  - Fixed filtering by the OutSystems11 provider on the Connections screen. (RPM-7046)
+  - Fixed creation of an O11 Cloud connection where no O11 environment was selectable. (RPM-7056)
+- date: '2026-07-24'
+  title: OutSystems Developer Cloud 2026-07-24
+  breaking: false
+  fixes:
+  - >-
+    Fixed editing O11 infrastructure details when the LifeTime Service Account token
+    expires. (RPM-7055)
+- date: '2026-07-21'
+  title: OutSystems Developer Cloud 2026-07-21
+  breaking: false
+  fixes:
+  - >-
+    Optimized string usage during compilation to prevent apps hitting the .NET assembly
+    string limit and causing build errors. (RPM-6701)
+- date: '2026-07-20'
+  title: OutSystems Developer Cloud 2026-07-20
+  breaking: false
+  additions:
+  - >-
+    ODC-to-O11 REST API requests can be routed over a private channel that can be
+    allowlisted in an O11 firewall instead of traversing the public internet. Requires
+    LifeTime 11.29+. (RDUBR-365)
+  - >-
+    An ODC tenant can connect to more than one OutSystems 11 infrastructure. Requires
+    LifeTime 11.29+. (RDUCH-300)
+  - >-
+    ODC apps can consume O11 entities from multiple O11 infrastructures using Data
+    Fabric, consolidating data segregated for compliance or business-unit isolation.
+    (RDUCH-314)
+- date: '2026-07-16'
+  title: OutSystems Developer Cloud 2026-07-16
+  breaking: false
+  additions:
+  - >-
+    Knowledge Bases (Beta) can be created and managed in the ODC Portal so apps and AI
+    Agents can ground answers in customer content using semantic search. (RDAN-548)
+history_note: >-
+  The upstream archive in OutSystems/docs-support carries dated ODC release notes back
+  to 2023-01-24. Only the recent window is captured here; the published release-notes
+  index is the source of truth for full history.

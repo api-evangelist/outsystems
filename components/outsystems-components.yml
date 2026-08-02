@@ -1,0 +1,82 @@
+generated: '2026-08-02'
+method: searched
+source: https://github.com/OutSystems + https://registry.npmjs.org
+docs: https://outsystemsui.outsystems.com/OutSystemsUIWebsite/
+summary: >-
+  OutSystems ships client-side UI component libraries as open-source JavaScript/TypeScript
+  packages that back the visual widgets available in Service Studio and ODC Studio. These
+  are distinct from the server-side automation packages in packages/ — they render in the
+  browser inside an OutSystems app. Each family below was verified as a live OutSystems
+  GitHub repository and, where applicable, a published npm package.
+families:
+- family: OutSystems UI
+  description: >-
+    The core front-end component and pattern library for OutSystems reactive web and
+    mobile apps — layouts, navigation, content patterns, interaction patterns and the
+    accompanying styling system.
+  loader: outsystems-ui
+  registry: npm
+  package: outsystems-ui
+  version: 2.27.0
+  npm: https://www.npmjs.com/package/outsystems-ui
+  repository: https://github.com/OutSystems/outsystems-ui
+  showcase: https://outsystemsui.outsystems.com/OutSystemsUIWebsite/
+  official: true
+- family: OutSystems Design Tokens
+  description: >-
+    The shared design-token set consumed by the Ionic Framework integration and the
+    widgets libraries — colors, spacing, typography and elevation as data.
+  loader: outsystems-design-tokens
+  registry: npm
+  package: outsystems-design-tokens
+  npm: https://www.npmjs.com/package/outsystems-design-tokens
+  official: true
+- family: Data Grid
+  description: >-
+    The provider bridge that lets OutSystems-generated code drive an embedded data-grid
+    control — sorting, filtering, editing and virtualized rendering inside an app screen.
+  repository: https://github.com/OutSystems/outsystems-datagrid
+  registry: none
+  registry_note: not published to npm; distributed through the OutSystems Forge component
+  official: true
+- family: Maps
+  description: Embeddable map component library for OutSystems apps.
+  loader: outsystems-maps
+  registry: npm
+  package: outsystems-maps
+  npm: https://www.npmjs.com/package/outsystems-maps
+  repository: https://github.com/OutSystems/outsystems-maps
+  official: true
+- family: Astro Islands
+  description: >-
+    Scaffolding for building an Astro "island" as a standalone front-end project that is
+    then imported into OutSystems as a custom component — the supported path for bringing
+    modern framework code into an OutSystems screen.
+  loader: create-outsystems-astro
+  registry: npm
+  package: create-outsystems-astro
+  npm: https://www.npmjs.com/package/create-outsystems-astro
+  install: npm create outsystems-astro
+  official: true
+- family: OutSystems UI Kit
+  description: Companion kit repository for the OutSystems UI system.
+  repository: https://github.com/OutSystems/outsystems-ui-kit
+  official: true
+distribution:
+  forge: https://www.outsystems.com/forge/
+  forge_note: >-
+    The OutSystems Forge is the marketplace where these libraries (and community
+    components) are installed into an OutSystems environment as reusable modules; the
+    npm packages are the upstream source rather than the primary install path for an
+    OutSystems developer.
+not_included:
+  - name: Cordova / Capacitor mobile plugins
+    reason: >-
+      The OutSystems GitHub org carries a large set of first-party Cordova and Capacitor
+      plugins (barcode, in-app browser, payments, health & fitness, SSL pinning, social
+      logins, FCM). They are native mobile bridges, not client-side UI components, so
+      they are recorded here as a note rather than as component families.
+  - name: CefGlue / WebViewControl / ReactViewControl
+    reason: >-
+      Desktop .NET UI infrastructure used to build the OutSystems IDE itself, not
+      components an OutSystems app developer embeds. Catalogued in packages/ instead.

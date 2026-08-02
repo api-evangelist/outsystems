@@ -1,0 +1,94 @@
+generated: '2026-08-02'
+method: generated
+note: >-
+  One provider-published skill saved verbatim, plus five packaged Agent Skills generated
+  from the 13 harvested ODC OpenAPI specs. Every operationId cited in the generated
+  skills was verified against a spec in openapi/ — 147 unique operationIds were indexed
+  and all citations resolved. No operation names are invented.
+skills:
+- file: outsystems-remote-mcp.md
+  name: OutSystems Remote MCP
+  method: searched
+  source: https://github.com/OutSystems/outsystems-mcp/blob/main/skills/outsystems/SKILL.md
+  verbatim: true
+  description: >-
+    OutSystems' own published agent skill for its remote MCP server. Covers first-use
+    tenant registration, the OAuth flow, the seven tool domains, the Mentor session
+    round-trip, Context Service visibility semantics, destructive-action confirmation
+    rules, polling cadence, and the submit_feedback contract. Saved unmodified.
+  api: mcp/outsystems-mcp.yml
+- file: outsystems-deploy-asset-across-stages.md
+  name: Deploy an asset across ODC stages
+  method: generated
+  api: openapi/outsystems-deployments-api-v1-openapi.json
+  operations:
+  - Environments_ListEnvironments
+  - AssetRepository_ListAssets
+  - AssetRepository_GetAssetLatestRevision
+  - DeploymentAnalysis_LaunchDeploymentAnalysis
+  - DeploymentAnalysis_GetResult
+  - DeploymentOperations_Post
+  - DeploymentOperations_Get
+  - DeploymentOperations_GetMessages
+- file: outsystems-onboard-user-and-assign-roles.md
+  name: Onboard users and assign roles in ODC
+  method: generated
+  api: openapi/outsystems-user-access-management-api-v1-openapi.json
+  operations:
+  - UserProfile_CreateUser
+  - UserProfile_QueryUsers
+  - UserProfile_GetUser
+  - BulkUserProfile_CreateBulkUserProfilesOperation
+  - BulkUserProfile_GetBulkUserProfileOperationStatus
+  - Group_QueryGroups
+  - Group_AddOrRemoveUsersFromGroup
+  - OrganizationRole_QueryOrganizationRoles
+  - UserOrganizationRoles_GrantOrganizationRoleToUser
+  - ApplicationRole_QueryApplicationRoles
+  - UserApplicationRoles_GrantApplicationRoleToUser
+  - UserApplicationRoles_QueryUserApplicationRoles
+- file: outsystems-run-code-quality-analysis.md
+  name: Run a code-quality analysis in ODC
+  method: generated
+  api: openapi/outsystems-code-quality-api-v1-openapi.json
+  operations:
+  - CodeAnalysisControllerV_SubmitCodeAnalysisRequest
+  - CodeAnalysisControllerV_GetAnalysisRequestStatus
+  - SyncControllerV_GetAnalysisStatus
+  - FindingsControllerV_GetFindings
+  - FindingsOverviewControllerV_GetFindingsSummary
+  - FindingsOverviewControllerV_GetFindingsTrend
+  - FindingsOverviewControllerV_GetAppsOverview
+  - FindingsOverviewControllerV_GetAssetRevisionFindingsSummary
+  - PatternsControllerV_GetPatterns
+  - PatternsControllerV_GetPatternsById
+- file: outsystems-publish-external-library.md
+  name: Publish an external library to ODC
+  method: generated
+  api: openapi/outsystems-external-library-generation-api-v1-openapi.json
+  operations:
+  - Uploads_CreateUpload
+  - Upload_UploadOperation
+  - GenerationOperations_CreateGenerationOperation
+  - GenerationOperations_GetGenerationOperationByOperationKey
+  - GenerationOperations_GetGenerationOperationLogMessages
+  - GenerationOperations_GetGenerationOperationContents
+  - GenerationOperations_GetGenerationOperations
+  - GenerationOperations_DeleteGenerationOperationByOperationKey
+- file: outsystems-impact-analysis-before-delete.md
+  name: Analyze impact before deleting an ODC asset
+  method: generated
+  api: openapi/outsystems-dependency-management-api-v1-openapi.json
+  operations:
+  - AssetRepository_ListAssets
+  - AssetRepository_GetAssetLatestRevision
+  - DependencyManagement_ListAssetConsumers
+  - DependencyManagement_ListAssetRevisionConsumers
+  - DependencyManagement_ListAssetProducers
+  - DependencyManagement_ListAssetProducerGraph
+  - DependencyManagement_ListAssetRevisionPublicElements
+  - DependencyManagement_ListReferencedElements
+  - DependencyManagement_SearchPublicElements
+  - DeletionAnalysis_LaunchDeletionAnalysis
+  - DeletionAnalysis_GetResult
+  - AssetRepository_DeleteAsset
