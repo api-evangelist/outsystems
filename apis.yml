@@ -37,203 +37,12 @@ tags:
 - Enterprise Software
 - Mobile Development
 apis:
-- aid: outsystems:user-access-management-api-v1
-  name: OutSystems ODC User and Access Management API
-  description: REST endpoints for retrieving and managing users, groups, application
-    roles, organization roles, permissions, identity providers, OIDC clients, realms
-    and subjects in an OutSystems Developer Cloud organization. 37 operations.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/identity/v1
-  tags:
-  - Identity and Access Management
-  - Users
-  - Roles
-  - Permissions
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-user-access-management-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-user-access-management-api-v1-overlay.yaml
-- aid: outsystems:portfolio-api-v2
-  name: OutSystems ODC Portfolio API
-  description: REST endpoints for retrieving information about assets and environments
-    deployed across the stages of an OutSystems Developer Cloud organization.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/portfolios/v2
-  tags:
-  - Portfolio
-  - Assets
-  - Environments
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-portfolio-api-v2-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-portfolio-api-v2-overlay.yaml
-- aid: outsystems:portfolio-api-v1
-  name: OutSystems ODC Portfolio API (v1)
-  description: Version 1 of the ODC Portfolio API, superseded by v2. REST endpoints
-    for retrieving information about assets and environments in your organization.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/portfolios/v1
-  tags:
-  - Portfolio
-  - Assets
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-portfolio-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-portfolio-api-v1-overlay.yaml
-- aid: outsystems:asset-repository-api-v1
-  name: OutSystems ODC Asset Repository API
-  description: REST endpoints for retrieving information about assets and asset revisions
-    held in the OutSystems Developer Cloud asset repository.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/asset-repository/v1
-  tags:
-  - Assets
-  - Revisions
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-asset-repository-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-asset-repository-api-v1-overlay.yaml
-- aid: outsystems:asset-configurations-api-v1
-  name: OutSystems ODC Asset Configurations API
-  description: REST endpoints to get and update global environment settings and to
-    manage configuration for individual agents and applications.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/asset-configurations/v1
-  tags:
-  - Configuration
-  - Assets
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-asset-configurations-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-asset-configurations-api-v1-overlay.yaml
-- aid: outsystems:environment-configurations-api-v1
-  name: OutSystems ODC Environment Configurations API
-  description: REST endpoints for managing environment (stage) configurations in ODC,
-    covering custom domains, IP filters and private gateways.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/environment-configurations/v1
-  tags:
-  - Configuration
-  - Environments
-  - Networking
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-environment-configurations-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-environment-configurations-api-v1-overlay.yaml
-- aid: outsystems:build-operations-api-v1
-  name: OutSystems ODC Build Operations API
-  description: REST endpoints to start build operations for ODC assets and retrieve
-    information about their status.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/builds/v1
-  tags:
-  - Builds
-  - DevOps
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-build-operations-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-build-operations-api-v1-overlay.yaml
-- aid: outsystems:deployments-api-v1
-  name: OutSystems ODC Deployments API
-  description: REST endpoints for publishing and deploying assets across the environments
-    (stages) in an OutSystems Developer Cloud organization, including rollback.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/deployments/v1
-  tags:
-  - Deployment
-  - DevOps
-  - Release Management
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-deployments-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-deployments-api-v1-overlay.yaml
-- aid: outsystems:dependency-management-api-v1
-  name: OutSystems ODC Dependency Management API
-  description: REST endpoints for launching and retrieving the results of impact analysis
-    for the deployment and deletion of an asset.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/dependency-management/v1
-  tags:
-  - Dependencies
-  - Impact Analysis
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-dependency-management-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-dependency-management-api-v1-overlay.yaml
-- aid: outsystems:code-quality-api-v1
-  name: OutSystems ODC Code Quality API
-  description: REST endpoints to submit code analysis requests and retrieve code quality
-    findings, application scores and analysis results — the technical-debt surface
-    of the platform.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/code-quality/v1
-  tags:
-  - Code Quality
-  - Technical Debt
-  - Governance
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-code-quality-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-code-quality-api-v1-overlay.yaml
-- aid: outsystems:native-mobile-build-api-v1
-  name: OutSystems ODC Native Mobile Build API
-  description: REST endpoints for building and managing native iOS and Android mobile
-    application packages, build versions, validation and extensibility settings.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/native-mobile-builds/v1
-  tags:
-  - Mobile Development
-  - Builds
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-native-application-orchestration-service-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-native-application-orchestration-service-api-v1-overlay.yaml
-- aid: outsystems:external-library-generation-api-v1
-  name: OutSystems ODC External Library Generation API
-  description: REST endpoints for generating and managing external libraries from
-    high-code .NET packages so ODC apps can consume custom C# logic.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/external-libraries/v1
-  tags:
-  - External Libraries
-  - Extensibility
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-external-library-generation-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-external-library-generation-api-v1-overlay.yaml
-- aid: outsystems:subscription-api-v1
-  name: OutSystems ODC Subscription API
-  description: REST endpoints for retrieving subscription and entitlement data and
-    usage metrics for an OutSystems Developer Cloud organization.
-  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
-  baseURL: https://{odc-portal-domain}/api/subscription/v1
-  tags:
-  - Subscription
-  - Entitlements
-  - Usage
-  properties:
-  - type: OpenAPI
-    url: openapi/outsystems-subscription-api-v1-openapi.json
-  - type: Overlay
-    url: overlays/outsystems-subscription-api-v1-overlay.yaml
 - aid: outsystems:remote-mcp
   name: OutSystems Remote MCP Server
-  description: Official OutSystems remote Model Context Protocol server (early alpha),
-    exposed per tenant over streamable HTTP with OAuth Dynamic Client Registration.
-    Tool domains cover Apps, the read-only Context Service lookups, the Mentor OML
-    editing session, Publish, Deployments, External libraries and Environments.
+  description: >-
+    Official OutSystems remote Model Context Protocol server (early alpha), exposed per tenant over streamable
+    HTTP with OAuth Dynamic Client Registration. Tool domains cover Apps, the read-only Context Service
+    lookups, the Mentor OML editing session, Publish, Deployments, External libraries and Environments.
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
@@ -245,12 +54,415 @@ apis:
     url: mcp/outsystems-mcp.yml
   - type: ToolCrosswalk
     url: mcp/outsystems-tool-crosswalk.yml
+- aid: outsystems:outsystems-analysis-status-api
+  name: OutSystems Analysis Status API
+  description: The Analysis Status API from OutSystems — 1 operation(s) for analysis status.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Analysis Status
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-analysis-status-api-openapi.yml
+- aid: outsystems:outsystems-application-roles-api
+  name: OutSystems Application Roles API
+  description: The application-roles API from OutSystems — 2 operation(s) for application-roles.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - application-roles
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-application-roles-api-openapi.yml
+- aid: outsystems:outsystems-assets-api
+  name: OutSystems Assets API
+  description: The Assets API from OutSystems — 19 operation(s) for assets.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-assets-api-openapi.yml
+- aid: outsystems:outsystems-assets-quality-metrics-api
+  name: OutSystems Assets Quality Metrics API
+  description: >-
+    The Assets Quality Metrics API from OutSystems — 1 operation(s) for assets quality metrics.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Assets Quality Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-assets-quality-metrics-api-openapi.yml
+- aid: outsystems:outsystems-build-api
+  name: OutSystems Build API
+  description: The Build API from OutSystems — 4 operation(s) for build.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Build
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-build-api-openapi.yml
+- aid: outsystems:outsystems-buildoperations-api
+  name: OutSystems Build Operations API
+  description: The BuildOperations API from OutSystems — 5 operation(s) for buildoperations.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - BuildOperations
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-buildoperations-api-openapi.yml
+- aid: outsystems:outsystems-code-analyses-api
+  name: OutSystems Code Analyses API
+  description: The Code Analyses API from OutSystems — 2 operation(s) for code analyses.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Code Analyses
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-code-analyses-api-openapi.yml
+- aid: outsystems:outsystems-deletion-analyses-api
+  name: OutSystems Deletion Analyses API
+  description: The Deletion Analyses API from OutSystems — 2 operation(s) for deletion analyses.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Deletion Analyses
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-deletion-analyses-api-openapi.yml
+- aid: outsystems:outsystems-deployed-assets-api
+  name: OutSystems Deployed Assets API
+  description: The deployed-assets API from OutSystems — 1 operation(s) for deployed-assets.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - deployed-assets
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-deployed-assets-api-openapi.yml
+- aid: outsystems:outsystems-deployment-analyses-api
+  name: OutSystems Deployment Analyses API
+  description: The Deployment Analyses API from OutSystems — 2 operation(s) for deployment analyses.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Deployment Analyses
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-deployment-analyses-api-openapi.yml
+- aid: outsystems:outsystems-deployment-operations-api
+  name: OutSystems Deployment Operations API
+  description: >-
+    The deployment-operations API from OutSystems — 3 operation(s) for deployment-operations.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - deployment-operations
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-deployment-operations-api-openapi.yml
+- aid: outsystems:outsystems-domains-api
+  name: OutSystems Domains API
+  description: Manage custom domains for environments.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-domains-api-openapi.yml
+- aid: outsystems:outsystems-environments-api
+  name: OutSystems Environments API
+  description: The Environments API from OutSystems — 12 operation(s) for environments.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Environments
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-environments-api-openapi.yml
+- aid: outsystems:outsystems-findings-api
+  name: OutSystems Findings API
+  description: The Findings API from OutSystems — 1 operation(s) for findings.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Findings
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-findings-api-openapi.yml
+- aid: outsystems:outsystems-findings-summary-api
+  name: OutSystems Findings Summary API
+  description: The Findings Summary API from OutSystems — 1 operation(s) for findings summary.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Findings Summary
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-findings-summary-api-openapi.yml
+- aid: outsystems:outsystems-findings-trend-api
+  name: OutSystems Findings Trend API
+  description: The Findings Trend API from OutSystems — 1 operation(s) for findings trend.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Findings Trend
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-findings-trend-api-openapi.yml
+- aid: outsystems:outsystems-generationoperations-api
+  name: OutSystems Generation Operations API
+  description: The GenerationOperations API from OutSystems — 4 operation(s) for generationoperations.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - GenerationOperations
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-generationoperations-api-openapi.yml
+- aid: outsystems:outsystems-groups-api
+  name: OutSystems Groups API
+  description: The groups API from OutSystems — 5 operation(s) for groups.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - groups
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-groups-api-openapi.yml
+- aid: outsystems:outsystems-identity-providers-api
+  name: OutSystems Identity Providers API
+  description: The identity-providers API from OutSystems — 2 operation(s) for identity-providers.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - identity-providers
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-identity-providers-api-openapi.yml
+- aid: outsystems:outsystems-ip-filters-api
+  name: OutSystems IP filters API
+  description: Create, update, and delete IP filter groups and rules.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - IP filters
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-ip-filters-api-openapi.yml
+- aid: outsystems:outsystems-libraries-api
+  name: OutSystems Libraries API
+  description: The Libraries API from OutSystems — 1 operation(s) for libraries.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Libraries
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-libraries-api-openapi.yml
+- aid: outsystems:outsystems-nativebuilderversions-api
+  name: OutSystems Native Builder Versions API
+  description: >-
+    The NativeBuilderVersions API from OutSystems — 1 operation(s) for nativebuilderversions.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - NativeBuilderVersions
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-nativebuilderversions-api-openapi.yml
+- aid: outsystems:outsystems-nativebuildextensibilitysettings-api
+  name: OutSystems Native Build Extensibility Settings API
+  description: >-
+    The NativeBuildExtensibilitySettings API from OutSystems — 1 operation(s) for nativebuildextensibilitysettings.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - NativeBuildExtensibilitySettings
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-nativebuildextensibilitysettings-api-openapi.yml
+- aid: outsystems:outsystems-nativemobileconfigurations-api
+  name: OutSystems Native Mobile Configurations API
+  description: >-
+    The NativeMobileConfigurations API from OutSystems — 2 operation(s) for nativemobileconfigurations.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - NativeMobileConfigurations
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-nativemobileconfigurations-api-openapi.yml
+- aid: outsystems:outsystems-organization-api
+  name: OutSystems Organization API
+  description: The Organization API from OutSystems — 3 operation(s) for organization.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-organization-api-openapi.yml
+- aid: outsystems:outsystems-organization-roles-api
+  name: OutSystems Organization Roles API
+  description: The organization-roles API from OutSystems — 3 operation(s) for organization-roles.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - organization-roles
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-organization-roles-api-openapi.yml
+- aid: outsystems:outsystems-patterns-api
+  name: OutSystems Patterns API
+  description: The Patterns API from OutSystems — 2 operation(s) for patterns.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Patterns
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-patterns-api-openapi.yml
+- aid: outsystems:outsystems-permissions-api
+  name: OutSystems Permissions API
+  description: The permissions API from OutSystems — 2 operation(s) for permissions.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - permissions
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-permissions-api-openapi.yml
+- aid: outsystems:outsystems-portfolios-api
+  name: OutSystems Portfolios API
+  description: The Portfolios API from OutSystems — 2 operation(s) for portfolios.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Portfolios
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-portfolios-api-openapi.yml
+- aid: outsystems:outsystems-private-gateways-api
+  name: OutSystems Private gateways API
+  description: Activate, deactivate, and manage private gateways.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Private gateways
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-private-gateways-api-openapi.yml
+- aid: outsystems:outsystems-public-elements-api
+  name: OutSystems Public Elements API
+  description: The Public Elements API from OutSystems — 1 operation(s) for public elements.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Public Elements
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-public-elements-api-openapi.yml
+- aid: outsystems:outsystems-publish-operations-api
+  name: OutSystems Publish Operations API
+  description: The publish-operations API from OutSystems — 3 operation(s) for publish-operations.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - publish-operations
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-publish-operations-api-openapi.yml
+- aid: outsystems:outsystems-sourcecodedownload-api
+  name: OutSystems Source Code Download API
+  description: The SourceCodeDownload API from OutSystems — 2 operation(s) for sourcecodedownload.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - SourceCodeDownload
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-sourcecodedownload-api-openapi.yml
+- aid: outsystems:outsystems-upload-api
+  name: OutSystems Upload API
+  description: The Upload API from OutSystems — 1 operation(s) for upload.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Upload
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-upload-api-openapi.yml
+- aid: outsystems:outsystems-uploads-api
+  name: OutSystems Uploads API
+  description: The Uploads API from OutSystems — 1 operation(s) for uploads.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-uploads-api-openapi.yml
+- aid: outsystems:outsystems-users-api
+  name: OutSystems Users API
+  description: The users API from OutSystems — 10 operation(s) for users.
+  humanURL: >-
+    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  baseURL: https://{odc-portal-domain}/api/identity/v1
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/outsystems-users-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/outsystems-asset-configurations-api-v1-overlay.yaml
 - type: TrustCenter
   url: security/outsystems-trust-center.yml
 - type: Website
