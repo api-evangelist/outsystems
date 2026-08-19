@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Deployments Publish Operations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "publish-operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of publications that match a given filter.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/publish-operations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filter by environment key, if filled."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status, if filled."
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets by revision number, if filled."
+              },
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Asset key, if filled."
+              },
+              {
+                "name": "portfolioKey",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets by portfolio key, if filled."
+              },
+              {
+                "name": "createdDateSince",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets created from one point in time on, if filled."
+              },
+              {
+                "name": "createdDateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets created up to one point in time, if filled."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of elements that should be returned in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the last page, to get the following page with the same filters applied."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the elements.\n-element1 for descending, element2 for ascending.\nMultiple orders joined by comma.\nExample -element1,element2 to sort by element1 descending then by element2 ascending\nCurrently supported sort values: CreatedAt, UpdatedAt, ApplicationKey, AssetKey, ApplicationName, AssetName, FinishedAt\nDefault sort: -CreatedAt"
+              }
+            ]
+          },
+          "docs": "Returns a list of publications that match a given filter. Use query parameters to refine the search.\n\nAPI Client needs the **Stage > View stage** permission for the operation."
+        },
+        {
+          "info": {
+            "name": "Requests the creation of a new publication.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/publish-operations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests the creation of a publish-operation. It returns the created publication operation.\n\nAPI Client needs the **Asset management > Change** permission for the operation."
+        },
+        {
+          "info": {
+            "name": "Return a publication by its operation key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/publish-operations/:operationKey",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "Publication key"
+              }
+            ]
+          },
+          "docs": "Returns a publication by its operation key. If the publication is not found, a 404 error is returned.\n\nAPI Client needs the **Stage > View stage** permission for the operation."
+        },
+        {
+          "info": {
+            "name": "Returns publication log messages for a given publication operation key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/publish-operations/:operationKey/messages",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "Publication unique identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit of elements in the page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset from previous page. Don't fill if first page."
+              }
+            ]
+          },
+          "docs": "Returns publication log messages for a given publication operation key. If the publication is not found, a 404 error is returned.\n\nAPI Client needs the **Stage > View stage** permission for the operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

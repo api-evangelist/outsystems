@@ -1,0 +1,695 @@
+openapi: 3.2.0
+info:
+  title: Native Mobile Build Native Mobile Configurations API
+  description: 'API for building and managing native mobile applications.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/native-mobile-builds/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- {}
+tags:
+- name: NativeMobileConfigurations
+paths:
+  /environments/{environmentKey}/applications/{applicationKey}/configurations/android:
+    get:
+      tags:
+      - NativeMobileConfigurations
+      summary: Returns the deployed platform-specific native configuration for a given Android application
+      description: 'The response includes all the necessary information to build and deploy an Android native mobile application,
+
+        such as keystore files and other related configurations.
+
+
+        Rate Limit: 100 requests per minute
+
+
+        API Client needs the **Configuration management > View configurations** permission.'
+      operationId: GET_NativeBuildConfigurations_GetAndroidMobileConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: path
+        description: Application key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Android configuration details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AndroidBuildConfigurationResult'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too Many Requests. The rate limit for viewing mobile configurations has been exceeded. \nRate Limit: 100 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission.
+    patch:
+      tags:
+      - NativeMobileConfigurations
+      summary: Updates the Native Mobile Configuration for Android Applications
+      description: 'Allows modifying keystore files and other related settings required for building and deploying the application.
+
+        Only the fields provided in the request body are updated; omitted fields remain unchanged.
+
+
+        Rate Limit: 10 requests per minute
+
+
+        API Client needs the **Configuration management > Edit asset configurations** permission.'
+      operationId: PATCH_NativeBuildConfigurations_UpdateMobileAndroidConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: path
+        description: Application key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Mobile Configuration update payload
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AndroidBuildConfigurationRequest'
+              description: Result payload model for native Android Build configurations
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AndroidBuildConfigurationRequest'
+              description: Result payload model for native Android Build configurations
+        required: true
+      responses:
+        '204':
+          description: Mobile configuration updated successfully.
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too Many Requests. The rate limit for editing mobile configurations has been exceeded. \nRate Limit: 10 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > Edit asset configurations** permission.
+  /environments/{environmentKey}/applications/{applicationKey}/configurations/ios:
+    get:
+      tags:
+      - NativeMobileConfigurations
+      summary: Returns the deployed native configuration for a given iOS application
+      description: 'The response includes all the necessary information to build and deploy an iOS native mobile application,
+
+        such as certificates, provisioning profiles, and other related configurations.
+
+
+        Rate Limit: 100 requests per minute
+
+
+        API Client needs the **Configuration management > View configurations** permission.'
+      operationId: GET_NativeBuildConfigurations_GetIosMobileConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: path
+        description: Application key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: iOS configuration details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IosBuildConfigurationResult'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too Many Requests. The rate limit for viewing mobile configurations has been exceeded. \nRate Limit: 100 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission.
+    patch:
+      tags:
+      - NativeMobileConfigurations
+      summary: Updates the Native Mobile Configuration for iOS Applications
+      description: 'Allows modifying certificates, provisioning profiles, and other related settings required for building and deploying the application.
+
+        Only the fields provided in the request body are updated; omitted fields remain unchanged.
+
+
+        Rate Limit: 10 requests per minute
+
+
+        API Client needs the **Configuration management > Edit asset configurations** permission.'
+      operationId: PATCH_NativeBuildConfigurations_UpdateMobileIosConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: path
+        description: Application key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Mobile Configuration update payload
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/IosBuildConfigurationRequest'
+              description: Request payload model for native IOS Build configurations
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/IosBuildConfigurationRequest'
+              description: Request payload model for native IOS Build configurations
+        required: true
+      responses:
+        '204':
+          description: Mobile configuration updated successfully.
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too Many Requests. The rate limit for editing mobile configurations has been exceeded. \nRate Limit: 10 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > Edit asset configurations** permission.
+components:
+  schemas:
+    IosBuildConfigurationResult:
+      required:
+      - appIdentifier
+      - buildType
+      - certificate
+      - certificateName
+      - certificatePassword
+      - mabsVersion
+      - mobileFramework
+      - provisioningProfile
+      - provisioningProfileName
+      type: object
+      properties:
+        certificate:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: IOS Signing Cert Reference
+        certificateName:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: IOS Signing Cert Name
+        certificatePassword:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: IOS Signing Cert Password
+        provisioningProfile:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: IOS Provisioning Profile Reference
+        provisioningProfileName:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: IOS Provisioning Profile Name
+        appIdentifier:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Application Identifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildTypeNullableConfig'
+          description: Native Build Type
+        mabsVersion:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Mabs Version Number
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFrameworkNullableConfig'
+          description: Mobile framework
+      additionalProperties: false
+      description: Result payload model for native IOS Build configurations
+    AndroidBuildTypeNullableConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildType'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
+    IosBuildTypePatchConfig:
+      type: object
+      properties:
+        value:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildType'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
+    AndroidBuildConfigurationRequest:
+      type: object
+      properties:
+        keystore:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Android Keystore Reference
+        keystoreName:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Android Keystore Name
+        keystorePassword:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Android Keystore Password
+        alias:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Android Alias
+        aliasPassword:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Android Alias Password
+        appIdentifier:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Application Identifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildTypePatchConfig'
+          description: Native Build Type
+        mabsVersion:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Mabs Version Number
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFrameworkNullablePatchConfig'
+          description: The framework that should be used when building mobile applications
+      additionalProperties: false
+      description: Result payload model for native Android Build configurations
+    AndroidBuildType:
+      enum:
+      - Bundle
+      - Debug
+      - Release
+      type: string
+      description: Android Build type
+    SecretConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          type:
+          - string
+          - 'null'
+          description: Null Value
+          readOnly: true
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+      additionalProperties: false
+      description: Get request secret config value
+    IosBuildTypeNullableConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildType'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
+    AndroidBuildConfigurationResult:
+      required:
+      - alias
+      - aliasPassword
+      - appIdentifier
+      - buildType
+      - keystore
+      - keystoreName
+      - keystorePassword
+      - mabsVersion
+      - mobileFramework
+      type: object
+      properties:
+        keystore:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Keystore Reference
+        keystoreName:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Android Keystore Name
+        keystorePassword:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Keystore Password
+        alias:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Alias
+        aliasPassword:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Alias Password
+        appIdentifier:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Application Identifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildTypeNullableConfig'
+          description: Native Build Type
+        mabsVersion:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Mabs Version Number
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFrameworkNullableConfig'
+          description: Mobile framework
+      additionalProperties: false
+      description: Request payload model for native Android Build configurations
+    AndroidBuildTypePatchConfig:
+      type: object
+      properties:
+        value:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildType'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    GenericConfigDataType:
+      enum:
+      - Text
+      - Integer
+      - LongInteger
+      - Decimal
+      - Boolean
+      - DateTime
+      - Date
+      - Time
+      - PhoneNumber
+      - Email
+      - Currency
+      - EntityIdentifierType
+      - BinaryUrl
+      type: string
+      description: Type of configuration
+    MobileFrameworkNullablePatchConfig:
+      type: object
+      properties:
+        value:
+          allOf:
+          - $ref: '#/components/schemas/MobileFramework'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
+    StringPatchConfig:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
+    IosBuildType:
+      enum:
+      - Development
+      - AppStore
+      - Adhoc
+      - InHouse
+      - Simulator
+      type: string
+      description: IOS Build type
+    StringConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          type:
+          - string
+          - 'null'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
+    IosBuildConfigurationRequest:
+      type: object
+      properties:
+        certificate:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Signing Cert Reference
+        certificateName:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Signing Cert Name
+        certificatePassword:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Signing Cert Password
+        provisioningProfile:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Provisioning Profile Reference
+        provisioningProfileName:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Provisioning Profile Name
+        appIdentifier:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Application Identifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildTypePatchConfig'
+          description: Native Build Type
+        mabsVersion:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Mabs Version Number
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFrameworkNullablePatchConfig'
+          description: The framework that should be used when building mobile applications
+      additionalProperties: false
+      description: Request payload model for native IOS Build configurations
+    MobileFramework:
+      enum:
+      - Capacitor
+      - Cordova
+      type: string
+      description: This enum is used to specify which framework should be used when building mobile applications
+    MobileFrameworkNullableConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          allOf:
+          - $ref: '#/components/schemas/MobileFramework'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

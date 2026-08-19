@@ -1,0 +1,345 @@
+openapi: 3.2.0
+info:
+  title: User and Access Management Permissions API
+  description: REST endpoints for retrieving and managing user and access in your organization.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/identity/v1
+  description: User and Access Management API
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: permissions
+paths:
+  /permissions:
+    get:
+      tags:
+      - permissions
+      summary: Returns the list of permissions.
+      description: 'Returns the list of permissions.
+
+        Use query parameters to filter the result based on different criteria.
+
+
+        API client must have at least one permission.'
+      operationId: Permission_QueryPermissions
+      parameters:
+      - name: nameContains
+        in: query
+        description: Filters list by name.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results returned. The value must be within 1 - 100 (both inclusive). The default value is 100.
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Starting point or position of the first result returned. The default value is 0.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionResponsePaginatedResponseApi'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API client must have at least one permission.
+  /permissions/{key}:
+    get:
+      tags:
+      - permissions
+      summary: Retrieve details about a permission.
+      description: 'Returns details about a permission based on the permission key.
+
+
+        API client must have at least one permission.'
+      operationId: Permission_ReadPermission
+      parameters:
+      - name: key
+        in: path
+        description: Permission key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API client must have at least one permission.
+components:
+  schemas:
+    PermissionResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    PermissionInheritance:
+      required:
+      - realmStages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets or sets the permission key.
+          format: uuid
+        realmStages:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StageServiceModel'
+          description: Gets or sets the realm stage list.
+        realmPortfolio:
+          allOf:
+          - $ref: '#/components/schemas/PortfolioInheritanceServiceModel'
+          description: Gets or sets the realm portfolio.
+      additionalProperties: false
+    StageServiceModel:
+      enum:
+      - PRD
+      - QA
+      - DEV
+      - SAME_STAGE
+      type: string
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    PermissionResponse:
+      required:
+      - allowedScopes
+      - inherits
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets or sets the permission key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the permission name.
+        category:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the category for the permission.
+        purpose:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the purpose for the permission.
+        visibility:
+          enum:
+          - Hidden
+          - Public
+          - Internal
+          allOf:
+          - $ref: '#/components/schemas/OrgRolePermissionsVisibility'
+          description: Gets or sets the visibility for the permission.
+        inherits:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionInheritance'
+          description: Gets or sets the inherits.
+        allowStages:
+          type: boolean
+          description: Gets or sets a value indicating whether permission applies to a specific stage.
+        allowPortfolios:
+          type: boolean
+          description: Gets or sets a value indicating whether permission applies to a specific portfolio.
+        allowedScopes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetContext'
+          description: Gets or sets the allowed scopes.
+        claimName:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the claim name.
+        remarks:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the remarks for the permission.
+      additionalProperties: false
+    AssetContext:
+      enum:
+      - Organization
+      - Asset
+      type: string
+    OrgRolePermissionsVisibility:
+      enum:
+      - Hidden
+      - Public
+      - Internal
+      type: string
+    PortfolioInheritanceServiceModel:
+      enum:
+      - SAME_PORTFOLIO
+      - MAIN_PORTFOLIO
+      - ALL_PORTFOLIO
+      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

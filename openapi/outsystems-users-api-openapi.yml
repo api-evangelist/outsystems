@@ -1,0 +1,1969 @@
+openapi: 3.2.0
+info:
+  title: User and Access Management Users API
+  description: REST endpoints for retrieving and managing user and access in your organization.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/identity/v1
+  description: User and Access Management API
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: users
+paths:
+  /users/bulk:
+    post:
+      tags:
+      - users
+      summary: Bulk create users and optionally in the built-in identity provider.
+      description: "The number of users added must be between 1 and 100 (inclusive), otherwise a bad request is returned.\nReturns an operations status object with an operation key that can be used later to get the status of the bulk create.\n            \nAPI Client needs the User management > Manage users permission.\n\nAPI Client needs the **User management > Manage users** permission."
+      operationId: BulkUserProfile_CreateBulkUserProfilesOperation
+      requestBody:
+        description: Bulk Create User Request.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserProfileCreateApiRequestBulkApiRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserProfileCreateApiRequestBulkApiRequest'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUserProfileOperationApiRecordBulkApiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage users** permission.
+  /users/bulk/{key}:
+    get:
+      tags:
+      - users
+      summary: Get the bulk user operation status.
+      description: "Returns an operations status object that contains the overall status of the bulk operation.\nIf the bulk operation has a Finished or FinishedWithError status,\nthe result of each and every item in the list is returned as well.\nIf the bulk operation has a Pending or Processing status, only the overall status is returned.\n            \nAPI Client needs the User management > Manage users permission.\n\nAPI Client needs the **User management > Manage users** permission."
+      operationId: BulkUserProfile_GetBulkUserProfileOperationStatus
+      parameters:
+      - name: key
+        in: path
+        description: Key of the operation that was obtained during submitting bulk operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUserProfileOperationApiRecordBulkApiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage users** permission.
+  /users/{key}/application-roles/{roleKey}:
+    post:
+      tags:
+      - users
+      summary: Grants an application role to a user.
+      description: 'Assigns an application role to a user by providing the application role key and the user key.
+
+
+        API Client needs the **User management > Manage end-user access** permission.'
+      operationId: UserApplicationRoles_GrantApplicationRoleToUser
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: roleKey
+        in: path
+        description: Application role creation request.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage end-user access** permission.
+    delete:
+      tags:
+      - users
+      summary: Revokes an application role to a user.
+      description: 'Revokes an application role from a user by providing the user key and application role key.
+
+
+        API Client needs the **User management > Manage end-user access** permission.'
+      operationId: UserApplicationRoles_RevokeApplicationRoleForUser
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: roleKey
+        in: path
+        description: Role key for the application.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage end-user access** permission.
+  /users/{key}/application-roles:
+    get:
+      tags:
+      - users
+      summary: Returns the list of application roles associated with a user.
+      description: 'Returns a list of application roles associated with a user that match the specified filters. Use query parameters to refine the search.
+
+
+        API Client needs the **User management > View end users** permission.'
+      operationId: UserApplicationRoles_QueryUserApplicationRoles
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: nameContains
+        in: query
+        description: Filters application roles by name.
+        schema:
+          type: string
+      - name: assetKey
+        in: query
+        description: Only returns application roles for the specified asset. Mutually exclusive with `assetKeys`.
+        schema:
+          type: string
+          format: uuid
+      - name: assetKeys
+        in: query
+        description: Only returns application roles for any of the specified assets. Comma-separated list of asset keys. Mutually exclusive with `assetKey`.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: environmentKey
+        in: query
+        description: Only returns application roles in the specified environment (stage). Mutually exclusive with `environmentKeys`.
+        schema:
+          type: string
+          format: uuid
+      - name: environmentKeys
+        in: query
+        description: Only returns application roles in any of the specified environments (stages). Mutually exclusive with `environmentKey`.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: portfolioKeys
+        in: query
+        description: Only returns application roles in the environments belonging to any of the specified portfolios.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: groupKeys
+        in: query
+        description: Only returns application roles inherited from the specified groups.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: applicationRoleKeys
+        in: query
+        description: Only returns the application roles matching any of the specified keys. Comma-separated list of application role keys.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort, for example "-name". Default: name. Allowed: name, environmentKey or assetKey.'
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'Maximum number of results returned. Allowed values: 1 to 100 Default value: 100.'
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: 'Offset of the first result returned. Default value: 0.'
+        schema:
+          type: integer
+          format: int32
+      - name: assignmentSources
+        in: query
+        description: 'Filters by assignment source. Repeatable. Allowed: Direct, GroupAssigned, GroupMapped. Empty or omitted defaults to Direct. The IsDirectlyAssigned flag and AssignedGroups list on each returned role reflect only the selected sources.'
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignmentSource'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApplicationRoleApiResponsePaginatedResponseApi'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > View end users** permission.
+  /users/{key}/organization-roles:
+    get:
+      tags:
+      - users
+      summary: Returns the list of organization roles associated with a user.
+      description: 'Returns the list of organization roles associated with a user.
+
+        If the authenticated user is requesting their own roles, no permission is required.
+
+
+        API Client needs the **User management > View members** or **User management > Manage users** permissions.'
+      operationId: UserOrganizationRoles_GetUserOrganizationRoles
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: scopes
+        in: query
+        description: Optional. Comma-separated. `Organization` returns roles assigned in Organization scope; `Asset` returns roles assigned in Asset scope. Both together (or omitted) returns all.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationRoleAssignmentScope'
+      - name: assetKeys
+        in: query
+        description: Optional. Comma-separated list of asset keys. Only returns organization roles assigned in Asset scope for any of the specified assets.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: limit
+        in: query
+        description: Maximum number of results returned. The value must be within 1 - 100 (both inclusive). The default value is 100.
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Starting point or position of the first result returned. The default value is 0.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationRoleByUserApiResponsePaginatedResponseApi'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > View members** or **User management > Manage users** permissions.
+  /users/{key}/organization-roles/{roleKey}:
+    post:
+      tags:
+      - users
+      summary: Grant organization roles to a user.
+      description: 'Assigns organization roles to a user based on the user key.
+
+
+        API Client needs the **User management > Manage member access** permission.'
+      operationId: UserOrganizationRoles_GrantOrganizationRoleToUser
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: roleKey
+        in: path
+        description: Organization role key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Contains role validity period and asset keys for which we assign this organization role.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/GrantDetailsRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/GrantDetailsRequest'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage member access** permission.
+    delete:
+      tags:
+      - users
+      summary: Delete a user's organization roles.
+      description: 'Revokes organization roles for a user.
+
+
+        API Client needs the **User management > Manage member access** permission.'
+      operationId: UserOrganizationRoles_RevokeOrganizationRoleForUser
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: roleKey
+        in: path
+        description: Organization role key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Revoke details contains the asset keys for which to revoke the organization role.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RevokeDetailsRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RevokeDetailsRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage member access** permission.
+  /users/count:
+    get:
+      tags:
+      - users
+      summary: Returns the user count based on specified conditions.
+      description: 'Returns the user count that match the specified filters. Use query parameters to refine the search.
+
+
+        API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.'
+      operationId: UserProfile_CountUsers
+      parameters:
+      - name: domains
+        in: query
+        description: Only counts users with the specified domains.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        description: Only counts users with the specified status.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/UserProfileStatus'
+      - name: hasOrganizationRoles
+        in: query
+        description: When set to true, only counts users that have at least one organization role. Default is false.
+        schema:
+          type: boolean
+      - name: hasApplicationRoles
+        in: query
+        description: When set to true, only counts users that have at least one application role. Default is false.
+        schema:
+          type: boolean
+      - name: environmentKeys
+        in: query
+        description: Only counts users that have roles in any of the specified environments (stages).
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: portfolioKeys
+        in: query
+        description: Only counts users that have roles in any of the specified portfolios.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: loggedInEnvironmentKeys
+        in: query
+        description: Only counts users that have logged in to any of the specified environments (stages). When combined with last login date filters, the date range applies to the per-environment login timestamp.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: loggedInPortfolioKeys
+        in: query
+        description: Only counts users that have logged in to any environment in the specified portfolios. When combined with last login date filters, the date range applies to the per-environment login timestamp.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: lastLoginAtSince
+        in: query
+        description: Only counts users whose last login occurred on or after the specified date and time. Applies to the top-level last login unless logged-in environment or portfolio filters are specified.
+        schema:
+          type: string
+          format: date-time
+      - name: lastLoginAtTo
+        in: query
+        description: Only counts users whose last login occurred before or on the specified date and time. Applies to the top-level last login unless logged-in environment or portfolio filters are specified.
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileCountApiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.
+  /users:
+    post:
+      tags:
+      - users
+      summary: Creates a new user.
+      description: 'Creates a new user by specifying the user information. You can provide the user''s name, photo URL, and active status. Additionally, the AddToBuiltInIdentityProvider can be used to add the user to the built-in provider.
+
+
+        API Client needs the **User management > Manage users** permission.'
+      operationId: UserProfile_CreateUser
+      requestBody:
+        description: The user object with the necessary information.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserProfileCreateApiRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserProfileCreateApiRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileCreateResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage users** permission.
+    get:
+      tags:
+      - users
+      summary: Returns the list of users based on specified conditions.
+      description: 'Returns a list of users that match the specified filters. Use query parameters to refine the search.
+
+
+        API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.'
+      operationId: UserProfile_QueryUsers
+      parameters:
+      - name: nameOrEmailContains
+        in: query
+        description: "Filters users by name or email address. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+        schema:
+          type: string
+      - name: nameOrEmailOrUsernameContains
+        in: query
+        description: "Filters users by name or email address or username. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+        schema:
+          type: string
+      - name: userKeys
+        in: query
+        description: Only returns users that match the specified keys. For more than one key, separates the keys with a comma. Allows up to 20 user keys.
+        schema:
+          type: string
+      - name: assetKey
+        in: query
+        description: Only returns users that have roles for the specified Asset.
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        description: Only returns users with the specified status.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/UserProfileStatus'
+      - name: lastLoginAtSince
+        in: query
+        description: Only returns users whose last login occurred on or after the specified date and time.
+        schema:
+          type: string
+          format: date-time
+      - name: lastLoginAtTo
+        in: query
+        description: Only returns users whose last login occurred before or on the specified date and time.
+        schema:
+          type: string
+          format: date-time
+      - name: hasOrganizationRoles
+        in: query
+        description: When set to true, only returns users that have at least one organization role. Default is false.
+        schema:
+          type: boolean
+      - name: hasApplicationRoles
+        in: query
+        description: When set to true, only returns users that have at least one application role. Default is false.
+        schema:
+          type: boolean
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort, for example "-name". Default: name. Allowed: key, name, email, status, lastLoginAt.'
+        schema:
+          type: string
+      - name: environmentKey
+        in: query
+        description: Only returns users that have roles in the specified environment (stage). Mutually exclusive with `environmentKeys`.
+        schema:
+          type: string
+          format: uuid
+      - name: environmentKeys
+        in: query
+        description: Only returns users that have roles in any of the specified environments (stages). Comma-separated list of environment keys. Mutually exclusive with `environmentKey`.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: portfolioKeys
+        in: query
+        description: Only returns users that have roles in any of the specified portfolios.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: domains
+        in: query
+        description: Only returns users with the specified domains.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: loggedInEnvironmentKeys
+        in: query
+        description: Only returns users that have logged in to any of the specified environments (stages). When combined with last login date filters, the date range applies to the per-environment login timestamp.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: loggedInPortfolioKeys
+        in: query
+        description: Only returns users that have logged in to any environment in the specified portfolios. When combined with last login date filters, the date range applies to the per-environment login timestamp.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: embed
+        in: query
+        description: List of fields to embed in the response.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserProfileEmbedType'
+      - name: limit
+        in: query
+        description: 'Maximum number of results returned. Allowed values: 1 to 100 Default value: 100.'
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: 'Offset of the first result returned. Default value: 0.'
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileApiResponsePaginatedResponseApi'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.
+  /users/{key}:
+    delete:
+      tags:
+      - users
+      summary: Deletes a user.
+      description: 'Deletes a specified user using the user''s key.
+
+
+        API Client needs the **User management > Manage users** permission.'
+      operationId: UserProfile_DeleteUser
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage users** permission.
+    get:
+      tags:
+      - users
+      summary: Retrieves a user.
+      description: 'Retrieves detailed information about a user using the user''s key.
+
+
+        API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.'
+      operationId: UserProfile_GetUser
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: embed
+        in: query
+        description: List of fields to embed in the response.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserProfileEmbedType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileApiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.
+    patch:
+      tags:
+      - users
+      summary: Updates the user.
+      description: 'Updates the details of a user using the user''s key. Allows modification of the user''s name, photo URL, and active status.
+
+
+        API Client needs the **User management > Manage users** permission.'
+      operationId: UserProfile_PatchUser
+      parameters:
+      - name: key
+        in: path
+        description: User key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: User object with the information to be updated.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserProfilePatchRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserProfilePatchRequest'
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage users** permission.
+  /users/{key}/groups:
+    get:
+      tags:
+      - users
+      summary: Returns a list of groups associated with a user.
+      description: 'Returns a list of groups associated with a user that match the specified filters. Use query parameters to refine the search.
+
+
+        API Client needs the **User management > Manage end-user groups** permission.'
+      operationId: UserProfile_QueryGroupsByUser
+      parameters:
+      - name: key
+        in: path
+        description: The user key.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: nameContains
+        in: query
+        description: Filters groups by name.
+        schema:
+          type: string
+      - name: assetKey
+        in: query
+        description: Filters groups by asset key.
+        schema:
+          type: string
+          format: uuid
+      - name: environmentKey
+        in: query
+        description: Filters groups by environment key (stage). Mutually exclusive with `environmentKeys`.
+        schema:
+          type: string
+          format: uuid
+      - name: environmentKeys
+        in: query
+        description: Filters groups by environment keys (stages). Comma-separated list of environment keys. Mutually exclusive with `environmentKey`.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: portfolioKeys
+        in: query
+        description: Only returns groups in environments belonging to any of the specified portfolios.
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: membershipType
+        in: query
+        description: Filters groups by user's membership type that can be `Assigned` or `Mapped`.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/MembershipType'
+      - name: limit
+        in: query
+        description: 'Maximum number of results returned. Allowed values: 1 to 100 Default value: 100.'
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: 'Offset of the first result returned. Default value: 0.'
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupResponsePaginatedResponseApi'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **User management > Manage end-user groups** permission.
+components:
+  schemas:
+    BulkUserProfileOperationApiRecord:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: User profile record key
+          format: uuid
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email of the user
+        username:
+          type:
+          - string
+          - 'null'
+          description: The user's username for the IdP
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The user's subject claim value for the IdP
+      additionalProperties: false
+    UserProfileStatus:
+      enum:
+      - Active
+      - Invited
+      - Inactive
+      - PendingRegistration
+      type: string
+    AssignedGroupInfoApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The application group key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the application group.
+        membershipType:
+          enum:
+          - Assigned
+          - Mapped
+          allOf:
+          - $ref: '#/components/schemas/MembershipType'
+          description: The membership type of the user in the application group.
+      additionalProperties: false
+    BulkUserProfileOperationApiRecordBulkApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The identiifer of the bulk operation record
+          format: uuid
+        status:
+          enum:
+          - FinishedWithErrors
+          - Finished
+          - Processing
+          - Pending
+          allOf:
+          - $ref: '#/components/schemas/BulkApiStatus'
+          description: Bullk API statuses Pending, Processing, Finished and FinishedWithErrors
+        errorCode:
+          type:
+          - string
+          - 'null'
+          description: 'Self Service error code for the overall bulk API operation.
+
+            For example, when the operation times out.'
+        errorMessage:
+          type:
+          - string
+          - 'null'
+          description: 'Self Service error message for the overall bulk API operation.
+
+            For example, when the operation times out.'
+        operations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BulkUserProfileOperationApiRecordBulkApiOperation'
+          description: 'Details of each operation performed in the bulk request.
+
+            Available when the bulk operation has Finished or FinishedWithErrors.
+
+            This will be an empty list when the bulk operation is Pending or Progressing.'
+      additionalProperties: false
+    RevokeDetailsRequest:
+      type: object
+      properties:
+        assetKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the asset keys.
+      additionalProperties: false
+    UserApplicationRoleApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    BulkUserProfileOperationApiRecordBulkApiOperation:
+      type: object
+      properties:
+        status:
+          enum:
+          - Error
+          - Inserted
+          - Updated
+          - Deleted
+          allOf:
+          - $ref: '#/components/schemas/BulkApiOperationStatus'
+          description: 'Status of the individual operation in the list of bulk operations.
+
+            For example: Inserted, Updated, Errored'
+        errorCode:
+          type:
+          - string
+          - 'null'
+          description: Self-support error code for the one operation if any error occured.
+        errorMessage:
+          type:
+          - string
+          - 'null'
+          description: Self-support error message for the one operation if any error occured.
+        record:
+          allOf:
+          - $ref: '#/components/schemas/BulkUserProfileOperationApiRecord'
+          description: 'A JSON object containing some extra info about the record in this operation.
+
+            This could contain some pieces of request info as well as additional info from the operation output.'
+      additionalProperties: false
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    BulkApiOperationStatus:
+      enum:
+      - Error
+      - Inserted
+      - Updated
+      - Deleted
+      type: string
+    GroupApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key of the group.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the group.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the group.
+        environmentKey:
+          type: string
+          description: The environment key.
+          format: uuid
+        portfolioKey:
+          type: string
+          description: The portfolio key associated with the environment.
+          format: uuid
+        updatedAt:
+          type: string
+          description: The last updated date and time of the group.
+          format: date-time
+        groupIdpClaimMappings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GroupIdpClaimMappingEmbedded'
+          description: The group's identity providers claim mappings.
+      additionalProperties: false
+    MembershipType:
+      enum:
+      - Assigned
+      - Mapped
+      type: string
+    GrantPeriodApiModel:
+      type: object
+      properties:
+        startTime:
+          type:
+          - string
+          - 'null'
+          description: The start date and time in utc.
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: The end date and time in utc.
+          format: date-time
+      additionalProperties: false
+    GroupIdpClaimMappingEmbedded:
+      required:
+      - foreignClaim
+      - key
+      - providerKey
+      type: object
+      properties:
+        key:
+          type: string
+          description: Claim mapping identifier.
+          format: uuid
+        providerKey:
+          type: string
+          description: The key of the associated IdP object.
+          format: uuid
+        foreignClaim:
+          allOf:
+          - $ref: '#/components/schemas/ForeignClaimModel'
+          description: Foreign Claim.
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: The last updated date field.
+          format: date-time
+      additionalProperties: false
+    UserProfileApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserProfileApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    UserProfileApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: 'The user key (format: guid).'
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The user's full name.
+        email:
+          type:
+          - string
+          - 'null'
+          description: The user's email address.
+        status:
+          enum:
+          - Active
+          - Invited
+          - Inactive
+          - PendingRegistration
+          allOf:
+          - $ref: '#/components/schemas/UserProfileStatus'
+          description: The user's Profile Status.
+        access:
+          allOf:
+          - $ref: '#/components/schemas/UserProfileAccessResponse'
+          description: The user's profile access.
+        lastLoginAt:
+          type:
+          - string
+          - 'null'
+          description: The timestamp of the last login (or token refresh) for this user in UTC.
+          format: date-time
+        isActive:
+          type: boolean
+          description: The value indicating whether user profile is active or not.
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: The user's photo URL.
+        isEmailVerified:
+          type:
+          - boolean
+          - 'null'
+          description: The value indicating whether or not the user's email is verified.
+        isTermsAndConditionsAccepted:
+          type: boolean
+          description: The value indicating whether or not the user has accepted the terms and conditions.
+        _embedded:
+          allOf:
+          - $ref: '#/components/schemas/UserProfileWithApplicationRolesEmbeddedResponse'
+          description: 'The embedded information to provide. (optional)
+
+            Only available when the request includes the query parameter `embed=`,
+
+            e.g. `embed=applicationRoles`'
+      additionalProperties: false
+    AssignmentSource:
+      enum:
+      - Direct
+      - GroupAssigned
+      - GroupMapped
+      type: string
+    OrganizationRoleByUserApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrganizationRoleByUserApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    UserProfileCreateApiRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The user's name.
+        email:
+          type:
+          - string
+          - 'null'
+          description: The user’s email address.
+        isActive:
+          type: boolean
+          description: Sets the user as active. Default is true (active).
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: The user’s photo url.
+        addToBuiltInIdentityProvider:
+          type: boolean
+          description: Creates the user in the built-in identity provider. Default is false (not created in the built-in identity provider).
+        identityProviderKey:
+          type:
+          - string
+          - 'null'
+          description: The identity provider key. When provided, a UserIdpProfile will be created or linked.
+          format: uuid
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The user’s subject claim value for this IdP.
+        username:
+          type:
+          - string
+          - 'null'
+          description: The user’s username for this IdP.
+      additionalProperties: false
+    UserProfileEmbedType:
+      enum:
+      - ApplicationRoles
+      - UserIdentityProviders
+      type: string
+    UserProfileAccessResponse:
+      type: object
+      properties:
+        hasOrganizationRoles:
+          type: boolean
+          description: User has organization-level roles
+        hasApplicationRoles:
+          type: boolean
+          description: User has application roles
+      additionalProperties: false
+    UserGroupResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserGroupResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    UserIdpProfileResponse:
+      type: object
+      properties:
+        userKey:
+          type: string
+          description: The user key.
+          format: uuid
+        identityProviderKey:
+          type: string
+          description: 'The identity provider key (format: guid).'
+          format: uuid
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The subject claims in the token issued by the IdP.
+        username:
+          type:
+          - string
+          - 'null'
+          description: The username.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The user's full name.
+        email:
+          type:
+          - string
+          - 'null'
+          description: The user's email address.
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: The user's photo URL.
+        firstLoginAt:
+          type:
+          - string
+          - 'null'
+          description: The timestamp of the first login for this user using the idp in UTC.
+          format: date-time
+        lastLoginAt:
+          type:
+          - string
+          - 'null'
+          description: The timestamp of the last login for this user using the idp in UTC.
+          format: date-time
+        isEmailVerified:
+          type:
+          - boolean
+          - 'null'
+          description: The value indicating whether or not the user's email is verified.
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    UserApplicationRoleApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The application role key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the application role.
+        environmentKey:
+          type: string
+          description: The environment key.
+          format: uuid
+        assetKey:
+          type: string
+          description: The asset key.
+          format: uuid
+        externalKey:
+          type: string
+          description: The unique identifier for an application role independently of the environment.
+          format: uuid
+        claim:
+          type:
+          - string
+          - 'null'
+          description: The claim name.
+        portfolioKey:
+          type: string
+          description: The portfolio key associated with the environment.
+          format: uuid
+        isDirectlyAssigned:
+          type: boolean
+          description: Indicates whether the role is directly assigned to the user.
+        assignedGroups:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssignedGroupInfoApiResponse'
+          description: The application groups through which the user inherits this role, if any.
+      additionalProperties: false
+    UserProfilePatchRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The user's name.
+        isActive:
+          type:
+          - boolean
+          - 'null'
+          description: The user as active or inactive.
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: The user's photo url.
+      additionalProperties: false
+    UserProfileWithApplicationRolesEmbeddedResponse:
+      type: object
+      properties:
+        applicationRoles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
+          description: 'List of application roles. Each role includes whether it is directly assigned to the user
+
+            and the application groups through which the user inherits it, if any.'
+        userIdentityProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserIdpProfileResponse'
+          description: List of user identity providers.
+      additionalProperties: false
+    OrganizationRoleAssignmentScope:
+      enum:
+      - Organization
+      - Asset
+      type: string
+      description: API query scope for listing a user's organization role assignments.
+    ForeignClaimModel:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+          description: Gets or sets Name of the claim to match in the foreign token.
+        valueDelimiter:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets string to split the foreign claim value on.
+        value:
+          minLength: 1
+          type: string
+          description: Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified.
+      additionalProperties: false
+    BulkApiStatus:
+      enum:
+      - FinishedWithErrors
+      - Finished
+      - Processing
+      - Pending
+      type: string
+    UserProfileCountApiResponse:
+      type: object
+      properties:
+        userCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UserProfileCreateResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The user's key.
+          format: uuid
+      additionalProperties: false
+    GrantDetailsRequest:
+      type: object
+      properties:
+        grantPeriod:
+          allOf:
+          - $ref: '#/components/schemas/GrantPeriodApiModel'
+          description: Gets or sets the grant period.
+        assetKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the asset keys.
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Gets or sets the portfolio key this assignment belongs to. Optional; applies only to asset-scoped grants
+
+            and, when omitted, the assignment is associated with the tenant''s main portfolio.'
+          format: uuid
+      additionalProperties: false
+    UserProfileCreateApiRequestBulkApiRequest:
+      required:
+      - records
+      type: object
+      properties:
+        records:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserProfileCreateApiRequest'
+          description: The list of requests
+      additionalProperties: false
+    OrganizationRoleByUserApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets or sets organization role key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets organization role name.
+        grantPeriod:
+          allOf:
+          - $ref: '#/components/schemas/GrantPeriodApiModel'
+          description: Gets or sets the period during which the role is valid.
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset key.
+          format: uuid
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the portfolio key this assignment belongs to.
+          format: uuid
+      additionalProperties: false
+    UserGroupResponse:
+      required:
+      - group
+      - membershipTypes
+      type: object
+      properties:
+        membershipTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MembershipType'
+          description: The list of membership types of the user in this group. Allowed values are 'Assigned' (if directly added to the group) or 'Mapped' (if added via group mappings).
+        group:
+          allOf:
+          - $ref: '#/components/schemas/GroupApiResponse'
+          description: A group that a user is part of.
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

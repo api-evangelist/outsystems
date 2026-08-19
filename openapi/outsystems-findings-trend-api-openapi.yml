@@ -1,0 +1,252 @@
+openapi: 3.2.0
+info:
+  title: Code Quality Findings Trend API
+  description: Provides APIs to submit code analysis requests and retrieve information about code quality findings, application scores, and analysis results.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/code-quality/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/code-quality/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+tags:
+- name: Findings Trend
+paths:
+  /findings-trend:
+    get:
+      tags:
+      - Findings Trend
+      summary: Retrieves historical trend data for findings.
+      description: 'Retrieves historical trend data for findings over time, showing how findings and quality scores evolved across analyses. Useful for visualizing trends and patterns over time.
+
+
+        Example: GET /code-quality/v1/findings-trend?assetKeys=abc123&since=2024-01-01&to=2024-12-31
+
+
+        API Client needs the **Analyze > View Code Quality findings** permission.'
+      operationId: FindingsOverviewControllerV_GetFindingsTrend
+      parameters:
+      - name: AssetKeys
+        in: query
+        description: Filter by asset keys (unique identifiers).
+        schema:
+          type: array
+          items:
+            type: string
+      - name: AssetType
+        in: query
+        description: Filter by asset type.
+        schema:
+          type: string
+          example: WebApplication
+        example: WebApplication
+      - name: Categories
+        in: query
+        description: Filter by finding categories.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Categories'
+      - name: Severities
+        in: query
+        description: Filter by finding severity levels.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/FindingSeverity'
+      - name: Since
+        in: query
+        description: 'Start date for filtering findings by discovery time. Default: if omitted, 14 days before `To` (or 14 days before now, if `To` is also omitted).'
+        schema:
+          type: string
+          example: '2022-06-01T00:00:00'
+        example: '2022-06-01T00:00:00'
+      - name: To
+        in: query
+        description: 'End date for filtering findings by discovery time. Default: if omitted, now (current UTC time).'
+        schema:
+          type: string
+          example: '2022-12-31T23:59:59'
+        example: '2022-12-31T23:59:59'
+      - name: ScoreRanges
+        in: query
+        description: 'Filter by quality score ranges. Default: includes all scores.'
+        schema:
+          type: string
+          example: 0-49,50-84,85-100
+        example: '"0-49,50-84,85-100"'
+      - name: Limit
+        in: query
+        description: Number of records to return per page.
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          example: 50
+        example: 50
+      - name: Offset
+        in: query
+        description: Number of records to skip for pagination.
+        schema:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+          example: 100
+        example: 100
+      - name: PortfolioKey
+        in: query
+        description: Filter by portfolio key.
+        schema:
+          type: string
+          format: uuid
+          example: 12345678-1234-1234-1234-123456789abc
+        example: 12345678-1234-1234-1234-123456789abc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingsTrendResponseV1ResultsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingsTrendResponseV1ResultsResponse'
+      security:
+      - bearerAuth: []
+      x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
+components:
+  schemas:
+    FindingsTrendResponseV1ResultsResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FindingsTrendResponseV1'
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    FindingSeverity:
+      enum:
+      - Low
+      - Medium
+      - High
+      - Critical
+      type: string
+    FindingsTrendResponseV1:
+      title: FindingsTrendResponse
+      type: object
+      properties:
+        openFindingsCount:
+          type: integer
+          description: 'Represents the count of open findings for the specified day.
+
+            This property is used to track the number of findings that are still open on that day.'
+          format: int64
+        snoozedFindingsCount:
+          type: integer
+          description: 'Represents the count of snoozed findings for the specified day.
+
+            This property is used to track the number of findings that are still snoozed on that day.'
+          format: int64
+        resolvedFindingsCount:
+          type: integer
+          description: 'Represents the count of resolved findings for the specified day.
+
+            This property is used to track the number of findings that are still resolved on that day.'
+          format: int64
+        dismissedFindingsCount:
+          type: integer
+          description: 'Represents the count of dismissed findings for the specified day.
+
+            This property is used to track the number of findings that are still dismissed on that day.'
+          format: int64
+        closedFindingsCount:
+          type: integer
+          description: 'Represents the count of closed findings for the specified day.
+
+            This property is used to track the number of findings that have been closed on that day.'
+          format: int64
+        analysisDate:
+          type:
+          - string
+          - 'null'
+          description: 'Represents the day of the findings trend data.
+
+            The format is typically "YYYY-MM-DD".'
+      additionalProperties: false
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

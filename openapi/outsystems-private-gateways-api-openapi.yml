@@ -1,0 +1,293 @@
+openapi: 3.2.0
+info:
+  title: Environment Configurations Private gateways API
+  description: REST endpoints for managing environment (stage) configurations in ODC. Covers custom domains, IP filters, and Private Gateways, enabling you to automate the same configurations available in ODC Portal.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/environment-configurations/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    '{odc-portal-domain}':
+      default: '{odc-portal-domain}'
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Private gateways
+  description: Activate, deactivate, and manage private gateways.
+paths:
+  /environments/{environmentKey}/private-gateway/activation:
+    post:
+      tags:
+      - Private gateways
+      summary: Activates a private gateway.
+      description: 'Activates a private gateway.
+
+
+        API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).'
+      operationId: PrivateGateway_Activation
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureGatewayToken'
+      x-os-permissions: API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).
+  /environments/{environmentKey}/private-gateway/deactivation:
+    post:
+      tags:
+      - Private gateways
+      summary: Deactivates a private gateway.
+      description: 'Deactivates a private gateway.
+
+
+        API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).'
+      operationId: PrivateGateway_Deactivation
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureGatewayToken'
+      x-os-permissions: API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).
+  /environments/{environmentKey}/private-gateway:
+    get:
+      tags:
+      - Private gateways
+      summary: Gets the private gateway status.
+      description: 'Gets the private gateway status.
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: PrivateGateway_Get
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureGateway'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+  /environments/{environmentKey}/private-gateway/key-rotation:
+    post:
+      tags:
+      - Private gateways
+      summary: Rotates the private gateway key.
+      description: 'Rotates the private gateway key.
+
+
+        API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).'
+      operationId: PrivateGateway_KeyRotation
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureGatewayToken'
+      x-os-permissions: API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).
+components:
+  schemas:
+    SecureGatewayToken:
+      type: object
+      properties:
+        authToken:
+          type:
+          - string
+          - 'null'
+          description: The authentication token for the private gateway.
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    ServerHealth:
+      enum:
+      - Healthy
+      - Unhealthy
+      type: string
+    SecureGateway:
+      type: object
+      properties:
+        serverActive:
+          type: boolean
+          description: Indicates if the private gateway service is active.
+        serverHealth:
+          allOf:
+          - $ref: '#/components/schemas/ServerHealth'
+          description: Indicates the health status of the private gateway.
+        isDeactivating:
+          type: boolean
+          description: Indicates if the private gateway is in the process of deactivating.
+        url:
+          type:
+          - string
+          - 'null'
+          description: The url value to connect to the private gateway.
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

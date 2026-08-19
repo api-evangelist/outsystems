@@ -1,0 +1,474 @@
+openapi: 3.2.0
+info:
+  title: Subscription Organization API
+  description: 'REST endpoints for retrieving information about subscription and entitlement data and usage.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/subscription/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    '{odc-portal-domain}':
+      default: '{odc-portal-domain}'
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Organization
+paths:
+  /organization/configurations:
+    get:
+      tags:
+      - Organization
+      summary: Retrieves information of the organization configurations.
+      description: 'Read-only view of organization settings.
+
+
+        API Client needs the **Subscriptions > View subscription** permission.'
+      operationId: Subscription_GetOrganizationConfigurations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationConfigurations'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Subscriptions > View subscription** permission.
+    patch:
+      tags:
+      - Organization
+      summary: Patches editable organization configurations.
+      description: 'Patches editable organization configurations.
+
+
+        API Client needs the **Subscriptions > Manage subscription** permission to change organization configurations.'
+      operationId: Subscription_PatchOrganizationConfigurations
+      requestBody:
+        description: Entitlement information
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/OrganizationConfigurations'
+              description: Represents the configurations for the Organization.
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/OrganizationConfigurations'
+              description: Represents the configurations for the Organization.
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+      x-os-permissions: API Client needs the **Subscriptions > Manage subscription** permission to change organization configurations.
+  /organization/entitlements:
+    get:
+      tags:
+      - Organization
+      summary: Retrieves information on the entitlements for the organization.
+      description: 'Entitlements and add-ons are shown with sufficient permissions
+
+
+        To fetch the entitlements, API Client needs at least one permission.
+
+        To additionally fetch the add-ons and subscription details, API Client also needs the **Subscriptions > View subscription** permission.'
+      operationId: Subscription_GetOrganizationEntitlements
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationEntitlements'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: 'To fetch the entitlements, API Client needs at least one permission.
+
+        To additionally fetch the add-ons and subscription details, API Client also needs the **Subscriptions > View subscription** permission.'
+  /organization/entitlements/usage:
+    get:
+      tags:
+      - Organization
+      summary: Retrieves usage data for entitlements for the organization.
+      description: 'Filter by entitlement, date range, and aggregation.
+
+
+        API Client needs the **Subscriptions > View subscription** permission.'
+      operationId: Subscription_GetOrganizationUsage
+      parameters:
+      - name: granularity
+        in: query
+        description: Data granularity (summary, hour, day, month). Defaults to summary.
+        schema:
+          type: string
+          default: summary
+      - name: since
+        in: query
+        description: Start date for usage data (ISO 8601 format)
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: End date for usage data (ISO 8601 format)
+        schema:
+          type: string
+      - name: entitlementIds
+        in: query
+        description: 'Optional comma-separated entitlement IDs. Valid values: appAnalyticsStreamLimit, applicationObjects, internalUsers, externalUsers'
+        schema:
+          type: string
+      - name: aggregations
+        in: query
+        description: 'Optional comma-separated aggregation functions. Valid values: Total, Max, P95, P90'
+        schema:
+          type: string
+      - name: assetKeys
+        in: query
+        description: Optional comma-separated asset keys (GUIDs) to filter results
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitlementUsageItemListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Subscriptions > View subscription** permission.
+components:
+  schemas:
+    EntitlementUsageItemListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EntitlementUsageItem'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    OrganizationConfigurations:
+      type: object
+      properties:
+        areAllEmailDomainsInternal:
+          type: boolean
+          description: Defines whether all email user domains are internal or not
+        internalEmailDomains:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of email user domains to be considered as internal
+      additionalProperties: false
+      description: Represents the configurations for the Organization.
+    EntitlementUsageItem:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Entitlement identifier (e.g., "applicationObjects").
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the entitlement.
+        aggregation:
+          type:
+          - string
+          - 'null'
+          description: Aggregation function applied (e.g., "avg", "max", "total").
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: Last time this usage data was updated.
+          format: date-time
+        usage:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UsageDataPoint'
+          description: Time series of usage data points.
+      additionalProperties: false
+      description: Represents usage data for a single entitlement type.
+    UsageDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp for this data point.
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value at this timestamp.
+          format: double
+        cumulativeValue:
+          type:
+          - number
+          - 'null'
+          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
+          format: double
+      additionalProperties: false
+      description: Represents a single data point in a usage time series.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    DataType:
+      enum:
+      - Bool
+      - Float
+      - Str
+      - Int
+      type: string
+      description: Data type of the value of an addon or entitlement.
+    OrganizationEntitlements:
+      type: object
+      properties:
+        subscriptionStartDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the organization first subscribed.
+          format: date-time
+        subscriptionEndDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the organization subscription will end.
+          format: date-time
+        edition:
+          type:
+          - string
+          - 'null'
+          description: Name of the Edition.
+        editionId:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the Edition.
+        editionFamilyId:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the EditionFamily.
+        activationCode:
+          type:
+          - string
+          - 'null'
+          description: Organization Activation Code
+        addons:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Addon'
+          description: Collection of the addOns the organization is subscribed to.
+        entitlements:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Entitlement'
+          description: Collection of the entitlements the organization is entitled to.
+      additionalProperties: false
+      description: Represents the entitlements present in an organization
+    Entitlement:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Internal identifier of the entitlement, visible in APIs only.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the entitlement.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the entitlement.
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+          description: Entitlement documentation URL.
+        value:
+          type:
+          - string
+          - 'null'
+          description: A value that is assigned to the entitlement, overriding the default value.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType'
+          description: Data type of the value associated with the entitlement , one of ["bool", "float", "str", "int"].
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
+      additionalProperties: false
+      description: Represents the Entitlement information.
+    Addon:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Internal name (internal identifier of the Add-on, visible in APIs only).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the Add-on.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the Add-on that explains the purpose.
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+          description: Documentation URL for the Add-on.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType'
+          description: Data type of the value associated with the addon, one of ["bool", "float", "str", "int"].
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value associated with the Add-on. A null value means not subscribed.
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on starts to be available.
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on expires (e.g. trials or time-bound Add-ons).
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+      additionalProperties: false
+      description: Represents the Add-on information.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

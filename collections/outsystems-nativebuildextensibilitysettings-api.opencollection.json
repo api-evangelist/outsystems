@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Native Mobile Build Native Build Extensibility Settings API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "NativeBuildExtensibilitySettings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets extensibility settings for the given application.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/environments/:environmentKey/applications/:applicationKey/configurations/extensibility-settings",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "Application key"
+              }
+            ]
+          },
+          "docs": "\nRate Limit: 100 requests per minute per tenant\n\nAPI Client needs the **Configuration management > View configurations** permission."
+        },
+        {
+          "info": {
+            "name": "Patches extensibility settings for a given application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/environments/:environmentKey/applications/:applicationKey/configurations/extensibility-settings",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "Application key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nRate Limit: 10 requests per minute per tenant\n\nAPI Client needs the **Configuration management > Edit asset configurations** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

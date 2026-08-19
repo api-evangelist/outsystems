@@ -1,0 +1,278 @@
+openapi: 3.2.0
+info:
+  title: Portfolio Portfolios API
+  description: 'REST endpoints for retrieving information about assets and environments in your organization.
+
+    '
+  version: v2
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/portfolios/v2
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/portfolios/v2
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Portfolios
+  description: ''
+paths:
+  /portfolios:
+    get:
+      tags:
+      - Portfolios
+      summary: Retrieves the list of portfolios.
+      operationId: Portfolios_ListPortfolios
+      parameters:
+      - name: portfolioKey
+        in: query
+        description: Optional portfolio key to filter by.
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        description: Max number of elements per page.
+        schema:
+          type: integer
+          format: int32
+          default: 100
+      - name: offset
+        in: query
+        description: Offset for pagination.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioPagedListResponse'
+      x-os-permissions: API client must have at least one permission.
+      description: '
+
+
+        API client must have at least one permission.'
+  /portfolios/{portfolioKey}:
+    patch:
+      tags:
+      - Portfolios
+      summary: Updates the portfolio's name
+      operationId: Portfolios_PatchPortfolio
+      parameters:
+      - name: portfolioKey
+        in: path
+        description: The portfolio key to update
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Patch request with new name
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PatchPortfolioRequest'
+              additionalProperties: false
+              description: Request to update a portfolio's name
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PatchPortfolioRequest'
+              additionalProperties: false
+              description: Request to update a portfolio's name
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: Requires **Portfolio management > Manage portfolio** permission.
+      description: '
+
+
+        Requires **Portfolio management > Manage portfolio** permission.'
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    PortfolioPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Portfolio'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    Portfolio:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The portfolio key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The portfolio name.
+        type:
+          type:
+          - string
+          - 'null'
+          description: The portfolio hosting type.
+        isMainPortfolio:
+          type: boolean
+          description: Indicates whether this is the main portfolio where system assets are installed.
+        nonProductionEnvironmentCount:
+          type:
+          - integer
+          - 'null'
+          description: Number of non-production environments in the portfolio. Null when not available.
+          format: int32
+      additionalProperties: false
+      description: Portfolio
+    PatchPortfolioRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: New portfolio name (min 1, max 50 characters)
+      additionalProperties: false
+      description: Request to update a portfolio's name
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

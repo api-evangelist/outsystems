@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Operations Build API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Build",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets detailed information about a given build",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/builds/v1/build-operations/:operationKey",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The key of the build"
+              }
+            ]
+          },
+          "docs": "Example:\n\n    GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923\n\nYou need the **Asset management > Open** permission."
+        },
+        {
+          "info": {
+            "name": "Gets messages logged by a given build",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/builds/v1/build-operations/:operationKey/log-messages",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The key of the build"
+              }
+            ]
+          },
+          "docs": "Example:\n\n    GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/log-messages\n\nYou need the **Asset management > Open** permission."
+        },
+        {
+          "info": {
+            "name": "Gets generated code produced by a given build",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/builds/v1/build-operations/:operationKey/generated-code",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The key of the build"
+              }
+            ]
+          },
+          "docs": "This resource is only available after calling POST /build-operations/{operationKey}/generated-code with the respective build key.\n\n            \n\n Example:\n\n     GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/generated-code\n\nYou need the **Asset management > Open** permission."
+        },
+        {
+          "info": {
+            "name": "Starts packaging the code generated for a given build",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/builds/v1/build-operations/:operationKey/generated-code",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The key of the build"
+              }
+            ]
+          },
+          "docs": "Example:\n\n    POST /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/generated-code\n\nYou need the **Asset management > Open** permission."
+        },
+        {
+          "info": {
+            "name": "List all builds created for a given revision of a given asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/builds/v1/build-operations",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "query",
+                "description": "The key of the asset"
+              },
+              {
+                "name": "assetRevision",
+                "value": "",
+                "type": "query",
+                "description": "The id of the revision of the asset"
+              },
+              {
+                "name": "byBuildType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by build type. Default: returns all"
+              }
+            ]
+          },
+          "docs": "Example:\n\n    GET /builds/v1/build-operations?assetKey=68ef84e5-9265-47b8-8612-b073b70e3e3e&assetRevision=1\n\nYou need the **Asset management > Open** permission."
+        },
+        {
+          "info": {
+            "name": "Starts a job operation that will build a particular revision of a given asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/builds/v1/build-operations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Example:\n\n    POST /builds/v1/build-operations\n\n    {\n\n       \"buildType\": \"Release\",\n\n       \"assetKey\": \"68ef84e5-9265-47b8-8612-b073b70e3e3e\",\n\n       \"assetRevision\": 1\n\n    }\n\nYou need the **Asset management > Open** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

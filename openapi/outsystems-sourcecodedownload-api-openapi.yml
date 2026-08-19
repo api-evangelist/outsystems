@@ -1,0 +1,235 @@
+openapi: 3.2.0
+info:
+  title: External Library Generation Service Source Code Download API
+  description: 'API for generating and managing external libraries from high-code packages.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/external-libraries/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/external-libraries/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: SourceCodeDownload
+paths:
+  /assets/{assetKey}/revisions/{revision}/source-code-download:
+    post:
+      tags:
+      - SourceCodeDownload
+      summary: Create Download Operation.
+      description: 'Asynchronously initiates the process to download the source code of a published external library.
+
+
+        Required permissions: **Asset management > Change**'
+      operationId: SourceCodeDownload_CreateDownloadOperation
+      parameters:
+      - name: assetKey
+        in: path
+        description: Key of the desired external library.
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: path
+        description: Id of the desired revision.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '201':
+          description: The download operation key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse'
+        '400':
+          description: Request is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '404':
+          description: Specified asset and revision not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+      x-os-permissions: 'Required permissions: **Asset management > Change**'
+  /assets/{assetKey}/revisions/{revision}/source-code-download/{operationKey}:
+    get:
+      tags:
+      - SourceCodeDownload
+      summary: Get Download Operation.
+      description: 'Retrieves the current status of a download operation and the source code download URL if ready
+
+
+        Required permissions: **Asset management > Change**'
+      operationId: SourceCodeDownload_GetDownloadUri
+      parameters:
+      - name: assetKey
+        in: path
+        description: Key of the desired external library.
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: path
+        description: Id of the desired revision.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: operationKey
+        in: path
+        description: Key of the download operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The download operation status and the source code download URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.SourceCodeDownload'
+        '400':
+          description: Request is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '404':
+          description: Specified asset, revision or download operation not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+      x-os-permissions: 'Required permissions: **Asset management > Change**'
+components:
+  schemas:
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.SourceCodeDownload:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key of the download operation.
+          format: uuid
+        fileUri:
+          type:
+          - string
+          - 'null'
+          description: The source code presigned URL.
+        libraryKey:
+          type: string
+          description: The key of the specified library.
+          format: uuid
+        libraryName:
+          type:
+          - string
+          - 'null'
+          description: The name of the specified library.
+        libraryDescription:
+          type:
+          - string
+          - 'null'
+          description: The description of the specified library.
+        status:
+          allOf:
+          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus'
+          description: The status of the download operation.
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse:
+      type: object
+      properties:
+        operationKey:
+          type: string
+          description: The operation key
+          format: uuid
+      additionalProperties: false
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus:
+      enum:
+      - None
+      - Generating
+      - GenerationError
+      - ReadyForDownload
+      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

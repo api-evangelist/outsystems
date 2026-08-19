@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Code Quality Patterns API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patterns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves a list of code patterns.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1/patterns",
+            "params": [
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Max records (1-1000)."
+              },
+              {
+                "name": "Offset",
+                "value": "",
+                "type": "query",
+                "description": "Records to skip (0+)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a paginated list of all available code patterns that can be detected during code analysis, including their names, descriptions, and metadata.\n\nExample: GET /code-quality/v1/patterns?limit=50\n\nAPI Client needs the **Analyze > View Code Quality findings** permission."
+        },
+        {
+          "info": {
+            "name": "Retrieves details for a specific code pattern.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1/patterns/:patternId",
+            "params": [
+              {
+                "name": "patternId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the pattern"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns detailed information about a specific code pattern, including its description, category, severity, and detection rules.\n\nExample: GET /code-quality/v1/patterns/pattern-id-123\n\nAPI Client needs the **Analyze > View Code Quality findings** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

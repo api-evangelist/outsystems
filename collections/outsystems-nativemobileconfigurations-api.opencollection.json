@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Native Mobile Build Native Mobile Configurations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "NativeMobileConfigurations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the deployed platform-specific native configuration for a given Android application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/environments/:environmentKey/applications/:applicationKey/configurations/android",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "Application key"
+              }
+            ]
+          },
+          "docs": "The response includes all the necessary information to build and deploy an Android native mobile application,\nsuch as keystore files and other related configurations.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Configuration management > View configurations** permission."
+        },
+        {
+          "info": {
+            "name": "Updates the Native Mobile Configuration for Android Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/environments/:environmentKey/applications/:applicationKey/configurations/android",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "Application key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allows modifying keystore files and other related settings required for building and deploying the application.\nOnly the fields provided in the request body are updated; omitted fields remain unchanged.\n\nRate Limit: 10 requests per minute\n\nAPI Client needs the **Configuration management > Edit asset configurations** permission."
+        },
+        {
+          "info": {
+            "name": "Returns the deployed native configuration for a given iOS application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/environments/:environmentKey/applications/:applicationKey/configurations/ios",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "Application key"
+              }
+            ]
+          },
+          "docs": "The response includes all the necessary information to build and deploy an iOS native mobile application,\nsuch as certificates, provisioning profiles, and other related configurations.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Configuration management > View configurations** permission."
+        },
+        {
+          "info": {
+            "name": "Updates the Native Mobile Configuration for iOS Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/environments/:environmentKey/applications/:applicationKey/configurations/ios",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "Application key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allows modifying certificates, provisioning profiles, and other related settings required for building and deploying the application.\nOnly the fields provided in the request body are updated; omitted fields remain unchanged.\n\nRate Limit: 10 requests per minute\n\nAPI Client needs the **Configuration management > Edit asset configurations** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

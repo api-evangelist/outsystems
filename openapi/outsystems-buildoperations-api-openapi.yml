@@ -1,0 +1,890 @@
+openapi: 3.2.0
+info:
+  title: Native Mobile Build Build Operations API
+  description: 'API for building and managing native mobile applications.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/native-mobile-builds/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- {}
+tags:
+- name: BuildOperations
+paths:
+  /build-operations/{operationKey}:
+    get:
+      tags:
+      - BuildOperations
+      summary: Returns the details for a given build operation
+      description: 'The build operation key is generated when the build operation is created and returned in the response of the create API.
+
+        It can also be obtained through the list API.
+
+
+        Rate Limit: 100 requests per minute
+
+
+        API Client needs the **Stage > View stage** permission.'
+      operationId: GET_BuildOperations_Get
+      parameters:
+      - name: environmentKey
+        in: query
+        description: Environment key
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: query
+        description: Application key
+        schema:
+          type: string
+          format: uuid
+      - name: operationKey
+        in: path
+        description: Build operation key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: The details of the build operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildOperationResult'
+        '400':
+          description: Request is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment, application or build operation was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Stage > View stage** permission.
+  /build-operations/{operationKey}/log-messages:
+    get:
+      tags:
+      - BuildOperations
+      summary: Returns the progress messages for a given native build
+      description: 'Progress messages provide step-by-step status updates on the build process. Supports pagination via limit and offset parameters.
+
+
+        Rate Limit: 100 requests per minute
+
+
+        API Client needs the **Stage > View stage** permission.'
+      operationId: GET_BuildOperations_GetMessages
+      parameters:
+      - name: operationKey
+        in: path
+        description: Native build key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: environmentKey
+        in: query
+        description: Environment key
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: query
+        description: Application key
+        schema:
+          type: string
+          format: uuid
+      - name: offset
+        in: query
+        description: Offset of the last page, to get the following page with the same filters applied.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Max number of elements that should be returned in a single page.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: The list of progress messages for the native build operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32TaskProgressMessagePagedListResponse'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment, application or build operation was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Request is malformed.
+      x-os-permissions: API Client needs the **Stage > View stage** permission.
+  /build-operations:
+    get:
+      tags:
+      - BuildOperations
+      summary: Lists all build operations for filtering criteria
+      description: 'Results can optionally be filtered by build status, platform, or revision. Supports pagination via limit and offset parameters.
+
+
+        Rate Limit: 100 requests per minute
+
+
+        API Client needs the **Stage > View stage** permission.'
+      operationId: GET_BuildOperations_List
+      parameters:
+      - name: environmentKey
+        in: query
+        description: Environment key
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: query
+        description: Application key
+        schema:
+          type: string
+          format: uuid
+      - name: mobilePlatform
+        in: query
+        description: Filter by mobile platform type, if filled.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+      - name: revision
+        in: query
+        description: Filter by revision number, if filled.
+        schema:
+          type: integer
+          format: int32
+      - name: status
+        in: query
+        description: Filter by status of the build, if filled.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/BuildStatus'
+      - name: offset
+        in: query
+        description: Offset of the last page, to get the following page with the same filters applied.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Max number of elements that should be returned in a single page.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: The list of build operations matching the filtering criteria.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildOperationResultPagedListResponse'
+        '400':
+          description: Request is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Stage > View stage** permission.
+    post:
+      tags:
+      - BuildOperations
+      summary: Starts a new native build
+      description: 'This is an asynchronous operation. The response contains the details of the created build operation, including its
+
+        generated key, which can be used to query the operation status and details through other APIs.
+
+
+        Rate Limit: 5 requests per minute
+
+
+        API Client needs the **Release management > Deploy assets** permission.'
+      operationId: POST_BuildOperations_Post
+      requestBody:
+        description: Details of the build operation request
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BuildOperationRequest'
+              description: Build operation request
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BuildOperationRequest'
+              description: Build operation request
+      responses:
+        '201':
+          description: The native build operation was created successfully. The response contains the details of the created build operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildOperationResult'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment or application was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Release management > Deploy assets** permission.
+  /build-operations/version-suggestions:
+    post:
+      tags:
+      - BuildOperations
+      summary: Returns the suggested versions of the next build for the request platform(s)
+      description: 'Provides both the version number and version code for the next build. If no platform is specified, suggestions are returned for both iOS and Android.
+
+
+        Rate Limit: 5 requests per minute
+
+
+        API Client needs the **Stage > View stage** permission.'
+      operationId: POST_BuildOperations_PostVersionSuggestions
+      requestBody:
+        description: Details of the version suggestion request. See OutSystems.NativeApplicationOrchestration.Contracts.V1.Models.Public.VersionSuggestionsRequest
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/VersionSuggestionsRequest'
+              description: Version suggestions request
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/VersionSuggestionsRequest'
+              description: Version suggestions request
+        required: true
+      responses:
+        '200':
+          description: The suggested version number and version code of the next native build for the given environment key, application key and platform.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Android:
+                    $ref: '#/components/schemas/NativeBuildVersions'
+                  iOS:
+                    $ref: '#/components/schemas/NativeBuildVersions'
+                additionalProperties: false
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment or application was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 5 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Request is malformed.
+      x-os-permissions: API Client needs the **Stage > View stage** permission.
+  /build-operations/native-build-validation:
+    post:
+      tags:
+      - BuildOperations
+      summary: Check if a new native build is needed for one or all platforms
+      description: 'Results indicate whether the current build artifacts are up to date or if a rebuild is required. If no platform is specified, validation is performed for both iOS and Android.
+
+
+        Rate Limit: 5 requests per minute
+
+
+        API Client needs the **Stage > View stage** permission.'
+      operationId: POST_BuildOperations_ValidateNativeBuild
+      requestBody:
+        description: Details of the native build validation request
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BuildOperationValidationRequest'
+              description: Native build validation request for public API
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BuildOperationValidationRequest'
+              description: Native build validation request for public API
+      responses:
+        '200':
+          description: The validation results for the given build key, revision and platform.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildOperationValidationResponse'
+        '400':
+          description: Request is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: The specified environment or application was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 5 requests per minute"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Stage > View stage** permission.
+components:
+  schemas:
+    NativeBuildValidationResult:
+      enum:
+      - NativeBuildNeeded
+      - NativeBuildNotNeeded
+      - MissingConfiguration
+      type: string
+      description: Native Build Validation Result
+    BuildOperationResultPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BuildOperationResult'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    BuildType:
+      enum:
+      - Bundle
+      - Debug
+      - Release
+      - Development
+      - AppStore
+      - Adhoc
+      - InHouse
+      - Simulator
+      type: string
+      description: Build type
+    BuildStatus:
+      enum:
+      - Waiting
+      - Validating
+      - Building
+      - Shielding
+      - Finished
+      - Error
+      type: string
+      description: Build status
+    TaskProgressMessage:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: message timestamp
+          format: date-time
+        type:
+          type:
+          - string
+          - 'null'
+          description: message type (e.g., error code)
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/MessageSeverity'
+          description: message severity (info, warning or error)
+        message:
+          type:
+          - string
+          - 'null'
+          description: message detail
+      additionalProperties: false
+      description: Represents a user facing message about the progress of an operation.
+    MobileFramework:
+      enum:
+      - Capacitor
+      - Cordova
+      type: string
+      description: This enum is used to specify which framework should be used when building mobile applications
+    MobilePlatform:
+      enum:
+      - Android
+      - iOS
+      type: string
+      description: Mobile platform
+    MessageSeverity:
+      enum:
+      - Info
+      - Warning
+      - Error
+      type: string
+    BuildOperationValidationRequest:
+      type: object
+      properties:
+        environmentKey:
+          type: string
+          description: Unique identifier of the environment
+          format: uuid
+        applicationKey:
+          type: string
+          description: Unique identifier of the application
+          format: uuid
+        buildKey:
+          type: string
+          description: Unique identifier of the build
+          format: uuid
+        revision:
+          type: integer
+          description: App revision
+          format: int32
+        mobilePlatform:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+          description: Mobile platform (optional). If not specified, returns validation for all platforms.
+      additionalProperties: false
+      description: Native build validation request for public API
+    Int32PageInfo:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type: integer
+          description: Offset of the next page of results.
+          format: int32
+      additionalProperties: false
+      description: Contains response page information.
+    AppShieldUsage:
+      enum:
+      - Unused
+      - Disabled
+      - Applied
+      type: string
+      description: AppShield usage in the native build
+    VersionSuggestionsRequest:
+      type: object
+      properties:
+        environmentKey:
+          type: string
+          description: Unique identifier of the environment
+          format: uuid
+        applicationKey:
+          type: string
+          description: Unique identifier of the application
+          format: uuid
+        mobilePlatform:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+          description: 'The mobile platform for which the version suggestions are being requested.
+
+            If not provided, suggestions for both platforms will be returned.'
+      additionalProperties: false
+      description: Version suggestions request
+    Int32TaskProgressMessagePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/Int32PageInfo'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaskProgressMessage'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    NativeBuildVersions:
+      type: object
+      properties:
+        mobileVersionNumber:
+          type:
+          - string
+          - 'null'
+          description: The suggested Mobile Version Number. Format X.Y.Z
+        mobileVersionCode:
+          type: integer
+          description: 'The suggested Mobile Version Code.
+
+            Increasing integer that indicates if one version was build after another'
+          format: int32
+        mobilePlatform:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+          description: The mobile platform the suggested versions are related to
+      additionalProperties: false
+      description: Describes the suggested next mobile version
+    BuildOperationRequest:
+      type: object
+      properties:
+        buildKey:
+          type: string
+          description: Unique identifier of the build
+          format: uuid
+        revision:
+          type: integer
+          description: App revision
+          format: int32
+        mobileVersionNumber:
+          type:
+          - string
+          - 'null'
+          description: 'Mobile package Version: incremental number with the format major.minor.patch'
+        mobileVersionCode:
+          type:
+          - integer
+          - 'null'
+          description: 'Mobile package Version Code: an incremental integer'
+          format: int32
+        mobilePlatform:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+          description: Mobile platform
+        environmentKey:
+          type: string
+          description: Unique identifier of the environment
+          format: uuid
+        applicationKey:
+          type: string
+          description: Unique identifier of the application
+          format: uuid
+      additionalProperties: false
+      description: Build operation request
+    BuildOperationValidationResponse:
+      type: object
+      properties:
+        platformResults:
+          type:
+          - object
+          - 'null'
+          properties:
+            Android:
+              $ref: '#/components/schemas/NativeBuildValidationResult'
+            iOS:
+              $ref: '#/components/schemas/NativeBuildValidationResult'
+          additionalProperties: false
+          description: Native Build Validation results by mobile platform
+      additionalProperties: false
+      description: Native build validation response for public API
+    BuildOperationResult:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Native Build Key
+          format: uuid
+        applicationKey:
+          type: string
+          description: Application Key
+          format: uuid
+        buildKey:
+          type: string
+          description: Build Key
+          format: uuid
+        appIdentifier:
+          type:
+          - string
+          - 'null'
+          description: AppIdentifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/BuildType'
+          description: BuildType
+        revision:
+          type: integer
+          description: Revision
+          format: int32
+        mobilePlatform:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+          description: MobilePlatform
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFramework'
+          description: The mobile framework (e.g., Cordova, Capacitor) used for the build.
+        status:
+          allOf:
+          - $ref: '#/components/schemas/BuildStatus'
+          description: Status
+        estimatedFinishDateTime:
+          type:
+          - string
+          - 'null'
+          description: EstimatedFinishDateTime
+          format: date-time
+        appBinaryDownloadUrl:
+          type:
+          - string
+          - 'null'
+          description: AppBinaryDownloadUrl
+        appSourceDownloadUrl:
+          type:
+          - string
+          - 'null'
+          description: AppSourceDownloadUrl
+        mobileBuildLogUrl:
+          type:
+          - string
+          - 'null'
+          description: MobileBuildLogUrl
+        appShieldMappingUrl:
+          type:
+          - string
+          - 'null'
+          description: AppShieldMappingUrl
+        appShieldUsage:
+          allOf:
+          - $ref: '#/components/schemas/AppShieldUsage'
+          description: AppShieldUsage
+        mobileVersionNumber:
+          type:
+          - string
+          - 'null'
+          description: MobileVersionNumber
+        mobileVersionCode:
+          type:
+          - integer
+          - 'null'
+          description: MobileVersionCode
+          format: int32
+        startedDateTime:
+          type: string
+          description: StartedDateTime
+          format: date-time
+        finishedDateTime:
+          type:
+          - string
+          - 'null'
+          description: FinishedDateTime
+          format: date-time
+        nativeBuilderVersion:
+          type:
+          - string
+          - 'null'
+          description: NativeBuilderVersion
+        isNativeBuilderVersionLocked:
+          type:
+          - boolean
+          - 'null'
+          description: IsNativeBuilderVersionLocked
+        requestingUserKey:
+          type:
+          - string
+          - 'null'
+          description: RequestingUserId
+        appDeploymentFileDownloadUrl:
+          type:
+          - string
+          - 'null'
+          description: Deployment file download URL (for iOS builds with status Done)
+      additionalProperties: false
+      description: Build operation result
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

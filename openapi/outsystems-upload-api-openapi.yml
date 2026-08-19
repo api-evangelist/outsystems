@@ -1,0 +1,124 @@
+openapi: 3.2.0
+info:
+  title: External Library Generation Service Upload API
+  description: 'API for generating and managing external libraries from high-code packages.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/external-libraries/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/external-libraries/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Upload
+paths:
+  /uploads:
+    get:
+      tags:
+      - Upload
+      summary: Returns an Upload Schema.
+      description: 'Returns an Upload Schema containing a pre-signed uploadURL for uploading external library source code and an associated downloadURL to retrieve the uploaded source code.
+
+
+        Required permissions: **Asset management > Create**'
+      operationId: Upload_UploadOperation
+      responses:
+        '200':
+          description: UploadResponse.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.UploadResponse'
+        '400':
+          description: Request is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Not authorized to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '403':
+          description: Insufficient permissions to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+      x-os-permissions: 'Required permissions: **Asset management > Create**'
+components:
+  schemas:
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.UploadResponse:
+      required:
+      - downloadUrl
+      - uploadUrl
+      type: object
+      properties:
+        uploadUrl:
+          type:
+          - string
+          - 'null'
+          description: The pre-signed URL to upload the HighCode package.
+        downloadUrl:
+          type:
+          - string
+          - 'null'
+          description: The pre-signed URL to download the HighCode package.
+      additionalProperties: false
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

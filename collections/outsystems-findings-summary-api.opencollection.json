@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Code Quality Findings Summary API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Findings Summary",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves a multi-dimensional findings summary.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1/findings-summary",
+            "params": [
+              {
+                "name": "AssetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Filter by asset keys (unique identifiers)."
+              },
+              {
+                "name": "GroupBy",
+                "value": "",
+                "type": "query",
+                "description": "Grouping parameters for organizing the findings summary."
+              },
+              {
+                "name": "FetchChange",
+                "value": "true",
+                "type": "query",
+                "description": "Include changes compared to previous analysis."
+              },
+              {
+                "name": "AssetType",
+                "value": "WebApplication",
+                "type": "query",
+                "description": "Filter by asset type."
+              },
+              {
+                "name": "Categories",
+                "value": "",
+                "type": "query",
+                "description": "Filter by finding categories."
+              },
+              {
+                "name": "Severities",
+                "value": "",
+                "type": "query",
+                "description": "Filter by finding severity levels."
+              },
+              {
+                "name": "Since",
+                "value": "2022-06-01T00:00:00",
+                "type": "query",
+                "description": "Start date for filtering findings by discovery time. Default: if omitted, 14 days before `To` (or 14 days before now, if `To` is also omitted)."
+              },
+              {
+                "name": "To",
+                "value": "2022-12-31T23:59:59",
+                "type": "query",
+                "description": "End date for filtering findings by discovery time. Default: if omitted, now (current UTC time)."
+              },
+              {
+                "name": "ScoreRanges",
+                "value": "\"0-49,50-84,85-100\"",
+                "type": "query",
+                "description": "Filter by quality score ranges. Default: includes all scores."
+              },
+              {
+                "name": "Limit",
+                "value": "50",
+                "type": "query",
+                "description": "Number of records to return per page."
+              },
+              {
+                "name": "Offset",
+                "value": "100",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "PortfolioKey",
+                "value": "12345678-1234-1234-1234-123456789abc",
+                "type": "query",
+                "description": "Filter by portfolio key."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a multi-dimensional summary of findings, aggregated by customizable grouping parameters such as category, status, and severity.\n\nExample: GET /code-quality/v1/findings-summary?groupBy=Category,Status,Severity&categories=Security\n\nAPI Client needs the **Analyze > View Code Quality findings** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

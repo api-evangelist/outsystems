@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Asset Repository Uploads API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a new upload operation for uploading files.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/uploads"
+          },
+          "docs": "Generates a pre-signed URL that you can use to upload a file.\nThis URL can then be used in other endpoints that require a file upload, such as creating a new asset revision.\n\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

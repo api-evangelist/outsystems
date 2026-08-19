@@ -1,0 +1,886 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Outsystems Assets API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all assets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets",
+            "params": [
+              {
+                "name": "nameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters assets by name."
+              },
+              {
+                "name": "nameOrDescriptionContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters assets by name or description."
+              },
+              {
+                "name": "assetTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more asset types, recognized values are [WebApplication, MobileApplication, LowCodeLibrary, ExtensionLibrary, ExternalConnection, ExternalLibrary, Workflow, WidgetLibrary, AIModelConnection, SearchServiceConnection, Agent, MCPConnection, A2AConnection, KnowledgeBase]."
+              },
+              {
+                "name": "assetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more asset keys."
+              },
+              {
+                "name": "portfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more portfolio keys."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata]."
+              },
+              {
+                "name": "metadata.urlPathContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters assets by url path."
+              },
+              {
+                "name": "metadata.templateType",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets that are templates of a specific template type."
+              },
+              {
+                "name": "metadata.isDeployable",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets that can be deployed to environments (e.g. exclude libraries and templates)."
+              },
+              {
+                "name": "metadata.isBuiltInAsset",
+                "value": "",
+                "type": "query",
+                "description": "Filter asset based on if they are builtin type."
+              },
+              {
+                "name": "isExternal",
+                "value": "",
+                "type": "query",
+                "description": "Filter asset based on if it is external or not."
+              },
+              {
+                "name": "permissionFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific permission type."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: name, createdAt."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of the latest revision for all assets that match the specified filters.\n\n"
+        },
+        {
+          "info": {
+            "name": "Creates a new revision of an asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "If the asset does not exist, it creates the asset and its first revision.\nThe new revision can be created from a source file (OML/XIF) or, for new assets, created empty or cloned from a template.\nWhen providing the source file, you can pass it as a fileUri or send the binary directly using the application/octet-stream or multipart/form-data content types.\n\nTo create an asset, API Client needs the **Asset management > Create** permission.\n\nTo create a new revision for an existing asset, API Clien"
+        },
+        {
+          "info": {
+            "name": "Gets the latest revision of a specific asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata]."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the latest revision of a specific asset.\n\n"
+        },
+        {
+          "info": {
+            "name": "Deletes an asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deleting an asset is an irreversible action. When doing so, an internal event is triggered to remove it from all stages where it's published and to also delete all associated runtime data. Built-in assets are protected and cannot be deleted.\n\nAPI Client needs the **Asset management > Delete** permission."
+        },
+        {
+          "info": {
+            "name": "Gets the highest-tagged revision of an asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/highest-tag-revision",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata]."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the highest-tagged revision of the requested asset.\n\n"
+        },
+        {
+          "info": {
+            "name": "Gets the latest revision of an asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/latest-revision",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata]."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the latest revision of the requested asset.\n\n"
+        },
+        {
+          "info": {
+            "name": "Gets a specific revision of an asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata]."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the requested asset revision.\n\n"
+        },
+        {
+          "info": {
+            "name": "Sets the version tag and/or labels for an existing revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Setting the tag to null clears the existing revision tag.\n\nAPI Client needs the **Asset management > Change** or **Release management > Release** permission."
+        },
+        {
+          "info": {
+            "name": "Gets the icon for a specific asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/icon",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the icon for the specific asset revision\n\n"
+        },
+        {
+          "info": {
+            "name": "Gets the metadata for a specific asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/metadata",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the metadata for the specific asset revision\n\n"
+        },
+        {
+          "info": {
+            "name": "Gets the release notes for a specific asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/release-notes",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the release notes for the specific asset revision\n\n"
+        },
+        {
+          "info": {
+            "name": "Gets the signature for a specific asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/signature",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the signature for the specific asset revision\n\n"
+        },
+        {
+          "info": {
+            "name": "Gets the source code for a specific asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/source-code",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the source code for a specific asset revision\n\nAPI Client needs the **Asset management > Open** permissions."
+        },
+        {
+          "info": {
+            "name": "Lists all revisions of an asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "modelDigest",
+                "value": "",
+                "type": "query",
+                "description": "Match revisions with a specific model digest."
+              },
+              {
+                "name": "revisionDateTimeSince",
+                "value": "",
+                "type": "query",
+                "description": "Match revisions created since a specific date."
+              },
+              {
+                "name": "revisionDateTimeTo",
+                "value": "",
+                "type": "query",
+                "description": "Match revisions created until a specific date."
+              },
+              {
+                "name": "isTagged",
+                "value": "",
+                "type": "query",
+                "description": "Filters revisions based on whether they have a tag."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Matches revisions with the specific tag."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: revision, tag."
+              },
+              {
+                "name": "commitMessage",
+                "value": "",
+                "type": "query",
+                "description": "Filters revisions based on whether their commit message contains a specific string."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata]."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a paginated list of all revisions for a specific asset.\n\n"
+        },
+        {
+          "info": {
+            "name": "Lists all assets versions according to the combined key/digest/revision filter.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of asset revisions that match the specified filters.\n\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves the analysis summary for an asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revision/analysis-summary",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the asset"
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "path",
+                "description": "The revision number of the asset to retrieve analysis for"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves the analysis summary for a specific asset revision, including findings breakdown by severity and the quality score.\n\nExample: GET /code-quality/v1/assets/53fcbdc7-be3c-4532-866c-a296336133b0/revisions/8/analysis-summary\n\nAPI Client needs the **Analyze > View Code Quality findings** permission."
+        },
+        {
+          "info": {
+            "name": "Lists all consumer assets of an asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/consumers",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters consumers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)"
+              },
+              {
+                "name": "publicElementKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters consumers by a specific public element they use."
+              },
+              {
+                "name": "allowMultipleVersions",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns multiple versions of a consumer asset. If false, returns only the highest version. Defaults to false."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: name."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of assets that consume a specific asset.\n\n"
+        },
+        {
+          "info": {
+            "name": "Lists the producer assets that a specific asset revision depends on.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/producer-graph",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              },
+              {
+                "name": "maxDepth",
+                "value": "",
+                "type": "query",
+                "description": "The maximum depth to explore in the dependency hierarchy. Default is 0 (infinite)."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters producers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)"
+              },
+              {
+                "name": "producerTypeFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filters producers by type. Allowed values: Deployable, Libraries, All."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: name."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists the producer dependency graph for an asset revision.\n\n"
+        },
+        {
+          "info": {
+            "name": "Lists the producer assets that a specific asset revision depends on.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/producers",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              },
+              {
+                "name": "maxDepth",
+                "value": "",
+                "type": "query",
+                "description": "The maximum depth to explore in the dependency hierarchy. Default is 0 (infinite)."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters producers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)"
+              },
+              {
+                "name": "producerTypeFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filters producers by type. Allowed values: Deployable, Libraries, All."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: name."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all producer assets that a specific asset revision depends on, directly or indirectly.\n\n"
+        },
+        {
+          "info": {
+            "name": "Lists all consumer assets of an asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/consumers",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters consumers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)"
+              },
+              {
+                "name": "publicElementKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters consumers by a specific public element they use."
+              },
+              {
+                "name": "allowMultipleVersions",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns multiple versions of a consumer asset. If false, returns only the highest version. Defaults to false."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: name."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of assets that consume a specific revision of an asset.\n\n"
+        },
+        {
+          "info": {
+            "name": "Lists all the public elements of a specific asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/public-elements",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: name."
+              },
+              {
+                "name": "includeHidden",
+                "value": "",
+                "type": "query",
+                "description": "If the result should include hidden elements. Default is true."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of public elements for a specific asset revision.\n\n"
+        },
+        {
+          "info": {
+            "name": "Lists all public elements referenced by a specific asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-repository/v1/assets/:assetKey/revisions/:revisionNumber/referenced-elements",
+            "params": [
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "path",
+                "description": "The asset's key."
+              },
+              {
+                "name": "revisionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The revision number."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort. Allowed: name."
+              },
+              {
+                "name": "includeHidden",
+                "value": "",
+                "type": "query",
+                "description": "If the result should include hidden elements. Default is true."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all public elements referenced by a specific asset revision, as defined in the IDE.\n\nAPI Client needs the **Asset management > Open** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

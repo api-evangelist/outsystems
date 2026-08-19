@@ -1,0 +1,192 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Native Mobile Build Build Operations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BuildOperations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the details for a given build operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/build-operations/:operationKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "query",
+                "description": "Application key"
+              },
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "Build operation key"
+              }
+            ]
+          },
+          "docs": "The build operation key is generated when the build operation is created and returned in the response of the create API.\nIt can also be obtained through the list API.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Stage > View stage** permission."
+        },
+        {
+          "info": {
+            "name": "Returns the progress messages for a given native build",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/build-operations/:operationKey/log-messages",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "Native build key"
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "query",
+                "description": "Application key"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the last page, to get the following page with the same filters applied."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of elements that should be returned in a single page."
+              }
+            ]
+          },
+          "docs": "Progress messages provide step-by-step status updates on the build process. Supports pagination via limit and offset parameters.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Stage > View stage** permission."
+        },
+        {
+          "info": {
+            "name": "Lists all build operations for filtering criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/build-operations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Environment key"
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "query",
+                "description": "Application key"
+              },
+              {
+                "name": "mobilePlatform",
+                "value": "",
+                "type": "query",
+                "description": "Filter by mobile platform type, if filled."
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query",
+                "description": "Filter by revision number, if filled."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status of the build, if filled."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the last page, to get the following page with the same filters applied."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of elements that should be returned in a single page."
+              }
+            ]
+          },
+          "docs": "Results can optionally be filtered by build status, platform, or revision. Supports pagination via limit and offset parameters.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Stage > View stage** permission."
+        },
+        {
+          "info": {
+            "name": "Starts a new native build",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/build-operations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This is an asynchronous operation. The response contains the details of the created build operation, including its\ngenerated key, which can be used to query the operation status and details through other APIs.\n\nRate Limit: 5 requests per minute\n\nAPI Client needs the **Release management > Deploy assets** permission."
+        },
+        {
+          "info": {
+            "name": "Returns the suggested versions of the next build for the request platform(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/build-operations/version-suggestions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provides both the version number and version code for the next build. If no platform is specified, suggestions are returned for both iOS and Android.\n\nRate Limit: 5 requests per minute\n\nAPI Client needs the **Stage > View stage** permission."
+        },
+        {
+          "info": {
+            "name": "Check if a new native build is needed for one or all platforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1/build-operations/native-build-validation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Results indicate whether the current build artifacts are up to date or if a rebuild is required. If no platform is specified, validation is performed for both iOS and Android.\n\nRate Limit: 5 requests per minute\n\nAPI Client needs the **Stage > View stage** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

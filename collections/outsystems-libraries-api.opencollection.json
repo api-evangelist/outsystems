@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portfolio Libraries API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Libraries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves a list of libraries in the tenant portfolio.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/portfolios/v2/libraries",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of elements that should be returned in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the last page, to get the following page with the same filters applied."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Filter by asset key(s), comma separated."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by asset type(s), comma separated.\nAvailable values: LowCodeLibrary, ExtensionLibrary, ExternalLibrary, WidgetLibrary, MobileLibrary."
+              },
+              {
+                "name": "nameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filter by matching on the name, case-insensitive."
+              },
+              {
+                "name": "permissionFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter by permission type. Format: 'PermissionType' or 'PermissionType.EnvironmentKey'."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order. Format: Field:asc or Field:desc. Supported fields: Name, PublishDateTime.\nExample: sort=Name:asc or sort=PublishDateTime:desc."
+              },
+              {
+                "name": "portfolioKey",
+                "value": "",
+                "type": "query",
+                "description": "Filter by portfolio key. Returns only libraries belonging to this portfolio."
+              },
+              {
+                "name": "revisions",
+                "value": "",
+                "type": "query",
+                "description": "Which revisions to return per library: 'latest' (default), 'highestTag', or 'all'.\n'highestTag' selects the tagged revision with the highest SemVer (Major.Minor.Patch) version."
+              }
+            ]
+          },
+          "docs": "Retrieves all libraries available in the tenant portfolio, including their latest revision\nand all tagged revisions. Each library exposes the portfolio it belongs to and can be\nfiltered by portfolio key.\n\nAPI client must have at least one permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Code Quality Analysis Status API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analysis Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves the current synchronization status of Code Quality data.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1/analysis-status",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves the current synchronization status of Code Quality data, including the latest and last successful analysis details with metrics about new and resolved findings.\n\nExample: GET /code-quality/v1/analysis-status\n\nAPI Client needs the **Analyze > View Code Quality findings** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

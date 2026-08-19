@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "User and Access Management Application Roles API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "application-roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of application roles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/application-roles",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The application role key."
+              },
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "query",
+                "description": "The asset key that the application role belongs to."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters application roles by environment key (stage). Mutually exclusive with `environmentKeys`."
+              },
+              {
+                "name": "environmentKeys",
+                "value": "",
+                "type": "query",
+                "description": "Filters application roles by environment keys (stages). Comma-separated list of environment keys. Mutually exclusive with `environmentKey`."
+              },
+              {
+                "name": "portfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns application roles in environments belonging to the specified portfolios."
+              },
+              {
+                "name": "nameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters application roles by name."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort, for example \"-name\". Default: name. Allowed: name, environmentKey or assetKey."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned. Default value: 0."
+              }
+            ]
+          },
+          "docs": "Returns a list of application roles that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > View end users** permission."
+        },
+        {
+          "info": {
+            "name": "Returns the list of users for the specific application role.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/application-roles/:key/users",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Application role key."
+              },
+              {
+                "name": "userKey",
+                "value": "",
+                "type": "query",
+                "description": "User's key to search."
+              },
+              {
+                "name": "nameOrEmailContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters users by name or email address. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+              },
+              {
+                "name": "nameOrEmailOrUsernameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters users by name or email address or username.. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+              },
+              {
+                "name": "lastLoginAtSince",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users whose last login occurred on or after the specified date and time."
+              },
+              {
+                "name": "lastLoginAtTo",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users whose last login occurred before or on the specified date and time."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned. Default value: 0."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort, for example \"-name\". Default: name. Allowed: userKey, name, email, status, lastLoginAt."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "List of fields to embed in the response."
+              }
+            ]
+          },
+          "docs": "Returns a list of users that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > View end users** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dependency Management Public Elements API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Public Elements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all public elements of assets according to the complex filter.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/dependency-management/v1/public-elements/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Only public elements that the user has permission to reference are returned.\n\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

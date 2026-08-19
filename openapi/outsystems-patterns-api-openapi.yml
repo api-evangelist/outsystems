@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: Code Quality Patterns API
+  description: Provides APIs to submit code analysis requests and retrieve information about code quality findings, application scores, and analysis results.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/code-quality/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/code-quality/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+tags:
+- name: Patterns
+paths:
+  /patterns:
+    get:
+      tags:
+      - Patterns
+      summary: Retrieves a list of code patterns.
+      description: 'Returns a paginated list of all available code patterns that can be detected during code analysis, including their names, descriptions, and metadata.
+
+
+        Example: GET /code-quality/v1/patterns?limit=50
+
+
+        API Client needs the **Analyze > View Code Quality findings** permission.'
+      operationId: PatternsControllerV_GetPatterns
+      parameters:
+      - name: Limit
+        in: query
+        description: Max records (1-1000).
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+      - name: Offset
+        in: query
+        description: Records to skip (0+).
+        schema:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatternsResponsePagedListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+      x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
+  /patterns/{patternId}:
+    get:
+      tags:
+      - Patterns
+      summary: Retrieves details for a specific code pattern.
+      description: 'Returns detailed information about a specific code pattern, including its description, category, severity, and detection rules.
+
+
+        Example: GET /code-quality/v1/patterns/pattern-id-123
+
+
+        API Client needs the **Analyze > View Code Quality findings** permission.'
+      operationId: PatternsControllerV_GetPatternsById
+      parameters:
+      - name: patternId
+        in: path
+        description: ID of the pattern
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatternsResponsePagedListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+      x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    PatternsResponsePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PatternsResponse'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    PatternsResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        impact:
+          type:
+          - string
+          - 'null'
+        howToSolve:
+          type:
+          - string
+          - 'null'
+        category:
+          type:
+          - string
+          - 'null'
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+        showFlowViz:
+          type: boolean
+        showOpenInSS:
+          type: boolean
+        showHierarchyTree:
+          type: boolean
+        showConsumedElements:
+          type: boolean
+        showWhereObject:
+          type: boolean
+        showWhoObject:
+          type: boolean
+        showCreatedByUsername:
+          type: boolean
+        severity:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

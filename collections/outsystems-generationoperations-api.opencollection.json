@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "External Library Generation Service Generation Operations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GenerationOperations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the list of generation operations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/external-libraries/v1/generation-operations"
+          },
+          "docs": "Gets the list of all available generation operations.\n\nAPI Client needs at least one permission."
+        },
+        {
+          "info": {
+            "name": "Generate an external library from a high-code package.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/external-libraries/v1/generation-operations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Asynchronously generates an external library using the HighCode package, containing the compiled code of the library.\n\nRequired permissions:\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+        },
+        {
+          "info": {
+            "name": "Returns the details of a generation operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/external-libraries/v1/generation-operations/:operationKey",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The operation key."
+              }
+            ]
+          },
+          "docs": "Returns the details of a generation operation its key.\n\nAPI Client needs at least one permission."
+        },
+        {
+          "info": {
+            "name": "Deletes a generation operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ODC_PORTAL_DOMAIN/api/external-libraries/v1/generation-operations/:operationKey",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The operation key."
+              }
+            ]
+          },
+          "docs": "Deletes a specific generation operation and all associated logs.\n\nRequired permissions:\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+        },
+        {
+          "info": {
+            "name": "Returns the contents of the specified generation operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/external-libraries/v1/generation-operations/:operationKey/contents",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The generation operation key."
+              }
+            ]
+          },
+          "docs": "Returns the actions and structures defined on the high code package corresponding to the specified generation operation\n\nRequired permissions:\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+        },
+        {
+          "info": {
+            "name": "Get log messages.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/external-libraries/v1/generation-operations/:operationKey/log-messages",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "The generation operation key."
+              }
+            ]
+          },
+          "docs": "Returns the validation messages for the specified generation operation.\n\nRequired permissions:\n - If generation operation has no library key associated (failed to get extracted from high code): **Asset management > Create** or **Asset management > Change**\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

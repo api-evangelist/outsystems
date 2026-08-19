@@ -1,0 +1,920 @@
+{
+  "item": [
+    {
+      "id": "43052dc6-fc38-49ff-b8a4-30f2a5cb905d",
+      "name": "Findings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f24a4f8e-d295-4d1a-a2d5-79b05b9d42c2",
+          "name": "Retrieves a list of code quality findings.",
+          "request": {
+            "name": "Retrieves a list of code quality findings.",
+            "description": {
+              "content": "Retrieves a paginated list of code quality findings with comprehensive filtering, sorting, and field selection capabilities.\n\nExample: GET /code-quality/v1/findings?assetKeys=abc123&severities=High&status=Open&limit=20\n\nAPI Client needs the **Analyze > View Code Quality findings** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "findings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "AssetKeys",
+                  "value": "<string>",
+                  "description": "Filter by asset keys (unique identifiers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "AssetKeys",
+                  "value": "<string>",
+                  "description": "Filter by asset keys (unique identifiers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsLatest",
+                  "value": "<boolean>",
+                  "description": "Filter to return only findings from the most recent analysis snapshot."
+                },
+                {
+                  "disabled": false,
+                  "key": "Sort",
+                  "value": "<string>",
+                  "description": "Sort results by specified fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "Sort",
+                  "value": "<string>",
+                  "description": "Sort results by specified fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "Fields",
+                  "value": "<string>",
+                  "description": "Select specific fields to return in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "Fields",
+                  "value": "<string>",
+                  "description": "Select specific fields to return in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "Categories",
+                  "value": "<string>",
+                  "description": "Filter by finding categories."
+                },
+                {
+                  "disabled": false,
+                  "key": "Categories",
+                  "value": "<string>",
+                  "description": "Filter by finding categories."
+                },
+                {
+                  "disabled": false,
+                  "key": "Status",
+                  "value": "<string>",
+                  "description": "Filter by finding status."
+                },
+                {
+                  "disabled": false,
+                  "key": "Status",
+                  "value": "<string>",
+                  "description": "Filter by finding status."
+                },
+                {
+                  "disabled": false,
+                  "key": "AssetType",
+                  "value": "<string>",
+                  "description": "Filter by asset type."
+                },
+                {
+                  "disabled": false,
+                  "key": "AssetType",
+                  "value": "<string>",
+                  "description": "Filter by asset type."
+                },
+                {
+                  "disabled": false,
+                  "key": "Severities",
+                  "value": "<string>",
+                  "description": "Filter by finding severity levels."
+                },
+                {
+                  "disabled": false,
+                  "key": "Severities",
+                  "value": "<string>",
+                  "description": "Filter by finding severity levels."
+                },
+                {
+                  "disabled": false,
+                  "key": "PatternIds",
+                  "value": "<string>",
+                  "description": "Filter by code pattern identifiers."
+                },
+                {
+                  "disabled": false,
+                  "key": "PatternIds",
+                  "value": "<string>",
+                  "description": "Filter by code pattern identifiers."
+                },
+                {
+                  "disabled": false,
+                  "key": "Since",
+                  "value": "<string>",
+                  "description": "Start date for filtering findings by discovery time. Default: if omitted, 14 days before `To` (or 14 days before now, if `To` is also omitted)."
+                },
+                {
+                  "disabled": false,
+                  "key": "To",
+                  "value": "<string>",
+                  "description": "End date for filtering findings by discovery time. Default: if omitted, now (current UTC time)."
+                },
+                {
+                  "disabled": false,
+                  "key": "Limit",
+                  "value": "<integer>",
+                  "description": "Number of records to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "Offset",
+                  "value": "<integer>",
+                  "description": "Number of records to skip for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "PortfolioKey",
+                  "value": "<uuid>",
+                  "description": "Filter by portfolio key."
+                },
+                {
+                  "disabled": false,
+                  "key": "CreatedBy",
+                  "value": "<string>",
+                  "description": "Filter by creator user IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "CreatedBy",
+                  "value": "<string>",
+                  "description": "Filter by creator user IDs."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f174007c-ec2a-442f-8edd-a065c60d31c3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsLatest",
+                      "value": "true"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"count\": 8313,\n    \"limit\": 3445,\n    \"offset\": 9768,\n    \"nextPageOffset\": null,\n    \"totalResults\": 9395,\n    \"totalPages\": 1132\n  },\n  \"results\": [\n    \"\",\n    \"\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b813a9e-e0de-451f-a375-feb2e1aa9272",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsLatest",
+                      "value": "true"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfd3cc01-5e1b-48f0-a79f-9eaddc8f1953",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsLatest",
+                      "value": "true"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bc7ef78-293f-454e-a5b9-86aef5abf3da",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsLatest",
+                      "value": "true"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ddd5c55-392e-4d15-b4d7-b8eb3a4c762b",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsLatest",
+                      "value": "true"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PatternIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CreatedBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"count\": 8313,\n    \"limit\": 3445,\n    \"offset\": 9768,\n    \"nextPageOffset\": null,\n    \"totalResults\": 9395,\n    \"totalPages\": 1132\n  },\n  \"results\": [\n    \"\",\n    \"\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "656befab-c34e-4373-99e1-1e3838c5ef35",
+    "name": "Code Quality Findings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Provides APIs to submit code analysis requests and retrieve information about code quality findings, application scores, and analysis results.",
+      "type": "text/plain"
+    }
+  }
+}

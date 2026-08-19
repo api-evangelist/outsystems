@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Environment Configurations Private gateways API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Private gateways",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Activates a private gateway.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/private-gateway/activation",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ]
+          },
+          "docs": "Activates a private gateway.\n\nAPI Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Deactivates a private gateway.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/private-gateway/deactivation",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ]
+          },
+          "docs": "Deactivates a private gateway.\n\nAPI Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Gets the private gateway status.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/private-gateway",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ]
+          },
+          "docs": "Gets the private gateway status.\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Rotates the private gateway key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/private-gateway/key-rotation",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ]
+          },
+          "docs": "Rotates the private gateway key.\n\nAPI Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

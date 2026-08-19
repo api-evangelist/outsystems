@@ -1,0 +1,419 @@
+openapi: 3.2.0
+info:
+  title: Dependency Management Deletion Analyses API
+  description: 'REST endpoints for launching and getting results of impact analysis in the deployment and deletion of an asset.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/dependency-management/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Deletion Analyses
+paths:
+  /deletion-analyses/{analysisKey}:
+    get:
+      tags:
+      - Deletion Analyses
+      summary: Returns the deletion analysis result
+      description: 'Returns the deletion analysis report once the analysis is completed.
+
+
+        '
+      operationId: DeletionAnalysis_GetResult
+      parameters:
+      - name: analysisKey
+        in: path
+        description: Analysis key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicDeletionAnalysisReportPublicAnalysisResult'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /deletion-analyses:
+    post:
+      tags:
+      - Deletion Analyses
+      summary: Launches a Deletion Analysis Process
+      description: 'Launches a Deletion Analysis Process. This evaluates the impacts of deleting the associated asset.
+
+        For applications and agents, considers the impacts of undeploying them from their running stages, on their consumers
+
+        For libraries, considers what running applications are still consuming them, and evaluating the impact they''ll have, on not being available to build, going forward
+
+
+        API Client needs the **Asset management > Delete** permission.'
+      operationId: DeletionAnalysis_LaunchDeletionAnalysis
+      requestBody:
+        description: LaunchDeletionAnalysisRequest with the application to be deleted.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PublicLaunchDeletionAnalysisRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PublicLaunchDeletionAnalysisRequest'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferenceKeyResponse'
+      x-os-permissions: API Client needs the **Asset management > Delete** permission.
+components:
+  schemas:
+    PublicDependencyPath:
+      type: object
+      properties:
+        indirectElements:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicIndirectElement'
+          description: List of indirect Element elements reference in this dependency path
+      additionalProperties: false
+    EnvironmentReport:
+      type: object
+      properties:
+        environmentKey:
+          type:
+          - string
+          - 'null'
+          description: Environment key
+        name:
+          type:
+          - string
+          - 'null'
+          description: Environment name
+        purpose:
+          allOf:
+          - $ref: '#/components/schemas/TenantEnvironmentPurpose'
+          description: Environment purpose
+      additionalProperties: false
+    ReferenceKeyResponse:
+      type: object
+      properties:
+        analysisKey:
+          type:
+          - string
+          - 'null'
+          description: Analysis Key
+      additionalProperties: false
+    ProcessStatus:
+      enum:
+      - InProgress
+      - Finished
+      - Failed
+      type: string
+    TenantEnvironmentPurpose:
+      enum:
+      - Unknown
+      - Development
+      - NonProduction
+      - Production
+      type: string
+    AnalysisReportType:
+      enum:
+      - Deployment
+      - Deletion
+      type: string
+    PublicIndirectElement:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Element Application Name
+        revision:
+          type: integer
+          description: Element Application Revision
+          format: int32
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: Portfolio key for the element
+        portfolioName:
+          type:
+          - string
+          - 'null'
+          description: Portfolio name for the element
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset Key
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    ConflictSeverity:
+      enum:
+      - Warning
+      - Error
+      type: string
+    PublicImpactedApplication:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Impacted application name
+        type:
+          type:
+          - string
+          - 'null'
+          description: Impacted application type
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: Portfolio key for the impacted application
+        portfolioName:
+          type:
+          - string
+          - 'null'
+          description: Portfolio name for the impacted application
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset Key
+        deployedRevisions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicDeployedRevision'
+          description: Deployed Revisions of the impacted application
+      additionalProperties: false
+    PublicLaunchDeletionAnalysisRequest:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset Key for the analysis
+      additionalProperties: false
+    PublicDeployedRevision:
+      type: object
+      properties:
+        revision:
+          type: integer
+          description: Deployed Application Revision
+          format: int32
+        environmentKey:
+          type:
+          - string
+          - 'null'
+          description: Environment in which application is deployed
+        consumerType:
+          type:
+          - string
+          - 'null'
+          description: Application Consumer Type
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/ConflictSeverity'
+          description: Conflict severity
+        indirectLibraryHint:
+          type:
+          - string
+          - 'null'
+          description: Indirect library hint
+        indirectDependencies:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicDependencyPath'
+          description: Indirect dependencies for the library
+      additionalProperties: false
+    PublicDeletionAnalysisReportPublicAnalysisResult:
+      type: object
+      properties:
+        analysisKey:
+          type:
+          - string
+          - 'null'
+          description: Key of the analysis
+        type:
+          allOf:
+          - $ref: '#/components/schemas/AnalysisReportType'
+          description: Type of analysis
+        processStatus:
+          allOf:
+          - $ref: '#/components/schemas/ProcessStatus'
+          description: Status of the analysis
+        error:
+          allOf:
+          - $ref: '#/components/schemas/ProblemDetails'
+          description: Processing error, if any
+        report:
+          allOf:
+          - $ref: '#/components/schemas/PublicDeletionAnalysisReport'
+          description: Report
+        environmentKey:
+          type:
+          - string
+          - 'null'
+          description: Environment Key, if any
+          format: uuid
+        startedAt:
+          type: string
+          description: Start date of the analysis
+          format: date-time
+        assetKey:
+          type: string
+          description: Asset Key
+          format: uuid
+      additionalProperties: false
+    ImpactedDomain:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Domain Key
+        hostname:
+          type:
+          - string
+          - 'null'
+          description: Hostname of the domain
+        environmentKey:
+          type:
+          - string
+          - 'null'
+          description: Environment key where the domain is configured
+        environmentName:
+          type:
+          - string
+          - 'null'
+          description: Environment name where the domain is configured
+      additionalProperties: false
+    PublicDeletionAnalysisReport:
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AnalysisStatus'
+          description: Analysis global status
+          readOnly: true
+        deployedEnvironments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EnvironmentReport'
+          description: List of environments where application is deployed
+        impactedDomains:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ImpactedDomain'
+          description: List of impacted custom domains
+        impactedAssets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicImpactedApplication'
+          description: List of impacted assets
+      additionalProperties: false
+    AnalysisStatus:
+      enum:
+      - NoIssuesFound
+      - WarningsFound
+      - ErrorsFound
+      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token
+      scheme: bearer
+      bearerFormat: JWT

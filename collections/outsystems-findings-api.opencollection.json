@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Code Quality Findings API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Findings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves a list of code quality findings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1/findings",
+            "params": [
+              {
+                "name": "AssetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Filter by asset keys (unique identifiers)."
+              },
+              {
+                "name": "IsLatest",
+                "value": "true",
+                "type": "query",
+                "description": "Filter to return only findings from the most recent analysis snapshot."
+              },
+              {
+                "name": "Sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by specified fields."
+              },
+              {
+                "name": "Fields",
+                "value": "",
+                "type": "query",
+                "description": "Select specific fields to return in the response."
+              },
+              {
+                "name": "Categories",
+                "value": "",
+                "type": "query",
+                "description": "Filter by finding categories."
+              },
+              {
+                "name": "Status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by finding status."
+              },
+              {
+                "name": "AssetType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by asset type."
+              },
+              {
+                "name": "Severities",
+                "value": "",
+                "type": "query",
+                "description": "Filter by finding severity levels."
+              },
+              {
+                "name": "PatternIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter by code pattern identifiers."
+              },
+              {
+                "name": "Since",
+                "value": "2022-06-01T00:00:00",
+                "type": "query",
+                "description": "Start date for filtering findings by discovery time. Default: if omitted, 14 days before `To` (or 14 days before now, if `To` is also omitted)."
+              },
+              {
+                "name": "To",
+                "value": "2022-12-31T23:59:59",
+                "type": "query",
+                "description": "End date for filtering findings by discovery time. Default: if omitted, now (current UTC time)."
+              },
+              {
+                "name": "Limit",
+                "value": "50",
+                "type": "query",
+                "description": "Number of records to return per page."
+              },
+              {
+                "name": "Offset",
+                "value": "100",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "PortfolioKey",
+                "value": "12345678-1234-1234-1234-123456789abc",
+                "type": "query",
+                "description": "Filter by portfolio key."
+              },
+              {
+                "name": "CreatedBy",
+                "value": "",
+                "type": "query",
+                "description": "Filter by creator user IDs."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a paginated list of code quality findings with comprehensive filtering, sorting, and field selection capabilities.\n\nExample: GET /code-quality/v1/findings?assetKeys=abc123&severities=High&status=Open&limit=20\n\nAPI Client needs the **Analyze > View Code Quality findings** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

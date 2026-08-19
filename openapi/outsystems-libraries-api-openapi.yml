@@ -1,0 +1,327 @@
+openapi: 3.2.0
+info:
+  title: Portfolio Libraries API
+  description: 'REST endpoints for retrieving information about assets and environments in your organization.
+
+    '
+  version: v2
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/portfolios/v2
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/portfolios/v2
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Libraries
+  description: ''
+paths:
+  /libraries:
+    get:
+      tags:
+      - Libraries
+      summary: Retrieves a list of libraries in the tenant portfolio.
+      description: 'Retrieves all libraries available in the tenant portfolio, including their latest revision
+
+        and all tagged revisions. Each library exposes the portfolio it belongs to and can be
+
+        filtered by portfolio key.
+
+
+        API client must have at least one permission.'
+      operationId: Libraries_ListLibraries
+      parameters:
+      - name: limit
+        in: query
+        description: Max number of elements that should be returned in a single page.
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offset of the last page, to get the following page with the same filters applied.
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        description: Filter by asset key(s), comma separated.
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Filter by asset type(s), comma separated.
+
+          Available values: LowCodeLibrary, ExtensionLibrary, ExternalLibrary, WidgetLibrary, MobileLibrary.'
+        schema:
+          type: array
+          items:
+            type: string
+      - name: nameContains
+        in: query
+        description: Filter by matching on the name, case-insensitive.
+        schema:
+          type: string
+      - name: permissionFilter
+        in: query
+        description: 'Filter by permission type. Format: ''PermissionType'' or ''PermissionType.EnvironmentKey''.'
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Sort order. Format: Field:asc or Field:desc. Supported fields: Name, PublishDateTime.
+
+          Example: sort=Name:asc or sort=PublishDateTime:desc.'
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/LibrarySortListSortDirectionValueTuple'
+      - name: portfolioKey
+        in: query
+        description: Filter by portfolio key. Returns only libraries belonging to this portfolio.
+        schema:
+          type: string
+          format: uuid
+      - name: revisions
+        in: query
+        description: 'Which revisions to return per library: ''latest'' (default), ''highestTag'', or ''all''.
+
+          ''highestTag'' selects the tagged revision with the highest SemVer (Major.Minor.Patch) version.'
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/LibraryRevisionsFilter'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryPagedListResponse'
+      x-os-permissions: API client must have at least one permission.
+components:
+  schemas:
+    LibraryRevision:
+      required:
+      - name
+      type: object
+      properties:
+        revision:
+          type: integer
+          description: The revision number.
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the library at this revision.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the library at this revision.
+        iconUrl:
+          type:
+          - string
+          - 'null'
+          description: The pre-signed URL for the library icon.
+        publishDateTime:
+          type: string
+          description: The date and time at which this revision was published (UTC).
+          format: date-time
+        publishUserKey:
+          type:
+          - string
+          - 'null'
+          description: The key of the user who published this revision.
+        tag:
+          type:
+          - string
+          - 'null'
+          description: The version tag applied to this revision, if any.
+        taggingUserKey:
+          type:
+          - string
+          - 'null'
+          description: The key of the user who applied the version tag, if any.
+        taggingDateTime:
+          type:
+          - string
+          - 'null'
+          description: The date and time at which the version tag was applied (UTC), if any.
+          format: date-time
+        isLatest:
+          type: boolean
+          description: 'Whether this is the latest revision of the library. Derived at read time as
+
+            `revision == max(revision)` across the library''s cached revisions; not a persisted flag.'
+      additionalProperties: false
+      description: A specific revision of a library asset.
+    LibraryRevisionsFilter:
+      enum:
+      - Latest
+      - HighestTag
+      - All
+      type: string
+      description: Controls which revisions of each library are returned by GET /libraries.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    LibraryPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Library'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    LibrarySortListSortDirectionValueTuple:
+      type: object
+      additionalProperties: false
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    Library:
+      required:
+      - portfolioKey
+      - type
+      type: object
+      properties:
+        key:
+          type: string
+          description: The asset key.
+          format: uuid
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of library (LowCodeLibrary, ExtensionLibrary, ExternalLibrary, WidgetLibrary).
+        isBuiltIn:
+          type: boolean
+          description: Whether the library is a built-in asset.
+        portfolioKey:
+          type: string
+          description: The portfolio key the library belongs to.
+          format: uuid
+        revisions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryRevision'
+          description: The library revisions (latest revision and all tagged revisions, deduplicated).
+      additionalProperties: false
+      description: Library asset with its available revisions.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,1159 @@
+{
+  "item": [
+    {
+      "id": "fb1c4143-59ee-4a32-8377-cf3eb80745dc",
+      "name": "application-roles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "77839d38-0415-4b35-bff7-f134c20e4ded",
+          "name": "Returns a list of application roles.",
+          "request": {
+            "name": "Returns a list of application roles.",
+            "description": {
+              "content": "Returns a list of application roles that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > View end users** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "application-roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<uuid>",
+                  "description": "The application role key."
+                },
+                {
+                  "disabled": false,
+                  "key": "assetKey",
+                  "value": "<uuid>",
+                  "description": "The asset key that the application role belongs to."
+                },
+                {
+                  "disabled": false,
+                  "key": "environmentKey",
+                  "value": "<uuid>",
+                  "description": "Filters application roles by environment key (stage). Mutually exclusive with `environmentKeys`."
+                },
+                {
+                  "disabled": false,
+                  "key": "environmentKeys",
+                  "value": "<uuid>",
+                  "description": "Filters application roles by environment keys (stages). Comma-separated list of environment keys. Mutually exclusive with `environmentKey`."
+                },
+                {
+                  "disabled": false,
+                  "key": "environmentKeys",
+                  "value": "<uuid>",
+                  "description": "Filters application roles by environment keys (stages). Comma-separated list of environment keys. Mutually exclusive with `environmentKey`."
+                },
+                {
+                  "disabled": false,
+                  "key": "portfolioKeys",
+                  "value": "<uuid>",
+                  "description": "Only returns application roles in environments belonging to the specified portfolios."
+                },
+                {
+                  "disabled": false,
+                  "key": "portfolioKeys",
+                  "value": "<uuid>",
+                  "description": "Only returns application roles in environments belonging to the specified portfolios."
+                },
+                {
+                  "disabled": false,
+                  "key": "nameContains",
+                  "value": "<string>",
+                  "description": "Filters application roles by name."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort, for example \"-name\". Default: name. Allowed: name, environmentKey or assetKey."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset of the first result returned. Default value: 0."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a85b74a-ddd8-489c-a06e-cd4fe10502f8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "assetKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": null,\n  \"page\": {\n    \"count\": 8260,\n    \"limit\": 9648,\n    \"offset\": 1355,\n    \"totalResults\": 7705,\n    \"nextPageOffset\": 2935,\n    \"totalPages\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "112fce91-6c6e-4006-a721-1af48dc1961a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "assetKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0322822-593e-4285-960a-6264dccc70bc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "assetKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b89c188-f32d-4892-a165-96ca76952546",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "assetKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c46e20a-9389-4d29-bfa6-d358ef66f202",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "assetKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "environmentKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "portfolioKeys",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "929fd94b-d6a5-4877-9836-370df2b2f662",
+          "name": "Returns the list of users for the specific application role.",
+          "request": {
+            "name": "Returns the list of users for the specific application role.",
+            "description": {
+              "content": "Returns a list of users that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > View end users** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "application-roles",
+                ":key",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userKey",
+                  "value": "<uuid>",
+                  "description": "User's key to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "nameOrEmailContains",
+                  "value": "<string>",
+                  "description": "Filters users by name or email address. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+                },
+                {
+                  "disabled": false,
+                  "key": "nameOrEmailOrUsernameContains",
+                  "value": "<string>",
+                  "description": "Filters users by name or email address or username.. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+                },
+                {
+                  "disabled": false,
+                  "key": "lastLoginAtSince",
+                  "value": "<dateTime>",
+                  "description": "Only returns users whose last login occurred on or after the specified date and time."
+                },
+                {
+                  "disabled": false,
+                  "key": "lastLoginAtTo",
+                  "value": "<dateTime>",
+                  "description": "Only returns users whose last login occurred before or on the specified date and time."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset of the first result returned. Default value: 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort, for example \"-name\". Default: name. Allowed: userKey, name, email, status, lastLoginAt."
+                },
+                {
+                  "disabled": false,
+                  "key": "embed",
+                  "value": "<string>",
+                  "description": "List of fields to embed in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "embed",
+                  "value": "<string>",
+                  "description": "List of fields to embed in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "key",
+                  "description": "(Required) Application role key."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b985c092-d2dc-4d08-aed5-82deb6cedde8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles",
+                    ":key",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameOrEmailContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nameOrEmailOrUsernameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastLoginAtSince",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "lastLoginAtTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "key",
+                      "description": "(Required) Application role key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    \"\",\n    \"\"\n  ],\n  \"page\": {\n    \"count\": 3114,\n    \"limit\": 2697,\n    \"offset\": 3132,\n    \"totalResults\": 8570,\n    \"nextPageOffset\": 9958,\n    \"totalPages\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e155635d-805b-49a7-ab3e-a705d4931765",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles",
+                    ":key",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameOrEmailContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nameOrEmailOrUsernameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastLoginAtSince",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "lastLoginAtTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "key",
+                      "description": "(Required) Application role key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3b8f3b1-9893-4e25-bd95-3a87413553cc",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles",
+                    ":key",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameOrEmailContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nameOrEmailOrUsernameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastLoginAtSince",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "lastLoginAtTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "key",
+                      "description": "(Required) Application role key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3dbe00a-278c-4fcc-bc77-21ffb3fab9a9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles",
+                    ":key",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameOrEmailContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nameOrEmailOrUsernameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastLoginAtSince",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "lastLoginAtTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "key",
+                      "description": "(Required) Application role key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de747c63-89d4-4d1c-9463-8f1cd4f60766",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "application-roles",
+                    ":key",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nameOrEmailContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nameOrEmailOrUsernameContains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastLoginAtSince",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "lastLoginAtTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "embed",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "key",
+                      "description": "(Required) Application role key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ODC_PORTAL_DOMAIN/api/identity/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9f68f1a1-dbaf-4b15-bc9b-f9f9c9880899",
+    "name": "User and Access Management Application Roles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST endpoints for retrieving and managing user and access in your organization.",
+      "type": "text/plain"
+    }
+  }
+}

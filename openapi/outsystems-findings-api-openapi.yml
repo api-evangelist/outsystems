@@ -1,0 +1,409 @@
+openapi: 3.2.0
+info:
+  title: Code Quality Findings API
+  description: Provides APIs to submit code analysis requests and retrieve information about code quality findings, application scores, and analysis results.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/code-quality/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/code-quality/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+tags:
+- name: Findings
+paths:
+  /findings:
+    get:
+      tags:
+      - Findings
+      summary: Retrieves a list of code quality findings.
+      description: 'Retrieves a paginated list of code quality findings with comprehensive filtering, sorting, and field selection capabilities.
+
+
+        Example: GET /code-quality/v1/findings?assetKeys=abc123&severities=High&status=Open&limit=20
+
+
+        API Client needs the **Analyze > View Code Quality findings** permission.'
+      operationId: FindingsControllerV_GetFindings
+      parameters:
+      - name: AssetKeys
+        in: query
+        description: Filter by asset keys (unique identifiers).
+        schema:
+          type: array
+          items:
+            type: string
+      - name: IsLatest
+        in: query
+        description: Filter to return only findings from the most recent analysis snapshot.
+        schema:
+          type: boolean
+          example: true
+        example: true
+      - name: Sort
+        in: query
+        description: Sort results by specified fields.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: Fields
+        in: query
+        description: Select specific fields to return in the response.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: Categories
+        in: query
+        description: Filter by finding categories.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Categories'
+      - name: Status
+        in: query
+        description: Filter by finding status.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: AssetType
+        in: query
+        description: Filter by asset type.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetType'
+      - name: Severities
+        in: query
+        description: Filter by finding severity levels.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/FindingSeverity'
+      - name: PatternIds
+        in: query
+        description: Filter by code pattern identifiers.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: Since
+        in: query
+        description: 'Start date for filtering findings by discovery time. Default: if omitted, 14 days before `To` (or 14 days before now, if `To` is also omitted).'
+        schema:
+          type: string
+          example: '2022-06-01T00:00:00'
+        example: '2022-06-01T00:00:00'
+      - name: To
+        in: query
+        description: 'End date for filtering findings by discovery time. Default: if omitted, now (current UTC time).'
+        schema:
+          type: string
+          example: '2022-12-31T23:59:59'
+        example: '2022-12-31T23:59:59'
+      - name: Limit
+        in: query
+        description: Number of records to return per page.
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          example: 50
+        example: 50
+      - name: Offset
+        in: query
+        description: Number of records to skip for pagination.
+        schema:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+          example: 100
+        example: 100
+      - name: PortfolioKey
+        in: query
+        description: Filter by portfolio key.
+        schema:
+          type: string
+          format: uuid
+          example: 12345678-1234-1234-1234-123456789abc
+        example: 12345678-1234-1234-1234-123456789abc
+      - name: CreatedBy
+        in: query
+        description: Filter by creator user IDs.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingsResponseV1PagedListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingsResponseV1PagedListResponse'
+      security:
+      - bearerAuth: []
+      x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
+components:
+  schemas:
+    AssetType:
+      enum:
+      - WebApplication
+      - MobileApplication
+      - LowCodeLibrary
+      - MobileLibrary
+      type: string
+    FindingsResponseV1PagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FindingsResponseV1'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    FindingsResponseV1:
+      title: FindingsResponse
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        patternId:
+          type:
+          - string
+          - 'null'
+        discoveredOn:
+          type:
+          - string
+          - 'null'
+        rediscoveredOn:
+          type:
+          - string
+          - 'null'
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
+          type:
+          - string
+          - 'null'
+        elementPath:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ElementPath'
+          readOnly: true
+        elementLastModifiedBy:
+          type:
+          - string
+          - 'null'
+        elementLastModifiedOn:
+          type:
+          - string
+          - 'null'
+        whereElementKey:
+          type:
+          - string
+          - 'null'
+        whereElementName:
+          type:
+          - string
+          - 'null'
+        whereElementType:
+          type:
+          - string
+          - 'null'
+        whereElementPath:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ElementPath'
+          readOnly: true
+        whereElementLastModifiedBy:
+          type:
+          - string
+          - 'null'
+        whereElementLastModifiedOn:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        dismissReason:
+          type:
+          - string
+          - 'null'
+        snoozedUntil:
+          type:
+          - string
+          - 'null'
+        severity:
+          type:
+          - string
+          - 'null'
+        assetKey:
+          type:
+          - string
+          - 'null'
+        assetRevision:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    FindingSeverity:
+      enum:
+      - Low
+      - Medium
+      - High
+      - Critical
+      type: string
+    ElementPath:
+      type: object
+      properties:
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

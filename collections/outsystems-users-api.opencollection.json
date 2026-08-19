@@ -1,0 +1,649 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "User and Access Management Users API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bulk create users and optionally in the built-in identity provider.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The number of users added must be between 1 and 100 (inclusive), otherwise a bad request is returned.\nReturns an operations status object with an operation key that can be used later to get the status of the bulk create.\n            \nAPI Client needs the User management > Manage users permission.\n\nAPI Client needs the **User management > Manage users** permission."
+        },
+        {
+          "info": {
+            "name": "Get the bulk user operation status.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/bulk/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key of the operation that was obtained during submitting bulk operation."
+              }
+            ]
+          },
+          "docs": "Returns an operations status object that contains the overall status of the bulk operation.\nIf the bulk operation has a Finished or FinishedWithError status,\nthe result of each and every item in the list is returned as well.\nIf the bulk operation has a Pending or Processing status, only the overall status is returned.\n            \nAPI Client needs the User management > Manage users permission.\n\nAPI Client needs the **User management > Manage users** permission."
+        },
+        {
+          "info": {
+            "name": "Grants an application role to a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key/application-roles/:roleKey",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              },
+              {
+                "name": "roleKey",
+                "value": "",
+                "type": "path",
+                "description": "Application role creation request."
+              }
+            ]
+          },
+          "docs": "Assigns an application role to a user by providing the application role key and the user key.\n\nAPI Client needs the **User management > Manage end-user access** permission."
+        },
+        {
+          "info": {
+            "name": "Revokes an application role to a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key/application-roles/:roleKey",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              },
+              {
+                "name": "roleKey",
+                "value": "",
+                "type": "path",
+                "description": "Role key for the application."
+              }
+            ]
+          },
+          "docs": "Revokes an application role from a user by providing the user key and application role key.\n\nAPI Client needs the **User management > Manage end-user access** permission."
+        },
+        {
+          "info": {
+            "name": "Returns the list of application roles associated with a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key/application-roles",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              },
+              {
+                "name": "nameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters application roles by name."
+              },
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "query",
+                "description": "Only returns application roles for the specified asset. Mutually exclusive with `assetKeys`."
+              },
+              {
+                "name": "assetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns application roles for any of the specified assets. Comma-separated list of asset keys. Mutually exclusive with `assetKey`."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Only returns application roles in the specified environment (stage). Mutually exclusive with `environmentKeys`."
+              },
+              {
+                "name": "environmentKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns application roles in any of the specified environments (stages). Mutually exclusive with `environmentKey`."
+              },
+              {
+                "name": "portfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns application roles in the environments belonging to any of the specified portfolios."
+              },
+              {
+                "name": "groupKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns application roles inherited from the specified groups."
+              },
+              {
+                "name": "applicationRoleKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns the application roles matching any of the specified keys. Comma-separated list of application role keys."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort, for example \"-name\". Default: name. Allowed: name, environmentKey or assetKey."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned. Default value: 0."
+              },
+              {
+                "name": "assignmentSources",
+                "value": "",
+                "type": "query",
+                "description": "Filters by assignment source. Repeatable. Allowed: Direct, GroupAssigned, GroupMapped. Empty or omitted defaults to Direct. The IsDirectlyAssigned flag and AssignedGroups list on each returned role reflect only the selected sources."
+              }
+            ]
+          },
+          "docs": "Returns a list of application roles associated with a user that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > View end users** permission."
+        },
+        {
+          "info": {
+            "name": "Returns the list of organization roles associated with a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key/organization-roles",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Comma-separated. `Organization` returns roles assigned in Organization scope; `Asset` returns roles assigned in Asset scope. Both together (or omitted) returns all."
+              },
+              {
+                "name": "assetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Comma-separated list of asset keys. Only returns organization roles assigned in Asset scope for any of the specified assets."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. The value must be within 1 - 100 (both inclusive). The default value is 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starting point or position of the first result returned. The default value is 0."
+              }
+            ]
+          },
+          "docs": "Returns the list of organization roles associated with a user.\nIf the authenticated user is requesting their own roles, no permission is required.\n\nAPI Client needs the **User management > View members** or **User management > Manage users** permissions."
+        },
+        {
+          "info": {
+            "name": "Grant organization roles to a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key/organization-roles/:roleKey",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              },
+              {
+                "name": "roleKey",
+                "value": "",
+                "type": "path",
+                "description": "Organization role key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns organization roles to a user based on the user key.\n\nAPI Client needs the **User management > Manage member access** permission."
+        },
+        {
+          "info": {
+            "name": "Delete a user's organization roles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key/organization-roles/:roleKey",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              },
+              {
+                "name": "roleKey",
+                "value": "",
+                "type": "path",
+                "description": "Organization role key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revokes organization roles for a user.\n\nAPI Client needs the **User management > Manage member access** permission."
+        },
+        {
+          "info": {
+            "name": "Returns the user count based on specified conditions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/count",
+            "params": [
+              {
+                "name": "domains",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users with the specified domains."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users with the specified status."
+              },
+              {
+                "name": "hasOrganizationRoles",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, only counts users that have at least one organization role. Default is false."
+              },
+              {
+                "name": "hasApplicationRoles",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, only counts users that have at least one application role. Default is false."
+              },
+              {
+                "name": "environmentKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users that have roles in any of the specified environments (stages)."
+              },
+              {
+                "name": "portfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users that have roles in any of the specified portfolios."
+              },
+              {
+                "name": "loggedInEnvironmentKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users that have logged in to any of the specified environments (stages). When combined with last login date filters, the date range applies to the per-environment login timestamp."
+              },
+              {
+                "name": "loggedInPortfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users that have logged in to any environment in the specified portfolios. When combined with last login date filters, the date range applies to the per-environment login timestamp."
+              },
+              {
+                "name": "lastLoginAtSince",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users whose last login occurred on or after the specified date and time. Applies to the top-level last login unless logged-in environment or portfolio filters are specified."
+              },
+              {
+                "name": "lastLoginAtTo",
+                "value": "",
+                "type": "query",
+                "description": "Only counts users whose last login occurred before or on the specified date and time. Applies to the top-level last login unless logged-in environment or portfolio filters are specified."
+              }
+            ]
+          },
+          "docs": "Returns the user count that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a l"
+        },
+        {
+          "info": {
+            "name": "Returns the list of users based on specified conditions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users",
+            "params": [
+              {
+                "name": "nameOrEmailContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters users by name or email address. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+              },
+              {
+                "name": "nameOrEmailOrUsernameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters users by name or email address or username. Parameter value must be URL-encoded (percent-encoding) to ensure it's correctly interpreted by the server. Example: Searching for an email with a +\n            \n Incorrect: .../users?email=`john+doe@example.com`.\n            \n Correct: .../users?email=`john%2Bdoe@example.com`"
+              },
+              {
+                "name": "userKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users that match the specified keys. For more than one key, separates the keys with a comma. Allows up to 20 user keys."
+              },
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users that have roles for the specified Asset."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users with the specified status."
+              },
+              {
+                "name": "lastLoginAtSince",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users whose last login occurred on or after the specified date and time."
+              },
+              {
+                "name": "lastLoginAtTo",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users whose last login occurred before or on the specified date and time."
+              },
+              {
+                "name": "hasOrganizationRoles",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, only returns users that have at least one organization role. Default is false."
+              },
+              {
+                "name": "hasApplicationRoles",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, only returns users that have at least one application role. Default is false."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Used for sorting the list. Ascending by default. Prepend a hyphen, \"-\", to get a descending sort, for example \"-name\". Default: name. Allowed: key, name, email, status, lastLoginAt."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users that have roles in the specified environment (stage). Mutually exclusive with `environmentKeys`."
+              },
+              {
+                "name": "environmentKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users that have roles in any of the specified environments (stages). Comma-separated list of environment keys. Mutually exclusive with `environmentKey`."
+              },
+              {
+                "name": "portfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users that have roles in any of the specified portfolios."
+              },
+              {
+                "name": "domains",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users with the specified domains."
+              },
+              {
+                "name": "loggedInEnvironmentKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users that have logged in to any of the specified environments (stages). When combined with last login date filters, the date range applies to the per-environment login timestamp."
+              },
+              {
+                "name": "loggedInPortfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns users that have logged in to any environment in the specified portfolios. When combined with last login date filters, the date range applies to the per-environment login timestamp."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "List of fields to embed in the response."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned. Default value: 0."
+              }
+            ]
+          },
+          "docs": "Returns a list of users that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a "
+        },
+        {
+          "info": {
+            "name": "Creates a new user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user by specifying the user information. You can provide the user's name, photo URL, and active status. Additionally, the AddToBuiltInIdentityProvider can be used to add the user to the built-in provider.\n\nAPI Client needs the **User management > Manage users** permission."
+        },
+        {
+          "info": {
+            "name": "Retrieves a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "List of fields to embed in the response."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a user using the user's key.\n\nAPI Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without "
+        },
+        {
+          "info": {
+            "name": "Updates the user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of a user using the user's key. Allows modification of the user's name, photo URL, and active status.\n\nAPI Client needs the **User management > Manage users** permission."
+        },
+        {
+          "info": {
+            "name": "Deletes a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "User key."
+              }
+            ]
+          },
+          "docs": "Deletes a specified user using the user's key.\n\nAPI Client needs the **User management > Manage users** permission."
+        },
+        {
+          "info": {
+            "name": "Returns a list of groups associated with a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/users/:key/groups",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The user key."
+              },
+              {
+                "name": "nameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters groups by name."
+              },
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters groups by asset key."
+              },
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filters groups by environment key (stage). Mutually exclusive with `environmentKeys`."
+              },
+              {
+                "name": "environmentKeys",
+                "value": "",
+                "type": "query",
+                "description": "Filters groups by environment keys (stages). Comma-separated list of environment keys. Mutually exclusive with `environmentKey`."
+              },
+              {
+                "name": "portfolioKeys",
+                "value": "",
+                "type": "query",
+                "description": "Only returns groups in environments belonging to any of the specified portfolios."
+              },
+              {
+                "name": "membershipType",
+                "value": "",
+                "type": "query",
+                "description": "Filters groups by user's membership type that can be `Assigned` or `Mapped`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned. Default value: 0."
+              }
+            ]
+          },
+          "docs": "Returns a list of groups associated with a user that match the specified filters. Use query parameters to refine the search.\n\nAPI Client needs the **User management > Manage end-user groups** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

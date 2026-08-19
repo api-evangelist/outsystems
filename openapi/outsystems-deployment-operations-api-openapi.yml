@@ -1,0 +1,592 @@
+openapi: 3.2.0
+info:
+  title: Deployments Deployment Operations API
+  description: 'REST endpoints for publishing and deploying assets in environments (stages) in your organization.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/deployments/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/deployments/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: deployment-operations
+paths:
+  /deployment-operations:
+    get:
+      tags:
+      - deployment-operations
+      summary: Returns a list of deployments.
+      description: 'Returns a list of deployments that match a given filter. Use query parameters to refine the search.
+
+
+        API Client needs the **Stage > View stage** permission for the operation.'
+      operationId: DeploymentOperations_Filter
+      parameters:
+      - name: environmentKey
+        in: query
+        description: Filter by environment key, if filled.
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        description: Filter by status of the deployment, if filled.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/Status'
+      - name: assetKey
+        in: query
+        description: Filter deployments that contain given asset unique identifier, if filled.
+        schema:
+          type: string
+          format: uuid
+      - name: revision
+        in: query
+        description: Filter assets by revision number, if filled.
+        schema:
+          type: integer
+          format: int32
+      - name: portfolioKey
+        in: query
+        description: Filter assets by portfolio key, if filled.
+        schema:
+          type: string
+          format: uuid
+      - name: operations
+        in: query
+        description: Filter deployments that contain a given operation, if filled.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentOperationsType'
+      - name: createdDateSince
+        in: query
+        description: Filter assets created from one point in time on, if filled.
+        schema:
+          type: string
+          format: date-time
+      - name: createdDateTo
+        in: query
+        description: Filter assets created up to one point in time, if filled.
+        schema:
+          type: string
+          format: date-time
+      - name: permissionFilter
+        in: query
+        description: 'Filter by permission type. Format: ''PermissionType'' or ''PermissionType.EnvironmentKey'' for environment-specific permissions. Available values: AppViewSourceCode | AppDebug | AppChange | AppDelete | AppDeploy | AppRelease | AppMonitor | AppMonitorUserInfo | AppSecurityView | CodeQualityManage | CodeQualityView | AppUserView | AppAccessManage | AppGroupManage | CfgView | ConnConfig | AppCfgChange. Example: ''AppDeploy'' or ''AppDeploy.123e4567-e89b-12d3-a456-426614174000'''
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Max number of elements that should be returned in a single page.
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offset of the last page, to get the following page with the same filters applied.
+        schema:
+          type: integer
+          format: int32
+      - name: sort
+        in: query
+        description: 'Sort order of the elements.
+
+          -element1 for descending, element2 for ascending.
+
+          Multiple orders joined by comma.
+
+          Example -element1,element2 to sort by element1 descending then by element2 ascending
+
+          Currently supported sort values: CreatedAt, UpdatedAt, ApplicationKey, AssetKey, ApplicationName, AssetName, FinishedAt
+
+          Default sort: -CreatedAt'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32NullableDeploymentOperationResponsePagedListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Stage > View stage** permission for the operation.
+    post:
+      tags:
+      - deployment-operations
+      summary: Requests the creation or deletion of a deployment.
+      description: 'Requests the creation of a deployment-operation which can be a Deployment, Undeploy or ApplyConfigs. It returns the created deployment operation.
+
+
+        API Client needs the **Release management > Deploy assets** permission for the operation.'
+      operationId: DeploymentOperations_Post
+      requestBody:
+        description: Deployment operation request data
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/DeploymentOperationRequest'
+              description: Deployment job request data
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/DeploymentOperationRequest'
+              description: Deployment job request data
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentOperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Release management > Deploy assets** permission for the operation.
+  /deployment-operations/{operationKey}:
+    get:
+      tags:
+      - deployment-operations
+      summary: Returns one deployment given the deployment operation key.
+      description: 'Returns one deployment given the deployment operation key. If the deployment is not found, a 404 error is returned.
+
+
+        API Client needs the **Stage > View stage** permission for the operation.'
+      operationId: DeploymentOperations_Get
+      parameters:
+      - name: operationKey
+        in: path
+        description: Deployment unique identifier
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentOperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Stage > View stage** permission for the operation.
+  /deployment-operations/{operationKey}/messages:
+    get:
+      tags:
+      - deployment-operations
+      summary: Returns deployment log messages for a given deployment operation key.
+      description: 'Returns deployment log messages for a given deployment operation key. If the deployment is not found, a 404 error is returned.
+
+
+        API Client needs the **Stage > View stage** permission for the operation.'
+      operationId: DeploymentOperations_GetMessages
+      parameters:
+      - name: operationKey
+        in: path
+        description: Deployment unique identifier
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        description: Limit of elements in the page.
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Offset from previous page. Don't fill if first page.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringMessageDetailsV1TaskProgressMessagePagedListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Stage > View stage** permission for the operation.
+components:
+  schemas:
+    StringPageInfo:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type:
+          - string
+          - 'null'
+          description: Offset of the current page of results.
+        nextPageOffset:
+          type:
+          - string
+          - 'null'
+          description: Offset of the next page of results.
+      additionalProperties: false
+      description: Contains response page information.
+    DeploymentOperationRequest:
+      type: object
+      properties:
+        operation:
+          allOf:
+          - $ref: '#/components/schemas/DeploymentOperationsType'
+          description: 'Operation to be executed.
+
+            Mandatory: Deploy, Undeploy, ApplyConfigs.'
+        assetKey:
+          type: string
+          description: 'Asset unique identifier.
+
+            Mandatory for Apply Configurations and Deployment.'
+          format: uuid
+        buildKey:
+          type:
+          - string
+          - 'null'
+          description: 'Build unique identifier.
+
+            Mandatory for Deployment.'
+          format: uuid
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: 'Revision identifier.
+
+            Mandatory for Apply Configurations and Deployment.'
+          format: int32
+        environmentKey:
+          type: string
+          description: 'Environment Identifier.
+
+            Mandatory.'
+          format: uuid
+      additionalProperties: false
+      description: Deployment job request data
+    MessageSeverity:
+      enum:
+      - Info
+      - Warning
+      - Error
+      type: string
+    DeploymentOperationsType:
+      enum:
+      - Deploy
+      - Undeploy
+      - ApplyConfigs
+      type: string
+    StringMessageDetailsV1TaskProgressMessagePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/StringPageInfo'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MessageDetailsV1TaskProgressMessage'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    MessageDetailsV1TaskProgressMessage:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: message timestamp
+          format: date-time
+        type:
+          type:
+          - string
+          - 'null'
+          description: message type (e.g., error code)
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/MessageSeverity'
+          description: message severity (info, warning or error)
+        message:
+          type:
+          - string
+          - 'null'
+          description: message detail
+        additionalInfo:
+          allOf:
+          - $ref: '#/components/schemas/MessageDetailsV1'
+          description: optional message details
+      additionalProperties: false
+      description: Represents a user facing message about the progress of an operation, including additional details.
+    Int32NullableDeploymentOperationResponsePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/Int32NullablePageInfo'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeploymentOperationResponse'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    MessageDetailsV1:
+      type: object
+      properties:
+        stepId:
+          type:
+          - string
+          - 'null'
+          description: Step unique identifier.
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset unique identifier.
+          format: uuid
+      additionalProperties: false
+      description: Message detailed info.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    DeploymentOperationResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Unique identifier of the deployment-operation.
+          format: uuid
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status'
+          description: Deployment-operation status.
+        startedDateTime:
+          type: string
+          description: When the deployment-operation started.
+          format: date-time
+        finishedDateTime:
+          type: string
+          description: When the deployment-operation finished.
+          format: date-time
+        deployedBy:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the requesting subject.
+        assetKey:
+          type: string
+          description: Unique identifier of the asset.
+          format: uuid
+        revisions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: List of revisions that had the action performed.
+        buildKey:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the asset build.
+          format: uuid
+        assetName:
+          type:
+          - string
+          - 'null'
+          description: Asset name.
+        operation:
+          allOf:
+          - $ref: '#/components/schemas/DeploymentOperationsType'
+          description: Executed Operation.
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: Portfolio Key.
+          format: uuid
+      additionalProperties: false
+      description: Information about one deployment
+    Int32NullablePageInfo:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results.
+          format: int32
+      additionalProperties: false
+      description: Contains response page information.
+    Status:
+      enum:
+      - Running
+      - FinishedWithError
+      - Finished
+      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

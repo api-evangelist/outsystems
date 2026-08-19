@@ -1,0 +1,107 @@
+openapi: 3.2.0
+info:
+  title: Asset Repository Uploads API
+  description: 'REST endpoints for retrieving information about assets revisions. '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/asset-repository/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    '{odc-portal-domain}':
+      default: '{odc-portal-domain}'
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Uploads
+paths:
+  /uploads:
+    post:
+      tags:
+      - Uploads
+      summary: Creates a new upload operation for uploading files.
+      description: 'Generates a pre-signed URL that you can use to upload a file.
+
+        This URL can then be used in other endpoints that require a file upload, such as creating a new asset revision.
+
+
+        '
+      operationId: Uploads_CreateUpload
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    UploadsResponse:
+      required:
+      - uploadUrl
+      type: object
+      properties:
+        uploadUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to where the file needs to be uploaded
+          format: uri
+      additionalProperties: false
+      description: Represents an upload response
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dependency Management Deployment Analyses API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployment Analyses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the deployment analysis result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/dependency-management/v1/deployment-analyses/:analysisKey",
+            "params": [
+              {
+                "name": "analysisKey",
+                "value": "",
+                "type": "path",
+                "description": "Analysis key."
+              }
+            ]
+          },
+          "docs": "Returns the deployment analysis report once the analysis is completed.\n\n"
+        },
+        {
+          "info": {
+            "name": "Launches a Deployment Analysis Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/dependency-management/v1/deployment-analyses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a Deployment Analysis Process, detecting impacts that promoting this asset to a new stage might have on its consumers, and what might be the impacts on itself, as it relates to its producers\n\nAPI Client needs the **Release management > Deploy assets** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

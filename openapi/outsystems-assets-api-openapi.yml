@@ -1,0 +1,3061 @@
+openapi: 3.2.0
+info:
+  title: Outsystems Assets API
+  version: v1
+  description: 'Operations tagged Assets across 3 of this provider''s published API definitions: outsystems-asset-repository-api-v1-openapi.json, outsystems-code-quality-api-v1-openapi.json, outsystems-dependency-management-api-v1-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/asset-repository/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    '{odc-portal-domain}':
+      default: '{odc-portal-domain}'
+      description: The domain of your organization
+- url: https://ODC_PORTAL_DOMAIN/api/code-quality/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/code-quality/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+- url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/dependency-management/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+tags:
+- name: Assets
+paths:
+  /assets:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    post:
+      tags:
+      - Assets
+      summary: Creates a new revision of an asset.
+      description: 'If the asset does not exist, it creates the asset and its first revision.
+
+        The new revision can be created from a source file (OML/XIF) or, for new assets, created empty or cloned from a template.
+
+        When providing the source file, you can pass it as a fileUri or send the binary directly using the application/octet-stream or multipart/form-data content types.
+
+
+        To create an asset, API Client needs the **Asset management > Create** permission.
+
+
+        To create a new revision for an existing asset, API Client needs the **Asset management > Change** permission.'
+      operationId: AssetRepository_CreateAssetRevision
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetVersionCreationRequest'
+          application/octet-stream:
+            schema:
+              format: binary
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                creationRequest:
+                  $ref: '#/components/schemas/AssetVersionCreationRequest'
+                assetFile:
+                  type: string
+                  format: binary
+            encoding:
+              creationRequest:
+                contentType: application/json
+              assetFile:
+                contentType: application/octet-stream
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: 'To create an asset, API Client needs the **Asset management > Create** permission.
+
+
+        To create a new revision for an existing asset, API Client needs the **Asset management > Change** permission.'
+      security:
+      - bearerAuth: []
+    get:
+      tags:
+      - Assets
+      summary: Lists all assets.
+      description: 'Returns a list of the latest revision for all assets that match the specified filters.
+
+
+        '
+      operationId: AssetRepository_ListAssets
+      parameters:
+      - name: nameContains
+        in: query
+        description: Filters assets by name.
+        schema:
+          type: string
+      - name: nameOrDescriptionContains
+        in: query
+        description: Filters assets by name or description.
+        schema:
+          type: string
+      - name: assetTypes
+        in: query
+        description: Filter by one or more asset types, recognized values are [WebApplication, MobileApplication, LowCodeLibrary, ExtensionLibrary, ExternalConnection, ExternalLibrary, Workflow, WidgetLibrary, AIModelConnection, SearchServiceConnection, Agent, MCPConnection, A2AConnection, KnowledgeBase].
+        schema:
+          type: array
+          items:
+            type: string
+      - name: assetKeys
+        in: query
+        description: Filter by one or more asset keys.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: portfolioKeys
+        in: query
+        description: Filter by one or more portfolio keys.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: embed
+        in: query
+        description: Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata].
+        schema:
+          type: array
+          items:
+            type: string
+      - name: metadata.urlPathContains
+        in: query
+        description: Filters assets by url path.
+        schema:
+          type: string
+      - name: metadata.templateType
+        in: query
+        description: Filter assets that are templates of a specific template type.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/TemplateType'
+      - name: metadata.isDeployable
+        in: query
+        description: Filter assets that can be deployed to environments (e.g. exclude libraries and templates).
+        schema:
+          type: boolean
+      - name: metadata.isBuiltInAsset
+        in: query
+        description: Filter asset based on if they are builtin type.
+        schema:
+          type: boolean
+      - name: isExternal
+        in: query
+        description: Filter asset based on if it is external or not.
+        schema:
+          type: boolean
+      - name: permissionFilter
+        in: query
+        description: Filter by a specific permission type.
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/PermissionType'
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: name, createdAt.'
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results returned.
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 100
+      - name: offset
+        in: query
+        description: Offset of the first result returned.
+        schema:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionV1PagedListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    delete:
+      tags:
+      - Assets
+      summary: Deletes an asset.
+      description: 'Deleting an asset is an irreversible action. When doing so, an internal event is triggered to remove it from all stages where it''s published and to also delete all associated runtime data. Built-in assets are protected and cannot be deleted.
+
+
+        API Client needs the **Asset management > Delete** permission.'
+      operationId: AssetRepository_DeleteAsset
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Asset management > Delete** permission.
+      security:
+      - bearerAuth: []
+    get:
+      tags:
+      - Assets
+      summary: Gets the latest revision of a specific asset.
+      description: 'Returns the latest revision of a specific asset.
+
+
+        '
+      operationId: AssetRepository_GetAsset
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: embed
+        in: query
+        description: Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata].
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionV1'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/highest-tag-revision:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets the highest-tagged revision of an asset.
+      description: 'Returns the highest-tagged revision of the requested asset.
+
+
+        '
+      operationId: AssetRepository_GetApplicationHighestTagRevision
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: embed
+        in: query
+        description: Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata].
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionV1'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/latest-revision:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets the latest revision of an asset.
+      description: 'Returns the latest revision of the requested asset.
+
+
+        '
+      operationId: AssetRepository_GetAssetLatestRevision
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: embed
+        in: query
+        description: Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata].
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionV1'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets a specific revision of an asset.
+      description: 'Returns the requested asset revision.
+
+
+        '
+      operationId: AssetRepository_GetAssetRevision
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: embed
+        in: query
+        description: Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata].
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionV1'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Assets
+      summary: Sets the version tag and/or labels for an existing revision.
+      description: 'Setting the tag to null clears the existing revision tag.
+
+
+        API Client needs the **Asset management > Change** or **Release management > Release** permission.'
+      operationId: AssetRepository_PatchVersion
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: The version tag and labels to apply to the revision.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AssetVersionPatchRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AssetVersionPatchRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Asset management > Change** or **Release management > Release** permission.
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/icon:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets the icon for a specific asset revision.
+      description: 'Returns the icon for the specific asset revision
+
+
+        '
+      operationId: AssetRepository_GetAssetRevisionIcon
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetIcon'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/metadata:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets the metadata for a specific asset revision.
+      description: 'Returns the metadata for the specific asset revision
+
+
+        '
+      operationId: AssetRepository_GetAssetRevisionMetadata
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetMetadata'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/release-notes:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets the release notes for a specific asset revision.
+      description: 'Returns the release notes for the specific asset revision
+
+
+        '
+      operationId: AssetRepository_GetAssetRevisionReleaseNotes
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetReleaseNoteContent'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/signature:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets the signature for a specific asset revision.
+      description: 'Returns the signature for the specific asset revision
+
+
+        '
+      operationId: AssetRepository_GetAssetRevisionSignature
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetSignature'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/source-code:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Gets the source code for a specific asset revision.
+      description: 'Returns the source code for a specific asset revision
+
+
+        API Client needs the **Asset management > Open** permissions.'
+      operationId: AssetRepository_GetAssetRevisionSourceCode
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetSourceCode'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Asset management > Open** permissions.
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Lists all revisions of an asset.
+      description: 'Returns a paginated list of all revisions for a specific asset.
+
+
+        '
+      operationId: AssetRepository_ListAssetRevisions
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: modelDigest
+        in: query
+        description: Match revisions with a specific model digest.
+        schema:
+          type: string
+      - name: revisionDateTimeSince
+        in: query
+        description: Match revisions created since a specific date.
+        schema:
+          type: string
+          format: date-time
+      - name: revisionDateTimeTo
+        in: query
+        description: Match revisions created until a specific date.
+        schema:
+          type: string
+          format: date-time
+      - name: isTagged
+        in: query
+        description: Filters revisions based on whether they have a tag.
+        schema:
+          type: boolean
+      - name: tag
+        in: query
+        description: Matches revisions with the specific tag.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: revision, tag.'
+        schema:
+          type: string
+      - name: commitMessage
+        in: query
+        description: Filters revisions based on whether their commit message contains a specific string.
+        schema:
+          type: string
+      - name: embed
+        in: query
+        description: Embedded resources to return with the asset revision. Recognized values are [releaseNote, icon, sourceCode, signature, metadata].
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Maximum number of results returned.
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 100
+      - name: offset
+        in: query
+        description: Offset of the first result returned.
+        schema:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionV1PagedListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/search:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-repository/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    post:
+      tags:
+      - Assets
+      summary: Lists all assets versions according to the combined key/digest/revision filter.
+      description: 'Returns a list of asset revisions that match the specified filters.
+
+
+        '
+      operationId: AssetRepository_ListMultipleAssetRevisions
+      requestBody:
+        description: A list of filters to apply to the search.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AssetListFilter'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AssetListFilter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionV1ListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revision}/analysis-summary:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/code-quality/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/code-quality/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Retrieves the analysis summary for an asset revision.
+      description: 'Retrieves the analysis summary for a specific asset revision, including findings breakdown by severity and the quality score.
+
+
+        Example: GET /code-quality/v1/assets/53fcbdc7-be3c-4532-866c-a296336133b0/revisions/8/analysis-summary
+
+
+        API Client needs the **Analyze > View Code Quality findings** permission.'
+      operationId: FindingsOverviewControllerV_GetAssetRevisionFindingsSummary
+      parameters:
+      - name: assetKey
+        in: path
+        description: The unique identifier of the asset
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: path
+        description: The revision number of the asset to retrieve analysis for
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionSummaryResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRevisionSummaryResponse'
+      security:
+      - bearerAuth: []
+      x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
+  /assets/{assetKey}/consumers:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/dependency-management/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Lists all consumer assets of an asset.
+      description: 'Returns a list of assets that consume a specific asset.
+
+
+        '
+      operationId: DependencyManagement_ListAssetConsumers
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: environmentKey
+        in: query
+        description: Filters consumers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)
+        schema:
+          type: string
+      - name: publicElementKey
+        in: query
+        description: Filters consumers by a specific public element they use.
+        schema:
+          type: string
+      - name: allowMultipleVersions
+        in: query
+        description: If true, returns multiple versions of a consumer asset. If false, returns only the highest version. Defaults to false.
+        schema:
+          type: boolean
+          default: false
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: name.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDependencyListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/producer-graph:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/dependency-management/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Lists the producer assets that a specific asset revision depends on.
+      description: 'Lists the producer dependency graph for an asset revision.
+
+
+        '
+      operationId: DependencyManagement_ListAssetProducerGraph
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: maxDepth
+        in: query
+        description: The maximum depth to explore in the dependency hierarchy. Default is 0 (infinite).
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: environmentKey
+        in: query
+        description: Filters producers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)
+        schema:
+          type: string
+      - name: producerTypeFilter
+        in: query
+        description: 'Filters producers by type. Allowed values: Deployable, Libraries, All.'
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: name.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDependencyProducerListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/producers:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/dependency-management/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Lists the producer assets that a specific asset revision depends on.
+      description: 'Returns a list of all producer assets that a specific asset revision depends on, directly or indirectly.
+
+
+        '
+      operationId: DependencyManagement_ListAssetProducers
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: maxDepth
+        in: query
+        description: The maximum depth to explore in the dependency hierarchy. Default is 0 (infinite).
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: environmentKey
+        in: query
+        description: Filters producers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)
+        schema:
+          type: string
+      - name: producerTypeFilter
+        in: query
+        description: 'Filters producers by type. Allowed values: Deployable, Libraries, All.'
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: name.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDependencyWithProducerReferencesListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/consumers:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/dependency-management/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Lists all consumer assets of an asset revision.
+      description: 'Returns a list of assets that consume a specific revision of an asset.
+
+
+        '
+      operationId: DependencyManagement_ListAssetRevisionConsumers
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: environmentKey
+        in: query
+        description: Filters consumers by a specific environment. Only assets deployed in this environment are returned. When omitted, defaults to the publishing environment (1CP)
+        schema:
+          type: string
+      - name: publicElementKey
+        in: query
+        description: Filters consumers by a specific public element they use.
+        schema:
+          type: string
+      - name: allowMultipleVersions
+        in: query
+        description: If true, returns multiple versions of a consumer asset. If false, returns only the highest version. Defaults to false.
+        schema:
+          type: boolean
+          default: false
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: name.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDependencyListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/public-elements:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/dependency-management/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Lists all the public elements of a specific asset revision.
+      description: 'Returns a list of public elements for a specific asset revision.
+
+
+        '
+      operationId: DependencyManagement_ListAssetRevisionPublicElements
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: name.'
+        schema:
+          type: string
+      - name: includeHidden
+        in: query
+        description: If the result should include hidden elements. Default is true.
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicElementStringTypesListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+      security:
+      - bearerAuth: []
+  /assets/{assetKey}/revisions/{revisionNumber}/referenced-elements:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/dependency-management/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Assets
+      summary: Lists all public elements referenced by a specific asset revision.
+      description: 'Returns a list of all public elements referenced by a specific asset revision, as defined in the IDE.
+
+
+        API Client needs the **Asset management > Open** permission.'
+      operationId: DependencyManagement_ListReferencedElements
+      parameters:
+      - name: assetKey
+        in: path
+        description: The asset's key.
+        required: true
+        schema:
+          type: string
+      - name: revisionNumber
+        in: path
+        description: The revision number.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sort
+        in: query
+        description: 'Used for sorting the list. Ascending by default. Prepend a hyphen, "-", to get a descending sort. Allowed: name.'
+        schema:
+          type: string
+      - name: includeHidden
+        in: query
+        description: If the result should include hidden elements. Default is true.
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferencedElementStringTypesListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+      x-os-permissions: API Client needs the **Asset management > Open** permission.
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    ProblemDetails_2:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    AssetSourceCode:
+      type: object
+      properties:
+        sourceCodeBinaryUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the application source code
+        sourceCodeDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest of the sourcecode binary
+          format: uuid
+      additionalProperties: false
+    SeverityBreakdown:
+      title: SeverityBreakdown
+      type: object
+      properties:
+        lowSeverity:
+          type: integer
+          format: int64
+        mediumSeverity:
+          type: integer
+          format: int64
+        highSeverity:
+          type: integer
+          format: int64
+        criticalSeverity:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+    AssetVersionFilter:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the application to filter by
+
+            Mandatory'
+        digest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest of the application to filter by, if empty will be ignored
+
+            Either digest, revision or IsHighestTag are mandatory'
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: 'Revision of the application to filter by, if null it will be ignored
+
+            Either digest, revision or IsHighestTag are mandatory'
+          format: int32
+        isHighestTag:
+          type: boolean
+          description: 'Flag to filter application for the highest tag, if false it will be ignored
+
+            Either digest, revision or IsHighestTag are mandatory'
+      additionalProperties: false
+    PublicElementStringTypesListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicElementStringTypes'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    AssetIcon:
+      type: object
+      properties:
+        iconUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the application icon, if one is defined
+        iconDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest of the icon binary
+          format: uuid
+      additionalProperties: false
+    AssetCreateFromTemplateRequest:
+      type: object
+      properties:
+        assetName:
+          type:
+          - string
+          - 'null'
+          description: Name of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template.
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: 'Type of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template.
+
+            Recognized values are [WebApplication, MobileApplication, MobileLibrary, LowCodeLibrary, Agent, Workflow]'
+        templateKey:
+          type:
+          - string
+          - 'null'
+          description: Asset key to be used as template for the new asset, optional and can be null. To get the template key, use GET /assets and filter by template type (refer to the endpoint description)
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the asset. Optional and can be null.
+        iconBase64:
+          type:
+          - string
+          - 'null'
+          description: Base64 data containing the icon for the new asset. Optional and can be null.
+      additionalProperties: false
+    AssetRevisionV1ListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetRevisionV1'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    AssetReleaseNoteContent:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: The version tag that is associated with the revision, using the semantic versioning format (MAJOR.MINOR.PATCH).
+        content:
+          type:
+          - string
+          - 'null'
+          description: The release notes text content associated with the revision.
+      additionalProperties: false
+    AssetVersionCreationRequest:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'SemVer tag to associate with the revision to be created.
+
+            Must not exist and be of the “Major#.Minor#.Patch#” format'
+        releaseNotes:
+          type:
+          - string
+          - 'null'
+          description: The release notes associated with the asset. Can’t be present if no tag is provided.
+        skipSequentialVersionValidation:
+          type: boolean
+          description: If set to true, skips the sequential revision validation.
+        commitMessage:
+          type:
+          - string
+          - 'null'
+          description: An optional commit message that can be populated when creating or updating an asset version.
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: '(Optional) The key of the portfolio to associate the asset with.
+
+            For new assets: If not provided, uses the main portfolio.
+
+            For existing assets: If provided, must match existing portfolio or an error is returned.'
+          format: uuid
+        fileUri:
+          type:
+          - string
+          - 'null'
+          description: "(Optional) Allows providing application source code for the new version (OML or XIF formats are supported). \nIf an OML or XIF is provided, its key is used to associate to the correct application - The application key must always match the OML/XIF key"
+          format: uri
+        assetCreationDetails:
+          allOf:
+          - $ref: '#/components/schemas/AssetCreateFromTemplateRequest'
+          description: "(Optional) Allows providing a configuration to create a new asset as first revision, either from a template or as an empty OML \nOnly usable when the source file is not provided."
+      additionalProperties: false
+    AssetRevisionSummaryResponse:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+        assetRevision:
+          type: integer
+          format: int64
+        analysisDate:
+          type: string
+          format: date
+        qualityScore:
+          type:
+          - number
+          - 'null'
+          format: double
+        summary:
+          title: FindingsSummary
+          allOf:
+          - $ref: '#/components/schemas/FindingsSummary'
+          description: Overview of Finding Summary by categories and severities
+      additionalProperties: false
+    AssetMetadata:
+      type: object
+      properties:
+        templateType:
+          allOf:
+          - $ref: '#/components/schemas/TemplateType'
+          description: Type of template when asset is a template.
+        toolVersion:
+          type:
+          - string
+          - 'null'
+          description: IDE version used to create the asset revision.
+        runtime:
+          type:
+          - string
+          - 'null'
+          description: If the asset is of the 'External Library' type, this field will inform us in which runtime the high-code was written to run
+        mobileFrameworks:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: If the asset is of the 'Mobile Library' type, this field will inform us in which mobile frameworks are supported
+        assemblyVersion:
+          type:
+          - string
+          - 'null'
+          description: If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly version of the internal image
+        assemblyName:
+          type:
+          - string
+          - 'null'
+          description: If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly name of the internal image
+        urlPath:
+          type:
+          - string
+          - 'null'
+          description: URL base path where the asset will be made available. Only available for deployable asset.
+        isDeployable:
+          type: boolean
+          description: Indicates whether the asset is of a deployable asset type.
+        isBuiltInAsset:
+          type: boolean
+          description: Indicates whether the asset is a built-in app.
+        commitMessage:
+          type:
+          - string
+          - 'null'
+          description: An optional commit message that can be populated by the user when creating or updating an asset version.
+      additionalProperties: false
+    AssetDependencyWithProducerReferencesListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetDependencyWithProducerReferences'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    AssetVersionPatchRequest:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'SemVer tag to associate with the revision
+
+            Must exist and be of the “Major#.Minor#.Patch#” format'
+        releaseNotes:
+          type:
+          - string
+          - 'null'
+          description: The release notes associated with the asset. Can’t be present if no tag is set or provided.
+        commitMessage:
+          type:
+          - string
+          - 'null'
+          description: Commit message to associate with the revision, optional and can be null.
+      additionalProperties: false
+    AssetEmbeddingV1:
+      type: object
+      properties:
+        releaseNote:
+          allOf:
+          - $ref: '#/components/schemas/AssetReleaseNote'
+          description: Embedded Release Note
+        icon:
+          allOf:
+          - $ref: '#/components/schemas/AssetIcon'
+          description: Embedded Icon
+        sourceCode:
+          allOf:
+          - $ref: '#/components/schemas/AssetSourceCode'
+          description: Embedded SourceCode
+        signature:
+          allOf:
+          - $ref: '#/components/schemas/AssetSignature'
+          description: Embedded Signature
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/BaseAssetMetadata'
+          description: Embedded Metadata
+      additionalProperties: false
+    CodeAnalysisCategories:
+      title: CodeAnalysisCategories
+      type: object
+      properties:
+        security:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        performance:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        architecture:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        maintainability:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+      additionalProperties: false
+      description: Finding Counts for all analysis categories and severities
+    AssetSignature:
+      type: object
+      properties:
+        signatureBinaryUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the signature binary, to perform dependency analysis
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
+          format: uuid
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
+          format: uuid
+      additionalProperties: false
+    ApplicationType:
+      enum:
+      - WebApplication
+      - MobileApplication
+      - LowCodeLibrary
+      - ExtensionLibrary
+      - ExternalConnection
+      - ExternalLibrary
+      type: string
+      description: Enumeration of application types.
+    AssetReleaseNote:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: The version tag that is associated with the revision, using the semantic versioning format (MAJOR.MINOR.PATCH).
+        releaseNoteUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the asset release note
+      additionalProperties: false
+    AssetDependencyProducerListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetDependencyProducer'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    AssetDependencyProducer:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          minLength: 1
+          type: string
+          description: 'Key (format: guid).'
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the portfolio this asset belongs to (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the application.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the application.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Descriptive value for the asset type.
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
+          format: uuid
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
+          format: uuid
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the application model has any changes.
+          format: uuid
+        producers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetDependencyProducer'
+          description: All child producers this producer depends on.
+      additionalProperties: false
+    ReferencedElementStringTypes:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the asset that references the element
+        revision:
+          type: integer
+          description: Revision number that identifies the version of the asset that references the element
+          format: int32
+        key:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier (per asset) of the referenced public element
+        name:
+          type:
+          - string
+          - 'null'
+          description: Element name
+        description:
+          type:
+          - string
+          - 'null'
+          description: Element description
+        isHidden:
+          type:
+          - boolean
+          - 'null'
+          description: If it is a hidden reference
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the signature of the public element has changes. (format: guid)'
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the signature of the public element might have breaking changes. (format: guid)'
+        producerAssetKey:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the referenced asset
+        producerAssetName:
+          type:
+          - string
+          - 'null'
+          description: Name of the referenced asset
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of referenced public element
+        producerAssetType:
+          type:
+          - string
+          - 'null'
+          description: Type of the referenced asset
+      additionalProperties: false
+    AssetDependencyWithProducerReferences:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          minLength: 1
+          type: string
+          description: 'Key (format: guid).'
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the portfolio this asset belongs to (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the application.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the application.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Descriptive value for the asset type.
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
+          format: uuid
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
+          format: uuid
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the application model has any changes.
+          format: uuid
+        isDirectProducer:
+          type: boolean
+          description: Indicates if this asset is a direct producer of the asset this http call was made under.
+        producers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: All child producers this producer depends on.
+      additionalProperties: false
+    AssetDependencyListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetDependency'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    BaseAssetMetadata:
+      type: object
+      properties:
+        templateType:
+          allOf:
+          - $ref: '#/components/schemas/TemplateType'
+          description: Type of template when asset is a template.
+        toolVersion:
+          type:
+          - string
+          - 'null'
+          description: IDE version used to create the asset revision.
+        runtime:
+          type:
+          - string
+          - 'null'
+          description: If the asset is of the 'External Library' type, this field will inform us in which runtime the high-code was written to run
+        mobileFrameworks:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: If the asset is of the 'Mobile Library' type, this field will inform us in which mobile frameworks are supported
+        assemblyVersion:
+          type:
+          - string
+          - 'null'
+          description: If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly version of the internal image
+        assemblyName:
+          type:
+          - string
+          - 'null'
+          description: If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly name of the internal image
+        urlPath:
+          type:
+          - string
+          - 'null'
+          description: URL base path where the asset will be made available. Only available for deployable asset.
+        isDeployable:
+          type: boolean
+          description: Indicates whether the asset is of a deployable asset type.
+        isBuiltInAsset:
+          type: boolean
+          description: Indicates whether the asset is a built-in app.
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    AssetRevisionV1PagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetRevisionV1'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    AssetDependency:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          minLength: 1
+          type: string
+          description: 'Key (format: guid).'
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the portfolio this asset belongs to (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the application.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the application.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Descriptive value for the asset type.
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
+          format: uuid
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
+          format: uuid
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the application model has any changes.
+          format: uuid
+      additionalProperties: false
+    FindingsSummary:
+      title: FindingsSummary
+      type: object
+      properties:
+        categories:
+          title: CodeAnalysisCategories
+          allOf:
+          - $ref: '#/components/schemas/CodeAnalysisCategories'
+          description: Finding Counts for all analysis categories and severities
+      additionalProperties: false
+      description: Overview of Finding Summary by categories and severities
+    ApplicationVersion:
+      required:
+      - applicationKey
+      - name
+      type: object
+      properties:
+        applicationKey:
+          minLength: 1
+          type: string
+          description: 'Application key (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        revisionUserKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the user that created the revision (format: guid).'
+        revisionUserName:
+          type:
+          - string
+          - 'null'
+          description: Name of the user that created the revision.
+          deprecated: true
+        revisionUserEmail:
+          type:
+          - string
+          - 'null'
+          description: Email of the user that created the revision.
+        revisionDateTime:
+          type: string
+          description: Timestamp when the revision was created.
+          format: date-time
+        tag:
+          type:
+          - string
+          - 'null'
+          description: Version tag associated with this revision, in MAJOR.MINOR.PATCH format.
+        name:
+          minLength: 1
+          type: string
+          description: Name of the application.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the application.
+        applicationType:
+          allOf:
+          - $ref: '#/components/schemas/ApplicationType'
+          description: Type of the application.
+        isExternal:
+          type: boolean
+          description: If an application is installed by an external system
+        isDeployable:
+          type: boolean
+          description: Indicates whether the application is of a deployable application type.
+        isBuiltInApp:
+          type: boolean
+          description: Indicates whether the application is a built-in app.
+        fromTemplateKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the template used to generate the application (format: guid).'
+        iconUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of the application icon.
+          format: uri
+        primaryColor:
+          type:
+          - string
+          - 'null'
+          description: 'Primary color of the application (format: hexadecimal RGB with leading #).'
+        urlPath:
+          type:
+          - string
+          - 'null'
+          description: URL base path where the application will be made available. Only available for deployable applications.
+        templateType:
+          allOf:
+          - $ref: '#/components/schemas/TemplateType'
+          description: Type of template when application is a template.
+        toolVersion:
+          type:
+          - string
+          - 'null'
+          description: IDE version used to create the application revision.
+        sourceCodeBinaryUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the application source code.
+          format: uri
+        metamodelJsonUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch metamodel JSON, which contains meta-information about the application.
+          format: uri
+        signatureBinaryUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the signature binary, to perform dependency analysis.
+          format: uri
+        releaseNotesUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the release notes.
+          format: uri
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the the signature of any of the public elements of the application has changes. (format: guid)'
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the signature of any of the public elements of the application might have breaking changes. (format: guid)'
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the application model has any changes. (format: guid)'
+        labels:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+          description: Dictionary of all the labels assigned to an application revision
+        runtime:
+          type:
+          - string
+          - 'null'
+          description: If the application is of the 'External Library' type, this field will inform us in which runtime the high-code was written to run
+        publishUserEmail:
+          type:
+          - string
+          - 'null'
+          description: Application Revision Last Publish User Email
+        publishUserKey:
+          type:
+          - string
+          - 'null'
+          description: Application Revision Last Publish User Key
+        publishDateTime:
+          type:
+          - string
+          - 'null'
+          description: Application Revision Last Publish Timestamp
+          format: date-time
+        releaseUserEmail:
+          type:
+          - string
+          - 'null'
+          description: Application Release User Email
+        releaseUserKey:
+          type:
+          - string
+          - 'null'
+          description: Application Release User Key
+        releaseDateTime:
+          type:
+          - string
+          - 'null'
+          description: Application Release Date Time
+          format: date-time
+      additionalProperties: false
+      description: Represents a version of an application.
+    PermissionType:
+      enum:
+      - AppDebug
+      - AppChange
+      - AppDelete
+      - AppUserView
+      - AppDeploy
+      - AppRelease
+      - AppMonitor
+      - AppMonitorUserInfo
+      - AppAccessManage
+      - CfgView
+      - AppCfgChange
+      - ConnConfig
+      - AppViewSourceCode
+      - AppGroupManage
+      - CodeQualityView
+      - CodeQualityManage
+      - UpdatesView
+      type: string
+    AssetRevisionV1:
+      required:
+      - assetKey
+      - name
+      type: object
+      properties:
+        assetKey:
+          minLength: 1
+          type: string
+          description: 'Asset key (format: guid).'
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the portfolio this asset belongs to (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        name:
+          minLength: 1
+          type: string
+          description: Name of the asset.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the asset.
+        isExternal:
+          type: boolean
+          description: If an asset is installed by an external system
+        tag:
+          type:
+          - string
+          - 'null'
+          description: Version tag associated with this revision, in MAJOR.MINOR.PATCH format.
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the asset model has any changes. (format: guid)'
+        clonedFromTemplateKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the template used to generate the asset (format: guid).'
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: Type of the owner asset
+        createdBy:
+          type:
+          - string
+          - 'null'
+          description: Identifier of whom or what tool created the revision
+        createdAt:
+          type: string
+          description: Timestamp when the revision was created.
+          format: date-time
+        commitMessage:
+          type:
+          - string
+          - 'null'
+          description: An optional commit message that can be populated by the user when creating or updating an asset version.
+        taggedBy:
+          type:
+          - string
+          - 'null'
+          description: Identifier of whom or what tool tagged the revision
+        taggedAt:
+          type:
+          - string
+          - 'null'
+          description: Asset Tagging Date Time
+          format: date-time
+        _embedded:
+          allOf:
+          - $ref: '#/components/schemas/AssetEmbeddingV1'
+          description: Embedded details for the asset
+      additionalProperties: false
+    AssetListFilter:
+      type: object
+      properties:
+        assetVersionFilters:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetVersionFilter'
+          description: Filters which asset versions to retrieve
+        embeds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Extra embedded fields to include in the output, recognized values are [releaseNote, icon, sourceCode, signature, metadata]
+      additionalProperties: false
+    ReferencedElementStringTypesListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ReferencedElementStringTypes'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    TemplateType:
+      enum:
+      - ApplicationTemplate
+      - ScreenTemplateBundle
+      type: string
+      description: Enumeration of application template types.
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    PublicElementStringTypes:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the owner asset
+        assetName:
+          type:
+          - string
+          - 'null'
+          description: Name of the owner asset
+        revision:
+          type: integer
+          description: Revision number that identifies the owner asset version
+          format: int32
+        tag:
+          type:
+          - string
+          - 'null'
+          description: Tag of the owner asset
+        key:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier (per asset) of the public element
+        name:
+          type:
+          - string
+          - 'null'
+          description: Element name
+        description:
+          type:
+          - string
+          - 'null'
+          description: Element description
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the signature of the public element has changes. (format: guid)'
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the signature of the public element might have breaking changes. (format: guid)'
+        isHidden:
+          type: boolean
+          description: True if the element is not marked as public, but is still shared with consumers because another public element uses it (e.g. image, block)
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: Type of the owner asset
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of public element
+      additionalProperties: false
+      description: Represents a public element of an asset.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT
+x-refined-from:
+- outsystems-asset-repository-api-v1-openapi.json
+- outsystems-code-quality-api-v1-openapi.json
+- outsystems-dependency-management-api-v1-openapi.json

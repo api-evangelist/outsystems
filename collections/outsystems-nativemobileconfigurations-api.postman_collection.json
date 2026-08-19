@@ -1,0 +1,1213 @@
+{
+  "item": [
+    {
+      "id": "e0495d2b-b6ed-44f9-bfe7-22e91c9f10a4",
+      "name": "NativeMobileConfigurations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2306c397-3ec8-4dcc-80b4-3560a7dfec7a",
+          "name": "Returns the deployed platform-specific native configuration for a given Android application",
+          "request": {
+            "name": "Returns the deployed platform-specific native configuration for a given Android application",
+            "description": {
+              "content": "The response includes all the necessary information to build and deploy an Android native mobile application,\nsuch as keystore files and other related configurations.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Configuration management > View configurations** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "environments",
+                ":environmentKey",
+                "applications",
+                ":applicationKey",
+                "configurations",
+                "android"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "environmentKey",
+                  "description": "(Required) Environment key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationKey",
+                  "description": "(Required) Application key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d657acdc-9cb8-4dbf-a8c4-8a3874fded25",
+              "name": "Android configuration details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"alias\": {\n    \"dataType\": \"EntityIdentifierType\",\n    \"lastUpdateDate\": null,\n    \"value\": null,\n    \"isSecret\": true\n  },\n  \"aliasPassword\": {\n    \"dataType\": \"Boolean\",\n    \"lastUpdateDate\": \"2006-05-08T00:48:44.529Z\",\n    \"value\": \"string\",\n    \"isSecret\": true\n  },\n  \"appIdentifier\": {\n    \"dataType\": \"Currency\",\n    \"isSecret\": true,\n    \"lastUpdateDate\": \"2006-10-27T13:57:20.239Z\",\n    \"value\": \"string\"\n  },\n  \"buildType\": {\n    \"dataType\": \"Time\",\n    \"isSecret\": false,\n    \"lastUpdateDate\": null,\n    \"value\": \"Release\"\n  },\n  \"keystore\": {\n    \"dataType\": \"Text\",\n    \"lastUpdateDate\": \"1993-04-18T07:42:32.343Z\",\n    \"value\": \"string\",\n    \"isSecret\": false\n  },\n  \"keystoreName\": {\n    \"dataType\": \"Integer\",\n    \"isSecret\": false,\n    \"lastUpdateDate\": \"1956-05-31T19:24:17.107Z\",\n    \"value\": \"string\"\n  },\n  \"keystorePassword\": {\n    \"dataType\": \"DateTime\",\n    \"lastUpdateDate\": \"1955-07-08T11:52:11.847Z\",\n    \"value\": \"string\",\n    \"isSecret\": true\n  },\n  \"mabsVersion\": {\n    \"dataType\": \"PhoneNumber\",\n    \"isSecret\": true,\n    \"lastUpdateDate\": null,\n    \"value\": \"string\"\n  },\n  \"mobileFramework\": {\n    \"dataType\": \"EntityIdentifierType\",\n    \"isSecret\": false,\n    \"lastUpdateDate\": null,\n    \"value\": \"Cordova\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4b5c5a9-d43f-4cbb-88fb-52bfbf05a42e",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19378378-4a9d-46b8-9cbd-61f0d8e423d8",
+              "name": "The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a34dba3c-5758-475b-b1d1-ae40d7629251",
+              "name": "Too Many Requests. The rate limit for viewing mobile configurations has been exceeded. \nRate Limit: 100 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3390a570-fdd2-47a9-bba0-af0d25286a3b",
+          "name": "Updates the Native Mobile Configuration for Android Applications",
+          "request": {
+            "name": "Updates the Native Mobile Configuration for Android Applications",
+            "description": {
+              "content": "Allows modifying keystore files and other related settings required for building and deploying the application.\nOnly the fields provided in the request body are updated; omitted fields remain unchanged.\n\nRate Limit: 10 requests per minute\n\nAPI Client needs the **Configuration management > Edit asset configurations** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "environments",
+                ":environmentKey",
+                "applications",
+                ":applicationKey",
+                "configurations",
+                "android"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "environmentKey",
+                  "description": "(Required) Environment key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationKey",
+                  "description": "(Required) Application key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"keystore\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystoreName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystorePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"alias\": {\n    \"value\": \"<string,null>\"\n  },\n  \"aliasPassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4106ccf-19d5-4f3d-9a69-4abd861c8cea",
+              "name": "Mobile configuration updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keystore\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystoreName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystorePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"alias\": {\n    \"value\": \"<string,null>\"\n  },\n  \"aliasPassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "154831ab-3d5d-4bf9-a840-3add628a1d89",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keystore\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystoreName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystorePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"alias\": {\n    \"value\": \"<string,null>\"\n  },\n  \"aliasPassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9024c92d-f4cc-412b-b808-4b792b9286d4",
+              "name": "The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keystore\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystoreName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystorePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"alias\": {\n    \"value\": \"<string,null>\"\n  },\n  \"aliasPassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "846cf58c-7707-4aa8-9a64-e836c3bce654",
+              "name": "Too Many Requests. The rate limit for editing mobile configurations has been exceeded. \nRate Limit: 10 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "android"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keystore\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystoreName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"keystorePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"alias\": {\n    \"value\": \"<string,null>\"\n  },\n  \"aliasPassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80c63841-bed1-444a-8203-a569ca322cf5",
+          "name": "Returns the deployed native configuration for a given iOS application",
+          "request": {
+            "name": "Returns the deployed native configuration for a given iOS application",
+            "description": {
+              "content": "The response includes all the necessary information to build and deploy an iOS native mobile application,\nsuch as certificates, provisioning profiles, and other related configurations.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Configuration management > View configurations** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "environments",
+                ":environmentKey",
+                "applications",
+                ":applicationKey",
+                "configurations",
+                "ios"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "environmentKey",
+                  "description": "(Required) Environment key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationKey",
+                  "description": "(Required) Application key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f04ca97a-7d05-4b3a-a7f4-44e251c149e7",
+              "name": "iOS configuration details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"appIdentifier\": {\n    \"dataType\": \"EntityIdentifierType\",\n    \"isSecret\": true,\n    \"lastUpdateDate\": \"1998-08-19T20:35:00.720Z\",\n    \"value\": null\n  },\n  \"buildType\": {\n    \"dataType\": \"Text\",\n    \"isSecret\": false,\n    \"lastUpdateDate\": null,\n    \"value\": \"Simulator\"\n  },\n  \"certificate\": {\n    \"dataType\": \"Boolean\",\n    \"lastUpdateDate\": null,\n    \"value\": \"string\",\n    \"isSecret\": false\n  },\n  \"certificateName\": {\n    \"dataType\": \"BinaryUrl\",\n    \"isSecret\": true,\n    \"lastUpdateDate\": null,\n    \"value\": null\n  },\n  \"certificatePassword\": {\n    \"dataType\": \"Integer\",\n    \"lastUpdateDate\": \"2024-06-11T04:36:06.144Z\",\n    \"value\": null,\n    \"isSecret\": false\n  },\n  \"mabsVersion\": {\n    \"dataType\": \"Text\",\n    \"isSecret\": true,\n    \"lastUpdateDate\": \"1958-06-04T02:05:17.163Z\",\n    \"value\": \"string\"\n  },\n  \"mobileFramework\": {\n    \"dataType\": \"DateTime\",\n    \"isSecret\": false,\n    \"lastUpdateDate\": null,\n    \"value\": \"<string>\"\n  },\n  \"provisioningProfile\": {\n    \"dataType\": \"PhoneNumber\",\n    \"isSecret\": false,\n    \"lastUpdateDate\": \"2022-09-26T05:04:04.303Z\",\n    \"value\": \"string\"\n  },\n  \"provisioningProfileName\": {\n    \"dataType\": \"BinaryUrl\",\n    \"isSecret\": false,\n    \"lastUpdateDate\": \"1958-08-10T01:00:43.568Z\",\n    \"value\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00605ba5-1b72-44bc-8445-7172e48ca887",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef908195-a15d-4fb5-bfb2-906b48f08fd9",
+              "name": "The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d904f8c0-416a-47c3-9373-7b17034334ee",
+              "name": "Too Many Requests. The rate limit for viewing mobile configurations has been exceeded. \nRate Limit: 100 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8aa1ad57-78e9-4031-b754-06f36acab553",
+          "name": "Updates the Native Mobile Configuration for iOS Applications",
+          "request": {
+            "name": "Updates the Native Mobile Configuration for iOS Applications",
+            "description": {
+              "content": "Allows modifying certificates, provisioning profiles, and other related settings required for building and deploying the application.\nOnly the fields provided in the request body are updated; omitted fields remain unchanged.\n\nRate Limit: 10 requests per minute\n\nAPI Client needs the **Configuration management > Edit asset configurations** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "environments",
+                ":environmentKey",
+                "applications",
+                ":applicationKey",
+                "configurations",
+                "ios"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "environmentKey",
+                  "description": "(Required) Environment key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationKey",
+                  "description": "(Required) Application key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"certificate\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificateName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificatePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfile\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfileName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d85bfee-0404-49df-b8f3-cc8b5a4b1a6b",
+              "name": "Mobile configuration updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"certificate\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificateName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificatePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfile\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfileName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d4767fe-40a9-4973-bbe3-8ec473504755",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"certificate\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificateName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificatePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfile\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfileName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f15ba4d-3cc0-4303-a343-185d1f9e89e5",
+              "name": "The specified environment or application does not exist, or there is no mobile configuration deployed for the specified application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"certificate\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificateName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificatePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfile\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfileName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9eb05324-fb09-40fa-9318-cc308f5a1a2a",
+              "name": "Too Many Requests. The rate limit for editing mobile configurations has been exceeded. \nRate Limit: 10 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "environments",
+                    ":environmentKey",
+                    "applications",
+                    ":applicationKey",
+                    "configurations",
+                    "ios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "environmentKey",
+                      "description": "(Required) Environment key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationKey",
+                      "description": "(Required) Application key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"certificate\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificateName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"certificatePassword\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfile\": {\n    \"value\": \"<string,null>\"\n  },\n  \"provisioningProfileName\": {\n    \"value\": \"<string,null>\"\n  },\n  \"appIdentifier\": {\n    \"value\": \"<string,null>\"\n  },\n  \"buildType\": {\n    \"value\": \"<string>\"\n  },\n  \"mabsVersion\": {\n    \"value\": \"<string,null>\"\n  },\n  \"mobileFramework\": {\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 6695,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "3646c7f3-b9fa-48f2-9c7e-4fff891a07be",
+    "name": "Native Mobile Build Native Mobile Configurations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for building and managing native mobile applications.\n",
+      "type": "text/plain"
+    }
+  }
+}

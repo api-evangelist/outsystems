@@ -1,0 +1,290 @@
+{
+  "item": [
+    {
+      "id": "20361208-fe0e-4dd4-bf4c-82dba3f99d6c",
+      "name": "Analysis Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ffce9ca9-9c66-4b14-9f88-a6222b098a0f",
+          "name": "Retrieves the current synchronization status of Code Quality data.",
+          "request": {
+            "name": "Retrieves the current synchronization status of Code Quality data.",
+            "description": {
+              "content": "Retrieves the current synchronization status of Code Quality data, including the latest and last successful analysis details with metrics about new and resolved findings.\n\nExample: GET /code-quality/v1/analysis-status\n\nAPI Client needs the **Analyze > View Code Quality findings** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analysis-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3b631dbc-881c-4873-9849-43cce92adb96",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"lastSuccessfulAnalysis\": {\n      \"startedOn\": \"1955-01-01T07:17:55.372Z\",\n      \"completedOn\": \"2005-04-10T18:52:08.559Z\",\n      \"status\": null,\n      \"newFindingsCount\": null,\n      \"solvedFindingsCount\": 247\n    },\n    \"latestAnalysis\": {\n      \"startedOn\": \"2007-04-18T17:18:37.495Z\",\n      \"completedOn\": \"2020-11-27T15:52:31.106Z\",\n      \"status\": \"string\",\n      \"newFindingsCount\": null,\n      \"solvedFindingsCount\": null,\n      \"errorCode\": null,\n      \"errorMessage\": \"string\"\n    },\n    \"nextAnalysis\": {\n      \"scheduledOn\": \"1961-11-18T08:52:04.733Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39c645c7-580f-4b96-8924-919532ae2bdf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 1005,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc846562-a3f0-46d6-8823-ef541caf8cc9",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 1005,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "276032b6-b7a2-463e-8ddd-198f34b7e071",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 1005,\n  \"detail\": null,\n  \"instance\": null,\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67a5438a-1578-4c23-a474-9c28025982e5",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"lastSuccessfulAnalysis\": {\n      \"startedOn\": \"1955-01-01T07:17:55.372Z\",\n      \"completedOn\": \"2005-04-10T18:52:08.559Z\",\n      \"status\": null,\n      \"newFindingsCount\": null,\n      \"solvedFindingsCount\": 247\n    },\n    \"latestAnalysis\": {\n      \"startedOn\": \"2007-04-18T17:18:37.495Z\",\n      \"completedOn\": \"2020-11-27T15:52:31.106Z\",\n      \"status\": \"string\",\n      \"newFindingsCount\": null,\n      \"solvedFindingsCount\": null,\n      \"errorCode\": null,\n      \"errorMessage\": \"string\"\n    },\n    \"nextAnalysis\": {\n      \"scheduledOn\": \"1961-11-18T08:52:04.733Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6321045f-42f8-49f6-8ec2-31b129422153",
+    "name": "Code Quality Analysis Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Provides APIs to submit code analysis requests and retrieve information about code quality findings, application scores, and analysis results.",
+      "type": "text/plain"
+    }
+  }
+}

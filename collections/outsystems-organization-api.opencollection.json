@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Subscription Organization API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves information of the organization configurations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/subscription/v1/organization/configurations"
+          },
+          "docs": "Read-only view of organization settings.\n\nAPI Client needs the **Subscriptions > View subscription** permission."
+        },
+        {
+          "info": {
+            "name": "Patches editable organization configurations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/subscription/v1/organization/configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Patches editable organization configurations.\n\nAPI Client needs the **Subscriptions > Manage subscription** permission to change organization configurations."
+        },
+        {
+          "info": {
+            "name": "Retrieves information on the entitlements for the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/subscription/v1/organization/entitlements"
+          },
+          "docs": "Entitlements and add-ons are shown with sufficient permissions\n\nTo fetch the entitlements, API Client needs at least one permission.\nTo additionally fetch the add-ons and subscription details, API Client also needs the **Subscriptions > View subscription** permission."
+        },
+        {
+          "info": {
+            "name": "Retrieves usage data for entitlements for the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/subscription/v1/organization/entitlements/usage",
+            "params": [
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Data granularity (summary, hour, day, month). Defaults to summary."
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Start date for usage data (ISO 8601 format)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End date for usage data (ISO 8601 format)"
+              },
+              {
+                "name": "entitlementIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated entitlement IDs. Valid values: appAnalyticsStreamLimit, applicationObjects, internalUsers, externalUsers"
+              },
+              {
+                "name": "aggregations",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated aggregation functions. Valid values: Total, Max, P95, P90"
+              },
+              {
+                "name": "assetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated asset keys (GUIDs) to filter results"
+              }
+            ]
+          },
+          "docs": "Filter by entitlement, date range, and aggregation.\n\nAPI Client needs the **Subscriptions > View subscription** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

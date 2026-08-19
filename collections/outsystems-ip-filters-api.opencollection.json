@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Environment Configurations IP filters API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP filters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns information about a specific IP filter group for an environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/ip-filter-groups/:ipFilterGroupKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "ipFilterGroupKey",
+                "value": "",
+                "type": "path",
+                "description": "The IP filter group's key."
+              }
+            ]
+          },
+          "docs": "Returns information about a specific IP filter group for an environment (stage).\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Updates an IP filter group for an environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/ip-filter-groups/:ipFilterGroupKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "ipFilterGroupKey",
+                "value": "",
+                "type": "path",
+                "description": "The IP filter group's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an IP filter group for an environment (stage).\n\nAPI Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Deletes a specific IP filter group for an environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/ip-filter-groups/:ipFilterGroupKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "ipFilterGroupKey",
+                "value": "",
+                "type": "path",
+                "description": "The IP filter group's key."
+              }
+            ]
+          },
+          "docs": "Deletes a specific IP filter group for an environment (stage).\n\nAPI Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Returns the list of IP filter groups for an environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/ip-filter-groups",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "appKeys",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of app keys to filter the results."
+              }
+            ]
+          },
+          "docs": "Returns the list of IP filter groups for an environment (stage).\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Creates a new IP filter group in an environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/ip-filter-groups",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new IP filter group in an environment (stage).\n\nAPI Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

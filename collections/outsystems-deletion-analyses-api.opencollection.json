@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dependency Management Deletion Analyses API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deletion Analyses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the deletion analysis result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/dependency-management/v1/deletion-analyses/:analysisKey",
+            "params": [
+              {
+                "name": "analysisKey",
+                "value": "",
+                "type": "path",
+                "description": "Analysis key."
+              }
+            ]
+          },
+          "docs": "Returns the deletion analysis report once the analysis is completed.\n\n"
+        },
+        {
+          "info": {
+            "name": "Launches a Deletion Analysis Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/dependency-management/v1/deletion-analyses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a Deletion Analysis Process. This evaluates the impacts of deleting the associated asset.\nFor applications and agents, considers the impacts of undeploying them from their running stages, on their consumers\nFor libraries, considers what running applications are still consuming them, and evaluating the impact they'll have, on not being available to build, going forward\n\nAPI Client needs the **Asset management > Delete** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

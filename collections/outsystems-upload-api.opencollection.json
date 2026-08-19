@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "External Library Generation Service Upload API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Upload",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns an Upload Schema.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/external-libraries/v1/uploads"
+          },
+          "docs": "Returns an Upload Schema containing a pre-signed uploadURL for uploading external library source code and an associated downloadURL to retrieve the uploaded source code.\n\nRequired permissions: **Asset management > Create**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

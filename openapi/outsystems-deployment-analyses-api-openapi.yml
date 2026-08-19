@@ -1,0 +1,392 @@
+openapi: 3.2.0
+info:
+  title: Dependency Management Deployment Analyses API
+  description: 'REST endpoints for launching and getting results of impact analysis in the deployment and deletion of an asset.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/dependency-management/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Deployment Analyses
+paths:
+  /deployment-analyses/{analysisKey}:
+    get:
+      tags:
+      - Deployment Analyses
+      summary: Returns the deployment analysis result
+      description: 'Returns the deployment analysis report once the analysis is completed.
+
+
+        '
+      operationId: DeploymentAnalysis_GetResult
+      parameters:
+      - name: analysisKey
+        in: path
+        description: Analysis key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicDeploymentAnalysisReportPublicAnalysisResult'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /deployment-analyses:
+    post:
+      tags:
+      - Deployment Analyses
+      summary: Launches a Deployment Analysis Process
+      description: 'Launches a Deployment Analysis Process, detecting impacts that promoting this asset to a new stage might have on its consumers, and what might be the impacts on itself, as it relates to its producers
+
+
+        API Client needs the **Release management > Deploy assets** permission.'
+      operationId: DeploymentAnalysis_LaunchDeploymentAnalysis
+      requestBody:
+        description: LaunchDeploymentAnalysisRequest with the revision to be deployed, and the environment to be deployed to.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PublicLaunchDeploymentAnalysisRequest'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PublicLaunchDeploymentAnalysisRequest'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferenceKeyResponse'
+      x-os-permissions: API Client needs the **Release management > Deploy assets** permission.
+components:
+  schemas:
+    ElementIssue:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Element Name
+        type:
+          type:
+          - string
+          - 'null'
+          description: Element type
+        conflictType:
+          allOf:
+          - $ref: '#/components/schemas/ElementConflictType'
+          description: Conflict Type
+        conflictSeverity:
+          allOf:
+          - $ref: '#/components/schemas/ConflictSeverity'
+          description: Conflict Severity
+        incompatibilityType:
+          allOf:
+          - $ref: '#/components/schemas/IncompatibilityType'
+          description: Type of incompatibility, if any
+        hint:
+          type:
+          - string
+          - 'null'
+          description: Hint to help identify the conflict
+      additionalProperties: false
+    ProcessStatus:
+      enum:
+      - InProgress
+      - Finished
+      - Failed
+      type: string
+    AnalysisReportType:
+      enum:
+      - Deployment
+      - Deletion
+      type: string
+    ApplicationConflictType:
+      enum:
+      - NameCollision
+      - MissingApplication
+      - UrlDiscrepancy
+      - UnsupportedRuntime
+      type: string
+    ConflictSeverity:
+      enum:
+      - Warning
+      - Error
+      type: string
+    ApplicationIssue:
+      type: object
+      properties:
+        conflictType:
+          allOf:
+          - $ref: '#/components/schemas/ApplicationConflictType'
+          description: Conflict Type
+        conflictSeverity:
+          allOf:
+          - $ref: '#/components/schemas/ConflictSeverity'
+          description: Conflict Severity
+        hint:
+          type:
+          - string
+          - 'null'
+          description: Hint to understand the conflict
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    PublicDeploymentAnalysisReport:
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AnalysisStatus'
+          description: Analysis global status
+          readOnly: true
+        impactedAssets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicApplicationReport'
+          description: List of impacted assets
+      additionalProperties: false
+    PublicLaunchDeploymentAnalysisRequest:
+      type: object
+      properties:
+        revision:
+          type: integer
+          description: Intended revision to deploy
+          format: int32
+        environmentKey:
+          type:
+          - string
+          - 'null'
+          description: Intended Environment Key to deploy to
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset Key for the analysis
+      additionalProperties: false
+    IncompatibilityType:
+      enum:
+      - None
+      - MissingMandatoryInputParameter
+      - InputParameterMismatch
+      - InputParameterTypeMismatch
+      - OutputParameterMismatch
+      - OutputParameterTypeMismatch
+      - MissingMandatoryEntityAttribute
+      - EntityAttributeMismatch
+      - EntityAttributeTypeMismatch
+      - MissingMandatoryStructureAttribute
+      - StructureAttributeMismatch
+      - StructureAttributeTypeMismatch
+      - MissingRecord
+      - RecordIdentifierMismatch
+      - ScreenNameMismatch
+      - ScreenPageNameMismatch
+      - ScreenURLStructureMismatch
+      - ServerEntityNameMismatch
+      - ServiceActionNameMismatch
+      - StaticEntityNameMismatch
+      - StructureNameMismatch
+      - MissingScreen
+      - MissingServerEntity
+      - MissingServiceAction
+      - MissingStaticEntity
+      - MissingStructure
+      - MissingConsumerElementSignature
+      - EventNameMismatch
+      - MissingEvent
+      - InputParameterDefaultValueMismatch
+      - ScreenUrlDiscrepancy
+      - MissingRole
+      type: string
+    ReferenceType:
+      enum:
+      - Producer
+      - Consumer
+      - None
+      - Deployed
+      type: string
+    ReferenceKeyResponse:
+      type: object
+      properties:
+        analysisKey:
+          type:
+          - string
+          - 'null'
+          description: Analysis Key
+      additionalProperties: false
+    PublicDeploymentAnalysisReportPublicAnalysisResult:
+      type: object
+      properties:
+        analysisKey:
+          type:
+          - string
+          - 'null'
+          description: Key of the analysis
+        type:
+          allOf:
+          - $ref: '#/components/schemas/AnalysisReportType'
+          description: Type of analysis
+        processStatus:
+          allOf:
+          - $ref: '#/components/schemas/ProcessStatus'
+          description: Status of the analysis
+        error:
+          allOf:
+          - $ref: '#/components/schemas/ProblemDetails'
+          description: Processing error, if any
+        report:
+          allOf:
+          - $ref: '#/components/schemas/PublicDeploymentAnalysisReport'
+          description: Report
+        environmentKey:
+          type:
+          - string
+          - 'null'
+          description: Environment Key, if any
+          format: uuid
+        startedAt:
+          type: string
+          description: Start date of the analysis
+          format: date-time
+        assetKey:
+          type: string
+          description: Asset Key
+          format: uuid
+      additionalProperties: false
+    PublicApplicationReport:
+      type: object
+      properties:
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: Revision, if applicable
+          format: int32
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of application
+        referenceType:
+          allOf:
+          - $ref: '#/components/schemas/ReferenceType'
+          description: Reference Type of the application
+        elementLevelIssues:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ElementIssue'
+          description: List of Element Level Issues
+        applicationLevelIssues:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationIssue'
+          description: List of Application Level Issues
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset Key
+      additionalProperties: false
+    AnalysisStatus:
+      enum:
+      - NoIssuesFound
+      - WarningsFound
+      - ErrorsFound
+      type: string
+    ElementConflictType:
+      enum:
+      - MissingElement
+      - IncompatibleElement
+      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token
+      scheme: bearer
+      bearerFormat: JWT

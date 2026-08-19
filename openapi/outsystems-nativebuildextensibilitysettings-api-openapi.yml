@@ -1,0 +1,391 @@
+openapi: 3.2.0
+info:
+  title: Native Mobile Build Native Build Extensibility Settings API
+  description: 'API for building and managing native mobile applications.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/native-mobile-builds/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- {}
+tags:
+- name: NativeBuildExtensibilitySettings
+paths:
+  /environments/{environmentKey}/applications/{applicationKey}/configurations/extensibility-settings:
+    get:
+      tags:
+      - NativeBuildExtensibilitySettings
+      summary: Gets extensibility settings for the given application.
+      description: '
+
+        Rate Limit: 100 requests per minute per tenant
+
+
+        API Client needs the **Configuration management > View configurations** permission.'
+      operationId: GET_NativeBuildExtensibilitySettings_Get
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: path
+        description: Application key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtensibilitySettingsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission.
+    patch:
+      tags:
+      - NativeBuildExtensibilitySettings
+      summary: Patches extensibility settings for a given application
+      description: '
+
+        Rate Limit: 10 requests per minute per tenant
+
+
+        API Client needs the **Configuration management > Edit asset configurations** permission.'
+      operationId: PATCH_NativeBuildExtensibilitySettings_Patch
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: applicationKey
+        in: path
+        description: Application key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ExtensibilitySettingsRequest'
+              description: Optional extensibility settings and library-specific configurations to apply.
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ExtensibilitySettingsRequest'
+              description: Optional extensibility settings and library-specific configurations to apply.
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > Edit asset configurations** permission.
+components:
+  schemas:
+    Metadata:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Metadata Item Key
+        value:
+          type:
+          - string
+          - 'null'
+          description: Metadata Item Value
+      additionalProperties: false
+      description: Metadata about Extensibility setting
+    ExtensibilitySettingsResponse:
+      type: object
+      properties:
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemResponse'
+          description: Extensibility settings to be returned
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigurationResponse'
+          description: Library configurations
+      additionalProperties: false
+      description: The extensibility settings and library configurations for the application.
+    ExtensibilitySettingsItemRequest:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value to be set for the configuration
+        metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Metadata'
+          description: Metadata of the configuration
+      additionalProperties: false
+      description: A configuration item identified by a key, with an optional new value for the configuration  and optional metadata entries.
+    LibraryConfigurationRequest:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
+          description: Settings associated with Library configuration
+      additionalProperties: false
+      description: Library configurations for Extensibility settings
+    Origin:
+      enum:
+      - Override
+      - Default
+      type: string
+      description: The origin of the value. Either being overridden by the user or set to its default.
+    ExtensibilitySettingsRequest:
+      type: object
+      properties:
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
+          description: Extensibility settings to be updated
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigurationRequest'
+          description: Library configurations
+      additionalProperties: false
+      description: Optional extensibility settings and library-specific configurations to apply.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    GenericConfigDataType:
+      enum:
+      - Text
+      - Integer
+      - LongInteger
+      - Decimal
+      - Boolean
+      - DateTime
+      - Date
+      - Time
+      - PhoneNumber
+      - Email
+      - Currency
+      - EntityIdentifierType
+      - BinaryUrl
+      type: string
+      description: Type of configuration
+    ExtensibilitySettingsItemResponse:
+      required:
+      - defaultValue
+      - description
+      - isSecret
+      - key
+      - name
+      - value
+      - valueOrigin
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the configuration
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Type of the configuration
+        defaultValue:
+          type:
+          - string
+          - 'null'
+          description: Default value of the configuration
+        value:
+          type:
+          - string
+          - 'null'
+          description: Last set value of the configuration
+        valueOrigin:
+          allOf:
+          - $ref: '#/components/schemas/Origin'
+          description: The origin of the value. Either being overridden by the user or set to its default.
+        isSecret:
+          type: boolean
+          description: If the configuration is a secret
+        isMandatory:
+          type: boolean
+          description: If the configuration is mandatory
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date of the last update of the configuration
+          format: date-time
+        metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Metadata'
+          description: Metadata of the configuration
+      additionalProperties: false
+      description: Represents the basic configuration properties that will be returned in the GET endpoint
+    LibraryConfigurationResponse:
+      required:
+      - key
+      - revision
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revision:
+          type: integer
+          description: The revision number of the configuration
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemResponse'
+          description: Settings associated with Library configuration
+      additionalProperties: false
+      description: Library configurations for Extensibility settings
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

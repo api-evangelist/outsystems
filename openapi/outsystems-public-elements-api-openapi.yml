@@ -1,0 +1,291 @@
+openapi: 3.2.0
+info:
+  title: Dependency Management Public Elements API
+  description: 'REST endpoints for launching and getting results of impact analysis in the deployment and deletion of an asset.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/dependency-management/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/dependency-management/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Public Elements
+paths:
+  /public-elements/search:
+    post:
+      tags:
+      - Public Elements
+      summary: Lists all public elements of assets according to the complex filter.
+      description: 'Only public elements that the user has permission to reference are returned.
+
+
+        '
+      operationId: DependencyManagement_SearchPublicElements
+      requestBody:
+        description: The search filter criteria.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/DependenciesPublicElementFilter'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/DependenciesPublicElementFilter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicElementStringTypesPagedListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    DependenciesPublicElementFilter:
+      type: object
+      properties:
+        elementNameContains:
+          type:
+          - string
+          - 'null'
+          description: Filter where the element name must contain the keyword if specified
+        elementNameOrDescriptionContains:
+          type:
+          - string
+          - 'null'
+          description: Filter where the element name or description must contain the keyword if specified
+        elementType:
+          type:
+          - string
+          - 'null'
+          description: Filter where the element must be of this type if specified
+        includeHidden:
+          type:
+          - boolean
+          - 'null'
+          description: Filter if hidden elements should be included or not
+        consumerPortfolioKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Filter by one or more portfolio keys
+        limit:
+          type:
+          - integer
+          - 'null'
+          description: Limits the number of returned elements
+          format: int32
+        offset:
+          type:
+          - integer
+          - 'null'
+          description: Offsets the returned elements
+          format: int32
+        sort:
+          type:
+          - string
+          - 'null'
+          description: Sorts the returned elements by the specified field
+        sortAscending:
+          type:
+          - boolean
+          - 'null'
+          description: Specifies if the sort order should be ascending or descending
+        assetFilters:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationFilter'
+          description: Filters which asset elements to search by
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    PublicElementStringTypesPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicElementStringTypes'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    ApplicationFilter:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key of the application to filter by
+        digest:
+          type:
+          - string
+          - 'null'
+          description: Digest of the application to filter by, if empty will use the latest revision
+      additionalProperties: false
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    PublicElementStringTypes:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the owner asset
+        assetName:
+          type:
+          - string
+          - 'null'
+          description: Name of the owner asset
+        revision:
+          type: integer
+          description: Revision number that identifies the owner asset version
+          format: int32
+        tag:
+          type:
+          - string
+          - 'null'
+          description: Tag of the owner asset
+        key:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier (per asset) of the public element
+        name:
+          type:
+          - string
+          - 'null'
+          description: Element name
+        description:
+          type:
+          - string
+          - 'null'
+          description: Element description
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the signature of the public element has changes. (format: guid)'
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the signature of the public element might have breaking changes. (format: guid)'
+        isHidden:
+          type: boolean
+          description: True if the element is not marked as public, but is still shared with consumers because another public element uses it (e.g. image, block)
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: Type of the owner asset
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of public element
+      additionalProperties: false
+      description: Represents a public element of an asset.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token
+      scheme: bearer
+      bearerFormat: JWT

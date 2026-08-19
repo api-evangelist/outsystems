@@ -1,0 +1,508 @@
+openapi: 3.2.0
+info:
+  title: Environment Configurations IP filters API
+  description: REST endpoints for managing environment (stage) configurations in ODC. Covers custom domains, IP filters, and Private Gateways, enabling you to automate the same configurations available in ODC Portal.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/environment-configurations/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    '{odc-portal-domain}':
+      default: '{odc-portal-domain}'
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: IP filters
+  description: Create, update, and delete IP filter groups and rules.
+paths:
+  /environments/{environmentKey}/ip-filter-groups/{ipFilterGroupKey}:
+    delete:
+      tags:
+      - IP filters
+      summary: Deletes a specific IP filter group for an environment (stage).
+      description: 'Deletes a specific IP filter group for an environment (stage).
+
+
+        API Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage).'
+      operationId: IpFilterGroups_Delete
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: ipFilterGroupKey
+        in: path
+        description: The IP filter group's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '204':
+          description: No Content
+      x-os-permissions: API Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage).
+    get:
+      tags:
+      - IP filters
+      summary: Returns information about a specific IP filter group for an environment (stage).
+      description: 'Returns information about a specific IP filter group for an environment (stage).
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: IpFilterGroups_Get
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: ipFilterGroupKey
+        in: path
+        description: The IP filter group's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpFilterGroup'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+    patch:
+      tags:
+      - IP filters
+      summary: Updates an IP filter group for an environment (stage).
+      description: 'Updates an IP filter group for an environment (stage).
+
+
+        API Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage).'
+      operationId: IpFilterGroups_Patch
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: ipFilterGroupKey
+        in: path
+        description: The IP filter group's key.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The details of the IP filter group being updated.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PatchIpFilterGroup'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PatchIpFilterGroup'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '204':
+          description: No Content
+      x-os-permissions: API Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage).
+  /environments/{environmentKey}/ip-filter-groups:
+    get:
+      tags:
+      - IP filters
+      summary: Returns the list of IP filter groups for an environment (stage).
+      description: 'Returns the list of IP filter groups for an environment (stage).
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: IpFilterGroups_List
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: appKeys
+        in: query
+        description: Comma-separated list of app keys to filter the results.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpFilterGroups'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+    post:
+      tags:
+      - IP filters
+      summary: Creates a new IP filter group in an environment (stage).
+      description: 'Creates a new IP filter group in an environment (stage).
+
+
+        API Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage).'
+      operationId: IpFilterGroups_Post
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The details of the new IP filter group.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BaseIpFilterGroup'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BaseIpFilterGroup'
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpFilterGroupKey'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage).
+components:
+  schemas:
+    IpFilterGroupRule:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the IP rule.
+        ranges:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'The list of the IP ranges (e.g: 0.0.0.0-0.0.0.3).'
+        isActive:
+          type: boolean
+          description: Indicates if the IP rule is currently active.
+      additionalProperties: false
+    IpFilterGroup:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the IP filter group.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the IP filter group.
+        accessType:
+          allOf:
+          - $ref: '#/components/schemas/IpFilterGroupAccessType'
+          description: The default access type of the IP filter group, after all rules are applied.
+        ipRules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IpFilterGroupRule'
+          description: The list of IP filter rules associated with this group.
+        appKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: The list of all app keys that are explicitly assigned to this group.
+        key:
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the IP filter group.
+      additionalProperties: false
+    IpFilterGroupAccessType:
+      enum:
+      - DENYLIST
+      - ALLOWLIST
+      type: string
+    IpFilterGroups:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IpFilterGroup'
+          description: The list of IP filter groups.
+      additionalProperties: false
+    BaseIpFilterGroup:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the IP filter group.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the IP filter group.
+        accessType:
+          allOf:
+          - $ref: '#/components/schemas/IpFilterGroupAccessType'
+          description: The default access type of the IP filter group, after all rules are applied.
+        ipRules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IpFilterGroupRule'
+          description: The list of IP filter rules associated with this group.
+        appKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: The list of all app keys that are explicitly assigned to this group.
+      additionalProperties: false
+    PatchIpFilterGroup:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the group
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the group
+        accessType:
+          allOf:
+          - $ref: '#/components/schemas/IpFilterGroupAccessType'
+          description: Default access type in group, after all rules are applied
+        ipRules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IpFilterGroupRule'
+          description: All the rules associated with this group
+        appKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of all applications that are explicitly assigned to this group.
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    IpFilterGroupKey:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the Ip filter group
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,492 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Outsystems Environments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets the configurations of an agent.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/agents/:agentKey/revisions/deployed/configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "agentKey",
+                "value": "",
+                "type": "path",
+                "description": "The agent's key."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries."
+              },
+              {
+                "name": "showBinaryValues",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether to return the binary values."
+              }
+            ]
+          },
+          "docs": "Returns the agent configurations for the deployed revision.\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Gets the configurations of an agent revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/agents/:agentKey/revisions/:baselineRevision/configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "agentKey",
+                "value": "",
+                "type": "path",
+                "description": "The agent's key."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries."
+              },
+              {
+                "name": "baselineRevision",
+                "value": "",
+                "type": "path",
+                "description": "The agent revision."
+              },
+              {
+                "name": "showBinaryValues",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether to return the binary values."
+              }
+            ]
+          },
+          "docs": "Returns the configurations for a specific revision of an agent.\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Gets the configurations of an app.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/applications/:applicationKey/revisions/deployed/configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "The app's key."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries."
+              },
+              {
+                "name": "showBinaryValues",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether to return the binary values."
+              }
+            ]
+          },
+          "docs": "Returns the app configurations for the deployed revision.\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Gets the configurations of an app revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/applications/:applicationKey/revisions/:baselineRevision/configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "The app's key."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries."
+              },
+              {
+                "name": "baselineRevision",
+                "value": "",
+                "type": "path",
+                "description": "The app revision."
+              },
+              {
+                "name": "showBinaryValues",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether to return the binary values."
+              }
+            ]
+          },
+          "docs": "Returns the app configurations for a given revision.\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Updates the configurations of an agent.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/agents/:agentKey/configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "agentKey",
+                "value": "",
+                "type": "path",
+                "description": "The agent's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration values for an agent. Only the provided elements are changed.\n\nAPI Client needs the **Configuration management > Edit configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Updates the configurations of an app.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/applications/:applicationKey/configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "applicationKey",
+                "value": "",
+                "type": "path",
+                "description": "The app's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration values for an app. Only the provided elements are changed.\n\nAPI Client needs the **Configuration management > Edit configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Gets the default system configurations for an environment (stage)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/default-system-configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ]
+          },
+          "docs": "Returns the default system configurations for an environment (stage).\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Updates the default system configurations of an environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/default-system-configurations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the default system configuration values for an environment. Only the provided elements are changed.\n\nTo update configurations, API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).\n\nTo update email configurations, API Client needs the **Configuration management > Manage Email SMTP configuration** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Retrieves the list of environments (stages).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments"
+          },
+          "docs": "Deprecated since 2026-07-08. Use GET /portfolios/v2/environments instead. Note that V2's\nEnvironmentsController does not use the in-memory response caching this V1 endpoint has.\nThis endpoint will be removed on or after 2027-01-08.\n\nThe result only shows environments (stages) for which the API Client has **Stage > View stage** permission."
+        },
+        {
+          "info": {
+            "name": "Updates environment names and/or order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order."
+        },
+        {
+          "info": {
+            "name": "Updates a single environment's name and/or order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment key to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order."
+        },
+        {
+          "info": {
+            "name": "Retrieves usage data per asset (application, library) for entitlements in a specific environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/entitlements/usage/by-asset",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "entitlementIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated entitlement IDs. Valid values: applicationObjects, maxComputeReplicas, maxCustomCodeTotalDuration, agentExecutions"
+              },
+              {
+                "name": "assetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated asset keys (GUIDs) to filter results"
+              },
+              {
+                "name": "assetName",
+                "value": "",
+                "type": "query",
+                "description": "Optional partial or full asset name for case-insensitive search"
+              },
+              {
+                "name": "detailKey",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter by detail key"
+              },
+              {
+                "name": "detailName",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter by detail name (case-insensitive partial match)"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated metrics to sort by. Prefix with '+' for ascending (default) or '-' for descending. Example: \"applicationObjects,-maxComputeReplicas\""
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Start date for usage data (ISO 8601 format)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End date for usage data (ISO 8601 format)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of asset rows to return. Default: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of asset rows to skip for pagination. Default: 0."
+              },
+              {
+                "name": "aggregations",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated aggregation functions. Valid values: Total, Max, P95, P90"
+              }
+            ]
+          },
+          "docs": "Paginated; supports filtering and sort by metric.\n\nTo fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage."
+        },
+        {
+          "info": {
+            "name": "Retrieves information on the entitlements for a specific environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/entitlements",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              }
+            ]
+          },
+          "docs": "Entitlements and add-ons are shown with sufficient permissions.\n\nTo fetch the entitlements, API Client needs the **Stage > View stage** permission in the target stage.\nTo additionally fetch the add-ons, API Client also needs the **Subscriptions > View subscription** permission."
+        },
+        {
+          "info": {
+            "name": "Retrieves usage data for entitlements in a specific environment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1/environments/:environmentKey/entitlements/usage",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Environment key"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Data granularity (summary, hour, day, month). Defaults to summary."
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Start date for usage data (ISO 8601 format)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End date for usage data (ISO 8601 format)"
+              },
+              {
+                "name": "entitlementIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated entitlement IDs. Valid values: applicationObjects, maxComputeReplicas, maxDbCompute, maxDbStorage, maxCustomCodeTotalDuration, agentExecutions, internalUsers, externalUsers"
+              },
+              {
+                "name": "aggregations",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated aggregation functions. Valid values: Total, Max, P95, P90"
+              },
+              {
+                "name": "assetKeys",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated asset keys (GUIDs) to filter results"
+              }
+            ]
+          },
+          "docs": "Filter by entitlement, date range, and aggregation.\n\nTo fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

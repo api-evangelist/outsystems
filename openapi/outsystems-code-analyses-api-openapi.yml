@@ -1,0 +1,430 @@
+openapi: 3.2.0
+info:
+  title: Code Quality Code Analyses API
+  description: Provides APIs to submit code analysis requests and retrieve information about code quality findings, application scores, and analysis results.
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/code-quality/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/code-quality/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+tags:
+- name: Code Analyses
+paths:
+  /code-analyses/{analysisKey}:
+    get:
+      tags:
+      - Code Analyses
+      summary: Retrieves the details of a code analysis request.
+      description: 'Retrieves the current status and results of a code analysis request, including quality score and findings.
+
+
+        Example: GET /code-quality/v1/code-analyses/be77b25f-c738-462f-8f19-7114fc4f9923
+
+
+        API Client needs the **Analyze > View Code Quality findings** permission.'
+      operationId: CodeAnalysisControllerV_GetAnalysisRequestStatus
+      parameters:
+      - name: analysisKey
+        in: path
+        description: The unique identifier (GUID) of the analysis request
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Limit
+        in: query
+        description: Number of findings to return in the response.
+        schema:
+          maximum: 2147483647
+          minimum: 1
+          type: integer
+          format: int32
+          example: 25
+        example: 25
+      - name: Offset
+        in: query
+        description: Number of findings to skip for pagination.
+        schema:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+          example: 10
+        example: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeAnalysisStatusResponseV1'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeAnalysisStatusResponseV1'
+      security:
+      - bearerAuth: []
+      x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
+  /code-analyses:
+    post:
+      tags:
+      - Code Analyses
+      summary: Submits a code analysis request for an asset revision.
+      description: 'Initiates code analysis for a specific asset revision, returning an analysis key for status tracking.
+
+
+        Example: POST /code-quality/v1/code-analyses
+
+
+        API Client needs the **Analyze > Manage code quality findings** permission.'
+      operationId: CodeAnalysisControllerV_SubmitCodeAnalysisRequest
+      requestBody:
+        description: The analysis request containing the asset key and revision to analyze
+        content:
+          application/json:
+            schema:
+              title: CodeAnalysisRequest
+              allOf:
+              - $ref: '#/components/schemas/AdhocAnalysisRequestV1'
+          application/*+json:
+            schema:
+              title: CodeAnalysisRequest
+              allOf:
+              - $ref: '#/components/schemas/AdhocAnalysisRequestV1'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeAnalysisResponseV1'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeAnalysisResponseV1'
+      security:
+      - bearerAuth: []
+      x-os-permissions: API Client needs the **Analyze > Manage code quality findings** permission.
+components:
+  schemas:
+    CodeAnalysisStatusResponseV1:
+      title: CodeAnalysisStatusResponse
+      type: object
+      properties:
+        analysisKey:
+          type: string
+          format: uuid
+        status:
+          type:
+          - string
+          - 'null'
+        findings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RevisionFindingsResponseV1'
+        qualityScore:
+          type: number
+          format: double
+        summary:
+          title: FindingsSummary
+          allOf:
+          - $ref: '#/components/schemas/FindingsSummary'
+          description: Overview of Finding Summary by categories and severities
+      additionalProperties: false
+    AdhocAnalysisRequestV1:
+      title: CodeAnalysisRequest
+      required:
+      - assetKey
+      - assetRevision
+      type: object
+      properties:
+        assetKey:
+          minLength: 1
+          type: string
+          description: Unique identifier of the asset to analyze.
+          example: 12345678-1234-1234-1234-123456789abc
+        assetRevision:
+          maximum: 2147483647
+          minimum: 1
+          type: integer
+          description: Revision number of the asset to analyze.
+          format: int32
+          example: 42
+      additionalProperties: false
+    FindingsSummary:
+      title: FindingsSummary
+      type: object
+      properties:
+        categories:
+          title: CodeAnalysisCategories
+          allOf:
+          - $ref: '#/components/schemas/CodeAnalysisCategories'
+          description: Finding Counts for all analysis categories and severities
+      additionalProperties: false
+      description: Overview of Finding Summary by categories and severities
+    CodeAnalysisResponseV1:
+      title: CodeAnalysisResponse
+      type: object
+      properties:
+        analysisKey:
+          type: string
+          format: uuid
+        status:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    RevisionFindingsResponseV1:
+      title: RevisionFindingsResponse
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        patternId:
+          type:
+          - string
+          - 'null'
+        discoveredOn:
+          type:
+          - string
+          - 'null'
+        rediscoveredOn:
+          type:
+          - string
+          - 'null'
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
+          type:
+          - string
+          - 'null'
+        elementPath:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ElementPath'
+          readOnly: true
+        elementLastModifiedBy:
+          type:
+          - string
+          - 'null'
+        elementLastModifiedOn:
+          type:
+          - string
+          - 'null'
+        whereElementKey:
+          type:
+          - string
+          - 'null'
+        whereElementName:
+          type:
+          - string
+          - 'null'
+        whereElementType:
+          type:
+          - string
+          - 'null'
+        whereElementPath:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ElementPath'
+          readOnly: true
+        whereElementLastModifiedBy:
+          type:
+          - string
+          - 'null'
+        whereElementLastModifiedOn:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        dismissReason:
+          type:
+          - string
+          - 'null'
+        snoozedUntil:
+          type:
+          - string
+          - 'null'
+        severity:
+          type:
+          - string
+          - 'null'
+        assetKey:
+          type:
+          - string
+          - 'null'
+        assetRevision:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        category:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CodeAnalysisCategories:
+      title: CodeAnalysisCategories
+      type: object
+      properties:
+        security:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        performance:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        architecture:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        maintainability:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+      additionalProperties: false
+      description: Finding Counts for all analysis categories and severities
+    SeverityBreakdown:
+      title: SeverityBreakdown
+      type: object
+      properties:
+        lowSeverity:
+          type: integer
+          format: int64
+        mediumSeverity:
+          type: integer
+          format: int64
+        highSeverity:
+          type: integer
+          format: int64
+        criticalSeverity:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    ElementPath:
+      type: object
+      properties:
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT

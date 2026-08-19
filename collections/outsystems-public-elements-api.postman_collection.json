@@ -1,0 +1,350 @@
+{
+  "item": [
+    {
+      "id": "d7260ac2-7b2a-4388-9ded-8e86ca20c739",
+      "name": "Public Elements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e6f4ee4-ce0d-4141-a812-94a20ec52d7f",
+          "name": "Lists all public elements of assets according to the complex filter.",
+          "request": {
+            "name": "Lists all public elements of assets according to the complex filter.",
+            "description": {
+              "content": "Only public elements that the user has permission to reference are returned.\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public-elements",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"elementNameContains\": \"<string,null>\",\n  \"elementNameOrDescriptionContains\": \"<string,null>\",\n  \"elementType\": \"<string,null>\",\n  \"includeHidden\": \"<boolean,null>\",\n  \"consumerPortfolioKeys\": \"<array,null>\",\n  \"limit\": \"<integer,null-int32>\",\n  \"offset\": \"<integer,null-int32>\",\n  \"sort\": \"<string,null>\",\n  \"sortAscending\": \"<boolean,null>\",\n  \"assetFilters\": \"<array,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "655627eb-6c87-4d63-8ba0-57080cecd745",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public-elements",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elementNameContains\": \"<string,null>\",\n  \"elementNameOrDescriptionContains\": \"<string,null>\",\n  \"elementType\": \"<string,null>\",\n  \"includeHidden\": \"<boolean,null>\",\n  \"consumerPortfolioKeys\": \"<array,null>\",\n  \"limit\": \"<integer,null-int32>\",\n  \"offset\": \"<integer,null-int32>\",\n  \"sort\": \"<string,null>\",\n  \"sortAscending\": \"<boolean,null>\",\n  \"assetFilters\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"count\": 6256,\n    \"limit\": 5081,\n    \"offset\": 7443,\n    \"nextPageOffset\": 6028,\n    \"totalResults\": 8138,\n    \"totalPages\": 3845\n  },\n  \"results\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d45d304-8eaa-41a7-9626-bc06c214682c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public-elements",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elementNameContains\": \"<string,null>\",\n  \"elementNameOrDescriptionContains\": \"<string,null>\",\n  \"elementType\": \"<string,null>\",\n  \"includeHidden\": \"<boolean,null>\",\n  \"consumerPortfolioKeys\": \"<array,null>\",\n  \"limit\": \"<integer,null-int32>\",\n  \"offset\": \"<integer,null-int32>\",\n  \"sort\": \"<string,null>\",\n  \"sortAscending\": \"<boolean,null>\",\n  \"assetFilters\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7795,\n  \"detail\": null,\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da81acab-32e0-44ed-afb1-9090885983bc",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public-elements",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elementNameContains\": \"<string,null>\",\n  \"elementNameOrDescriptionContains\": \"<string,null>\",\n  \"elementType\": \"<string,null>\",\n  \"includeHidden\": \"<boolean,null>\",\n  \"consumerPortfolioKeys\": \"<array,null>\",\n  \"limit\": \"<integer,null-int32>\",\n  \"offset\": \"<integer,null-int32>\",\n  \"sort\": \"<string,null>\",\n  \"sortAscending\": \"<boolean,null>\",\n  \"assetFilters\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7795,\n  \"detail\": null,\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05ddf657-d153-4649-9a11-b3af246bedb1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public-elements",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elementNameContains\": \"<string,null>\",\n  \"elementNameOrDescriptionContains\": \"<string,null>\",\n  \"elementType\": \"<string,null>\",\n  \"includeHidden\": \"<boolean,null>\",\n  \"consumerPortfolioKeys\": \"<array,null>\",\n  \"limit\": \"<integer,null-int32>\",\n  \"offset\": \"<integer,null-int32>\",\n  \"sort\": \"<string,null>\",\n  \"sortAscending\": \"<boolean,null>\",\n  \"assetFilters\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7795,\n  \"detail\": null,\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57808d6d-b957-4ab4-82b2-11ea0853822c",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public-elements",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elementNameContains\": \"<string,null>\",\n  \"elementNameOrDescriptionContains\": \"<string,null>\",\n  \"elementType\": \"<string,null>\",\n  \"includeHidden\": \"<boolean,null>\",\n  \"consumerPortfolioKeys\": \"<array,null>\",\n  \"limit\": \"<integer,null-int32>\",\n  \"offset\": \"<integer,null-int32>\",\n  \"sort\": \"<string,null>\",\n  \"sortAscending\": \"<boolean,null>\",\n  \"assetFilters\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7795,\n  \"detail\": null,\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ODC_PORTAL_DOMAIN/api/dependency-management/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a30121d6-9d8c-4997-b540-5079560df325",
+    "name": "Dependency Management Public Elements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST endpoints for launching and getting results of impact analysis in the deployment and deletion of an asset.\n",
+      "type": "text/plain"
+    }
+  }
+}

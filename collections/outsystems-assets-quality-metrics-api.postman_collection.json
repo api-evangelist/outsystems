@@ -1,0 +1,738 @@
+{
+  "item": [
+    {
+      "id": "1eb8f6f0-bae1-4ac4-8034-433c5f3f9249",
+      "name": "Assets Quality Metrics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c24a991-f842-4f24-b454-711119620d46",
+          "name": "Retrieves quality metrics for assets.",
+          "request": {
+            "name": "Retrieves quality metrics for assets.",
+            "description": {
+              "content": "Retrieves quality metrics and findings distribution for assets, including quality scores and findings grouped by severity and status, with comparison to previous analysis.\n\nExample: GET /code-quality/v1/assets-quality-metrics?assetType=Application&limit=50&sort=-score\n\nAPI Client needs the **Analyze > View Code Quality findings** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assets-quality-metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "AssetKeys",
+                  "value": "<string>",
+                  "description": "Filter by asset keys (unique identifiers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "AssetKeys",
+                  "value": "<string>",
+                  "description": "Filter by asset keys (unique identifiers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "Sort",
+                  "value": "<string>",
+                  "description": "Sort results by specified fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "Sort",
+                  "value": "<string>",
+                  "description": "Sort results by specified fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "Status",
+                  "value": "<string>",
+                  "description": "Filter by finding status."
+                },
+                {
+                  "disabled": false,
+                  "key": "Status",
+                  "value": "<string>",
+                  "description": "Filter by finding status."
+                },
+                {
+                  "disabled": false,
+                  "key": "AssetType",
+                  "value": "<string>",
+                  "description": "Filter by asset type."
+                },
+                {
+                  "disabled": false,
+                  "key": "Categories",
+                  "value": "<string>",
+                  "description": "Filter by finding categories."
+                },
+                {
+                  "disabled": false,
+                  "key": "Categories",
+                  "value": "<string>",
+                  "description": "Filter by finding categories."
+                },
+                {
+                  "disabled": false,
+                  "key": "Severities",
+                  "value": "<string>",
+                  "description": "Filter by finding severity levels."
+                },
+                {
+                  "disabled": false,
+                  "key": "Severities",
+                  "value": "<string>",
+                  "description": "Filter by finding severity levels."
+                },
+                {
+                  "disabled": false,
+                  "key": "Since",
+                  "value": "<string>",
+                  "description": "Start date for filtering findings by discovery time. Default: if omitted, 14 days before `To` (or 14 days before now, if `To` is also omitted)."
+                },
+                {
+                  "disabled": false,
+                  "key": "To",
+                  "value": "<string>",
+                  "description": "End date for filtering findings by discovery time. Default: if omitted, now (current UTC time)."
+                },
+                {
+                  "disabled": false,
+                  "key": "ScoreRanges",
+                  "value": "<string>",
+                  "description": "Filter by quality score ranges. Default: includes all scores."
+                },
+                {
+                  "disabled": false,
+                  "key": "Limit",
+                  "value": "<integer>",
+                  "description": "Number of records to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "Offset",
+                  "value": "<integer>",
+                  "description": "Number of records to skip for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "PortfolioKey",
+                  "value": "<uuid>",
+                  "description": "Filter by portfolio key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "640d5eaf-52d7-4546-8919-7bd636bf7cb6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets-quality-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "WebApplication"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "ScoreRanges",
+                      "value": "\"0-49,50-84,85-100\""
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"count\": 2252,\n    \"limit\": 9656,\n    \"offset\": 1972,\n    \"nextPageOffset\": null,\n    \"totalResults\": 7206,\n    \"totalPages\": 2085\n  },\n  \"results\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f324a35f-7f0c-4ec0-8417-74ba4699d7f0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets-quality-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "WebApplication"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "ScoreRanges",
+                      "value": "\"0-49,50-84,85-100\""
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e6eeaf4-f35b-4991-8f5a-e824c0ee8c6c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets-quality-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "WebApplication"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "ScoreRanges",
+                      "value": "\"0-49,50-84,85-100\""
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d622938-5bea-4a76-ad66-68087bb79031",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets-quality-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "WebApplication"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "ScoreRanges",
+                      "value": "\"0-49,50-84,85-100\""
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "387e24d4-2850-4c4c-b50c-6d7db1d17fd6",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets-quality-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetKeys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "AssetType",
+                      "value": "WebApplication"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Since",
+                      "value": "2022-06-01T00:00:00"
+                    },
+                    {
+                      "key": "To",
+                      "value": "2022-12-31T23:59:59"
+                    },
+                    {
+                      "key": "ScoreRanges",
+                      "value": "\"0-49,50-84,85-100\""
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Offset",
+                      "value": "100"
+                    },
+                    {
+                      "key": "PortfolioKey",
+                      "value": "12345678-1234-1234-1234-123456789abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"count\": 2252,\n    \"limit\": 9656,\n    \"offset\": 1972,\n    \"nextPageOffset\": null,\n    \"totalResults\": 7206,\n    \"totalPages\": 2085\n  },\n  \"results\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1ae4ebe4-f4ff-4753-a4a0-702b17d0b43b",
+    "name": "Code Quality Assets Quality Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Provides APIs to submit code analysis requests and retrieve information about code quality findings, application scores, and analysis results.",
+      "type": "text/plain"
+    }
+  }
+}

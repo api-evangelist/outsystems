@@ -1,0 +1,199 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Environment Configurations Domains API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the details of a specific domain for the given environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/domains/:domainKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "domainKey",
+                "value": "",
+                "type": "path",
+                "description": "The domain's key."
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific domain for the given environment (stage).\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Patches the default app (App Domain) for the specified custom domain.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/domains/:domainKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "domainKey",
+                "value": "",
+                "type": "path",
+                "description": "The domain's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Patches the default app (App Domain) for the specified custom domain.\n\nAPI Client needs the **Configuration management > Manage custom domains** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Deletes a domain from an environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/domains/:domainKey",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "domainKey",
+                "value": "",
+                "type": "path",
+                "description": "The domain's key."
+              }
+            ]
+          },
+          "docs": "Deletes a domain from an environment (stage).\n\nAPI Client needs the **Configuration management > Manage custom domains** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Returns a list of domains for a specific environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/domains",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Allowed values: 1 to 100. Default value: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result to return. Default value: 0."
+              }
+            ]
+          },
+          "docs": "Returns a list of domains for a specific environment (stage).\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Creates a new domain for the specified environment (stage). You can provide the domain's hostname and name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/domains",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new domain for the specified environment (stage). You can provide the domain's hostname and name.\n\nAPI Client needs the **Configuration management > Manage custom domains** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Retrieves the default domain for the given environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/default-domain",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ]
+          },
+          "docs": "Retrieves the default domain for the given environment (stage).\n\nAPI Client needs the **Configuration management > View configurations** permission for the target environment (stage)."
+        },
+        {
+          "info": {
+            "name": "Updates the default domain for the given environment (stage).",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/environment-configurations/v1/environments/:environmentKey/default-domain",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "path",
+                "description": "The environment's key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the default domain for the given environment (stage).\n\nAPI Client needs the **Configuration management > Manage custom domains** permission for the target environment (stage)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

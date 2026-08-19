@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Code Quality Code Analyses API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Code Analyses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves the details of a code analysis request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1/code-analyses/:analysisKey",
+            "params": [
+              {
+                "name": "analysisKey",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (GUID) of the analysis request"
+              },
+              {
+                "name": "Limit",
+                "value": "25",
+                "type": "query",
+                "description": "Number of findings to return in the response."
+              },
+              {
+                "name": "Offset",
+                "value": "10",
+                "type": "query",
+                "description": "Number of findings to skip for pagination."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a code analysis request, including quality score and findings.\n\nExample: GET /code-quality/v1/code-analyses/be77b25f-c738-462f-8f19-7114fc4f9923\n\nAPI Client needs the **Analyze > View Code Quality findings** permission."
+        },
+        {
+          "info": {
+            "name": "Submits a code analysis request for an asset revision.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/code-quality/v1/code-analyses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initiates code analysis for a specific asset revision, returning an analysis key for status tracking.\n\nExample: POST /code-quality/v1/code-analyses\n\nAPI Client needs the **Analyze > Manage code quality findings** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "User and Access Management Permissions API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "permissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the list of permissions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/permissions",
+            "params": [
+              {
+                "name": "nameContains",
+                "value": "",
+                "type": "query",
+                "description": "Filters list by name."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. The value must be within 1 - 100 (both inclusive). The default value is 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starting point or position of the first result returned. The default value is 0."
+              }
+            ]
+          },
+          "docs": "Returns the list of permissions.\nUse query parameters to filter the result based on different criteria.\n\nAPI client must have at least one permission."
+        },
+        {
+          "info": {
+            "name": "Retrieve details about a permission.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/permissions/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Permission key."
+              }
+            ]
+          },
+          "docs": "Returns details about a permission based on the permission key.\n\nAPI client must have at least one permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

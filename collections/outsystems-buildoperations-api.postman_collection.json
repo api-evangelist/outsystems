@@ -1,0 +1,2127 @@
+{
+  "item": [
+    {
+      "id": "7d7fe4f5-8ddc-402d-9951-a70a97aa7d01",
+      "name": "BuildOperations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e44c66d1-2f90-4617-b500-39bd0fe336ff",
+          "name": "Returns the details for a given build operation",
+          "request": {
+            "name": "Returns the details for a given build operation",
+            "description": {
+              "content": "The build operation key is generated when the build operation is created and returned in the response of the create API.\nIt can also be obtained through the list API.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Stage > View stage** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "build-operations",
+                ":operationKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environmentKey",
+                  "value": "<uuid>",
+                  "description": "Environment key"
+                },
+                {
+                  "disabled": false,
+                  "key": "applicationKey",
+                  "value": "<uuid>",
+                  "description": "Application key"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "operationKey",
+                  "description": "(Required) Build operation key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34e97fe6-834d-452a-aedb-342950b1fb5b",
+              "name": "The details of the build operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Build operation key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"03d98054-453b-54cd-e82f-ed3b09e87d53\",\n  \"applicationKey\": \"1ce13f2b-be4a-5dfd-75b6-ca3a1de0d6ae\",\n  \"buildKey\": \"bf9b7a0f-6aee-6d69-e285-6608995d10ce\",\n  \"appIdentifier\": \"string\",\n  \"buildType\": \"Bundle\",\n  \"revision\": 3079,\n  \"mobilePlatform\": \"Android\",\n  \"mobileFramework\": \"Cordova\",\n  \"status\": \"Building\",\n  \"estimatedFinishDateTime\": \"2003-05-13T01:07:05.233Z\",\n  \"appBinaryDownloadUrl\": \"string\",\n  \"appSourceDownloadUrl\": \"string\",\n  \"mobileBuildLogUrl\": \"string\",\n  \"appShieldMappingUrl\": null,\n  \"appShieldUsage\": \"Applied\",\n  \"mobileVersionNumber\": null,\n  \"mobileVersionCode\": null,\n  \"startedDateTime\": \"2021-08-08T10:07:44.831Z\",\n  \"finishedDateTime\": null,\n  \"nativeBuilderVersion\": \"string\",\n  \"isNativeBuilderVersionLocked\": null,\n  \"requestingUserKey\": \"string\",\n  \"appDeploymentFileDownloadUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b85978cf-9dcf-4dd2-b1ee-fb33b37fa869",
+              "name": "Request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Build operation key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dce80caf-524e-4ab0-9989-9d6d98734373",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Build operation key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3d69957-1eb3-4fb7-a78e-c2fa25857fa1",
+              "name": "Insufficient permissions to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Build operation key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "117373e1-6439-4a0b-accb-7fa30a0a2840",
+              "name": "The specified environment, application or build operation was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Build operation key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a4c75b1-ebe7-41b8-ac59-e571e2f601fc",
+              "name": "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Build operation key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27853a29-72a2-46e9-85aa-094540a7d693",
+          "name": "Returns the progress messages for a given native build",
+          "request": {
+            "name": "Returns the progress messages for a given native build",
+            "description": {
+              "content": "Progress messages provide step-by-step status updates on the build process. Supports pagination via limit and offset parameters.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Stage > View stage** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "build-operations",
+                ":operationKey",
+                "log-messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environmentKey",
+                  "value": "<uuid>",
+                  "description": "Environment key"
+                },
+                {
+                  "disabled": false,
+                  "key": "applicationKey",
+                  "value": "<uuid>",
+                  "description": "Application key"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset of the last page, to get the following page with the same filters applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of elements that should be returned in a single page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "operationKey",
+                  "description": "(Required) Native build key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52f79877-c0f4-4272-92f6-fdc04463f59d",
+              "name": "The list of progress messages for the native build operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey",
+                    "log-messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Native build key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"count\": 4866,\n    \"limit\": 6997,\n    \"offset\": 5075,\n    \"nextPageOffset\": 6202\n  },\n  \"results\": [\n    \"\",\n    \"\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20c6ae55-9638-4193-b3ba-f01334068916",
+              "name": "Request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey",
+                    "log-messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Native build key"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c2cbafe-b249-428f-ad0b-f382d4e8e32c",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey",
+                    "log-messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Native build key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b45acecb-91b1-461a-bf0e-d79f69ea73df",
+              "name": "Insufficient permissions to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey",
+                    "log-messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Native build key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c31d9ae3-ff77-4437-83fd-6cf8abad99b5",
+              "name": "The specified environment, application or build operation was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey",
+                    "log-messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Native build key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "144990c9-90f1-482a-b345-4da50938f8dc",
+              "name": "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    ":operationKey",
+                    "log-messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "operationKey",
+                      "description": "(Required) Native build key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "499a9966-939b-4bc5-87a6-d80a442622b6",
+          "name": "Lists all build operations for filtering criteria",
+          "request": {
+            "name": "Lists all build operations for filtering criteria",
+            "description": {
+              "content": "Results can optionally be filtered by build status, platform, or revision. Supports pagination via limit and offset parameters.\n\nRate Limit: 100 requests per minute\n\nAPI Client needs the **Stage > View stage** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "build-operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environmentKey",
+                  "value": "<uuid>",
+                  "description": "Environment key"
+                },
+                {
+                  "disabled": false,
+                  "key": "applicationKey",
+                  "value": "<uuid>",
+                  "description": "Application key"
+                },
+                {
+                  "disabled": false,
+                  "key": "mobilePlatform",
+                  "value": "<string>",
+                  "description": "Filter by mobile platform type, if filled."
+                },
+                {
+                  "disabled": false,
+                  "key": "revision",
+                  "value": "<integer>",
+                  "description": "Filter by revision number, if filled."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status of the build, if filled."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset of the last page, to get the following page with the same filters applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of elements that should be returned in a single page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a5a1ff8-4fa9-4e72-8d7e-506ebe84b207",
+              "name": "The list of build operations matching the filtering criteria.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "mobilePlatform",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"count\": 7570,\n    \"limit\": 2067,\n    \"offset\": 9172,\n    \"nextPageOffset\": 4640,\n    \"totalResults\": 2168,\n    \"totalPages\": 8434\n  },\n  \"results\": [\n    \"\",\n    \"\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57ea4337-ccd7-41c6-b8e9-422ded7cfef3",
+              "name": "Request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "mobilePlatform",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bea41a9-cb4e-47d3-bc54-383e77d02697",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "mobilePlatform",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47f1513f-7878-4343-8f36-eafe3afdb7f9",
+              "name": "Insufficient permissions to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "mobilePlatform",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "462f0d62-0c86-410a-b2ac-135aeed12750",
+              "name": "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environmentKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "applicationKey",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "mobilePlatform",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d38d8a27-f97d-4c49-a63c-d0f01a717705",
+          "name": "Starts a new native build",
+          "request": {
+            "name": "Starts a new native build",
+            "description": {
+              "content": "This is an asynchronous operation. The response contains the details of the created build operation, including its\ngenerated key, which can be used to query the operation status and details through other APIs.\n\nRate Limit: 5 requests per minute\n\nAPI Client needs the **Release management > Deploy assets** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "build-operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobileVersionNumber\": \"<string,null>\",\n  \"mobileVersionCode\": \"<integer,null-int32>\",\n  \"mobilePlatform\": \"<string>\",\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6fcac42e-87f2-4c44-ad88-0a638a9fe026",
+              "name": "The native build operation was created successfully. The response contains the details of the created build operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobileVersionNumber\": \"<string,null>\",\n  \"mobileVersionCode\": \"<integer,null-int32>\",\n  \"mobilePlatform\": \"<string>\",\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"85716c32-ac71-0f86-93de-fd516050e5cb\",\n  \"applicationKey\": \"5e06e4de-a9f9-08c7-507a-c13c7dae33f9\",\n  \"buildKey\": \"b8060d6d-18f8-0cde-3af0-b292640c069d\",\n  \"appIdentifier\": \"string\",\n  \"buildType\": \"Development\",\n  \"revision\": 9091,\n  \"mobilePlatform\": \"<string>\",\n  \"mobileFramework\": \"Cordova\",\n  \"status\": \"<string>\",\n  \"estimatedFinishDateTime\": null,\n  \"appBinaryDownloadUrl\": null,\n  \"appSourceDownloadUrl\": null,\n  \"mobileBuildLogUrl\": \"string\",\n  \"appShieldMappingUrl\": null,\n  \"appShieldUsage\": \"Disabled\",\n  \"mobileVersionNumber\": null,\n  \"mobileVersionCode\": null,\n  \"startedDateTime\": \"2026-07-04T11:24:10.497Z\",\n  \"finishedDateTime\": \"1977-03-12T00:27:44.831Z\",\n  \"nativeBuilderVersion\": \"string\",\n  \"isNativeBuilderVersionLocked\": true,\n  \"requestingUserKey\": null,\n  \"appDeploymentFileDownloadUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "450e1ed0-502d-4dab-a6ea-5350dcc0cedd",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobileVersionNumber\": \"<string,null>\",\n  \"mobileVersionCode\": \"<integer,null-int32>\",\n  \"mobilePlatform\": \"<string>\",\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c5a9afd-ef4f-439a-b689-2dd8f89edbac",
+              "name": "Insufficient permissions to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobileVersionNumber\": \"<string,null>\",\n  \"mobileVersionCode\": \"<integer,null-int32>\",\n  \"mobilePlatform\": \"<string>\",\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fd94931-fe42-4959-9c2b-dd92a747cf0e",
+              "name": "The specified environment or application was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobileVersionNumber\": \"<string,null>\",\n  \"mobileVersionCode\": \"<integer,null-int32>\",\n  \"mobilePlatform\": \"<string>\",\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c72262b-b1e6-43d6-9b22-0ccc47d137f5",
+              "name": "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 100 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobileVersionNumber\": \"<string,null>\",\n  \"mobileVersionCode\": \"<integer,null-int32>\",\n  \"mobilePlatform\": \"<string>\",\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4fced284-f26d-43ef-ba21-06828f841dab",
+          "name": "Returns the suggested versions of the next build for the request platform(s)",
+          "request": {
+            "name": "Returns the suggested versions of the next build for the request platform(s)",
+            "description": {
+              "content": "Provides both the version number and version code for the next build. If no platform is specified, suggestions are returned for both iOS and Android.\n\nRate Limit: 5 requests per minute\n\nAPI Client needs the **Stage > View stage** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "build-operations",
+                "version-suggestions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c36446b8-2c0c-4490-8947-1414b535002c",
+              "name": "The suggested version number and version code of the next native build for the given environment key, application key and platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "version-suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Android\": {\n    \"mobileVersionNumber\": \"string\",\n    \"mobileVersionCode\": 9067,\n    \"mobilePlatform\": \"<string>\"\n  },\n  \"iOS\": {\n    \"mobileVersionNumber\": \"string\",\n    \"mobileVersionCode\": 327,\n    \"mobilePlatform\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b28e943-01da-4aa5-b804-08512b6dc62a",
+              "name": "Request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "version-suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67d797f8-6b60-4b95-a974-18bdea82c79f",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "version-suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5acf223c-dd66-4080-9af1-4502d90655c1",
+              "name": "Insufficient permissions to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "version-suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2cbcc6f-f577-463e-9bc4-6e04ca1f7e40",
+              "name": "The specified environment or application was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "version-suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "762e5fe1-aa82-4ebd-9382-1f3d0f8d02fe",
+              "name": "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 5 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "version-suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16738e5d-8407-40e6-86b3-f29325a01505",
+          "name": "Check if a new native build is needed for one or all platforms",
+          "request": {
+            "name": "Check if a new native build is needed for one or all platforms",
+            "description": {
+              "content": "Results indicate whether the current build artifacts are up to date or if a rebuild is required. If no platform is specified, validation is performed for both iOS and Android.\n\nRate Limit: 5 requests per minute\n\nAPI Client needs the **Stage > View stage** permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "build-operations",
+                "native-build-validation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ed64823-5970-424c-ab27-73b75d1c63cb",
+              "name": "The validation results for the given build key, revision and platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "native-build-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"platformResults\": {\n    \"Android\": \"MissingConfiguration\",\n    \"iOS\": \"NativeBuildNotNeeded\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "608e85ac-3fed-4898-8ed9-ab04ba2f99a5",
+              "name": "Request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "native-build-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "135dc01d-3d1a-4fa1-ab57-b284e763f8ed",
+              "name": "Not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "native-build-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8363938a-238e-4261-a8b8-348a0113f811",
+              "name": "Insufficient permissions to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "native-build-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c167aa98-ecbd-41f2-9e20-899ff0ee17c2",
+              "name": "The specified environment or application was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "native-build-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9b49450-e74e-4bd5-9346-651ad44c7dd9",
+              "name": "Too many requests. The rate limit for the API has been exceeded. \nRate Limit: 5 requests per minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "build-operations",
+                    "native-build-validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentKey\": \"<uuid>\",\n  \"applicationKey\": \"<uuid>\",\n  \"buildKey\": \"<uuid>\",\n  \"revision\": \"<integer>\",\n  \"mobilePlatform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2207,\n  \"detail\": null,\n  \"instance\": \"string\",\n  \"traceId\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "babdce44-8986-4a38-be48-2fb8c8f482ea",
+    "name": "Native Mobile Build Build Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for building and managing native mobile applications.\n",
+      "type": "text/plain"
+    }
+  }
+}

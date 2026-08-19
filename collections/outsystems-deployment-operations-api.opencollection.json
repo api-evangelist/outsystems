@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Deployments Deployment Operations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "deployment-operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of deployments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/deployment-operations",
+            "params": [
+              {
+                "name": "environmentKey",
+                "value": "",
+                "type": "query",
+                "description": "Filter by environment key, if filled."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status of the deployment, if filled."
+              },
+              {
+                "name": "assetKey",
+                "value": "",
+                "type": "query",
+                "description": "Filter deployments that contain given asset unique identifier, if filled."
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets by revision number, if filled."
+              },
+              {
+                "name": "portfolioKey",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets by portfolio key, if filled."
+              },
+              {
+                "name": "operations",
+                "value": "",
+                "type": "query",
+                "description": "Filter deployments that contain a given operation, if filled."
+              },
+              {
+                "name": "createdDateSince",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets created from one point in time on, if filled."
+              },
+              {
+                "name": "createdDateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets created up to one point in time, if filled."
+              },
+              {
+                "name": "permissionFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter by permission type. Format: 'PermissionType' or 'PermissionType.EnvironmentKey' for environment-specific permissions. Available values: AppViewSourceCode | AppDebug | AppChange | AppDelete | AppDeploy | AppRelease | AppMonitor | AppMonitorUserInfo | AppSecurityView | CodeQualityManage | CodeQualityView | AppUserView | AppAccessManage | AppGroupManage | CfgView | ConnConfig | AppCfgChange. Example: 'AppDeploy' or 'AppDeploy.123e4567-e89b-12d3-a456-426614174000'"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of elements that should be returned in a single page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the last page, to get the following page with the same filters applied."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the elements.\n-element1 for descending, element2 for ascending.\nMultiple orders joined by comma.\nExample -element1,element2 to sort by element1 descending then by element2 ascending\nCurrently supported sort values: CreatedAt, UpdatedAt, ApplicationKey, AssetKey, ApplicationName, AssetName, FinishedAt\nDefault sort: -CreatedAt"
+              }
+            ]
+          },
+          "docs": "Returns a list of deployments that match a given filter. Use query parameters to refine the search.\n\nAPI Client needs the **Stage > View stage** permission for the operation."
+        },
+        {
+          "info": {
+            "name": "Requests the creation or deletion of a deployment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/deployment-operations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests the creation of a deployment-operation which can be a Deployment, Undeploy or ApplyConfigs. It returns the created deployment operation.\n\nAPI Client needs the **Release management > Deploy assets** permission for the operation."
+        },
+        {
+          "info": {
+            "name": "Returns one deployment given the deployment operation key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/deployment-operations/:operationKey",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "Deployment unique identifier"
+              }
+            ]
+          },
+          "docs": "Returns one deployment given the deployment operation key. If the deployment is not found, a 404 error is returned.\n\nAPI Client needs the **Stage > View stage** permission for the operation."
+        },
+        {
+          "info": {
+            "name": "Returns deployment log messages for a given deployment operation key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/deployments/v1/deployment-operations/:operationKey/messages",
+            "params": [
+              {
+                "name": "operationKey",
+                "value": "",
+                "type": "path",
+                "description": "Deployment unique identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit of elements in the page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset from previous page. Don't fill if first page."
+              }
+            ]
+          },
+          "docs": "Returns deployment log messages for a given deployment operation key. If the deployment is not found, a 404 error is returned.\n\nAPI Client needs the **Stage > View stage** permission for the operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

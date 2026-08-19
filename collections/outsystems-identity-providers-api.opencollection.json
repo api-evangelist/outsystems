@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "User and Access Management Identity Providers API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "identity-providers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of identity providers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/identity-providers",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of the identity provider."
+              },
+              {
+                "name": "nameContains",
+                "value": "",
+                "type": "query",
+                "description": "Pattern to be searched in provider name."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned. Allowed values: 1 to 100 Default value: 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the first result returned. Default value: 0."
+              }
+            ]
+          },
+          "docs": "Returns a list of identity providers for the given conditions/filters. Use query parameters to filter the result based on different criteria.\n\nAPI client must have at least one permission."
+        },
+        {
+          "info": {
+            "name": "Retrieves an identity provider.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/identity/v1/identity-providers/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The Identity Provider Key."
+              }
+            ]
+          },
+          "docs": "Returns the identity provider by key.\n\nAPI client must have at least one permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

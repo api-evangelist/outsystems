@@ -1,0 +1,2082 @@
+openapi: 3.2.0
+info:
+  title: Outsystems Environments API
+  version: '1.0'
+  description: 'Operations tagged Environments across 4 of this provider''s published API definitions: outsystems-asset-configurations-api-v1-openapi.json, outsystems-portfolio-api-v1-openapi.json, outsystems-portfolio-api-v2-openapi.json, outsystems-subscription-api-v1-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/asset-configurations/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+- url: https://ODC_PORTAL_DOMAIN/api/portfolios/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/portfolios/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+- url: https://ODC_PORTAL_DOMAIN/api/portfolios/v2
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/portfolios/v2
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+- url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/subscription/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    '{odc-portal-domain}':
+      default: '{odc-portal-domain}'
+      description: The domain of your organization
+security:
+- bearerAuth: []
+tags:
+- name: Environments
+paths:
+  /environments/{environmentKey}/agents/{agentKey}/revisions/deployed/configurations:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-configurations/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Gets the configurations of an agent.
+      description: 'Returns the agent configurations for the deployed revision.
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: AssetConfiguration_GetAgentDeployedConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: agentKey
+        in: path
+        description: The agent's key.
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries.'
+        schema:
+          type: string
+      - name: showBinaryValues
+        in: query
+        description: Specifies whether to return the binary values.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConfigResult'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+  /environments/{environmentKey}/agents/{agentKey}/revisions/{baselineRevision}/configurations:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-configurations/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Gets the configurations of an agent revision.
+      description: 'Returns the configurations for a specific revision of an agent.
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: AssetConfiguration_GetAgentRevisionConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: agentKey
+        in: path
+        description: The agent's key.
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries.'
+        schema:
+          type: string
+      - name: baselineRevision
+        in: path
+        description: The agent revision.
+        required: true
+        schema:
+          type: string
+      - name: showBinaryValues
+        in: query
+        description: Specifies whether to return the binary values.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConfigResult'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+  /environments/{environmentKey}/applications/{applicationKey}/revisions/deployed/configurations:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-configurations/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Gets the configurations of an app.
+      description: 'Returns the app configurations for the deployed revision.
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: AssetConfiguration_GetApplicationDeployedConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: applicationKey
+        in: path
+        description: The app's key.
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries.'
+        schema:
+          type: string
+      - name: showBinaryValues
+        in: query
+        description: Specifies whether to return the binary values.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationConfigResult'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+  /environments/{environmentKey}/applications/{applicationKey}/revisions/{baselineRevision}/configurations:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-configurations/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Gets the configurations of an app revision.
+      description: 'Returns the app configurations for a given revision.
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: AssetConfiguration_GetApplicationRevisionConfiguration
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: applicationKey
+        in: path
+        description: The app's key.
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Comma-separated list of fields to include. Allowed values: systemConfigurations, settings, timers, integrations, libraries.'
+        schema:
+          type: string
+      - name: baselineRevision
+        in: path
+        description: The app revision.
+        required: true
+        schema:
+          type: string
+      - name: showBinaryValues
+        in: query
+        description: Specifies whether to return the binary values.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationConfigResult'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+  /environments/{environmentKey}/agents/{agentKey}/configurations:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-configurations/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    patch:
+      tags:
+      - Environments
+      summary: Updates the configurations of an agent.
+      description: 'Updates the configuration values for an agent. Only the provided elements are changed.
+
+
+        API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).'
+      operationId: AssetConfiguration_PatchAgent
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: agentKey
+        in: path
+        description: The agent's key.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Configurations to patch in
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AgentConfigPatch'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AgentConfigPatch'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).
+  /environments/{environmentKey}/applications/{applicationKey}/configurations:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-configurations/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    patch:
+      tags:
+      - Environments
+      summary: Updates the configurations of an app.
+      description: 'Updates the configuration values for an app. Only the provided elements are changed.
+
+
+        API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).'
+      operationId: AssetConfiguration_PatchApplication
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      - name: applicationKey
+        in: path
+        description: The app's key.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Configurations to patch in
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApplicationConfigPatch'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApplicationConfigPatch'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).
+  /environments/{environmentKey}/default-system-configurations:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/asset-configurations/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Gets the default system configurations for an environment (stage)
+      description: 'Returns the default system configurations for an environment (stage).
+
+
+        API Client needs the **Configuration management > View configurations** permission for the target environment (stage).'
+      operationId: EnvironmentConfiguration_Get
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentConfigResult'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+    patch:
+      tags:
+      - Environments
+      summary: Updates the default system configurations of an environment (stage).
+      description: 'Updates the default system configuration values for an environment. Only the provided elements are changed.
+
+
+        To update configurations, API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).
+
+
+        To update email configurations, API Client needs the **Configuration management > Manage Email SMTP configuration** permission for the target environment (stage).'
+      operationId: EnvironmentConfiguration_Patch
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment's key.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Environment configurations to be changed
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/EnvironmentConfigPatch'
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/EnvironmentConfigPatch'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: 'To update configurations, API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).
+
+
+        To update email configurations, API Client needs the **Configuration management > Manage Email SMTP configuration** permission for the target environment (stage).'
+  /environments:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/portfolios/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/portfolios/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Retrieves the list of environments (stages).
+      description: 'Deprecated since 2026-07-08. Use GET /portfolios/v2/environments instead. Note that V2''s
+
+        EnvironmentsController does not use the in-memory response caching this V1 endpoint has.
+
+        This endpoint will be removed on or after 2027-01-08.
+
+
+        The result only shows environments (stages) for which the API Client has **Stage > View stage** permission.'
+      operationId: Environments_ListEnvironments
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_2'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentListResponse'
+      deprecated: true
+      x-os-permissions: The result only shows environments (stages) for which the API Client has **Stage > View stage** permission.
+    patch:
+      tags:
+      - Environments
+      summary: Updates environment names and/or order
+      operationId: Environments_UpdateEnvironments
+      requestBody:
+        description: Batch update request
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateEnvironmentsBatchRequest'
+              description: Batch request to update multiple environments
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateEnvironmentsBatchRequest'
+              description: Batch request to update multiple environments
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+      x-os-permissions: Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.
+      description: '
+
+
+        Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.'
+  /environments/{environmentKey}:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/portfolios/v2
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/portfolios/v2
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+    patch:
+      tags:
+      - Environments
+      summary: Updates a single environment's name and/or order
+      operationId: Environments_PatchEnvironment
+      parameters:
+      - name: environmentKey
+        in: path
+        description: The environment key to update
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Patch request with name and/or order
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PatchEnvironmentRequest'
+              description: Request to update a single environment's properties
+          application/*+json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PatchEnvironmentRequest'
+              description: Request to update a single environment's properties
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails_3'
+      x-os-permissions: Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.
+      description: '
+
+
+        Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.'
+  /environments/{environmentKey}/entitlements/usage/by-asset:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/subscription/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Retrieves usage data per asset (application, library) for entitlements in a specific environment.
+      description: 'Paginated; supports filtering and sort by metric.
+
+
+        To fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage.'
+      operationId: Subscription_GetAssetUsage
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+      - name: entitlementIds
+        in: query
+        description: 'Optional comma-separated entitlement IDs. Valid values: applicationObjects, maxComputeReplicas, maxCustomCodeTotalDuration, agentExecutions'
+        schema:
+          type: string
+      - name: assetKeys
+        in: query
+        description: Optional comma-separated asset keys (GUIDs) to filter results
+        schema:
+          type: string
+      - name: assetName
+        in: query
+        description: Optional partial or full asset name for case-insensitive search
+        schema:
+          type: string
+      - name: detailKey
+        in: query
+        description: Optional filter by detail key
+        schema:
+          type: string
+      - name: detailName
+        in: query
+        description: Optional filter by detail name (case-insensitive partial match)
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: 'Comma-separated metrics to sort by. Prefix with ''+'' for ascending (default) or ''-'' for descending. Example: "applicationObjects,-maxComputeReplicas"'
+        schema:
+          type: string
+      - name: since
+        in: query
+        description: Start date for usage data (ISO 8601 format)
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: End date for usage data (ISO 8601 format)
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'Maximum number of asset rows to return. Default: 100.'
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: 'Number of asset rows to skip for pagination. Default: 0.'
+        schema:
+          type: integer
+          format: int32
+      - name: aggregations
+        in: query
+        description: 'Optional comma-separated aggregation functions. Valid values: Total, Max, P95, P90'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedEntitlementByAssetBlockPagedListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: To fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage.
+  /environments/{environmentKey}/entitlements:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/subscription/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Retrieves information on the entitlements for a specific environment.
+      description: 'Entitlements and add-ons are shown with sufficient permissions.
+
+
+        To fetch the entitlements, API Client needs the **Stage > View stage** permission in the target stage.
+
+        To additionally fetch the add-ons, API Client also needs the **Subscriptions > View subscription** permission.'
+      operationId: Subscription_GetEnvironmentEntitlements
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentEntitlements'
+      x-os-permissions: 'To fetch the entitlements, API Client needs the **Stage > View stage** permission in the target stage.
+
+        To additionally fetch the add-ons, API Client also needs the **Subscriptions > View subscription** permission.'
+  /environments/{environmentKey}/entitlements/usage:
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/subscription/v1
+      description: Replace {odc-portal-domain} with the domain of your organization.
+      variables:
+        '{odc-portal-domain}':
+          default: '{odc-portal-domain}'
+          description: The domain of your organization
+    get:
+      tags:
+      - Environments
+      summary: Retrieves usage data for entitlements in a specific environment.
+      description: 'Filter by entitlement, date range, and aggregation.
+
+
+        To fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage.'
+      operationId: Subscription_GetEnvironmentUsage
+      parameters:
+      - name: environmentKey
+        in: path
+        description: Environment key
+        required: true
+        schema:
+          type: string
+      - name: granularity
+        in: query
+        description: Data granularity (summary, hour, day, month). Defaults to summary.
+        schema:
+          type: string
+          default: summary
+      - name: since
+        in: query
+        description: Start date for usage data (ISO 8601 format)
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: End date for usage data (ISO 8601 format)
+        schema:
+          type: string
+      - name: entitlementIds
+        in: query
+        description: 'Optional comma-separated entitlement IDs. Valid values: applicationObjects, maxComputeReplicas, maxDbCompute, maxDbStorage, maxCustomCodeTotalDuration, agentExecutions, internalUsers, externalUsers'
+        schema:
+          type: string
+      - name: aggregations
+        in: query
+        description: 'Optional comma-separated aggregation functions. Valid values: Total, Max, P95, P90'
+        schema:
+          type: string
+      - name: assetKeys
+        in: query
+        description: Optional comma-separated asset keys (GUIDs) to filter results
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitlementUsageItemListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: To fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage.
+components:
+  schemas:
+    ProblemDetails_2:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    UpdateEnvironmentRequest:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          type: string
+          description: The environment key to update
+          format: uuid
+        name:
+          maxLength: 50
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Optional new environment name (min 1, max 50 characters)
+        order:
+          type:
+          - integer
+          - 'null'
+          description: Optional new environment order
+          format: int32
+      description: Request to update environment properties
+    IntegrationResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        pluginType:
+          type:
+          - string
+          - 'null'
+          description: 'The type of the Integration used (e.g: RestConsumer, RestExpose)'
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: List of configurations properties
+      additionalProperties: false
+    ProblemDetails_3:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    IntegrationPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: List of configurations properties to patch
+      additionalProperties: false
+    GenericConfigResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the configuration
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType'
+          description: Type of the configuration
+        defaultValue:
+          type:
+          - string
+          - 'null'
+          description: Default value of the configuration
+        deployedValue:
+          type:
+          - string
+          - 'null'
+          description: Current deployed value of the configuration
+        value:
+          type:
+          - string
+          - 'null'
+          description: Last set value of the configuration
+        valueOrigin:
+          allOf:
+          - $ref: '#/components/schemas/Origin'
+          description: 'The origin of the value (e.g: Environment, Application, Library)'
+        deployedValueOrigin:
+          allOf:
+          - $ref: '#/components/schemas/Origin'
+          description: 'The origin of the current deployed value (e.g: Environment, Application, Library)'
+        isSecret:
+          type: boolean
+          description: If the configuration is a secret
+        valueSetAfterDeploy:
+          type:
+          - boolean
+          - 'null'
+          description: If a secret was set after the last successful deployment
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Date of the last update of the configuration
+          format: date-time
+        filename:
+          type:
+          - string
+          - 'null'
+          description: For binary values, the original file name
+      additionalProperties: false
+    DataType:
+      enum:
+      - Text
+      - Integer
+      - LongInteger
+      - Decimal
+      - Boolean
+      - DateTime
+      - Date
+      - Time
+      - PhoneNumber
+      - Email
+      - Currency
+      - EntityIdentifierType
+      - BinaryUrl
+      type: string
+    Entitlement:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Internal identifier of the entitlement, visible in APIs only.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the entitlement.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the entitlement.
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+          description: Entitlement documentation URL.
+        value:
+          type:
+          - string
+          - 'null'
+          description: A value that is assigned to the entitlement, overriding the default value.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType_2'
+          description: Data type of the value associated with the entitlement , one of ["bool", "float", "str", "int"].
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
+      additionalProperties: false
+      description: Represents the Entitlement information.
+    LibraryConfigResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: The revision of the library
+          format: int32
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: Base revision of the library
+          format: int32
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: System Configurations for the Environment configurations
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: Settings of the application
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationResult'
+          description: Integration configurations
+      additionalProperties: false
+    EnvironmentConfigResult:
+      type: object
+      properties:
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: System Configurations for the Environment configurations
+      additionalProperties: false
+    LibraryConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: The revision of the library being patched
+          format: int32
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: System Configurations for the Environment configurations
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: Settings of the application
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationPatch'
+          description: Integration configurations
+      additionalProperties: false
+    ApplicationConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: The asset's revision.
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: The asset's settings.
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerPatch'
+          description: Timer configurations
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationPatch'
+          description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigPatch'
+          description: Libraries configurations
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: System Configurations for the Environment configurations
+      additionalProperties: false
+    EntitlementUsageItemListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EntitlementUsageItem'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    Environment:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The environment key.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The environment name.
+        hostname:
+          type:
+          - string
+          - 'null'
+          description: The built-in environment hostname.
+        purpose:
+          allOf:
+          - $ref: '#/components/schemas/EnvironmentPurpose'
+          description: The environment purpose.
+        order:
+          type: integer
+          description: The environment order.
+          format: int32
+        region:
+          type:
+          - string
+          - 'null'
+          description: The environment region.
+        hosting:
+          type:
+          - string
+          - 'null'
+          description: The hosting type (oscloud, selfhosted).
+        isConfigured:
+          type: boolean
+          description: If is selfhosted and configured.
+        isDeployedToCluster:
+          type: boolean
+          description: If is deployed on the cluster.
+      additionalProperties: false
+      description: Environment
+    DataType_2:
+      enum:
+      - Bool
+      - Float
+      - Str
+      - Int
+      type: string
+      description: Data type of the value of an addon or entitlement.
+    UnifiedEntitlementByAssetBlockPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnifiedEntitlementByAssetBlock'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    PatchEnvironmentRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Optional new environment name (min 1, max 50 characters)
+        order:
+          type:
+          - integer
+          - 'null'
+          description: Optional new environment order
+          format: int32
+      description: Request to update a single environment's properties
+    EnvironmentEntitlements:
+      type: object
+      properties:
+        addons:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Addon'
+          description: List of addOns in an environment
+        entitlements:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Entitlement'
+          description: List of entitlements in an environment
+      additionalProperties: false
+      description: Represents the entitlements present in an environment
+    UpdateEnvironmentsBatchRequest:
+      required:
+      - environments
+      type: object
+      properties:
+        environments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UpdateEnvironmentRequest'
+          description: List of environment updates to apply
+      additionalProperties: false
+      description: Batch request to update multiple environments
+    ApplicationConfigResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: Revision of the application
+          format: int32
+        revisionDeployed:
+          type:
+          - integer
+          - 'null'
+          description: Revision deployed of the application
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: Settings of the application
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerResult'
+          description: Timer configurations
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationResult'
+          description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigResult'
+          description: Libraries configurations
+        deployedAt:
+          type:
+          - string
+          - 'null'
+          description: Date of the last deployment of the configuration
+          format: date-time
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: System Configurations for the Environment configurations
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    EntitlementUsageItem:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Entitlement identifier (e.g., "applicationObjects").
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the entitlement.
+        aggregation:
+          type:
+          - string
+          - 'null'
+          description: Aggregation function applied (e.g., "avg", "max", "total").
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: Last time this usage data was updated.
+          format: date-time
+        usage:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UsageDataPoint'
+          description: Time series of usage data points.
+      additionalProperties: false
+      description: Represents usage data for a single entitlement type.
+    GenericConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key of the value being changed
+        value:
+          type:
+          - string
+          - 'null'
+          description: The new value
+        filename:
+          type:
+          - string
+          - 'null'
+          description: For binary values, the original file name, to be stored
+      additionalProperties: false
+    EnvironmentListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Environment'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    AgentConfigResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: Revision of the application
+          format: int32
+        revisionDeployed:
+          type:
+          - integer
+          - 'null'
+          description: Revision deployed of the application
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: Settings of the application
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerResult'
+          description: Timer configurations
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationResult'
+          description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigResult'
+          description: Libraries configurations
+        deployedAt:
+          type:
+          - string
+          - 'null'
+          description: Date of the last deployment of the configuration
+          format: date-time
+      additionalProperties: false
+    UnifiedEntitlementDetailRow:
+      type: object
+      properties:
+        detailKey:
+          type:
+          - string
+          - 'null'
+          description: Detail unique identifier.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Detail name.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Detail type.
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value for this detail.
+          format: double
+      additionalProperties: false
+      description: Represents a detail-level breakdown within an asset's entitlement usage.
+    UnifiedEntitlementAssetRow:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset unique identifier (GUID).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Asset name.
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: Asset type (e.g., "Application", "Library").
+        value:
+          type:
+          - number
+          - 'null'
+          description: Aggregated usage value for this asset.
+          format: double
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: Asset revision number.
+          format: int32
+        details:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnifiedEntitlementDetailRow'
+          description: Detail-level breakdown within this asset's entitlement usage.
+      additionalProperties: false
+      description: Represents a single asset row with entitlement usage value.
+    Addon:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Internal name (internal identifier of the Add-on, visible in APIs only).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the Add-on.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the Add-on that explains the purpose.
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+          description: Documentation URL for the Add-on.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType_2'
+          description: Data type of the value associated with the addon, one of ["bool", "float", "str", "int"].
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value associated with the Add-on. A null value means not subscribed.
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on starts to be available.
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on expires (e.g. trials or time-bound Add-ons).
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+      additionalProperties: false
+      description: Represents the Add-on information.
+    Origin:
+      enum:
+      - EnvironmentLevelOverride
+      - EnvironmentLevelDefault
+      - ApplicationLevelOverride
+      - ApplicationLevelDefault
+      - LibraryLevelOverride
+      - LibraryLevelDefault
+      type: string
+    UnifiedEntitlementByAssetBlock:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Entitlement identifier (e.g., "applicationObjects").
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the entitlement.
+        aggregation:
+          type:
+          - string
+          - 'null'
+          description: Aggregation function applied to this entitlement's values (e.g., "Total", "Max", "P95", "P90").
+        assets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnifiedEntitlementAssetRow'
+          description: Collection of assets with usage values for this entitlement.
+      additionalProperties: false
+      description: Represents usage data for a single entitlement type, with breakdown by assets.
+    EnvironmentConfigPatch:
+      type: object
+      properties:
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: System Configurations for the Environment configurations
+      additionalProperties: false
+    EnvironmentPurpose:
+      enum:
+      - Development
+      - NonProduction
+      - Production
+      - Unknown
+      type: string
+    UsageDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp for this data point.
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value at this timestamp.
+          format: double
+        cumulativeValue:
+          type:
+          - number
+          - 'null'
+          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
+          format: double
+      additionalProperties: false
+      description: Represents a single data point in a usage time series.
+    AgentConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: The asset's revision.
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: The asset's settings.
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerPatch'
+          description: Timer configurations
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationPatch'
+          description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigPatch'
+          description: Libraries configurations
+      additionalProperties: false
+    TimerResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the Timer configuration
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: List of configurations properties
+      additionalProperties: false
+    TimerPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: List of configurations properties to patch
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT
+x-refined-from:
+- outsystems-asset-configurations-api-v1-openapi.json
+- outsystems-portfolio-api-v1-openapi.json
+- outsystems-portfolio-api-v2-openapi.json
+- outsystems-subscription-api-v1-openapi.json

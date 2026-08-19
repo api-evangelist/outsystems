@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portfolio Portfolios API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves the list of portfolios.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ODC_PORTAL_DOMAIN/api/portfolios/v2/portfolios",
+            "params": [
+              {
+                "name": "portfolioKey",
+                "value": "",
+                "type": "query",
+                "description": "Optional portfolio key to filter by."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of elements per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination."
+              }
+            ]
+          },
+          "docs": "\n\nAPI client must have at least one permission."
+        },
+        {
+          "info": {
+            "name": "Updates the portfolio's name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ODC_PORTAL_DOMAIN/api/portfolios/v2/portfolios/:portfolioKey",
+            "params": [
+              {
+                "name": "portfolioKey",
+                "value": "",
+                "type": "path",
+                "description": "The portfolio key to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequires **Portfolio management > Manage portfolio** permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

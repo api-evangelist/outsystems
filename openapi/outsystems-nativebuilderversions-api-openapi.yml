@@ -1,0 +1,161 @@
+openapi: 3.2.0
+info:
+  title: Native Mobile Build Native Builder Versions API
+  description: 'API for building and managing native mobile applications.
+
+    '
+  version: v1
+servers:
+- url: https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1
+  description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+- url: https://{odc-portal-domain}/api/native-mobile-builds/v1
+  description: Replace {odc-portal-domain} with the domain of your organization.
+  variables:
+    odc-portal-domain:
+      default: ODC_PORTAL_DOMAIN
+      description: The domain of your organization
+security:
+- {}
+tags:
+- name: NativeBuilderVersions
+paths:
+  /native-builder-versions:
+    get:
+      tags:
+      - NativeBuilderVersions
+      summary: Returns the list of possible native builder versions
+      description: '
+
+        Rate Limit: 100 requests per minute per tenant
+
+
+        API client must have at least one permission.'
+      operationId: GET_NativeBuilderVersions_List
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NativeBuilderVersionListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      x-os-permissions: API client must have at least one permission.
+components:
+  schemas:
+    NativeBuilderVersion:
+      type: object
+      properties:
+        version:
+          type:
+          - string
+          - 'null'
+          description: The MABS version
+        state:
+          allOf:
+          - $ref: '#/components/schemas/NativeBuilderVersionState'
+          description: The MABS version state
+        supportedMobileFrameworks:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MobileFramework'
+          description: Supported Mobile Frameworks for the given MABS version
+        defaultMobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFramework'
+          description: The Default Mobile Framework for the given MABS version
+        endOfSupportDate:
+          type:
+          - string
+          - 'null'
+          description: The End of Support Date for the given MABS version in DateOnly format (MM-dd-yyyy)
+          format: date
+        endOfLifeDate:
+          type:
+          - string
+          - 'null'
+          description: The End of Life Date for the given MABS version in DateOnly format (MM-dd-yyyy)
+          format: date
+      additionalProperties: false
+      description: Native builder version
+    NativeBuilderVersionListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NativeBuilderVersion'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    MobileFramework:
+      enum:
+      - Capacitor
+      - Cordova
+      type: string
+      description: This enum is used to specify which framework should be used when building mobile applications
+    NativeBuilderVersionState:
+      enum:
+      - Active
+      - Beta
+      - Canary
+      - Deprecated
+      - Obsolete
+      type: string
+      description: Native Builder Version State
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: Enter your bearer token in the format 'Bearer {token}'
+      scheme: bearer
+      bearerFormat: JWT
