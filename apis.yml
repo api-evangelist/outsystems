@@ -29,6 +29,17 @@ tags:
 - Company
 - Low-Code
 - Application Development
+- Platform-as-a-Service
+- DevOps
+- Deployment
+- Identity and Access Management
+- Artificial Intelligence
+- Enterprise Software
+- Mobile Development
+tags_raw:
+- Company
+- Low-Code
+- Application Development
 - Platform as a Service
 - DevOps
 - Deployment
@@ -46,6 +57,10 @@ apis:
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
+  - MCP
+  - Artificial Intelligence
+  - Agents
+  tags_raw:
   - Model Context Protocol
   - Artificial Intelligence
   - Agents
@@ -72,6 +87,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Application Roles
+  tags_raw:
   - application-roles
   properties:
   - type: OpenAPI
@@ -106,6 +123,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Builds
+  tags_raw:
   - Build
   properties:
   - type: OpenAPI
@@ -173,6 +192,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Deployment Operations
+  tags_raw:
   - deployment-operations
   properties:
   - type: OpenAPI
@@ -250,6 +271,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Group
+  tags_raw:
   - groups
   properties:
   - type: OpenAPI
@@ -261,6 +284,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Identity Providers
+  tags_raw:
   - identity-providers
   properties:
   - type: OpenAPI
@@ -341,6 +366,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Organization Roles
+  tags_raw:
   - organization-roles
   properties:
   - type: OpenAPI
@@ -363,6 +390,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Permissions
+  tags_raw:
   - permissions
   properties:
   - type: OpenAPI
@@ -374,6 +403,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - Portfolio
+  tags_raw:
   - Portfolios
   properties:
   - type: OpenAPI
@@ -451,6 +482,8 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
