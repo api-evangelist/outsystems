@@ -19,6 +19,18 @@ description: 'OutSystems is an enterprise low-code and AI-assisted application d
   OML editing session, publishing, deployments, external libraries and environments to
   AI coding agents.'
 url: https://raw.githubusercontent.com/api-evangelist/outsystems/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.outsystems.com/favicon.ico
 x-type: company
 x-source: harvest:secondary-market
@@ -494,6 +506,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/outsystems-capability-edges.yml
+  name: OutSystems Business Capability Map
 - type: Overlay
   url: overlays/outsystems-asset-configurations-api-v1-overlay.yaml
 - type: TrustCenter
