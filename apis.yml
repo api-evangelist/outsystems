@@ -99,7 +99,7 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
-  - Application Roles
+  - application-roles
   tags_raw:
   - application-roles
   properties:
@@ -204,7 +204,7 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
-  - Deployment Operations
+  - deployment-operations
   tags_raw:
   - deployment-operations
   properties:
@@ -296,7 +296,7 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
-  - Identity Providers
+  - identity-providers
   tags_raw:
   - identity-providers
   properties:
@@ -378,7 +378,7 @@ apis:
     https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
-  - Organization Roles
+  - organization-roles
   tags_raw:
   - organization-roles
   properties:
