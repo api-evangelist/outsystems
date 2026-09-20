@@ -1,0 +1,160 @@
+slug: outsystems
+provider: OutSystems
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 15
+edges:
+- tag: users
+  spec_file: outsystems-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: UserProfile_CreateUser  Creates a new user ... UserApplicationRoles_GrantApplicationRoleToUser  Grants
+    an application role to a user.
+  reason: User account lifecycle (create, delete, bulk create, count) and granting/revoking application
+    and organisation roles — joiner-mover-leaver style access administration, not HR employee records.
+- tag: Build
+  spec_file: outsystems-build-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.85
+  evidence: '"BuildV_StartNewBuildJob  Starts a job operation that will build a particular revision of
+    a given asset", "BuildV_GetBuildFeedback", schema "GeneratedCodePackagingStatus"'
+  reason: Build job orchestration and artefact/code packaging — continuous integration management.
+- tag: BuildOperations
+  spec_file: outsystems-buildoperations-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.85
+  evidence: '"POST_BuildOperations_Post  Starts a new native build", "Returns the progress messages for
+    a given native build", "POST_BuildOperations_PostVersionSuggestions"'
+  reason: Native mobile app build pipeline operations — build production and artefact versioning, i.e.
+    continuous integration.
+- tag: Code Analyses
+  spec_file: outsystems-code-analyses-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.85
+  evidence: '"CodeAnalysisControllerV_SubmitCodeAnalysisRequest  Submits a code analysis request for an
+    asset revision.", schemas "FindingsSummary", "SeverityBreakdown"'
+  reason: Static code analysis submission and findings retrieval — quality engineering / defect detection
+    for software products.
+- tag: application-roles
+  spec_file: outsystems-application-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: REST endpoints for retrieving and managing user and access in your organization ... ApplicationRole_QueryUsersByApplicationRole  Returns
+    the list of users for the specific application role.
+  reason: Role definitions and role-to-user assignments within the platform's user and access management
+    surface — identity and access management.
+- tag: groups
+  spec_file: outsystems-groups-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: Group_AddOrRemoveUsersFromGroup  Allow to add or remove users from a group ... Group_ModifyGroupApplicationRoles  Allow
+    to add or remove application roles from a group.
+  reason: Group lifecycle, group membership and group-to-role assignment, plus IdP claim mappings — classic
+    access management administration.
+- tag: organization-roles
+  spec_file: outsystems-organization-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: OrganizationRole_CreateOrganizationRole  Create an organization role ... OrganizationRole_QueryUsersByRole  Returns
+    a list of users with a specific organization role
+  reason: CRUD on organisation roles with permission details and user-role assignment — role-based access
+    administration.
+- tag: Assets Quality Metrics
+  spec_file: outsystems-assets-quality-metrics-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.8
+  evidence: '"Retrieves quality metrics for assets." with schemas "FindingSeverity", "ScoreChangeV1",
+    "FindingsChangeV1"'
+  reason: Code quality metrics and findings scores over application assets — software quality engineering.
+- tag: Findings
+  spec_file: outsystems-findings-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.8
+  evidence: '"FindingsControllerV_GetFindings  Retrieves a list of code quality findings."'
+  reason: Code quality findings listing — defect/quality management for software products.
+- tag: Findings Summary
+  spec_file: outsystems-findings-summary-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.8
+  evidence: '"Retrieves a multi-dimensional findings summary." with schemas "FindingSeverity", "FindingsSummaryMetricResponseV1"'
+  reason: Aggregated code quality findings reporting — software quality engineering.
+- tag: deployment-operations
+  spec_file: outsystems-deployment-operations-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.8
+  evidence: REST endpoints for publishing and deploying assets in environments (stages) in your organization
+    ... DeploymentOperations_Post  Requests the creation or deletion of a deployment.
+  reason: Operations request, track and log deployments of assets into environments/stages — deployment
+    orchestration for the platform's applications.
+- tag: identity-providers
+  spec_file: outsystems-identity-providers-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: 'IdentityProvider_QueryIdentityProviders  Returns a list of identity providers ... schemas:
+    OidcConfigurationResponse, SamlConfigurationItemModel'
+  reason: Configuration of federated identity providers (OIDC/SAML) for organisation sign-in, i.e. identity
+    federation within identity and access management.
+- tag: permissions
+  spec_file: outsystems-permissions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: 'GET /permissions  Permission_QueryPermissions  Returns the list of permissions ... schemas:
+    PermissionInheritance, OrgRolePermissionsVisibility'
+  reason: Catalogue of permissions and their inheritance used by the platform's role model — part of identity
+    and access management, though the surface is read-only.
+- tag: publish-operations
+  spec_file: outsystems-publish-operations-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.72
+  evidence: REST endpoints for publishing and deploying assets in environments (stages) ... PublishOperations_Post  Requests
+    the creation of a new publication.
+  reason: Requests and monitors publication of built assets into environments, with progress/log messages
+    — release delivery to running stages. Could arguably be release engineering, hence moderate confidence
+    on the sub-capability.
+- tag: Analysis Status
+  spec_file: outsystems-analysis-status-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: '"Retrieves the current synchronization status of Code Quality data." within "Code Quality
+    Analysis Status API ... code quality findings, application scores, and analysis results"'
+  reason: Code quality analysis status for the low-code platform's static analysis; maps to software quality
+    engineering, though this single operation is mostly a sync-status probe.
