@@ -11,6 +11,13 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: business-product
 pricing_basis: negotiated
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-09-20'
+  evidence: Yes, this option is available in certain plans for customers who desire an on-premises installation
+    of the OutSystems solution in a fully self-hosted environment.
+  managed_tier: OutSystems Developer Cloud (ODC)
 published: false
 note: No numeric price is published on the pricing page; Page describes editions and pricing factors (Application
   Objects, end users, add-ons) but shows no numeric prices; directs to 'Get an estimate'/'Contact Sales'.
