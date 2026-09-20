@@ -1,0 +1,29 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.outsystems.com/pricing-and-editions
+sources:
+- https://www.outsystems.com/pricing-and-editions
+- https://www.outsystems.com/pricing-and-editions/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: negotiated
+published: false
+note: No numeric price is published on the pricing page; Page describes editions and pricing factors (Application
+  Objects, end users, add-ons) but shows no numeric prices; directs to 'Get an estimate'/'Contact Sales'.
+  Personal Edition is stated as Free.
+plan_count: 2
+plans:
+- name: OutSystems Developer Cloud (ODC)
+  price_text: Get an estimate
+  period: none
+  included_quota: Starts with 100 internal Users; Start with 1 medium-sized production application; 99.5%
+    uptime guarantee
+- name: OutSystems Personal Edition
+  price_text: Free
+  period: none
+  included_quota: Up to 100 Internal Users; Test applications only (not for production use); Development
+    runtime
