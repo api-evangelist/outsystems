@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Deployments Deployment Operations API
-  description: 'REST endpoints for publishing and deploying assets in environments (stages) in your organization.
-
-    '
+  description: REST endpoints for publishing and deploying assets in environments (stages) in your organization.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/deployments/v1
@@ -17,13 +15,13 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: deployment-operations
+- name: Deployment Operations
 paths:
   /deployment-operations:
     get:
       tags:
-      - deployment-operations
-      summary: Returns a list of deployments.
+      - Deployment Operations
+      summary: Returns a list of deployments
       description: 'Returns a list of deployments that match a given filter. Use query parameters to refine the search.
 
 
@@ -139,8 +137,8 @@ paths:
       x-os-permissions: API Client needs the **Stage > View stage** permission for the operation.
     post:
       tags:
-      - deployment-operations
-      summary: Requests the creation or deletion of a deployment.
+      - Deployment Operations
+      summary: Requests the creation or deletion of a deployment
       description: 'Requests the creation of a deployment-operation which can be a Deployment, Undeploy or ApplyConfigs. It returns the created deployment operation.
 
 
@@ -195,8 +193,8 @@ paths:
   /deployment-operations/{operationKey}:
     get:
       tags:
-      - deployment-operations
-      summary: Returns one deployment given the deployment operation key.
+      - Deployment Operations
+      summary: Returns one deployment given the deployment operation key
       description: 'Returns one deployment given the deployment operation key. If the deployment is not found, a 404 error is returned.
 
 
@@ -245,8 +243,8 @@ paths:
   /deployment-operations/{operationKey}/messages:
     get:
       tags:
-      - deployment-operations
-      summary: Returns deployment log messages for a given deployment operation key.
+      - Deployment Operations
+      summary: Returns deployment log messages for a given deployment operation key
       description: 'Returns deployment log messages for a given deployment operation key. If the deployment is not found, a 404 error is returned.
 
 
@@ -305,143 +303,12 @@ paths:
       x-os-permissions: API Client needs the **Stage > View stage** permission for the operation.
 components:
   schemas:
-    StringPageInfo:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type:
-          - string
-          - 'null'
-          description: Offset of the current page of results.
-        nextPageOffset:
-          type:
-          - string
-          - 'null'
-          description: Offset of the next page of results.
-      additionalProperties: false
-      description: Contains response page information.
-    DeploymentOperationRequest:
-      type: object
-      properties:
-        operation:
-          allOf:
-          - $ref: '#/components/schemas/DeploymentOperationsType'
-          description: 'Operation to be executed.
-
-            Mandatory: Deploy, Undeploy, ApplyConfigs.'
-        assetKey:
-          type: string
-          description: 'Asset unique identifier.
-
-            Mandatory for Apply Configurations and Deployment.'
-          format: uuid
-        buildKey:
-          type:
-          - string
-          - 'null'
-          description: 'Build unique identifier.
-
-            Mandatory for Deployment.'
-          format: uuid
-        revision:
-          type:
-          - integer
-          - 'null'
-          description: 'Revision identifier.
-
-            Mandatory for Apply Configurations and Deployment.'
-          format: int32
-        environmentKey:
-          type: string
-          description: 'Environment Identifier.
-
-            Mandatory.'
-          format: uuid
-      additionalProperties: false
-      description: Deployment job request data
-    MessageSeverity:
-      enum:
-      - Info
-      - Warning
-      - Error
-      type: string
     DeploymentOperationsType:
       enum:
       - Deploy
       - Undeploy
       - ApplyConfigs
       type: string
-    StringMessageDetailsV1TaskProgressMessagePagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/StringPageInfo'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MessageDetailsV1TaskProgressMessage'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    MessageDetailsV1TaskProgressMessage:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: message timestamp
-          format: date-time
-        type:
-          type:
-          - string
-          - 'null'
-          description: message type (e.g., error code)
-        severity:
-          allOf:
-          - $ref: '#/components/schemas/MessageSeverity'
-          description: message severity (info, warning or error)
-        message:
-          type:
-          - string
-          - 'null'
-          description: message detail
-        additionalInfo:
-          allOf:
-          - $ref: '#/components/schemas/MessageDetailsV1'
-          description: optional message details
-      additionalProperties: false
-      description: Represents a user facing message about the progress of an operation, including additional details.
-    Int32NullableDeploymentOperationResponsePagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/Int32NullablePageInfo'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DeploymentOperationResponse'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
     MessageDetailsV1:
       type: object
       properties:
@@ -458,42 +325,12 @@ components:
           format: uuid
       additionalProperties: false
       description: Message detailed info.
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    Status:
+      enum:
+      - Running
+      - FinishedWithError
+      - Finished
+      type: string
     DeploymentOperationResponse:
       type: object
       properties:
@@ -553,6 +390,134 @@ components:
           format: uuid
       additionalProperties: false
       description: Information about one deployment
+    StringMessageDetailsV1TaskProgressMessagePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/StringPageInfo'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MessageDetailsV1TaskProgressMessage'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    StringPageInfo:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type:
+          - string
+          - 'null'
+          description: Offset of the current page of results.
+        nextPageOffset:
+          type:
+          - string
+          - 'null'
+          description: Offset of the next page of results.
+      additionalProperties: false
+      description: Contains response page information.
+    MessageSeverity:
+      enum:
+      - Info
+      - Warning
+      - Error
+      type: string
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    MessageDetailsV1TaskProgressMessage:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: message timestamp
+          format: date-time
+        type:
+          type:
+          - string
+          - 'null'
+          description: message type (e.g., error code)
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/MessageSeverity'
+          description: message severity (info, warning or error)
+        message:
+          type:
+          - string
+          - 'null'
+          description: message detail
+        additionalInfo:
+          allOf:
+          - $ref: '#/components/schemas/MessageDetailsV1'
+          description: optional message details
+      additionalProperties: false
+      description: Represents a user facing message about the progress of an operation, including additional details.
+    Int32NullableDeploymentOperationResponsePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/Int32NullablePageInfo'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeploymentOperationResponse'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
     Int32NullablePageInfo:
       type: object
       properties:
@@ -578,12 +543,45 @@ components:
           format: int32
       additionalProperties: false
       description: Contains response page information.
-    Status:
-      enum:
-      - Running
-      - FinishedWithError
-      - Finished
-      type: string
+    DeploymentOperationRequest:
+      type: object
+      properties:
+        operation:
+          allOf:
+          - $ref: '#/components/schemas/DeploymentOperationsType'
+          description: 'Operation to be executed.
+
+            Mandatory: Deploy, Undeploy, ApplyConfigs.'
+        assetKey:
+          type: string
+          description: 'Asset unique identifier.
+
+            Mandatory for Apply Configurations and Deployment.'
+          format: uuid
+        buildKey:
+          type:
+          - string
+          - 'null'
+          description: 'Build unique identifier.
+
+            Mandatory for Deployment.'
+          format: uuid
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: 'Revision identifier.
+
+            Mandatory for Apply Configurations and Deployment.'
+          format: int32
+        environmentKey:
+          type: string
+          description: 'Environment Identifier.
+
+            Mandatory.'
+          format: uuid
+      additionalProperties: false
+      description: Deployment job request data
   securitySchemes:
     bearerAuth:
       type: http

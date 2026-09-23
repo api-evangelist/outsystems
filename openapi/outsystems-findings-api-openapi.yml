@@ -19,7 +19,7 @@ paths:
     get:
       tags:
       - Findings
-      summary: Retrieves a list of code quality findings.
+      summary: Retrieves a list of code quality findings
       description: 'Retrieves a paginated list of code quality findings with comprehensive filtering, sorting, and field selection capabilities.
 
 
@@ -177,31 +177,6 @@ paths:
       x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
 components:
   schemas:
-    AssetType:
-      enum:
-      - WebApplication
-      - MobileApplication
-      - LowCodeLibrary
-      - MobileLibrary
-      type: string
-    FindingsResponseV1PagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FindingsResponseV1'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
     FindingsResponseV1:
       title: FindingsResponse
       type: object
@@ -303,6 +278,36 @@ components:
           - 'null'
           format: int32
       additionalProperties: false
+    AssetType:
+      enum:
+      - WebApplication
+      - MobileApplication
+      - LowCodeLibrary
+      - MobileLibrary
+      type: string
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
+    ElementPath:
+      type: object
+      properties:
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -339,36 +344,24 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    FindingSeverity:
-      enum:
-      - Low
-      - Medium
-      - High
-      - Critical
-      type: string
-    ElementPath:
+    FindingsResponseV1PagedListResponse:
       type: object
       properties:
-        elementKey:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
           type:
-          - string
+          - array
           - 'null'
-        elementName:
-          type:
-          - string
-          - 'null'
-        elementType:
-          type:
-          - string
-          - 'null'
+          items:
+            $ref: '#/components/schemas/FindingsResponseV1'
+          description: List of results.
+          readOnly: true
       additionalProperties: false
-    Categories:
-      enum:
-      - performance
-      - security
-      - architecture
-      - maintainability
-      type: string
+      description: Represents a response containing a paged set of results.
     PageInfoWithTotals:
       type: object
       properties:
@@ -401,6 +394,13 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
+    FindingSeverity:
+      enum:
+      - Low
+      - Medium
+      - High
+      - Critical
+      type: string
   securitySchemes:
     bearerAuth:
       type: http

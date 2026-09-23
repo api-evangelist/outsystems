@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Operations Build API
-  description: 'Provides APIs to start build operations and retrieve information about their status.
-
-    '
+  description: Provides APIs to start build operations and retrieve information about their status.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/builds/v1
@@ -24,7 +22,13 @@ paths:
       tags:
       - Build
       summary: Gets detailed information about a given build
-      description: "Example:\n\n    GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923\n\nYou need the **Asset management > Open** permission."
+      description: 'Example:
+
+
+        GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923
+
+
+        You need the **Asset management > Open** permission.'
       operationId: BuildV_GetBuild
       parameters:
       - name: operationKey
@@ -71,7 +75,13 @@ paths:
       tags:
       - Build
       summary: Gets messages logged by a given build
-      description: "Example:\n\n    GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/log-messages\n\nYou need the **Asset management > Open** permission."
+      description: 'Example:
+
+
+        GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/log-messages
+
+
+        You need the **Asset management > Open** permission.'
       operationId: BuildV_GetBuildFeedback
       parameters:
       - name: operationKey
@@ -118,7 +128,16 @@ paths:
       tags:
       - Build
       summary: Gets generated code produced by a given build
-      description: "This resource is only available after calling POST /build-operations/{operationKey}/generated-code with the respective build key.\n\n            \n\n Example:\n\n     GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/generated-code\n\nYou need the **Asset management > Open** permission."
+      description: 'This resource is only available after calling POST /build-operations/{operationKey}/generated-code with the respective build key.
+
+
+        Example:
+
+
+        GET /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/generated-code
+
+
+        You need the **Asset management > Open** permission.'
       operationId: BuildV_GetSourceCode
       parameters:
       - name: operationKey
@@ -164,7 +183,13 @@ paths:
       tags:
       - Build
       summary: Starts packaging the code generated for a given build
-      description: "Example:\n\n    POST /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/generated-code\n\nYou need the **Asset management > Open** permission."
+      description: 'Example:
+
+
+        POST /builds/v1/build-operations/be77b25f-c738-462f-8f19-7114fc4f9923/generated-code
+
+
+        You need the **Asset management > Open** permission.'
       operationId: BuildV_StartSourceCodeProcess
       parameters:
       - name: operationKey
@@ -223,7 +248,13 @@ paths:
       tags:
       - Build
       summary: List all builds created for a given revision of a given asset
-      description: "Example:\n\n    GET /builds/v1/build-operations?assetKey=68ef84e5-9265-47b8-8612-b073b70e3e3e&assetRevision=1\n\nYou need the **Asset management > Open** permission."
+      description: 'Example:
+
+
+        GET /builds/v1/build-operations?assetKey=68ef84e5-9265-47b8-8612-b073b70e3e3e&assetRevision=1
+
+
+        You need the **Asset management > Open** permission.'
       operationId: BuildV_ListBuilds
       parameters:
       - name: assetKey
@@ -280,7 +311,28 @@ paths:
       tags:
       - Build
       summary: Starts a job operation that will build a particular revision of a given asset
-      description: "Example:\n\n    POST /builds/v1/build-operations\n\n    {\n\n       \"buildType\": \"Release\",\n\n       \"assetKey\": \"68ef84e5-9265-47b8-8612-b073b70e3e3e\",\n\n       \"assetRevision\": 1\n\n    }\n\nYou need the **Asset management > Open** permission."
+      description: 'Example:
+
+
+        POST /builds/v1/build-operations
+
+
+        {
+
+
+        "buildType": "Release",
+
+
+        "assetKey": "68ef84e5-9265-47b8-8612-b073b70e3e3e",
+
+
+        "assetRevision": 1
+
+
+        }
+
+
+        You need the **Asset management > Open** permission.'
       operationId: BuildV_StartNewBuildJob
       requestBody:
         description: The specification of the build to start, including asset key, asset revision, and build type.
@@ -335,6 +387,71 @@ paths:
       x-os-permissions: You need the **Asset management > Open** permission.
 components:
   schemas:
+    SecurityVulnerability:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: The Id the vulnerability
+        severity:
+          type:
+          - string
+          - 'null'
+          description: The Severity level of the vulnerability
+        details:
+          type:
+          - string
+          - 'null'
+          description: The Link to the vulnerability description
+        publishedDate:
+          type: string
+          description: The Published date of the vulnerability
+          format: date-time
+      additionalProperties: false
+      description: Security Vulnerability
+    GeneratedCodePackagingResponse:
+      type: object
+      properties:
+        isSuccessful:
+          type: boolean
+          description: Indicates whether the packaging was initiated successfully.
+      additionalProperties: false
+      description: Represents the response from initiating the packaging of a build's generated code.
+    GeneratedCodePackageResponse:
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/GeneratedCodePackagingStatus'
+          description: The current status of the packaging.
+        uri:
+          type:
+          - string
+          - 'null'
+          description: The URI of the generated code package.
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeneratedCodePackagingError'
+          description: The list of errors that occurred while packaging.
+      additionalProperties: false
+      description: Represents the result of packaging a build's generated code.
+    BuildDetailsBuildListResponse:
+      type: object
+      properties:
+        builds:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BuildDetails'
+          description: The list of builds
+      additionalProperties: false
+      description: The list of builds that match provided criteria
     BuildDetails:
       required:
       - assetKey
@@ -386,62 +503,6 @@ components:
           description: The Security audit with list of security vulnerabilities
       additionalProperties: false
       description: The status of a particular build
-    SecurityVulnerability:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: The Id the vulnerability
-        severity:
-          type:
-          - string
-          - 'null'
-          description: The Severity level of the vulnerability
-        details:
-          type:
-          - string
-          - 'null'
-          description: The Link to the vulnerability description
-        publishedDate:
-          type: string
-          description: The Published date of the vulnerability
-          format: date-time
-      additionalProperties: false
-      description: Security Vulnerability
-    BuildDetailsBuildListResponse:
-      type: object
-      properties:
-        builds:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BuildDetails'
-          description: The list of builds
-      additionalProperties: false
-      description: The list of builds that match provided criteria
-    BuildResponse:
-      type: object
-      properties:
-        buildKey:
-          type: string
-          description: A unique identifier generated for the Build. Can be used to retrieve or outputs the status of associated build.
-          format: uuid
-        isSuccessful:
-          type: boolean
-          description: Signals whether the build start successfully
-      additionalProperties: false
-      description: The response of a build request
-    GeneratedCodePackagingStatus:
-      enum:
-      - NotStarted
-      - Running
-      - Finished
-      - TimedOut
-      - Failed
-      type: string
     SecurityVulnerabilities:
       type: object
       properties:
@@ -454,6 +515,36 @@ components:
           description: A list of the security vulnerabilities
       additionalProperties: false
       description: Security Vulnerabilities
+    BuildResponse:
+      type: object
+      properties:
+        buildKey:
+          type: string
+          description: A unique identifier generated for the Build. Can be used to retrieve or outputs the status of associated build.
+          format: uuid
+        isSuccessful:
+          type: boolean
+          description: Signals whether the build start successfully
+      additionalProperties: false
+      description: The response of a build request
+    BuildOperationDetails:
+      type: object
+      properties:
+        assetKey:
+          type: string
+          description: Specifies the key of the asset to be built
+          format: uuid
+        assetRevision:
+          type: integer
+          description: Specifies the revision of the asset to be built
+          format: int32
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/BuildType'
+          description: 'Specifies the type of build to be created. Accepts: ''Debug'' or ''Release'''
+          default: Debug
+      additionalProperties: false
+      description: The specification of a build request
     GeneratedCodePackagingError:
       type: object
       properties:
@@ -473,6 +564,60 @@ components:
           description: The content of the error
       additionalProperties: false
       description: A message issued during the packaging of a build's generated code
+    BuildFeedbackDetailsResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BuildFeedbackDetails'
+          description: The messages issued during a build
+      additionalProperties: false
+      description: All messages issued during a build
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    BuildType:
+      enum:
+      - Debug
+      - Release
+      type: string
+      description: The type of build
     BuildFeedbackDetails:
       type: object
       properties:
@@ -511,66 +656,14 @@ components:
           description: A unique identifier for the error message
       additionalProperties: false
       description: A message issued during the build process
-    BuildType:
+    GeneratedCodePackagingStatus:
       enum:
-      - Debug
-      - Release
+      - NotStarted
+      - Running
+      - Finished
+      - TimedOut
+      - Failed
       type: string
-      description: The type of build
-    BuildOperationDetails:
-      type: object
-      properties:
-        assetKey:
-          type: string
-          description: Specifies the key of the asset to be built
-          format: uuid
-        assetRevision:
-          type: integer
-          description: Specifies the revision of the asset to be built
-          format: int32
-        buildType:
-          allOf:
-          - $ref: '#/components/schemas/BuildType'
-          description: 'Specifies the type of build to be created. Accepts: ''Debug'' or ''Release'''
-          default: Debug
-      additionalProperties: false
-      description: The specification of a build request
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     BuildStatus:
       enum:
       - Pending
@@ -580,47 +673,6 @@ components:
       - Deleted
       - ToBeDeleted
       type: string
-    GeneratedCodePackagingResponse:
-      type: object
-      properties:
-        isSuccessful:
-          type: boolean
-          description: Indicates whether the packaging was initiated successfully.
-      additionalProperties: false
-      description: Represents the response from initiating the packaging of a build's generated code.
-    GeneratedCodePackageResponse:
-      type: object
-      properties:
-        status:
-          allOf:
-          - $ref: '#/components/schemas/GeneratedCodePackagingStatus'
-          description: The current status of the packaging.
-        uri:
-          type:
-          - string
-          - 'null'
-          description: The URI of the generated code package.
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GeneratedCodePackagingError'
-          description: The list of errors that occurred while packaging.
-      additionalProperties: false
-      description: Represents the result of packaging a build's generated code.
-    BuildFeedbackDetailsResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BuildFeedbackDetails'
-          description: The messages issued during a build
-      additionalProperties: false
-      description: All messages issued during a build
   securitySchemes:
     bearerAuth:
       type: http

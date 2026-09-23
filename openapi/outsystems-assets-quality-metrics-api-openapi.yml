@@ -19,7 +19,7 @@ paths:
     get:
       tags:
       - Assets Quality Metrics
-      summary: Retrieves quality metrics for assets.
+      summary: Retrieves quality metrics for assets
       description: 'Retrieves quality metrics and findings distribution for assets, including quality scores and findings grouped by severity and status, with comparison to previous analysis.
 
 
@@ -174,32 +174,31 @@ components:
           format: int32
       additionalProperties: false
       description: Quality score with change information.
-    FindingStatus:
-      enum:
-      - Open
-      - Resolved
-      - Dismissed
-      - Snoozed
-      - Closed
-      type: string
-    FindingsChangeV1:
-      title: FindingsChange
+    AppsOverviewResponseV1PagedListResponse:
       type: object
       properties:
-        latestFindingsCount:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
           type:
-          - integer
+          - array
           - 'null'
-          description: Number of findings in the current/latest analysis.
-          format: int32
-        findingsDifferenceCount:
-          type:
-          - integer
-          - 'null'
-          description: Change in findings count compared to previous analysis.
-          format: int32
+          items:
+            $ref: '#/components/schemas/AppsOverviewResponseV1'
+          description: List of results.
+          readOnly: true
       additionalProperties: false
-      description: Findings count with change information.
+      description: Represents a response containing a paged set of results.
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
     AppsOverviewResponseV1:
       title: AppsOverviewResponse
       type: object
@@ -268,24 +267,6 @@ components:
             latestFindingsCount: 2
             findingsDifferenceCount: 0
         assetName: MyWebApplication
-    AppsOverviewResponseV1PagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AppsOverviewResponseV1'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
     ProblemDetails:
       type: object
       properties:
@@ -322,20 +303,32 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    FindingSeverity:
+    FindingStatus:
       enum:
-      - Low
-      - Medium
-      - High
-      - Critical
+      - Open
+      - Resolved
+      - Dismissed
+      - Snoozed
+      - Closed
       type: string
-    Categories:
-      enum:
-      - performance
-      - security
-      - architecture
-      - maintainability
-      type: string
+    FindingsChangeV1:
+      title: FindingsChange
+      type: object
+      properties:
+        latestFindingsCount:
+          type:
+          - integer
+          - 'null'
+          description: Number of findings in the current/latest analysis.
+          format: int32
+        findingsDifferenceCount:
+          type:
+          - integer
+          - 'null'
+          description: Change in findings count compared to previous analysis.
+          format: int32
+      additionalProperties: false
+      description: Findings count with change information.
     PageInfoWithTotals:
       type: object
       properties:
@@ -368,6 +361,13 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
+    FindingSeverity:
+      enum:
+      - Low
+      - Medium
+      - High
+      - Critical
+      type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: External Library Generation Service Upload API
-  description: 'API for generating and managing external libraries from high-code packages.
-
-    '
+  description: API for generating and managing external libraries from high-code packages.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/external-libraries/v1
@@ -23,7 +21,7 @@ paths:
     get:
       tags:
       - Upload
-      summary: Returns an Upload Schema.
+      summary: Returns an Upload Schema
       description: 'Returns an Upload Schema containing a pre-signed uploadURL for uploading external library source code and an associated downloadURL to retrieve the uploaded source code.
 
 
@@ -63,23 +61,6 @@ paths:
       x-os-permissions: 'Required permissions: **Asset management > Create**'
 components:
   schemas:
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.UploadResponse:
-      required:
-      - downloadUrl
-      - uploadUrl
-      type: object
-      properties:
-        uploadUrl:
-          type:
-          - string
-          - 'null'
-          description: The pre-signed URL to upload the HighCode package.
-        downloadUrl:
-          type:
-          - string
-          - 'null'
-          description: The pre-signed URL to download the HighCode package.
-      additionalProperties: false
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -116,6 +97,23 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.UploadResponse:
+      required:
+      - downloadUrl
+      - uploadUrl
+      type: object
+      properties:
+        uploadUrl:
+          type:
+          - string
+          - 'null'
+          description: The pre-signed URL to upload the HighCode package.
+        downloadUrl:
+          type:
+          - string
+          - 'null'
+          description: The pre-signed URL to download the HighCode package.
+      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

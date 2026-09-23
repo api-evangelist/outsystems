@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: External Library Generation Service Generation Operations API
-  description: 'API for generating and managing external libraries from high-code packages.
-
-    '
+  title: External Library Generation Service Generation Operations…
+  description: API for generating and managing external libraries from high-code packages.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/external-libraries/v1
@@ -23,8 +21,15 @@ paths:
     post:
       tags:
       - GenerationOperations
-      summary: Generate an external library from a high-code package.
-      description: "Asynchronously generates an external library using the HighCode package, containing the compiled code of the library.\n\nRequired permissions:\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+      summary: Generate an external library from a high-code package
+      description: 'Asynchronously generates an external library using the HighCode package, containing the compiled code of the library.
+
+
+        Required permissions:
+
+        - If generation operation corresponds to a new library: **Asset management > Create**
+
+        - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key'
       operationId: GenerationOperations_CreateGenerationOperation
       requestBody:
         description: External library generation operation creation request.
@@ -63,7 +68,7 @@ paths:
     get:
       tags:
       - GenerationOperations
-      summary: Returns the list of generation operations.
+      summary: Returns the list of generation operations
       description: 'Gets the list of all available generation operations.
 
 
@@ -98,8 +103,15 @@ paths:
     delete:
       tags:
       - GenerationOperations
-      summary: Deletes a generation operation.
-      description: "Deletes a specific generation operation and all associated logs.\n\nRequired permissions:\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+      summary: Deletes a generation operation
+      description: 'Deletes a specific generation operation and all associated logs.
+
+
+        Required permissions:
+
+        - If generation operation corresponds to a new library: **Asset management > Create**
+
+        - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key'
       operationId: GenerationOperations_DeleteGenerationOperationByOperationKey
       parameters:
       - name: operationKey
@@ -141,7 +153,7 @@ paths:
     get:
       tags:
       - GenerationOperations
-      summary: Returns the details of a generation operation.
+      summary: Returns the details of a generation operation
       description: 'Returns the details of a generation operation its key.
 
 
@@ -185,8 +197,15 @@ paths:
     get:
       tags:
       - GenerationOperations
-      summary: Returns the contents of the specified generation operation.
-      description: "Returns the actions and structures defined on the high code package corresponding to the specified generation operation\n\nRequired permissions:\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+      summary: Returns the contents of the specified generation operation
+      description: 'Returns the actions and structures defined on the high code package corresponding to the specified generation operation
+
+
+        Required permissions:
+
+        - If generation operation corresponds to a new library: **Asset management > Create**
+
+        - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key'
       operationId: GenerationOperations_GetGenerationOperationContents
       parameters:
       - name: operationKey
@@ -237,8 +256,17 @@ paths:
     get:
       tags:
       - GenerationOperations
-      summary: Get log messages.
-      description: "Returns the validation messages for the specified generation operation.\n\nRequired permissions:\n - If generation operation has no library key associated (failed to get extracted from high code): **Asset management > Create** or **Asset management > Change**\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
+      summary: Get log messages
+      description: 'Returns the validation messages for the specified generation operation.
+
+
+        Required permissions:
+
+        - If generation operation has no library key associated (failed to get extracted from high code): **Asset management > Create** or **Asset management > Change**
+
+        - If generation operation corresponds to a new library: **Asset management > Create**
+
+        - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key'
       operationId: GenerationOperations_GetGenerationOperationLogMessages
       parameters:
       - name: operationKey
@@ -293,146 +321,6 @@ paths:
       x-os-permissions: "Required permissions:\n - If generation operation has no library key associated (failed to get extracted from high code): **Asset management > Create** or **Asset management > Change**\n - If generation operation corresponds to a new library: **Asset management > Create**\n - If generation operation corresponds to a new version of an existing library: **Asset management > Change** for that specific library key"
 components:
   schemas:
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.StructureResponse:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the Structure
-        attributes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.AttributeResponse'
-          description: List of attributes of the structure
-        changeType:
-          allOf:
-          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
-          description: Change compared with previous version
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationValidationMessageResponse:
-      type: object
-      properties:
-        errorCode:
-          type:
-          - string
-          - 'null'
-          description: Error Code for reference
-        message:
-          type:
-          - string
-          - 'null'
-          description: Detailed message of the error
-        type:
-          allOf:
-          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.JobValidationMessageType'
-          description: Type of the validation message
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse:
-      type: object
-      properties:
-        operationKey:
-          type: string
-          description: The operation key
-          format: uuid
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ParameterResponse:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the parameter
-        dataType:
-          type:
-          - string
-          - 'null'
-          description: OutSystems data type of the parameter
-        parameterType:
-          allOf:
-          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ParameterType'
-          description: Type of parameter
-        changeType:
-          allOf:
-          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
-          description: Change compared with previous version
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.AttributeResponse:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the attribute
-        dataType:
-          type:
-          - string
-          - 'null'
-          description: OutSystems data type of the attribute
-        changeType:
-          allOf:
-          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
-          description: Change compared with previous version
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Models.GenerationOperationCreationRequest:
-      type: object
-      properties:
-        fileName:
-          type: string
-          description: The name of the file that contains the high code binary.
-        highCodeBinaryUri:
-          type: string
-          description: The Uri to fetch the zip archive containing the high code binary.
-      additionalProperties: false
-      description: Request to create a generation operation.
-    OutSystems.ExternalLibraryGeneration.Application.Enums.JobValidationMessageType:
-      enum:
-      - None
-      - Information
-      - Warning
-      - Error
-      type: string
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationListResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationResponse'
-          description: List of generation operations, sorted by CreatedAt descending
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ActionResponse:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the action
-        parameters:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ParameterResponse'
-          description: List of parameters of the action
-        changeType:
-          allOf:
-          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
-          description: Change compared with previous version
-        iconBase64:
-          type:
-          - string
-          - 'null'
-          description: Icon of the action represented in Base64
-      additionalProperties: false
     OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationLogMessagesResponse:
       type: object
       properties:
@@ -448,43 +336,6 @@ components:
           description: Timestamp of when the creation process ended, in UTC
           format: date-time
       additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationContentsResponse:
-      type: object
-      properties:
-        actions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ActionResponse'
-          description: List of actions defined in the HCPkg. Contains the delta for the currently published version in the update scenario
-        structures:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.StructureResponse'
-          description: List of structures defined in the HCPkg. Contains the delta for the currently published version in the update scenario
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.GenerationOperationStatus:
-      enum:
-      - None
-      - Generating
-      - GenerationError
-      - ReadyForReview
-      - Downloading
-      - DownloadError
-      - Completed
-      type: string
-      description: Status of a generation operation in the v1beta1 API
-    OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType:
-      enum:
-      - None
-      - Added
-      - Removed
-      - Updated
-      - Unchanged
-      type: string
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -521,12 +372,164 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationContentsResponse:
+      type: object
+      properties:
+        actions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ActionResponse'
+          description: List of actions defined in the HCPkg. Contains the delta for the currently published version in the update scenario
+        structures:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.StructureResponse'
+          description: List of structures defined in the HCPkg. Contains the delta for the currently published version in the update scenario
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationValidationMessageResponse:
+      type: object
+      properties:
+        errorCode:
+          type:
+          - string
+          - 'null'
+          description: Error Code for reference
+        message:
+          type:
+          - string
+          - 'null'
+          description: Detailed message of the error
+        type:
+          allOf:
+          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.JobValidationMessageType'
+          description: Type of the validation message
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType:
+      enum:
+      - None
+      - Added
+      - Removed
+      - Updated
+      - Unchanged
+      type: string
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.AttributeResponse:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the attribute
+        dataType:
+          type:
+          - string
+          - 'null'
+          description: OutSystems data type of the attribute
+        changeType:
+          allOf:
+          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
+          description: Change compared with previous version
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ParameterResponse:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the parameter
+        dataType:
+          type:
+          - string
+          - 'null'
+          description: OutSystems data type of the parameter
+        parameterType:
+          allOf:
+          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ParameterType'
+          description: Type of parameter
+        changeType:
+          allOf:
+          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
+          description: Change compared with previous version
+      additionalProperties: false
     OutSystems.ExternalLibraryGeneration.Application.Enums.ParameterType:
       enum:
       - None
       - Input
       - Output
       type: string
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse:
+      type: object
+      properties:
+        operationKey:
+          type: string
+          description: The operation key
+          format: uuid
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Models.GenerationOperationCreationRequest:
+      type: object
+      properties:
+        fileName:
+          type: string
+          description: The name of the file that contains the high code binary.
+        highCodeBinaryUri:
+          type: string
+          description: The Uri to fetch the zip archive containing the high code binary.
+      additionalProperties: false
+      description: Request to create a generation operation.
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.StructureResponse:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the Structure
+        attributes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.AttributeResponse'
+          description: List of attributes of the structure
+        changeType:
+          allOf:
+          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
+          description: Change compared with previous version
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Application.Enums.JobValidationMessageType:
+      enum:
+      - None
+      - Information
+      - Warning
+      - Error
+      type: string
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationResponse'
+          description: List of generation operations, sorted by CreatedAt descending
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.GenerationOperationStatus:
+      enum:
+      - None
+      - Generating
+      - GenerationError
+      - ReadyForReview
+      - Downloading
+      - DownloadError
+      - Completed
+      type: string
+      description: Status of a generation operation in the v1beta1 API
     OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationResponse:
       type: object
       properties:
@@ -580,6 +583,31 @@ components:
           description: Status of the external library generation operation
       additionalProperties: false
       description: Response object for generation operations.
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ActionResponse:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the action
+        parameters:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ParameterResponse'
+          description: List of parameters of the action
+        changeType:
+          allOf:
+          - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType'
+          description: Change compared with previous version
+        iconBase64:
+          type:
+          - string
+          - 'null'
+          description: Icon of the action represented in Base64
+      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

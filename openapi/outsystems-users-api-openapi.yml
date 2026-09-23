@@ -15,14 +15,22 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: users
+- name: Users
 paths:
   /users/bulk:
     post:
       tags:
-      - users
-      summary: Bulk create users and optionally in the built-in identity provider.
-      description: "The number of users added must be between 1 and 100 (inclusive), otherwise a bad request is returned.\nReturns an operations status object with an operation key that can be used later to get the status of the bulk create.\n            \nAPI Client needs the User management > Manage users permission.\n\nAPI Client needs the **User management > Manage users** permission."
+      - Users
+      summary: Bulk create users and optionally in the built-in identity provider
+      description: 'The number of users added must be between 1 and 100 (inclusive), otherwise a bad request is returned.
+
+        Returns an operations status object with an operation key that can be used later to get the status of the bulk create.
+
+
+        API Client needs the User management > Manage users permission.
+
+
+        API Client needs the **User management > Manage users** permission.'
       operationId: BulkUserProfile_CreateBulkUserProfilesOperation
       requestBody:
         description: Bulk Create User Request.
@@ -70,9 +78,21 @@ paths:
   /users/bulk/{key}:
     get:
       tags:
-      - users
-      summary: Get the bulk user operation status.
-      description: "Returns an operations status object that contains the overall status of the bulk operation.\nIf the bulk operation has a Finished or FinishedWithError status,\nthe result of each and every item in the list is returned as well.\nIf the bulk operation has a Pending or Processing status, only the overall status is returned.\n            \nAPI Client needs the User management > Manage users permission.\n\nAPI Client needs the **User management > Manage users** permission."
+      - Users
+      summary: Get the bulk user operation status
+      description: 'Returns an operations status object that contains the overall status of the bulk operation.
+
+        If the bulk operation has a Finished or FinishedWithError status,
+
+        the result of each and every item in the list is returned as well.
+
+        If the bulk operation has a Pending or Processing status, only the overall status is returned.
+
+
+        API Client needs the User management > Manage users permission.
+
+
+        API Client needs the **User management > Manage users** permission.'
       operationId: BulkUserProfile_GetBulkUserProfileOperationStatus
       parameters:
       - name: key
@@ -122,8 +142,8 @@ paths:
   /users/{key}/application-roles/{roleKey}:
     post:
       tags:
-      - users
-      summary: Grants an application role to a user.
+      - Users
+      summary: Grants an application role to a user
       description: 'Assigns an application role to a user by providing the application role key and the user key.
 
 
@@ -180,8 +200,8 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage end-user access** permission.
     delete:
       tags:
-      - users
-      summary: Revokes an application role to a user.
+      - Users
+      summary: Revokes an application role to a user
       description: 'Revokes an application role from a user by providing the user key and application role key.
 
 
@@ -239,8 +259,8 @@ paths:
   /users/{key}/application-roles:
     get:
       tags:
-      - users
-      summary: Returns the list of application roles associated with a user.
+      - Users
+      summary: Returns the list of application roles associated with a user
       description: 'Returns a list of application roles associated with a user that match the specified filters. Use query parameters to refine the search.
 
 
@@ -376,8 +396,8 @@ paths:
   /users/{key}/organization-roles:
     get:
       tags:
-      - users
-      summary: Returns the list of organization roles associated with a user.
+      - Users
+      summary: Returns the list of organization roles associated with a user
       description: 'Returns the list of organization roles associated with a user.
 
         If the authenticated user is requesting their own roles, no permission is required.
@@ -461,8 +481,8 @@ paths:
   /users/{key}/organization-roles/{roleKey}:
     post:
       tags:
-      - users
-      summary: Grant organization roles to a user.
+      - Users
+      summary: Grant organization roles to a user
       description: 'Assigns organization roles to a user based on the user key.
 
 
@@ -530,8 +550,8 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage member access** permission.
     delete:
       tags:
-      - users
-      summary: Delete a user's organization roles.
+      - Users
+      summary: Delete a user's organization roles
       description: 'Revokes organization roles for a user.
 
 
@@ -600,8 +620,8 @@ paths:
   /users/count:
     get:
       tags:
-      - users
-      summary: Returns the user count based on specified conditions.
+      - Users
+      summary: Returns the user count based on specified conditions
       description: 'Returns the user count that match the specified filters. Use query parameters to refine the search.
 
 
@@ -710,8 +730,8 @@ paths:
   /users:
     post:
       tags:
-      - users
-      summary: Creates a new user.
+      - Users
+      summary: Creates a new user
       description: 'Creates a new user by specifying the user information. You can provide the user''s name, photo URL, and active status. Additionally, the AddToBuiltInIdentityProvider can be used to add the user to the built-in provider.
 
 
@@ -762,8 +782,8 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage users** permission.
     get:
       tags:
-      - users
-      summary: Returns the list of users based on specified conditions.
+      - Users
+      summary: Returns the list of users based on specified conditions
       description: 'Returns a list of users that match the specified filters. Use query parameters to refine the search.
 
 
@@ -923,8 +943,8 @@ paths:
   /users/{key}:
     delete:
       tags:
-      - users
-      summary: Deletes a user.
+      - Users
+      summary: Deletes a user
       description: 'Deletes a specified user using the user''s key.
 
 
@@ -974,8 +994,8 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage users** permission.
     get:
       tags:
-      - users
-      summary: Retrieves a user.
+      - Users
+      summary: Retrieves a user
       description: 'Retrieves detailed information about a user using the user''s key.
 
 
@@ -1036,8 +1056,8 @@ paths:
       x-os-permissions: API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.
     patch:
       tags:
-      - users
-      summary: Updates the user.
+      - Users
+      summary: Updates the user
       description: 'Updates the details of a user using the user''s key. Allows modification of the user''s name, photo URL, and active status.
 
 
@@ -1099,8 +1119,8 @@ paths:
   /users/{key}/groups:
     get:
       tags:
-      - users
-      summary: Returns a list of groups associated with a user.
+      - Users
+      summary: Returns a list of groups associated with a user
       description: 'Returns a list of groups associated with a user that match the specified filters. Use query parameters to refine the search.
 
 
@@ -1205,204 +1225,10 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage end-user groups** permission.
 components:
   schemas:
-    BulkUserProfileOperationApiRecord:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: User profile record key
-          format: uuid
-        email:
-          type:
-          - string
-          - 'null'
-          description: Email of the user
-        username:
-          type:
-          - string
-          - 'null'
-          description: The user's username for the IdP
-        subject:
-          type:
-          - string
-          - 'null'
-          description: The user's subject claim value for the IdP
-      additionalProperties: false
-    UserProfileStatus:
+    UserProfileEmbedType:
       enum:
-      - Active
-      - Invited
-      - Inactive
-      - PendingRegistration
-      type: string
-    AssignedGroupInfoApiResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The application group key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the application group.
-        membershipType:
-          enum:
-          - Assigned
-          - Mapped
-          allOf:
-          - $ref: '#/components/schemas/MembershipType'
-          description: The membership type of the user in the application group.
-      additionalProperties: false
-    BulkUserProfileOperationApiRecordBulkApiResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The identiifer of the bulk operation record
-          format: uuid
-        status:
-          enum:
-          - FinishedWithErrors
-          - Finished
-          - Processing
-          - Pending
-          allOf:
-          - $ref: '#/components/schemas/BulkApiStatus'
-          description: Bullk API statuses Pending, Processing, Finished and FinishedWithErrors
-        errorCode:
-          type:
-          - string
-          - 'null'
-          description: 'Self Service error code for the overall bulk API operation.
-
-            For example, when the operation times out.'
-        errorMessage:
-          type:
-          - string
-          - 'null'
-          description: 'Self Service error message for the overall bulk API operation.
-
-            For example, when the operation times out.'
-        operations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BulkUserProfileOperationApiRecordBulkApiOperation'
-          description: 'Details of each operation performed in the bulk request.
-
-            Available when the bulk operation has Finished or FinishedWithErrors.
-
-            This will be an empty list when the bulk operation is Pending or Progressing.'
-      additionalProperties: false
-    RevokeDetailsRequest:
-      type: object
-      properties:
-        assetKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: Gets or sets the asset keys.
-      additionalProperties: false
-    UserApplicationRoleApiResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
-    BulkUserProfileOperationApiRecordBulkApiOperation:
-      type: object
-      properties:
-        status:
-          enum:
-          - Error
-          - Inserted
-          - Updated
-          - Deleted
-          allOf:
-          - $ref: '#/components/schemas/BulkApiOperationStatus'
-          description: 'Status of the individual operation in the list of bulk operations.
-
-            For example: Inserted, Updated, Errored'
-        errorCode:
-          type:
-          - string
-          - 'null'
-          description: Self-support error code for the one operation if any error occured.
-        errorMessage:
-          type:
-          - string
-          - 'null'
-          description: Self-support error message for the one operation if any error occured.
-        record:
-          allOf:
-          - $ref: '#/components/schemas/BulkUserProfileOperationApiRecord'
-          description: 'A JSON object containing some extra info about the record in this operation.
-
-            This could contain some pieces of request info as well as additional info from the operation output.'
-      additionalProperties: false
-    PageInfoWithTotalsApi:
-      required:
-      - count
-      - limit
-      - offset
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The results of the current page.
-          format: int32
-        limit:
-          type: integer
-          description: The limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: The offset of the current page of results.
-          format: int32
-        totalResults:
-          type:
-          - integer
-          - 'null'
-          description: The total number of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: The offset of the next page of results. (optional)
-          format: int32
-          readOnly: true
-        totalPages:
-          type:
-          - integer
-          - 'null'
-          description: The total number of pages with results.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-    BulkApiOperationStatus:
-      enum:
-      - Error
-      - Inserted
-      - Updated
-      - Deleted
+      - ApplicationRoles
+      - UserIdentityProviders
       type: string
     GroupApiResponse:
       type: object
@@ -1441,26 +1267,25 @@ components:
             $ref: '#/components/schemas/GroupIdpClaimMappingEmbedded'
           description: The group's identity providers claim mappings.
       additionalProperties: false
-    MembershipType:
-      enum:
-      - Assigned
-      - Mapped
-      type: string
-    GrantPeriodApiModel:
+    AssignedGroupInfoApiResponse:
       type: object
       properties:
-        startTime:
+        key:
+          type: string
+          description: The application group key.
+          format: uuid
+        name:
           type:
           - string
           - 'null'
-          description: The start date and time in utc.
-          format: date-time
-        endTime:
-          type:
-          - string
-          - 'null'
-          description: The end date and time in utc.
-          format: date-time
+          description: The name of the application group.
+        membershipType:
+          enum:
+          - Assigned
+          - Mapped
+          allOf:
+          - $ref: '#/components/schemas/MembershipType'
+          description: The membership type of the user in the application group.
       additionalProperties: false
     GroupIdpClaimMappingEmbedded:
       required:
@@ -1488,21 +1313,71 @@ components:
           description: The last updated date field.
           format: date-time
       additionalProperties: false
-    UserProfileApiResponsePaginatedResponseApi:
+    GrantPeriodApiModel:
       type: object
       properties:
-        results:
+        startTime:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/UserProfileApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
+          description: The start date and time in utc.
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          description: The end date and time in utc.
+          format: date-time
       additionalProperties: false
+    UserProfileAccessResponse:
+      type: object
+      properties:
+        hasOrganizationRoles:
+          type: boolean
+          description: User has organization-level roles
+        hasApplicationRoles:
+          type: boolean
+          description: User has application roles
+      additionalProperties: false
+    BulkApiOperationStatus:
+      enum:
+      - Error
+      - Inserted
+      - Updated
+      - Deleted
+      type: string
+    BulkUserProfileOperationApiRecord:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: User profile record key
+          format: uuid
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email of the user
+        username:
+          type:
+          - string
+          - 'null'
+          description: The user's username for the IdP
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The user's subject claim value for the IdP
+      additionalProperties: false
+    BulkApiStatus:
+      enum:
+      - FinishedWithErrors
+      - Finished
+      - Processing
+      - Pending
+      type: string
     UserProfileApiResponse:
       type: object
       properties:
@@ -1564,82 +1439,174 @@ components:
 
             e.g. `embed=applicationRoles`'
       additionalProperties: false
-    AssignmentSource:
-      enum:
-      - Direct
-      - GroupAssigned
-      - GroupMapped
-      type: string
-    OrganizationRoleByUserApiResponsePaginatedResponseApi:
+    UserProfileCreateResponse:
       type: object
       properties:
-        results:
+        key:
+          type: string
+          description: The user's key.
+          format: uuid
+      additionalProperties: false
+    GrantDetailsRequest:
+      type: object
+      properties:
+        grantPeriod:
+          allOf:
+          - $ref: '#/components/schemas/GrantPeriodApiModel'
+          description: Gets or sets the grant period.
+        assetKeys:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/OrganizationRoleByUserApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
+            type: string
+            format: uuid
+          description: Gets or sets the asset keys.
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Gets or sets the portfolio key this assignment belongs to. Optional; applies only to asset-scoped grants
+
+            and, when omitted, the assignment is associated with the tenant''s main portfolio.'
+          format: uuid
       additionalProperties: false
-    UserProfileCreateApiRequest:
+    OrganizationRoleAssignmentScope:
+      enum:
+      - Organization
+      - Asset
+      type: string
+      description: API query scope for listing a user's organization role assignments.
+    RevokeDetailsRequest:
+      type: object
+      properties:
+        assetKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the asset keys.
+      additionalProperties: false
+    UserProfileCountApiResponse:
+      type: object
+      properties:
+        userCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    BulkUserProfileOperationApiRecordBulkApiOperation:
+      type: object
+      properties:
+        status:
+          enum:
+          - Error
+          - Inserted
+          - Updated
+          - Deleted
+          allOf:
+          - $ref: '#/components/schemas/BulkApiOperationStatus'
+          description: 'Status of the individual operation in the list of bulk operations.
+
+            For example: Inserted, Updated, Errored'
+        errorCode:
+          type:
+          - string
+          - 'null'
+          description: Self-support error code for the one operation if any error occured.
+        errorMessage:
+          type:
+          - string
+          - 'null'
+          description: Self-support error message for the one operation if any error occured.
+        record:
+          allOf:
+          - $ref: '#/components/schemas/BulkUserProfileOperationApiRecord'
+          description: 'A JSON object containing some extra info about the record in this operation.
+
+            This could contain some pieces of request info as well as additional info from the operation output.'
+      additionalProperties: false
+    MembershipType:
+      enum:
+      - Assigned
+      - Mapped
+      type: string
+    ForeignClaimModel:
+      required:
+      - name
+      - value
       type: object
       properties:
         name:
+          minLength: 1
+          type: string
+          description: Gets or sets Name of the claim to match in the foreign token.
+        valueDelimiter:
           type:
           - string
           - 'null'
-          description: The user's name.
-        email:
-          type:
-          - string
-          - 'null'
-          description: The user’s email address.
-        isActive:
-          type: boolean
-          description: Sets the user as active. Default is true (active).
-        photoUrl:
-          type:
-          - string
-          - 'null'
-          description: The user’s photo url.
-        addToBuiltInIdentityProvider:
-          type: boolean
-          description: Creates the user in the built-in identity provider. Default is false (not created in the built-in identity provider).
-        identityProviderKey:
-          type:
-          - string
-          - 'null'
-          description: The identity provider key. When provided, a UserIdpProfile will be created or linked.
-          format: uuid
-        subject:
-          type:
-          - string
-          - 'null'
-          description: The user’s subject claim value for this IdP.
-        username:
-          type:
-          - string
-          - 'null'
-          description: The user’s username for this IdP.
+          description: Gets or sets string to split the foreign claim value on.
+        value:
+          minLength: 1
+          type: string
+          description: Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified.
       additionalProperties: false
-    UserProfileEmbedType:
-      enum:
-      - ApplicationRoles
-      - UserIdentityProviders
-      type: string
-    UserProfileAccessResponse:
+    ProblemDetails:
       type: object
       properties:
-        hasOrganizationRoles:
-          type: boolean
-          description: User has organization-level roles
-        hasApplicationRoles:
-          type: boolean
-          description: User has application roles
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    UserProfileWithApplicationRolesEmbeddedResponse:
+      type: object
+      properties:
+        applicationRoles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
+          description: 'List of application roles. Each role includes whether it is directly assigned to the user
+
+            and the application groups through which the user inherits it, if any.'
+        userIdentityProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserIdpProfileResponse'
+          description: List of user identity providers.
       additionalProperties: false
     UserGroupResponsePaginatedResponseApi:
       type: object
@@ -1655,6 +1622,35 @@ components:
           allOf:
           - $ref: '#/components/schemas/PageInfoWithTotalsApi'
           description: The details of the page information.
+      additionalProperties: false
+    OrganizationRoleByUserApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets or sets organization role key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets organization role name.
+        grantPeriod:
+          allOf:
+          - $ref: '#/components/schemas/GrantPeriodApiModel'
+          description: Gets or sets the period during which the role is valid.
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the asset key.
+          format: uuid
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the portfolio key this assignment belongs to.
+          format: uuid
       additionalProperties: false
     UserIdpProfileResponse:
       type: object
@@ -1710,42 +1706,69 @@ components:
           - 'null'
           description: The value indicating whether or not the user's email is verified.
       additionalProperties: false
-    ProblemDetails:
+    UserApplicationRoleApiResponsePaginatedResponseApi:
       type: object
       properties:
-        type:
+        results:
           type:
-          - string
+          - array
           - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
+          items:
+            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    AssignmentSource:
+      enum:
+      - Direct
+      - GroupAssigned
+      - GroupMapped
+      type: string
+    BulkUserProfileOperationApiRecordBulkApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The identiifer of the bulk operation record
+          format: uuid
         status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+          enum:
+          - FinishedWithErrors
+          - Finished
+          - Processing
+          - Pending
+          allOf:
+          - $ref: '#/components/schemas/BulkApiStatus'
+          description: Bullk API statuses Pending, Processing, Finished and FinishedWithErrors
         errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+          type:
+          - string
+          - 'null'
+          description: 'Self Service error code for the overall bulk API operation.
+
+            For example, when the operation times out.'
+        errorMessage:
+          type:
+          - string
+          - 'null'
+          description: 'Self Service error message for the overall bulk API operation.
+
+            For example, when the operation times out.'
+        operations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BulkUserProfileOperationApiRecordBulkApiOperation'
+          description: 'Details of each operation performed in the bulk request.
+
+            Available when the bulk operation has Finished or FinishedWithErrors.
+
+            This will be an empty list when the bulk operation is Pending or Progressing.'
+      additionalProperties: false
     UserApplicationRoleApiResponse:
       type: object
       properties:
@@ -1790,6 +1813,112 @@ components:
             $ref: '#/components/schemas/AssignedGroupInfoApiResponse'
           description: The application groups through which the user inherits this role, if any.
       additionalProperties: false
+    UserProfileCreateApiRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The user's name.
+        email:
+          type:
+          - string
+          - 'null'
+          description: The user’s email address.
+        isActive:
+          type: boolean
+          description: Sets the user as active. Default is true (active).
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: The user’s photo url.
+        addToBuiltInIdentityProvider:
+          type: boolean
+          description: Creates the user in the built-in identity provider. Default is false (not created in the built-in identity provider).
+        identityProviderKey:
+          type:
+          - string
+          - 'null'
+          description: The identity provider key. When provided, a UserIdpProfile will be created or linked.
+          format: uuid
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The user’s subject claim value for this IdP.
+        username:
+          type:
+          - string
+          - 'null'
+          description: The user’s username for this IdP.
+      additionalProperties: false
+    UserProfileStatus:
+      enum:
+      - Active
+      - Invited
+      - Inactive
+      - PendingRegistration
+      type: string
+    UserGroupResponse:
+      required:
+      - group
+      - membershipTypes
+      type: object
+      properties:
+        membershipTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MembershipType'
+          description: The list of membership types of the user in this group. Allowed values are 'Assigned' (if directly added to the group) or 'Mapped' (if added via group mappings).
+        group:
+          allOf:
+          - $ref: '#/components/schemas/GroupApiResponse'
+          description: A group that a user is part of.
+      additionalProperties: false
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
     UserProfilePatchRequest:
       type: object
       properties:
@@ -1809,98 +1938,6 @@ components:
           - 'null'
           description: The user's photo url.
       additionalProperties: false
-    UserProfileWithApplicationRolesEmbeddedResponse:
-      type: object
-      properties:
-        applicationRoles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
-          description: 'List of application roles. Each role includes whether it is directly assigned to the user
-
-            and the application groups through which the user inherits it, if any.'
-        userIdentityProviders:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserIdpProfileResponse'
-          description: List of user identity providers.
-      additionalProperties: false
-    OrganizationRoleAssignmentScope:
-      enum:
-      - Organization
-      - Asset
-      type: string
-      description: API query scope for listing a user's organization role assignments.
-    ForeignClaimModel:
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          minLength: 1
-          type: string
-          description: Gets or sets Name of the claim to match in the foreign token.
-        valueDelimiter:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets string to split the foreign claim value on.
-        value:
-          minLength: 1
-          type: string
-          description: Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified.
-      additionalProperties: false
-    BulkApiStatus:
-      enum:
-      - FinishedWithErrors
-      - Finished
-      - Processing
-      - Pending
-      type: string
-    UserProfileCountApiResponse:
-      type: object
-      properties:
-        userCount:
-          type: integer
-          format: int32
-      additionalProperties: false
-    UserProfileCreateResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The user's key.
-          format: uuid
-      additionalProperties: false
-    GrantDetailsRequest:
-      type: object
-      properties:
-        grantPeriod:
-          allOf:
-          - $ref: '#/components/schemas/GrantPeriodApiModel'
-          description: Gets or sets the grant period.
-        assetKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: Gets or sets the asset keys.
-        portfolioKey:
-          type:
-          - string
-          - 'null'
-          description: 'Gets or sets the portfolio key this assignment belongs to. Optional; applies only to asset-scoped grants
-
-            and, when omitted, the assignment is associated with the tenant''s main portfolio.'
-          format: uuid
-      additionalProperties: false
     UserProfileCreateApiRequestBulkApiRequest:
       required:
       - records
@@ -1914,52 +1951,35 @@ components:
             $ref: '#/components/schemas/UserProfileCreateApiRequest'
           description: The list of requests
       additionalProperties: false
-    OrganizationRoleByUserApiResponse:
+    UserProfileApiResponsePaginatedResponseApi:
       type: object
       properties:
-        key:
-          type: string
-          description: Gets or sets organization role key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets organization role name.
-        grantPeriod:
-          allOf:
-          - $ref: '#/components/schemas/GrantPeriodApiModel'
-          description: Gets or sets the period during which the role is valid.
-        assetKey:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the asset key.
-          format: uuid
-        portfolioKey:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the portfolio key this assignment belongs to.
-          format: uuid
-      additionalProperties: false
-    UserGroupResponse:
-      required:
-      - group
-      - membershipTypes
-      type: object
-      properties:
-        membershipTypes:
+        results:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/MembershipType'
-          description: The list of membership types of the user in this group. Allowed values are 'Assigned' (if directly added to the group) or 'Mapped' (if added via group mappings).
-        group:
+            $ref: '#/components/schemas/UserProfileApiResponse'
+          description: The List of results.
+        page:
           allOf:
-          - $ref: '#/components/schemas/GroupApiResponse'
-          description: A group that a user is part of.
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    OrganizationRoleByUserApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrganizationRoleByUserApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
       additionalProperties: false
   securitySchemes:
     bearerAuth:

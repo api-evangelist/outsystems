@@ -19,7 +19,7 @@ paths:
     get:
       tags:
       - Findings Trend
-      summary: Retrieves historical trend data for findings.
+      summary: Retrieves historical trend data for findings
       description: 'Retrieves historical trend data for findings over time, showing how findings and quality scores evolved across analyses. Useful for visualizing trends and patterns over time.
 
 
@@ -142,16 +142,13 @@ paths:
       x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
 components:
   schemas:
-    FindingsTrendResponseV1ResultsResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FindingsTrendResponseV1'
-      additionalProperties: false
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
     ProblemDetails:
       type: object
       properties:
@@ -188,6 +185,16 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    FindingsTrendResponseV1ResultsResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FindingsTrendResponseV1'
+      additionalProperties: false
     FindingSeverity:
       enum:
       - Low
@@ -237,13 +244,6 @@ components:
 
             The format is typically "YYYY-MM-DD".'
       additionalProperties: false
-    Categories:
-      enum:
-      - performance
-      - security
-      - architecture
-      - maintainability
-      type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -22,7 +22,7 @@ paths:
     delete:
       tags:
       - IP filters
-      summary: Deletes a specific IP filter group for an environment (stage).
+      summary: Deletes a specific IP filter group for an environment (stage)
       description: 'Deletes a specific IP filter group for an environment (stage).
 
 
@@ -78,7 +78,7 @@ paths:
     get:
       tags:
       - IP filters
-      summary: Returns information about a specific IP filter group for an environment (stage).
+      summary: Returns information about a specific IP filter group for an environment (stage)
       description: 'Returns information about a specific IP filter group for an environment (stage).
 
 
@@ -132,7 +132,7 @@ paths:
     patch:
       tags:
       - IP filters
-      summary: Updates an IP filter group for an environment (stage).
+      summary: Updates an IP filter group for an environment (stage)
       description: 'Updates an IP filter group for an environment (stage).
 
 
@@ -200,7 +200,7 @@ paths:
     get:
       tags:
       - IP filters
-      summary: Returns the list of IP filter groups for an environment (stage).
+      summary: Returns the list of IP filter groups for an environment (stage)
       description: 'Returns the list of IP filter groups for an environment (stage).
 
 
@@ -255,7 +255,7 @@ paths:
     post:
       tags:
       - IP filters
-      summary: Creates a new IP filter group in an environment (stage).
+      summary: Creates a new IP filter group in an environment (stage)
       description: 'Creates a new IP filter group in an environment (stage).
 
 
@@ -319,25 +319,20 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Manage IP filters** permission for the target environment (stage).
 components:
   schemas:
-    IpFilterGroupRule:
+    IpFilterGroupKey:
       type: object
       properties:
-        name:
+        key:
           type:
           - string
           - 'null'
-          description: The name of the IP rule.
-        ranges:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'The list of the IP ranges (e.g: 0.0.0.0-0.0.0.3).'
-        isActive:
-          type: boolean
-          description: Indicates if the IP rule is currently active.
+          description: The key identifier of the Ip filter group
       additionalProperties: false
+    IpFilterGroupAccessType:
+      enum:
+      - DENYLIST
+      - ALLOWLIST
+      type: string
     IpFilterGroup:
       type: object
       properties:
@@ -375,22 +370,42 @@ components:
           - 'null'
           description: The unique identifier of the IP filter group.
       additionalProperties: false
-    IpFilterGroupAccessType:
-      enum:
-      - DENYLIST
-      - ALLOWLIST
-      type: string
-    IpFilterGroups:
+    ProblemDetails:
       type: object
       properties:
-        results:
+        type:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/IpFilterGroup'
-          description: The list of IP filter groups.
-      additionalProperties: false
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     BaseIpFilterGroup:
       type: object
       properties:
@@ -455,50 +470,35 @@ components:
             type: string
           description: List of all applications that are explicitly assigned to this group.
       additionalProperties: false
-    ProblemDetails:
+    IpFilterGroupRule:
       type: object
       properties:
-        type:
+        name:
           type:
           - string
           - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
+          description: The name of the IP rule.
+        ranges:
           type:
-          - string
+          - array
           - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    IpFilterGroupKey:
+          items:
+            type: string
+          description: 'The list of the IP ranges (e.g: 0.0.0.0-0.0.0.3).'
+        isActive:
+          type: boolean
+          description: Indicates if the IP rule is currently active.
+      additionalProperties: false
+    IpFilterGroups:
       type: object
       properties:
-        key:
+        results:
           type:
-          - string
+          - array
           - 'null'
-          description: The key identifier of the Ip filter group
+          items:
+            $ref: '#/components/schemas/IpFilterGroup'
+          description: The list of IP filter groups.
       additionalProperties: false
   securitySchemes:
     bearerAuth:

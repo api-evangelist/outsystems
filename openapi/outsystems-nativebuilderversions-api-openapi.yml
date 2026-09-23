@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Native Mobile Build Native Builder Versions API
-  description: 'API for building and managing native mobile applications.
-
-    '
+  description: API for building and managing native mobile applications.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1
@@ -24,9 +22,7 @@ paths:
       tags:
       - NativeBuilderVersions
       summary: Returns the list of possible native builder versions
-      description: '
-
-        Rate Limit: 100 requests per minute per tenant
+      description: 'Rate Limit: 100 requests per minute per tenant
 
 
         API client must have at least one permission.'
@@ -53,43 +49,21 @@ paths:
       x-os-permissions: API client must have at least one permission.
 components:
   schemas:
-    NativeBuilderVersion:
-      type: object
-      properties:
-        version:
-          type:
-          - string
-          - 'null'
-          description: The MABS version
-        state:
-          allOf:
-          - $ref: '#/components/schemas/NativeBuilderVersionState'
-          description: The MABS version state
-        supportedMobileFrameworks:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MobileFramework'
-          description: Supported Mobile Frameworks for the given MABS version
-        defaultMobileFramework:
-          allOf:
-          - $ref: '#/components/schemas/MobileFramework'
-          description: The Default Mobile Framework for the given MABS version
-        endOfSupportDate:
-          type:
-          - string
-          - 'null'
-          description: The End of Support Date for the given MABS version in DateOnly format (MM-dd-yyyy)
-          format: date
-        endOfLifeDate:
-          type:
-          - string
-          - 'null'
-          description: The End of Life Date for the given MABS version in DateOnly format (MM-dd-yyyy)
-          format: date
-      additionalProperties: false
-      description: Native builder version
+    NativeBuilderVersionState:
+      enum:
+      - Active
+      - Beta
+      - Canary
+      - Deprecated
+      - Obsolete
+      type: string
+      description: Native Builder Version State
+    MobileFramework:
+      enum:
+      - Capacitor
+      - Cordova
+      type: string
+      description: This enum is used to specify which framework should be used when building mobile applications
     NativeBuilderVersionListResponse:
       type: object
       properties:
@@ -138,21 +112,43 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    MobileFramework:
-      enum:
-      - Capacitor
-      - Cordova
-      type: string
-      description: This enum is used to specify which framework should be used when building mobile applications
-    NativeBuilderVersionState:
-      enum:
-      - Active
-      - Beta
-      - Canary
-      - Deprecated
-      - Obsolete
-      type: string
-      description: Native Builder Version State
+    NativeBuilderVersion:
+      type: object
+      properties:
+        version:
+          type:
+          - string
+          - 'null'
+          description: The MABS version
+        state:
+          allOf:
+          - $ref: '#/components/schemas/NativeBuilderVersionState'
+          description: The MABS version state
+        supportedMobileFrameworks:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MobileFramework'
+          description: Supported Mobile Frameworks for the given MABS version
+        defaultMobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFramework'
+          description: The Default Mobile Framework for the given MABS version
+        endOfSupportDate:
+          type:
+          - string
+          - 'null'
+          description: The End of Support Date for the given MABS version in DateOnly format (MM-dd-yyyy)
+          format: date
+        endOfLifeDate:
+          type:
+          - string
+          - 'null'
+          description: The End of Life Date for the given MABS version in DateOnly format (MM-dd-yyyy)
+          format: date
+      additionalProperties: false
+      description: Native builder version
   securitySchemes:
     bearerAuth:
       type: http

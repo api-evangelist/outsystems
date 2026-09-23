@@ -22,7 +22,7 @@ paths:
     delete:
       tags:
       - Domains
-      summary: Deletes a domain from an environment (stage).
+      summary: Deletes a domain from an environment (stage)
       description: 'Deletes a domain from an environment (stage).
 
 
@@ -72,7 +72,7 @@ paths:
     get:
       tags:
       - Domains
-      summary: Returns the details of a specific domain for the given environment (stage).
+      summary: Returns the details of a specific domain for the given environment (stage)
       description: 'Returns the details of a specific domain for the given environment (stage).
 
 
@@ -126,7 +126,7 @@ paths:
     patch:
       tags:
       - Domains
-      summary: Patches the default app (App Domain) for the specified custom domain.
+      summary: Patches the default app (App Domain) for the specified custom domain
       description: 'Patches the default app (App Domain) for the specified custom domain.
 
 
@@ -198,7 +198,7 @@ paths:
     get:
       tags:
       - Domains
-      summary: Returns a list of domains for a specific environment (stage).
+      summary: Returns a list of domains for a specific environment (stage)
       description: 'Returns a list of domains for a specific environment (stage).
 
 
@@ -258,7 +258,7 @@ paths:
     post:
       tags:
       - Domains
-      summary: Creates a new domain for the specified environment (stage). You can provide the domain's hostname and name.
+      summary: Creates a new domain for the specified environment (stage).
       description: 'Creates a new domain for the specified environment (stage). You can provide the domain''s hostname and name.
 
 
@@ -318,7 +318,7 @@ paths:
     get:
       tags:
       - Domains
-      summary: Retrieves the default domain for the given environment (stage).
+      summary: Retrieves the default domain for the given environment (stage)
       description: 'Retrieves the default domain for the given environment (stage).
 
 
@@ -366,7 +366,7 @@ paths:
     patch:
       tags:
       - Domains
-      summary: Updates the default domain for the given environment (stage).
+      summary: Updates the default domain for the given environment (stage)
       description: 'Updates the default domain for the given environment (stage).
 
 
@@ -420,31 +420,6 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Manage custom domains** permission for the target environment (stage).
 components:
   schemas:
-    DomainCertificateStatus:
-      enum:
-      - Creating
-      - PendingValidation
-      - Issued
-      - Failed
-      - Deleting
-      - Deleted
-      - Expired
-      - Active
-      type: string
-    DomainRequest:
-      type: object
-      properties:
-        hostname:
-          type:
-          - string
-          - 'null'
-          description: The hostname for the new domain.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name for the new domain.
-      additionalProperties: false
     DomainPatchRequest:
       type: object
       properties:
@@ -461,6 +436,29 @@ components:
 
             Default is Permanent (301) redirect.'
       additionalProperties: false
+    DefaultDomainResponse:
+      type: object
+      properties:
+        defaultDomain:
+          type:
+          - string
+          - 'null'
+          description: The default domain for the given environment (stage).
+      additionalProperties: false
+    DomainRequest:
+      type: object
+      properties:
+        hostname:
+          type:
+          - string
+          - 'null'
+          description: The hostname for the new domain.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name for the new domain.
+      additionalProperties: false
     DomainPatchResponse:
       type: object
       properties:
@@ -469,6 +467,47 @@ components:
           - $ref: '#/components/schemas/Domain'
           description: The updated domain information after the patch operation
       additionalProperties: false
+    DomainCertificateStatus:
+      enum:
+      - Creating
+      - PendingValidation
+      - Issued
+      - Failed
+      - Deleting
+      - Deleted
+      - Expired
+      - Active
+      type: string
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type: integer
+          description: Offset of the next page of results.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
     DomainCertificate:
       type: object
       properties:
@@ -500,67 +539,6 @@ components:
           - 'null'
           description: Associated error message for when the status is in Error
       additionalProperties: false
-    RedirectOption:
-      enum:
-      - Permanent
-      - Temporary
-      - None
-      type: string
-      description: The type of redirect to use for domains.
-    PatchDefaultDomainRequest:
-      type: object
-      properties:
-        defaultDomain:
-          type:
-          - string
-          - 'null'
-          description: The default domain to set for the environment (stage).
-      additionalProperties: false
-    DefaultDomainResponse:
-      type: object
-      properties:
-        defaultDomain:
-          type:
-          - string
-          - 'null'
-          description: The default domain for the given environment (stage).
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     Domain:
       type: object
       properties:
@@ -607,6 +585,58 @@ components:
 
             Default is Permanent (301) redirect.'
       additionalProperties: false
+    PatchDefaultDomainRequest:
+      type: object
+      properties:
+        defaultDomain:
+          type:
+          - string
+          - 'null'
+          description: The default domain to set for the environment (stage).
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    RedirectOption:
+      enum:
+      - Permanent
+      - Temporary
+      - None
+      type: string
+      description: The type of redirect to use for domains.
     DomainPagedListResponse:
       type: object
       properties:
@@ -625,36 +655,6 @@ components:
           readOnly: true
       additionalProperties: false
       description: Represents a response containing a paged set of results.
-    PageInfoWithTotals:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: Offset of the current page of results.
-          format: int32
-        nextPageOffset:
-          type: integer
-          description: Offset of the next page of results.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total of results.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total of result pages.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      description: Contains response page information including totals.
   securitySchemes:
     bearerAuth:
       type: http

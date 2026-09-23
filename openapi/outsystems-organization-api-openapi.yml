@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Subscription Organization API
-  description: 'REST endpoints for retrieving information about subscription and entitlement data and usage.
-
-    '
+  description: REST endpoints for retrieving information about subscription and entitlement data and usage.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
@@ -23,7 +21,7 @@ paths:
     get:
       tags:
       - Organization
-      summary: Retrieves information of the organization configurations.
+      summary: Retrieves information of the organization configurations
       description: 'Read-only view of organization settings.
 
 
@@ -58,7 +56,7 @@ paths:
     patch:
       tags:
       - Organization
-      summary: Patches editable organization configurations.
+      summary: Patches editable organization configurations
       description: 'Patches editable organization configurations.
 
 
@@ -97,7 +95,7 @@ paths:
     get:
       tags:
       - Organization
-      summary: Retrieves information on the entitlements for the organization.
+      summary: Retrieves information on the entitlements for the organization
       description: 'Entitlements and add-ons are shown with sufficient permissions
 
 
@@ -137,7 +135,7 @@ paths:
     get:
       tags:
       - Organization
-      summary: Retrieves usage data for entitlements for the organization.
+      summary: Retrieves usage data for entitlements for the organization
       description: 'Filter by entitlement, date range, and aggregation.
 
 
@@ -209,119 +207,50 @@ components:
           description: List of results.
       additionalProperties: false
       description: Represents a response containing a list of results.
-    OrganizationConfigurations:
-      type: object
-      properties:
-        areAllEmailDomainsInternal:
-          type: boolean
-          description: Defines whether all email user domains are internal or not
-        internalEmailDomains:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of email user domains to be considered as internal
-      additionalProperties: false
-      description: Represents the configurations for the Organization.
-    EntitlementUsageItem:
+    Entitlement:
       type: object
       properties:
         id:
           type:
           - string
           - 'null'
-          description: Entitlement identifier (e.g., "applicationObjects").
+          description: Internal identifier of the entitlement, visible in APIs only.
         name:
           type:
           - string
           - 'null'
-          description: Human-readable name of the entitlement.
-        aggregation:
+          description: Name of the entitlement.
+        description:
           type:
           - string
           - 'null'
-          description: Aggregation function applied (e.g., "avg", "max", "total").
-        lastUpdatedDate:
+          description: Description of the entitlement.
+        documentationUrl:
           type:
           - string
           - 'null'
-          description: Last time this usage data was updated.
-          format: date-time
-        usage:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UsageDataPoint'
-          description: Time series of usage data points.
-      additionalProperties: false
-      description: Represents usage data for a single entitlement type.
-    UsageDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp for this data point.
-          format: date-time
+          description: Entitlement documentation URL.
         value:
           type:
-          - number
+          - string
           - 'null'
-          description: Usage value at this timestamp.
-          format: double
-        cumulativeValue:
+          description: A value that is assigned to the entitlement, overriding the default value.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType'
+          description: Data type of the value associated with the entitlement , one of ["bool", "float", "str", "int"].
+        unit:
           type:
-          - number
+          - string
           - 'null'
-          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
-          format: double
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
       additionalProperties: false
-      description: Represents a single data point in a usage time series.
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    DataType:
-      enum:
-      - Bool
-      - Float
-      - Str
-      - Int
-      type: string
-      description: Data type of the value of an addon or entitlement.
+      description: Represents the Entitlement information.
     OrganizationEntitlements:
       type: object
       properties:
@@ -373,50 +302,119 @@ components:
           description: Collection of the entitlements the organization is entitled to.
       additionalProperties: false
       description: Represents the entitlements present in an organization
-    Entitlement:
+    DataType:
+      enum:
+      - Bool
+      - Float
+      - Str
+      - Int
+      type: string
+      description: Data type of the value of an addon or entitlement.
+    UsageDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp for this data point.
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value at this timestamp.
+          format: double
+        cumulativeValue:
+          type:
+          - number
+          - 'null'
+          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
+          format: double
+      additionalProperties: false
+      description: Represents a single data point in a usage time series.
+    EntitlementUsageItem:
       type: object
       properties:
         id:
           type:
           - string
           - 'null'
-          description: Internal identifier of the entitlement, visible in APIs only.
+          description: Entitlement identifier (e.g., "applicationObjects").
         name:
           type:
           - string
           - 'null'
-          description: Name of the entitlement.
-        description:
+          description: Human-readable name of the entitlement.
+        aggregation:
           type:
           - string
           - 'null'
-          description: Description of the entitlement.
-        documentationUrl:
+          description: Aggregation function applied (e.g., "avg", "max", "total").
+        lastUpdatedDate:
           type:
           - string
           - 'null'
-          description: Entitlement documentation URL.
-        value:
+          description: Last time this usage data was updated.
+          format: date-time
+        usage:
           type:
-          - string
+          - array
           - 'null'
-          description: A value that is assigned to the entitlement, overriding the default value.
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/DataType'
-          description: Data type of the value associated with the entitlement , one of ["bool", "float", "str", "int"].
-        unit:
-          type:
-          - string
-          - 'null'
-          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
-        kind:
-          type:
-          - string
-          - 'null'
-          description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
+          items:
+            $ref: '#/components/schemas/UsageDataPoint'
+          description: Time series of usage data points.
       additionalProperties: false
-      description: Represents the Entitlement information.
+      description: Represents usage data for a single entitlement type.
+    OrganizationConfigurations:
+      type: object
+      properties:
+        areAllEmailDomainsInternal:
+          type: boolean
+          description: Defines whether all email user domains are internal or not
+        internalEmailDomains:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of email user domains to be considered as internal
+      additionalProperties: false
+      description: Represents the configurations for the Organization.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     Addon:
       type: object
       properties:

@@ -19,7 +19,7 @@ paths:
     get:
       tags:
       - Analysis Status
-      summary: Retrieves the current synchronization status of Code Quality data.
+      summary: Retrieves the current synchronization status of Code Quality data
       description: 'Retrieves the current synchronization status of Code Quality data, including the latest and last successful analysis details with metrics about new and resolved findings.
 
 
@@ -74,6 +74,103 @@ components:
           format: date-time
       additionalProperties: false
       description: Represents the next scheduled analysis
+    StatusSyncResponseResultV1:
+      title: StatusAnalysisResponseResult
+      type: object
+      properties:
+        lastSuccessfulAnalysis:
+          title: LastSuccessfulAnalysis
+          allOf:
+          - $ref: '#/components/schemas/LastSuccessfulAnalysisV1'
+          description: Info about the latest successful analysis
+        latestAnalysis:
+          title: LatestAnalysis
+          allOf:
+          - $ref: '#/components/schemas/LatestAnalysisV1'
+          description: Info about the latest analysis
+        nextAnalysis:
+          title: NextAnalysis
+          allOf:
+          - $ref: '#/components/schemas/NextAnalysisV1'
+          description: Info about the next analysis
+      additionalProperties: false
+    StatusSyncResponseV1:
+      title: StatusAnalysisResponse
+      type: object
+      properties:
+        result:
+          title: StatusAnalysisResponseResult
+          allOf:
+          - $ref: '#/components/schemas/StatusSyncResponseResultV1'
+          description: The result of the status sync
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    LastSuccessfulAnalysisV1:
+      title: LastSuccessfulAnalysis
+      type: object
+      properties:
+        startedOn:
+          type: string
+          description: The date and time of when the analysis started
+          format: date-time
+        completedOn:
+          type: string
+          description: The date and time of when the analysis finished
+          format: date-time
+        status:
+          type:
+          - string
+          - 'null'
+          description: The status of the analysis
+        newFindingsCount:
+          type:
+          - integer
+          - 'null'
+          description: The count of the new findings
+          format: int32
+        solvedFindingsCount:
+          type:
+          - integer
+          - 'null'
+          description: The count of the solved findings
+          format: int32
+      additionalProperties: false
+      description: Represents the last successful analysis
     LatestAnalysisV1:
       title: LatestAnalysis
       type: object
@@ -115,103 +212,6 @@ components:
           description: The error message returned in case the latest analysis has failed status
       additionalProperties: false
       description: Represents the latest analysis (may include error information)
-    LastSuccessfulAnalysisV1:
-      title: LastSuccessfulAnalysis
-      type: object
-      properties:
-        startedOn:
-          type: string
-          description: The date and time of when the analysis started
-          format: date-time
-        completedOn:
-          type: string
-          description: The date and time of when the analysis finished
-          format: date-time
-        status:
-          type:
-          - string
-          - 'null'
-          description: The status of the analysis
-        newFindingsCount:
-          type:
-          - integer
-          - 'null'
-          description: The count of the new findings
-          format: int32
-        solvedFindingsCount:
-          type:
-          - integer
-          - 'null'
-          description: The count of the solved findings
-          format: int32
-      additionalProperties: false
-      description: Represents the last successful analysis
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    StatusSyncResponseV1:
-      title: StatusAnalysisResponse
-      type: object
-      properties:
-        result:
-          title: StatusAnalysisResponseResult
-          allOf:
-          - $ref: '#/components/schemas/StatusSyncResponseResultV1'
-          description: The result of the status sync
-      additionalProperties: false
-    StatusSyncResponseResultV1:
-      title: StatusAnalysisResponseResult
-      type: object
-      properties:
-        lastSuccessfulAnalysis:
-          title: LastSuccessfulAnalysis
-          allOf:
-          - $ref: '#/components/schemas/LastSuccessfulAnalysisV1'
-          description: Info about the latest successful analysis
-        latestAnalysis:
-          title: LatestAnalysis
-          allOf:
-          - $ref: '#/components/schemas/LatestAnalysisV1'
-          description: Info about the latest analysis
-        nextAnalysis:
-          title: NextAnalysis
-          allOf:
-          - $ref: '#/components/schemas/NextAnalysisV1'
-          description: Info about the next analysis
-      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

@@ -19,7 +19,7 @@ paths:
     get:
       tags:
       - Code Analyses
-      summary: Retrieves the details of a code analysis request.
+      summary: Retrieves the details of a code analysis request
       description: 'Retrieves the current status and results of a code analysis request, including quality score and findings.
 
 
@@ -94,7 +94,7 @@ paths:
     post:
       tags:
       - Code Analyses
-      summary: Submits a code analysis request for an asset revision.
+      summary: Submits a code analysis request for an asset revision
       description: 'Initiates code analysis for a specific asset revision, returning an analysis key for status tracking.
 
 
@@ -178,6 +178,18 @@ components:
           - $ref: '#/components/schemas/FindingsSummary'
           description: Overview of Finding Summary by categories and severities
       additionalProperties: false
+    CodeAnalysisResponseV1:
+      title: CodeAnalysisResponse
+      type: object
+      properties:
+        analysisKey:
+          type: string
+          format: uuid
+        status:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     AdhocAnalysisRequestV1:
       title: CodeAnalysisRequest
       required:
@@ -198,29 +210,76 @@ components:
           format: int32
           example: 42
       additionalProperties: false
-    FindingsSummary:
-      title: FindingsSummary
+    SeverityBreakdown:
+      title: SeverityBreakdown
       type: object
       properties:
-        categories:
-          title: CodeAnalysisCategories
-          allOf:
-          - $ref: '#/components/schemas/CodeAnalysisCategories'
-          description: Finding Counts for all analysis categories and severities
+        lowSeverity:
+          type: integer
+          format: int64
+        mediumSeverity:
+          type: integer
+          format: int64
+        highSeverity:
+          type: integer
+          format: int64
+        criticalSeverity:
+          type: integer
+          format: int64
       additionalProperties: false
-      description: Overview of Finding Summary by categories and severities
-    CodeAnalysisResponseV1:
-      title: CodeAnalysisResponse
+      description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+    ElementPath:
       type: object
       properties:
-        analysisKey:
-          type: string
-          format: uuid
-        status:
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
           type:
           - string
           - 'null'
       additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     RevisionFindingsResponseV1:
       title: RevisionFindingsResponse
       type: object
@@ -352,76 +411,17 @@ components:
           description: Findings Count grouped by severity level (Low, Medium, High, Critical)
       additionalProperties: false
       description: Finding Counts for all analysis categories and severities
-    SeverityBreakdown:
-      title: SeverityBreakdown
+    FindingsSummary:
+      title: FindingsSummary
       type: object
       properties:
-        lowSeverity:
-          type: integer
-          format: int64
-        mediumSeverity:
-          type: integer
-          format: int64
-        highSeverity:
-          type: integer
-          format: int64
-        criticalSeverity:
-          type: integer
-          format: int64
+        categories:
+          title: CodeAnalysisCategories
+          allOf:
+          - $ref: '#/components/schemas/CodeAnalysisCategories'
+          description: Finding Counts for all analysis categories and severities
       additionalProperties: false
-      description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    ElementPath:
-      type: object
-      properties:
-        elementKey:
-          type:
-          - string
-          - 'null'
-        elementName:
-          type:
-          - string
-          - 'null'
-        elementType:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
+      description: Overview of Finding Summary by categories and severities
   securitySchemes:
     bearerAuth:
       type: http

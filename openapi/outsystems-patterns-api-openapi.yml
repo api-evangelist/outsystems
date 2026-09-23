@@ -19,7 +19,7 @@ paths:
     get:
       tags:
       - Patterns
-      summary: Retrieves a list of code patterns.
+      summary: Retrieves a list of code patterns
       description: 'Returns a paginated list of all available code patterns that can be detected during code analysis, including their names, descriptions, and metadata.
 
 
@@ -83,7 +83,7 @@ paths:
     get:
       tags:
       - Patterns
-      summary: Retrieves details for a specific code pattern.
+      summary: Retrieves details for a specific code pattern
       description: 'Returns detailed information about a specific code pattern, including its description, category, severity, and detection rules.
 
 
@@ -171,24 +171,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    PatternsResponsePagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PatternsResponse'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
     PageInfoWithTotals:
       type: object
       properties:
@@ -271,6 +253,24 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    PatternsResponsePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PatternsResponse'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
   securitySchemes:
     bearerAuth:
       type: http

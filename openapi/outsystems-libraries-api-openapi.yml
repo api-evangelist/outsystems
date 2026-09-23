@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Portfolio Libraries API
-  description: 'REST endpoints for retrieving information about assets and environments in your organization.
-
-    '
+  description: REST endpoints for retrieving information about assets and environments in your organization.
   version: v2
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/portfolios/v2
@@ -24,7 +22,7 @@ paths:
     get:
       tags:
       - Libraries
-      summary: Retrieves a list of libraries in the tenant portfolio.
+      summary: Retrieves a list of libraries in the tenant portfolio
       description: 'Retrieves all libraries available in the tenant portfolio, including their latest revision
 
         and all tagged revisions. Each library exposes the portfolio it belongs to and can be
@@ -190,67 +188,6 @@ components:
             `revision == max(revision)` across the library''s cached revisions; not a persisted flag.'
       additionalProperties: false
       description: A specific revision of a library asset.
-    LibraryRevisionsFilter:
-      enum:
-      - Latest
-      - HighestTag
-      - All
-      type: string
-      description: Controls which revisions of each library are returned by GET /libraries.
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    LibraryPagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Library'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
     LibrarySortListSortDirectionValueTuple:
       type: object
       additionalProperties: false
@@ -288,6 +225,67 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
+    LibraryPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Library'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    LibraryRevisionsFilter:
+      enum:
+      - Latest
+      - HighestTag
+      - All
+      type: string
+      description: Controls which revisions of each library are returned by GET /libraries.
     Library:
       required:
       - portfolioKey

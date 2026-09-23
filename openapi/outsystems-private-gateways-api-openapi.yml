@@ -22,7 +22,7 @@ paths:
     post:
       tags:
       - Private gateways
-      summary: Activates a private gateway.
+      summary: Activates a private gateway
       description: 'Activates a private gateway.
 
 
@@ -71,7 +71,7 @@ paths:
     post:
       tags:
       - Private gateways
-      summary: Deactivates a private gateway.
+      summary: Deactivates a private gateway
       description: 'Deactivates a private gateway.
 
 
@@ -120,7 +120,7 @@ paths:
     get:
       tags:
       - Private gateways
-      summary: Gets the private gateway status.
+      summary: Gets the private gateway status
       description: 'Gets the private gateway status.
 
 
@@ -169,7 +169,7 @@ paths:
     post:
       tags:
       - Private gateways
-      summary: Rotates the private gateway key.
+      summary: Rotates the private gateway key
       description: 'Rotates the private gateway key.
 
 
@@ -216,14 +216,29 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).
 components:
   schemas:
-    SecureGatewayToken:
+    ServerHealth:
+      enum:
+      - Healthy
+      - Unhealthy
+      type: string
+    SecureGateway:
       type: object
       properties:
-        authToken:
+        serverActive:
+          type: boolean
+          description: Indicates if the private gateway service is active.
+        serverHealth:
+          allOf:
+          - $ref: '#/components/schemas/ServerHealth'
+          description: Indicates the health status of the private gateway.
+        isDeactivating:
+          type: boolean
+          description: Indicates if the private gateway is in the process of deactivating.
+        url:
           type:
           - string
           - 'null'
-          description: The authentication token for the private gateway.
+          description: The url value to connect to the private gateway.
       additionalProperties: false
     ProblemDetails:
       type: object
@@ -261,29 +276,14 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    ServerHealth:
-      enum:
-      - Healthy
-      - Unhealthy
-      type: string
-    SecureGateway:
+    SecureGatewayToken:
       type: object
       properties:
-        serverActive:
-          type: boolean
-          description: Indicates if the private gateway service is active.
-        serverHealth:
-          allOf:
-          - $ref: '#/components/schemas/ServerHealth'
-          description: Indicates the health status of the private gateway.
-        isDeactivating:
-          type: boolean
-          description: Indicates if the private gateway is in the process of deactivating.
-        url:
+        authToken:
           type:
           - string
           - 'null'
-          description: The url value to connect to the private gateway.
+          description: The authentication token for the private gateway.
       additionalProperties: false
   securitySchemes:
     bearerAuth:

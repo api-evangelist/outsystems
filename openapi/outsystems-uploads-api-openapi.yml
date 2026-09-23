@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Asset Repository Uploads API
-  description: 'REST endpoints for retrieving information about assets revisions. '
+  description: REST endpoints for retrieving information about assets revisions.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/asset-repository/v1
@@ -21,13 +21,10 @@ paths:
     post:
       tags:
       - Uploads
-      summary: Creates a new upload operation for uploading files.
+      summary: Creates a new upload operation for uploading files
       description: 'Generates a pre-signed URL that you can use to upload a file.
 
-        This URL can then be used in other endpoints that require a file upload, such as creating a new asset revision.
-
-
-        '
+        This URL can then be used in other endpoints that require a file upload, such as creating a new asset revision.'
       operationId: Uploads_CreateUpload
       responses:
         '201':
@@ -50,6 +47,19 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    UploadsResponse:
+      required:
+      - uploadUrl
+      type: object
+      properties:
+        uploadUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to where the file needs to be uploaded
+          format: uri
+      additionalProperties: false
+      description: Represents an upload response
     ProblemDetails:
       type: object
       properties:
@@ -86,19 +96,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    UploadsResponse:
-      required:
-      - uploadUrl
-      type: object
-      properties:
-        uploadUrl:
-          type:
-          - string
-          - 'null'
-          description: URL to where the file needs to be uploaded
-          format: uri
-      additionalProperties: false
-      description: Represents an upload response
   securitySchemes:
     bearerAuth:
       type: http

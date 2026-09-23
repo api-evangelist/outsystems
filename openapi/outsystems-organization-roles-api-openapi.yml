@@ -15,13 +15,13 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: organization-roles
+- name: Organization Roles
 paths:
   /organization-roles:
     post:
       tags:
-      - organization-roles
-      summary: Create an organization role.
+      - Organization Roles
+      summary: Create an organization role
       description: 'Creates an organization role.
 
 
@@ -78,8 +78,8 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage organization roles** permission.
     get:
       tags:
-      - organization-roles
-      summary: Returns the list of organization roles.
+      - Organization Roles
+      summary: Returns the list of organization roles
       description: 'Returns a list of organization roles. Use query parameters to filter the result based on different criteria.
 
 
@@ -155,8 +155,8 @@ paths:
   /organization-roles/{key}:
     delete:
       tags:
-      - organization-roles
-      summary: Delete an organization role.
+      - Organization Roles
+      summary: Delete an organization role
       description: 'Deletes an organization role.
 
 
@@ -206,8 +206,8 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage organization roles** permission.
     get:
       tags:
-      - organization-roles
-      summary: Returns information for an organization role.
+      - Organization Roles
+      summary: Returns information for an organization role
       description: 'Returns details about an organization role based on the organization role key.
 
 
@@ -261,8 +261,8 @@ paths:
       x-os-permissions: API client must have at least one permission.
     patch:
       tags:
-      - organization-roles
-      summary: Update an organization role.
+      - Organization Roles
+      summary: Update an organization role
       description: 'Updates the details of an organization role based on the organization role key.
 
 
@@ -330,8 +330,8 @@ paths:
   /organization-roles/{key}/users:
     get:
       tags:
-      - organization-roles
-      summary: Returns a list of users with a specific organization role.
+      - Organization Roles
+      summary: Returns a list of users with a specific organization role
       description: 'Returns a list of users with a specific organization role, based on the organization role key.
 
         Use query parameters to filter the result based on different criteria.
@@ -421,6 +421,82 @@ paths:
       x-os-permissions: API Client needs the **User management > View members** permission.
 components:
   schemas:
+    PermissionDetailsRequest:
+      type: object
+      properties:
+        permissionKey:
+          type: string
+          description: Gets or sets the permission key.
+          format: uuid
+        environmentKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the environment keys.
+        portfolioKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the portfolio keys.
+        claimName:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the claim name.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the permission name.
+      additionalProperties: false
+    RoleUserResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RoleUserResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    UserProfileEmbedType:
+      enum:
+      - ApplicationRoles
+      - UserIdentityProviders
+      type: string
+    OrganizationRoleApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrganizationRoleApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    UserProfileStatus:
+      enum:
+      - Active
+      - Invited
+      - Inactive
+      - PendingRegistration
+      type: string
     OrganizationRoleCreateRequest:
       type: object
       properties:
@@ -437,13 +513,183 @@ components:
             $ref: '#/components/schemas/PermissionDetailsRequest'
           description: Gets or sets the list of permissions for the Organization Role.
       additionalProperties: false
-    UserProfileStatus:
-      enum:
-      - Active
-      - Invited
-      - Inactive
-      - PendingRegistration
-      type: string
+    UserProfileEmbeddedResponse:
+      type: object
+      properties:
+        applicationRoles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationRoleApiResponse'
+          description: List of application roles.
+        userIdentityProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserIdpProfileResponse'
+          description: List of user identity providers.
+      additionalProperties: false
+    ApplicationRoleApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The application role key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the application role.
+        environmentKey:
+          type: string
+          description: The environment key.
+          format: uuid
+        assetKey:
+          type: string
+          description: The asset key.
+          format: uuid
+        externalKey:
+          type: string
+          description: The unique identifier for an application role independently of the environment.
+          format: uuid
+        claim:
+          type:
+          - string
+          - 'null'
+          description: The claim name.
+        portfolioKey:
+          type: string
+          description: The portfolio key associated with the environment.
+          format: uuid
+      additionalProperties: false
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    OrganizationRoleApiResponse:
+      required:
+      - permissions
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets or sets the organization role key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the organization role name.
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrgRolePermissionDetailsApiResponse'
+          description: Gets or sets the permissions.
+        isReadOnly:
+          type: boolean
+          description: Gets or sets a value indicating whether the organization role is readonly.
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    OrganizationRoleCreateResponse:
+      type: object
+      properties:
+        orgRoleKey:
+          type: string
+          description: Gets or sets the Organization Role Key.
+          format: uuid
+      additionalProperties: false
+    OrganizationRoleUpdateRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the name of the organization role.
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermissionDetailsRequest'
+          description: Gets or sets the list of permissions for the organization role.
+      additionalProperties: false
     OrgRolePermissionDetailsApiResponse:
       type: object
       properties:
@@ -478,53 +724,52 @@ components:
           - 'null'
           description: Gets or sets the permission name.
       additionalProperties: false
-    UserProfileEmbeddedResponse:
+    RoleUserResponse:
       type: object
       properties:
-        applicationRoles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApplicationRoleApiResponse'
-          description: List of application roles.
-        userIdentityProviders:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserIdpProfileResponse'
-          description: List of user identity providers.
-      additionalProperties: false
-    OrganizationRoleCreateResponse:
-      type: object
-      properties:
-        orgRoleKey:
+        key:
           type: string
-          description: Gets or sets the Organization Role Key.
+          description: The user's key.
           format: uuid
-      additionalProperties: false
-    OrganizationRoleUpdateRequest:
-      type: object
-      properties:
         name:
           type:
           - string
           - 'null'
-          description: Gets or sets the name of the organization role.
-        permissions:
+          description: The user's full name.
+        email:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/PermissionDetailsRequest'
-          description: Gets or sets the list of permissions for the organization role.
+          description: The user's email address.
+        status:
+          enum:
+          - Active
+          - Invited
+          - Inactive
+          - PendingRegistration
+          allOf:
+          - $ref: '#/components/schemas/UserProfileStatus'
+          description: The user's status.
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: The user's photo URL.
+        lastLoginAt:
+          type:
+          - string
+          - 'null'
+          description: The timestamp of the last login (or token refresh) for this user in UTC.
+          format: date-time
+        _embedded:
+          allOf:
+          - $ref: '#/components/schemas/UserProfileEmbeddedResponse'
+          description: 'The embedded information to provide. (optional)
+
+            Only available when the request includes the query parameter `embed=`,
+
+            e.g. `embed=userIdentityProviders`'
       additionalProperties: false
-    UserProfileEmbedType:
-      enum:
-      - ApplicationRoles
-      - UserIdentityProviders
-      type: string
     UserIdpProfileResponse:
       type: object
       properties:
@@ -578,251 +823,6 @@ components:
           - boolean
           - 'null'
           description: The value indicating whether or not the user's email is verified.
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    PermissionDetailsRequest:
-      type: object
-      properties:
-        permissionKey:
-          type: string
-          description: Gets or sets the permission key.
-          format: uuid
-        environmentKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: Gets or sets the environment keys.
-        portfolioKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: Gets or sets the portfolio keys.
-        claimName:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the claim name.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the permission name.
-      additionalProperties: false
-    PageInfoWithTotalsApi:
-      required:
-      - count
-      - limit
-      - offset
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The results of the current page.
-          format: int32
-        limit:
-          type: integer
-          description: The limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: The offset of the current page of results.
-          format: int32
-        totalResults:
-          type:
-          - integer
-          - 'null'
-          description: The total number of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: The offset of the next page of results. (optional)
-          format: int32
-          readOnly: true
-        totalPages:
-          type:
-          - integer
-          - 'null'
-          description: The total number of pages with results.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-    RoleUserResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RoleUserResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
-    OrganizationRoleApiResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrganizationRoleApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
-    OrganizationRoleApiResponse:
-      required:
-      - permissions
-      type: object
-      properties:
-        key:
-          type: string
-          description: Gets or sets the organization role key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the organization role name.
-        permissions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrgRolePermissionDetailsApiResponse'
-          description: Gets or sets the permissions.
-        isReadOnly:
-          type: boolean
-          description: Gets or sets a value indicating whether the organization role is readonly.
-      additionalProperties: false
-    RoleUserResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The user's key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The user's full name.
-        email:
-          type:
-          - string
-          - 'null'
-          description: The user's email address.
-        status:
-          enum:
-          - Active
-          - Invited
-          - Inactive
-          - PendingRegistration
-          allOf:
-          - $ref: '#/components/schemas/UserProfileStatus'
-          description: The user's status.
-        photoUrl:
-          type:
-          - string
-          - 'null'
-          description: The user's photo URL.
-        lastLoginAt:
-          type:
-          - string
-          - 'null'
-          description: The timestamp of the last login (or token refresh) for this user in UTC.
-          format: date-time
-        _embedded:
-          allOf:
-          - $ref: '#/components/schemas/UserProfileEmbeddedResponse'
-          description: 'The embedded information to provide. (optional)
-
-            Only available when the request includes the query parameter `embed=`,
-
-            e.g. `embed=userIdentityProviders`'
-      additionalProperties: false
-    ApplicationRoleApiResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The application role key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the application role.
-        environmentKey:
-          type: string
-          description: The environment key.
-          format: uuid
-        assetKey:
-          type: string
-          description: The asset key.
-          format: uuid
-        externalKey:
-          type: string
-          description: The unique identifier for an application role independently of the environment.
-          format: uuid
-        claim:
-          type:
-          - string
-          - 'null'
-          description: The claim name.
-        portfolioKey:
-          type: string
-          description: The portfolio key associated with the environment.
-          format: uuid
       additionalProperties: false
   securitySchemes:
     bearerAuth:

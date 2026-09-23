@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Native Mobile Build Native Mobile Configurations API
-  description: 'API for building and managing native mobile applications.
-
-    '
+  description: API for building and managing native mobile applications.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/native-mobile-builds/v1
@@ -23,7 +21,7 @@ paths:
     get:
       tags:
       - NativeMobileConfigurations
-      summary: Returns the deployed platform-specific native configuration for a given Android application
+      summary: Returns the deployed platform-specific native configuration for a given Android…
       description: 'The response includes all the necessary information to build and deploy an Android native mobile application,
 
         such as keystore files and other related configurations.
@@ -263,58 +261,7 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Edit asset configurations** permission.
 components:
   schemas:
-    IosBuildConfigurationResult:
-      required:
-      - appIdentifier
-      - buildType
-      - certificate
-      - certificateName
-      - certificatePassword
-      - mabsVersion
-      - mobileFramework
-      - provisioningProfile
-      - provisioningProfileName
-      type: object
-      properties:
-        certificate:
-          allOf:
-          - $ref: '#/components/schemas/SecretConfig'
-          description: IOS Signing Cert Reference
-        certificateName:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: IOS Signing Cert Name
-        certificatePassword:
-          allOf:
-          - $ref: '#/components/schemas/SecretConfig'
-          description: IOS Signing Cert Password
-        provisioningProfile:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: IOS Provisioning Profile Reference
-        provisioningProfileName:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: IOS Provisioning Profile Name
-        appIdentifier:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: Application Identifier
-        buildType:
-          allOf:
-          - $ref: '#/components/schemas/IosBuildTypeNullableConfig'
-          description: Native Build Type
-        mabsVersion:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: Mabs Version Number
-        mobileFramework:
-          allOf:
-          - $ref: '#/components/schemas/MobileFrameworkNullableConfig'
-          description: Mobile framework
-      additionalProperties: false
-      description: Result payload model for native IOS Build configurations
-    AndroidBuildTypeNullableConfig:
+    StringConfig:
       required:
       - dataType
       type: object
@@ -330,8 +277,9 @@ components:
           description: Date string for date field was last updated
           format: date-time
         value:
-          allOf:
-          - $ref: '#/components/schemas/AndroidBuildType'
+          type:
+          - string
+          - 'null'
           description: Config Value
         dataType:
           allOf:
@@ -339,12 +287,12 @@ components:
           description: Value data type
       additionalProperties: false
       description: Get request basic config value
-    IosBuildTypePatchConfig:
+    MobileFrameworkNullablePatchConfig:
       type: object
       properties:
         value:
           allOf:
-          - $ref: '#/components/schemas/IosBuildType'
+          - $ref: '#/components/schemas/MobileFramework'
           description: Config Value
       additionalProperties: false
       description: Patch request basic config value
@@ -389,13 +337,6 @@ components:
           description: The framework that should be used when building mobile applications
       additionalProperties: false
       description: Result payload model for native Android Build configurations
-    AndroidBuildType:
-      enum:
-      - Bundle
-      - Debug
-      - Release
-      type: string
-      description: Android Build type
     SecretConfig:
       required:
       - dataType
@@ -423,6 +364,55 @@ components:
           readOnly: true
       additionalProperties: false
       description: Get request secret config value
+    AndroidBuildTypeNullableConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildType'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
+    AndroidBuildTypePatchConfig:
+      type: object
+      properties:
+        value:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildType'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
+    IosBuildType:
+      enum:
+      - Development
+      - AppStore
+      - Adhoc
+      - InHouse
+      - Simulator
+      type: string
+      description: IOS Build type
+    MobileFramework:
+      enum:
+      - Capacitor
+      - Cordova
+      type: string
+      description: This enum is used to specify which framework should be used when building mobile applications
     IosBuildTypeNullableConfig:
       required:
       - dataType
@@ -448,6 +438,102 @@ components:
           description: Value data type
       additionalProperties: false
       description: Get request basic config value
+    IosBuildTypePatchConfig:
+      type: object
+      properties:
+        value:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildType'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
+    IosBuildConfigurationRequest:
+      type: object
+      properties:
+        certificate:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Signing Cert Reference
+        certificateName:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Signing Cert Name
+        certificatePassword:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Signing Cert Password
+        provisioningProfile:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Provisioning Profile Reference
+        provisioningProfileName:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: IOS Provisioning Profile Name
+        appIdentifier:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Application Identifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildTypePatchConfig'
+          description: Native Build Type
+        mabsVersion:
+          allOf:
+          - $ref: '#/components/schemas/StringPatchConfig'
+          description: Mabs Version Number
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFrameworkNullablePatchConfig'
+          description: The framework that should be used when building mobile applications
+      additionalProperties: false
+      description: Request payload model for native IOS Build configurations
+    StringPatchConfig:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     AndroidBuildConfigurationResult:
       required:
       - alias
@@ -499,51 +585,6 @@ components:
           description: Mobile framework
       additionalProperties: false
       description: Request payload model for native Android Build configurations
-    AndroidBuildTypePatchConfig:
-      type: object
-      properties:
-        value:
-          allOf:
-          - $ref: '#/components/schemas/AndroidBuildType'
-          description: Config Value
-      additionalProperties: false
-      description: Patch request basic config value
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     GenericConfigDataType:
       enum:
       - Text
@@ -561,107 +602,6 @@ components:
       - BinaryUrl
       type: string
       description: Type of configuration
-    MobileFrameworkNullablePatchConfig:
-      type: object
-      properties:
-        value:
-          allOf:
-          - $ref: '#/components/schemas/MobileFramework'
-          description: Config Value
-      additionalProperties: false
-      description: Patch request basic config value
-    StringPatchConfig:
-      type: object
-      properties:
-        value:
-          type:
-          - string
-          - 'null'
-          description: Config Value
-      additionalProperties: false
-      description: Patch request basic config value
-    IosBuildType:
-      enum:
-      - Development
-      - AppStore
-      - Adhoc
-      - InHouse
-      - Simulator
-      type: string
-      description: IOS Build type
-    StringConfig:
-      required:
-      - dataType
-      type: object
-      properties:
-        isSecret:
-          type: boolean
-          description: Date string for date field was last updated
-          readOnly: true
-        lastUpdateDate:
-          type:
-          - string
-          - 'null'
-          description: Date string for date field was last updated
-          format: date-time
-        value:
-          type:
-          - string
-          - 'null'
-          description: Config Value
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/GenericConfigDataType'
-          description: Value data type
-      additionalProperties: false
-      description: Get request basic config value
-    IosBuildConfigurationRequest:
-      type: object
-      properties:
-        certificate:
-          allOf:
-          - $ref: '#/components/schemas/StringPatchConfig'
-          description: IOS Signing Cert Reference
-        certificateName:
-          allOf:
-          - $ref: '#/components/schemas/StringPatchConfig'
-          description: IOS Signing Cert Name
-        certificatePassword:
-          allOf:
-          - $ref: '#/components/schemas/StringPatchConfig'
-          description: IOS Signing Cert Password
-        provisioningProfile:
-          allOf:
-          - $ref: '#/components/schemas/StringPatchConfig'
-          description: IOS Provisioning Profile Reference
-        provisioningProfileName:
-          allOf:
-          - $ref: '#/components/schemas/StringPatchConfig'
-          description: IOS Provisioning Profile Name
-        appIdentifier:
-          allOf:
-          - $ref: '#/components/schemas/StringPatchConfig'
-          description: Application Identifier
-        buildType:
-          allOf:
-          - $ref: '#/components/schemas/IosBuildTypePatchConfig'
-          description: Native Build Type
-        mabsVersion:
-          allOf:
-          - $ref: '#/components/schemas/StringPatchConfig'
-          description: Mabs Version Number
-        mobileFramework:
-          allOf:
-          - $ref: '#/components/schemas/MobileFrameworkNullablePatchConfig'
-          description: The framework that should be used when building mobile applications
-      additionalProperties: false
-      description: Request payload model for native IOS Build configurations
-    MobileFramework:
-      enum:
-      - Capacitor
-      - Cordova
-      type: string
-      description: This enum is used to specify which framework should be used when building mobile applications
     MobileFrameworkNullableConfig:
       required:
       - dataType
@@ -687,6 +627,64 @@ components:
           description: Value data type
       additionalProperties: false
       description: Get request basic config value
+    IosBuildConfigurationResult:
+      required:
+      - appIdentifier
+      - buildType
+      - certificate
+      - certificateName
+      - certificatePassword
+      - mabsVersion
+      - mobileFramework
+      - provisioningProfile
+      - provisioningProfileName
+      type: object
+      properties:
+        certificate:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: IOS Signing Cert Reference
+        certificateName:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: IOS Signing Cert Name
+        certificatePassword:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: IOS Signing Cert Password
+        provisioningProfile:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: IOS Provisioning Profile Reference
+        provisioningProfileName:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: IOS Provisioning Profile Name
+        appIdentifier:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Application Identifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildTypeNullableConfig'
+          description: Native Build Type
+        mabsVersion:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Mabs Version Number
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFrameworkNullableConfig'
+          description: Mobile framework
+      additionalProperties: false
+      description: Result payload model for native IOS Build configurations
+    AndroidBuildType:
+      enum:
+      - Bundle
+      - Debug
+      - Release
+      type: string
+      description: Android Build type
   securitySchemes:
     bearerAuth:
       type: http

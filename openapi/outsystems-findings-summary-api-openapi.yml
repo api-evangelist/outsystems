@@ -19,7 +19,7 @@ paths:
     get:
       tags:
       - Findings Summary
-      summary: Retrieves a multi-dimensional findings summary.
+      summary: Retrieves a multi-dimensional findings summary
       description: 'Retrieves a multi-dimensional summary of findings, aggregated by customizable grouping parameters such as category, status, and severity.
 
 
@@ -206,6 +206,13 @@ components:
               Low:
                 latestFindingsCount: 22
                 findingsDifferenceCount: 7
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
     ProblemDetails:
       type: object
       properties:
@@ -242,13 +249,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    FindingSeverity:
-      enum:
-      - Low
-      - Medium
-      - High
-      - Critical
-      type: string
     FindingsSummaryMetricResponseV1:
       title: FindingsSummaryMetricResponse
       type: object
@@ -262,12 +262,12 @@ components:
           description: Change in findings count compared to the previous analysis.
           format: int32
       additionalProperties: false
-    Categories:
+    FindingSeverity:
       enum:
-      - performance
-      - security
-      - architecture
-      - maintainability
+      - Low
+      - Medium
+      - High
+      - Critical
       type: string
   securitySchemes:
     bearerAuth:

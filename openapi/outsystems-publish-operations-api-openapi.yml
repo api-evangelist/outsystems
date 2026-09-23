@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Deployments Publish Operations API
-  description: 'REST endpoints for publishing and deploying assets in environments (stages) in your organization.
-
-    '
+  description: REST endpoints for publishing and deploying assets in environments (stages) in your organization.
   version: v1
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/deployments/v1
@@ -23,7 +21,7 @@ paths:
     get:
       tags:
       - publish-operations
-      summary: Returns a list of publications that match a given filter.
+      summary: Returns a list of publications that match a given filter
       description: 'Returns a list of publications that match a given filter. Use query parameters to refine the search.
 
 
@@ -122,7 +120,7 @@ paths:
     post:
       tags:
       - publish-operations
-      summary: Requests the creation of a new publication.
+      summary: Requests the creation of a new publication
       description: 'Requests the creation of a publish-operation. It returns the created publication operation.
 
 
@@ -163,7 +161,7 @@ paths:
     get:
       tags:
       - publish-operations
-      summary: Return a publication by its operation key.
+      summary: Return a publication by its operation key
       description: 'Returns a publication by its operation key. If the publication is not found, a 404 error is returned.
 
 
@@ -207,7 +205,7 @@ paths:
     get:
       tags:
       - publish-operations
-      summary: Returns publication log messages for a given publication operation key.
+      summary: Returns publication log messages for a given publication operation key
       description: 'Returns publication log messages for a given publication operation key. If the publication is not found, a 404 error is returned.
 
 
@@ -266,6 +264,70 @@ paths:
       x-os-permissions: API Client needs the **Stage > View stage** permission for the operation.
 components:
   schemas:
+    MessageDetailsV1:
+      type: object
+      properties:
+        stepId:
+          type:
+          - string
+          - 'null'
+          description: Step unique identifier.
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset unique identifier.
+          format: uuid
+      additionalProperties: false
+      description: Message detailed info.
+    PublishOperationRequest:
+      type: object
+      properties:
+        operation:
+          allOf:
+          - $ref: '#/components/schemas/PublishOperationsType'
+          description: 'Operation to be executed.
+
+            Mandatory: Publish.'
+        assetKey:
+          type: string
+          description: Unique asset identifier.
+          format: uuid
+        revision:
+          type: integer
+          description: Asset Revision.
+          format: int32
+        environmentKey:
+          type: string
+          description: 'Unique environment identifier.
+
+            Optional for the hotfix scenario.'
+          format: uuid
+      additionalProperties: false
+    Status:
+      enum:
+      - Running
+      - FinishedWithError
+      - Finished
+      type: string
+    StringMessageDetailsV1TaskProgressMessagePagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/StringPageInfo'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MessageDetailsV1TaskProgressMessage'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
     StringPageInfo:
       type: object
       properties:
@@ -344,51 +406,6 @@ components:
           - $ref: '#/components/schemas/PublishOperationsType'
           description: Executed Operation.
       additionalProperties: false
-    StringMessageDetailsV1TaskProgressMessagePagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/StringPageInfo'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MessageDetailsV1TaskProgressMessage'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    MessageDetailsV1TaskProgressMessage:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: message timestamp
-          format: date-time
-        type:
-          type:
-          - string
-          - 'null'
-          description: message type (e.g., error code)
-        severity:
-          allOf:
-          - $ref: '#/components/schemas/MessageSeverity'
-          description: message severity (info, warning or error)
-        message:
-          type:
-          - string
-          - 'null'
-          description: message detail
-        additionalInfo:
-          allOf:
-          - $ref: '#/components/schemas/MessageDetailsV1'
-          description: optional message details
-      additionalProperties: false
-      description: Represents a user facing message about the progress of an operation, including additional details.
     Int32NullablePublishOperationResponsePagedListResponse:
       type: object
       properties:
@@ -407,22 +424,6 @@ components:
           readOnly: true
       additionalProperties: false
       description: Represents a response containing a paged set of results.
-    MessageDetailsV1:
-      type: object
-      properties:
-        stepId:
-          type:
-          - string
-          - 'null'
-          description: Step unique identifier.
-        assetKey:
-          type:
-          - string
-          - 'null'
-          description: Asset unique identifier.
-          format: uuid
-      additionalProperties: false
-      description: Message detailed info.
     ProblemDetails:
       type: object
       properties:
@@ -459,34 +460,37 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    MessageDetailsV1TaskProgressMessage:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: message timestamp
+          format: date-time
+        type:
+          type:
+          - string
+          - 'null'
+          description: message type (e.g., error code)
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/MessageSeverity'
+          description: message severity (info, warning or error)
+        message:
+          type:
+          - string
+          - 'null'
+          description: message detail
+        additionalInfo:
+          allOf:
+          - $ref: '#/components/schemas/MessageDetailsV1'
+          description: optional message details
+      additionalProperties: false
+      description: Represents a user facing message about the progress of an operation, including additional details.
     PublishOperationsType:
       enum:
       - Publish
       type: string
-    PublishOperationRequest:
-      type: object
-      properties:
-        operation:
-          allOf:
-          - $ref: '#/components/schemas/PublishOperationsType'
-          description: 'Operation to be executed.
-
-            Mandatory: Publish.'
-        assetKey:
-          type: string
-          description: Unique asset identifier.
-          format: uuid
-        revision:
-          type: integer
-          description: Asset Revision.
-          format: int32
-        environmentKey:
-          type: string
-          description: 'Unique environment identifier.
-
-            Optional for the hotfix scenario.'
-          format: uuid
-      additionalProperties: false
     Int32NullablePageInfo:
       type: object
       properties:
@@ -512,12 +516,6 @@ components:
           format: int32
       additionalProperties: false
       description: Contains response page information.
-    Status:
-      enum:
-      - Running
-      - FinishedWithError
-      - Finished
-      type: string
   securitySchemes:
     bearerAuth:
       type: http
