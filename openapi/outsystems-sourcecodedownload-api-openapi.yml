@@ -143,21 +143,6 @@ paths:
       x-os-permissions: 'Required permissions: **Asset management > Change**'
 components:
   schemas:
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse:
-      type: object
-      properties:
-        operationKey:
-          type: string
-          description: The operation key
-          format: uuid
-      additionalProperties: false
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus:
-      enum:
-      - None
-      - Generating
-      - GenerationError
-      - ReadyForDownload
-      type: string
     OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.SourceCodeDownload:
       type: object
       properties:
@@ -189,6 +174,13 @@ components:
           - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus'
           description: The status of the download operation.
       additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus:
+      enum:
+      - None
+      - Generating
+      - GenerationError
+      - ReadyForDownload
+      type: string
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -225,6 +217,14 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse:
+      type: object
+      properties:
+        operationKey:
+          type: string
+          description: The operation key
+          format: uuid
+      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

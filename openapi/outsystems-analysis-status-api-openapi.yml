@@ -64,46 +64,6 @@ paths:
       x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
 components:
   schemas:
-    NextAnalysisV1:
-      title: NextAnalysis
-      type: object
-      properties:
-        scheduledOn:
-          type: string
-          description: The date and time of when the analysis was scheduled to run
-          format: date-time
-      additionalProperties: false
-      description: Represents the next scheduled analysis
-    StatusSyncResponseResultV1:
-      title: StatusAnalysisResponseResult
-      type: object
-      properties:
-        lastSuccessfulAnalysis:
-          title: LastSuccessfulAnalysis
-          allOf:
-          - $ref: '#/components/schemas/LastSuccessfulAnalysisV1'
-          description: Info about the latest successful analysis
-        latestAnalysis:
-          title: LatestAnalysis
-          allOf:
-          - $ref: '#/components/schemas/LatestAnalysisV1'
-          description: Info about the latest analysis
-        nextAnalysis:
-          title: NextAnalysis
-          allOf:
-          - $ref: '#/components/schemas/NextAnalysisV1'
-          description: Info about the next analysis
-      additionalProperties: false
-    StatusSyncResponseV1:
-      title: StatusAnalysisResponse
-      type: object
-      properties:
-        result:
-          title: StatusAnalysisResponseResult
-          allOf:
-          - $ref: '#/components/schemas/StatusSyncResponseResultV1'
-          description: The result of the status sync
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -140,37 +100,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    LastSuccessfulAnalysisV1:
-      title: LastSuccessfulAnalysis
-      type: object
-      properties:
-        startedOn:
-          type: string
-          description: The date and time of when the analysis started
-          format: date-time
-        completedOn:
-          type: string
-          description: The date and time of when the analysis finished
-          format: date-time
-        status:
-          type:
-          - string
-          - 'null'
-          description: The status of the analysis
-        newFindingsCount:
-          type:
-          - integer
-          - 'null'
-          description: The count of the new findings
-          format: int32
-        solvedFindingsCount:
-          type:
-          - integer
-          - 'null'
-          description: The count of the solved findings
-          format: int32
-      additionalProperties: false
-      description: Represents the last successful analysis
     LatestAnalysisV1:
       title: LatestAnalysis
       type: object
@@ -212,6 +141,77 @@ components:
           description: The error message returned in case the latest analysis has failed status
       additionalProperties: false
       description: Represents the latest analysis (may include error information)
+    StatusSyncResponseResultV1:
+      title: StatusAnalysisResponseResult
+      type: object
+      properties:
+        lastSuccessfulAnalysis:
+          title: LastSuccessfulAnalysis
+          allOf:
+          - $ref: '#/components/schemas/LastSuccessfulAnalysisV1'
+          description: Info about the latest successful analysis
+        latestAnalysis:
+          title: LatestAnalysis
+          allOf:
+          - $ref: '#/components/schemas/LatestAnalysisV1'
+          description: Info about the latest analysis
+        nextAnalysis:
+          title: NextAnalysis
+          allOf:
+          - $ref: '#/components/schemas/NextAnalysisV1'
+          description: Info about the next analysis
+      additionalProperties: false
+    LastSuccessfulAnalysisV1:
+      title: LastSuccessfulAnalysis
+      type: object
+      properties:
+        startedOn:
+          type: string
+          description: The date and time of when the analysis started
+          format: date-time
+        completedOn:
+          type: string
+          description: The date and time of when the analysis finished
+          format: date-time
+        status:
+          type:
+          - string
+          - 'null'
+          description: The status of the analysis
+        newFindingsCount:
+          type:
+          - integer
+          - 'null'
+          description: The count of the new findings
+          format: int32
+        solvedFindingsCount:
+          type:
+          - integer
+          - 'null'
+          description: The count of the solved findings
+          format: int32
+      additionalProperties: false
+      description: Represents the last successful analysis
+    NextAnalysisV1:
+      title: NextAnalysis
+      type: object
+      properties:
+        scheduledOn:
+          type: string
+          description: The date and time of when the analysis was scheduled to run
+          format: date-time
+      additionalProperties: false
+      description: Represents the next scheduled analysis
+    StatusSyncResponseV1:
+      title: StatusAnalysisResponse
+      type: object
+      properties:
+        result:
+          title: StatusAnalysisResponseResult
+          allOf:
+          - $ref: '#/components/schemas/StatusSyncResponseResultV1'
+          description: The result of the status sync
+      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

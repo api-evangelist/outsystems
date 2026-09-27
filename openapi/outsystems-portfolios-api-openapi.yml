@@ -132,66 +132,6 @@ paths:
       description: Requires **Portfolio management > Manage portfolio** permission.
 components:
   schemas:
-    Portfolio:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The portfolio key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The portfolio name.
-        type:
-          type:
-          - string
-          - 'null'
-          description: The portfolio hosting type.
-        isMainPortfolio:
-          type: boolean
-          description: Indicates whether this is the main portfolio where system assets are installed.
-        nonProductionEnvironmentCount:
-          type:
-          - integer
-          - 'null'
-          description: Number of non-production environments in the portfolio. Null when not available.
-          format: int32
-      additionalProperties: false
-      description: Portfolio
-    PortfolioPagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Portfolio'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    PatchPortfolioRequest:
-      type: object
-      properties:
-        name:
-          maxLength: 50
-          minLength: 1
-          type:
-          - string
-          - 'null'
-          description: New portfolio name (min 1, max 50 characters)
-      additionalProperties: false
-      description: Request to update a portfolio's name
     ProblemDetails:
       type: object
       properties:
@@ -228,6 +168,48 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    Portfolio:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The portfolio key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The portfolio name.
+        type:
+          type:
+          - string
+          - 'null'
+          description: The portfolio hosting type.
+        isMainPortfolio:
+          type: boolean
+          description: Indicates whether this is the main portfolio where system assets are installed.
+        nonProductionEnvironmentCount:
+          type:
+          - integer
+          - 'null'
+          description: Number of non-production environments in the portfolio. Null when not available.
+          format: int32
+      additionalProperties: false
+      description: Portfolio
+    PatchPortfolioRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: New portfolio name (min 1, max 50 characters)
+      additionalProperties: false
+      description: Request to update a portfolio's name
     PageInfoWithTotals:
       type: object
       properties:
@@ -262,6 +244,24 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
+    PortfolioPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Portfolio'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
   securitySchemes:
     bearerAuth:
       type: http

@@ -749,192 +749,6 @@ paths:
       x-os-permissions: API Client needs the **User management > Manage end-user groups** permission.
 components:
   schemas:
-    UserProfileEmbedType:
-      enum:
-      - ApplicationRoles
-      - UserIdentityProviders
-      type: string
-    GroupApiResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key of the group.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the group.
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of the group.
-        environmentKey:
-          type: string
-          description: The environment key.
-          format: uuid
-        portfolioKey:
-          type: string
-          description: The portfolio key associated with the environment.
-          format: uuid
-        updatedAt:
-          type: string
-          description: The last updated date and time of the group.
-          format: date-time
-        groupIdpClaimMappings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GroupIdpClaimMappingEmbedded'
-          description: The group's identity providers claim mappings.
-      additionalProperties: false
-    GroupIdpClaimMappingEmbedded:
-      required:
-      - foreignClaim
-      - key
-      - providerKey
-      type: object
-      properties:
-        key:
-          type: string
-          description: Claim mapping identifier.
-          format: uuid
-        providerKey:
-          type: string
-          description: The key of the associated IdP object.
-          format: uuid
-        foreignClaim:
-          allOf:
-          - $ref: '#/components/schemas/ForeignClaimModel'
-          description: Foreign Claim.
-        lastUpdatedDate:
-          type:
-          - string
-          - 'null'
-          description: The last updated date field.
-          format: date-time
-      additionalProperties: false
-    GroupUserResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GroupUserResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
-    PatchGroupApplicationRolesRequest:
-      type: object
-      properties:
-        applicationRoleKeysToAdd:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The list of application role keys to add to the group.
-        applicationRoleKeysToRemove:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The list of application role keys to remove from the group.
-      additionalProperties: false
-    GroupCreateResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The group key.
-          format: uuid
-      additionalProperties: false
-    GroupUserResponse:
-      type: object
-      properties:
-        membershipTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MembershipType'
-          description: The list of membership types of this user in this group. Allowed values are 'Assigned' (if directly added to the group) or 'Mapped' (if added via group mappings).
-        user:
-          allOf:
-          - $ref: '#/components/schemas/GroupUserProfileResponse'
-          description: The user details.
-      additionalProperties: false
-      description: Represents a user in a group.
-    PatchUsersByGroupRequest:
-      type: object
-      properties:
-        userKeysToAdd:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The list of user keys to add to the group.
-        userKeysToRemove:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The list of user keys to remove from the group.
-      additionalProperties: false
-    PatchGroupRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the group.
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of the group.
-      additionalProperties: false
-    MembershipType:
-      enum:
-      - Assigned
-      - Mapped
-      type: string
-    ForeignClaimModel:
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          minLength: 1
-          type: string
-          description: Gets or sets Name of the claim to match in the foreign token.
-        valueDelimiter:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets string to split the foreign claim value on.
-        value:
-          minLength: 1
-          type: string
-          description: Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified.
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -971,6 +785,93 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    GroupUserResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GroupUserResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    UserProfileEmbeddedResponse:
+      type: object
+      properties:
+        applicationRoles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationRoleApiResponse'
+          description: List of application roles.
+        userIdentityProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserIdpProfileResponse'
+          description: List of user identity providers.
+      additionalProperties: false
+    PatchGroupApplicationRolesRequest:
+      type: object
+      properties:
+        applicationRoleKeysToAdd:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The list of application role keys to add to the group.
+        applicationRoleKeysToRemove:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The list of application role keys to remove from the group.
+      additionalProperties: false
+    ApplicationRoleApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The application role key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the application role.
+        environmentKey:
+          type: string
+          description: The environment key.
+          format: uuid
+        assetKey:
+          type: string
+          description: The asset key.
+          format: uuid
+        externalKey:
+          type: string
+          description: The unique identifier for an application role independently of the environment.
+          format: uuid
+        claim:
+          type:
+          - string
+          - 'null'
+          description: The claim name.
+        portfolioKey:
+          type: string
+          description: The portfolio key associated with the environment.
+          format: uuid
+      additionalProperties: false
     GroupUserProfileResponse:
       type: object
       properties:
@@ -1012,6 +913,182 @@ components:
           description: The embedded information to provide. (optional) Only available when the request includes the query parameter `embed=`, e.g. `embed=userIdentityProviders`
       additionalProperties: false
       description: The profile of a group member.
+    GroupApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GroupApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    GroupIdpClaimMappingEmbedded:
+      required:
+      - foreignClaim
+      - key
+      - providerKey
+      type: object
+      properties:
+        key:
+          type: string
+          description: Claim mapping identifier.
+          format: uuid
+        providerKey:
+          type: string
+          description: The key of the associated IdP object.
+          format: uuid
+        foreignClaim:
+          allOf:
+          - $ref: '#/components/schemas/ForeignClaimModel'
+          description: Foreign Claim.
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: The last updated date field.
+          format: date-time
+      additionalProperties: false
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    ForeignClaimModel:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+          description: Gets or sets Name of the claim to match in the foreign token.
+        valueDelimiter:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets string to split the foreign claim value on.
+        value:
+          minLength: 1
+          type: string
+          description: Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified.
+      additionalProperties: false
+    PatchUsersByGroupRequest:
+      type: object
+      properties:
+        userKeysToAdd:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The list of user keys to add to the group.
+        userKeysToRemove:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The list of user keys to remove from the group.
+      additionalProperties: false
+    GroupCreateRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the group.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the group.
+        environmentKey:
+          type: string
+          description: The environment key to associate with the group.
+          format: uuid
+        applicationRoleKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The application role keys to associate with the group.
+        userKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The user keys to associate with the group.
+      additionalProperties: false
+    GroupUserResponse:
+      type: object
+      properties:
+        membershipTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MembershipType'
+          description: The list of membership types of this user in this group. Allowed values are 'Assigned' (if directly added to the group) or 'Mapped' (if added via group mappings).
+        user:
+          allOf:
+          - $ref: '#/components/schemas/GroupUserProfileResponse'
+          description: The user details.
+      additionalProperties: false
+      description: Represents a user in a group.
+    MembershipType:
+      enum:
+      - Assigned
+      - Mapped
+      type: string
     UserIdpProfileResponse:
       type: object
       properties:
@@ -1066,27 +1143,13 @@ components:
           - 'null'
           description: The value indicating whether or not the user's email is verified.
       additionalProperties: false
-    UserProfileEmbeddedResponse:
+    GroupApiResponse:
       type: object
       properties:
-        applicationRoles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApplicationRoleApiResponse'
-          description: List of application roles.
-        userIdentityProviders:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserIdpProfileResponse'
-          description: List of user identity providers.
-      additionalProperties: false
-    GroupCreateRequest:
-      type: object
-      properties:
+        key:
+          type: string
+          description: The key of the group.
+          format: uuid
         name:
           type:
           - string
@@ -1099,39 +1162,37 @@ components:
           description: The description of the group.
         environmentKey:
           type: string
-          description: The environment key to associate with the group.
+          description: The environment key.
           format: uuid
-        applicationRoleKeys:
+        portfolioKey:
+          type: string
+          description: The portfolio key associated with the environment.
+          format: uuid
+        updatedAt:
+          type: string
+          description: The last updated date and time of the group.
+          format: date-time
+        groupIdpClaimMappings:
           type:
           - array
           - 'null'
           items:
-            type: string
-            format: uuid
-          description: The application role keys to associate with the group.
-        userKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The user keys to associate with the group.
+            $ref: '#/components/schemas/GroupIdpClaimMappingEmbedded'
+          description: The group's identity providers claim mappings.
       additionalProperties: false
-    GroupApiResponsePaginatedResponseApi:
+    PatchGroupRequest:
       type: object
       properties:
-        results:
+        name:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/GroupApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
+          description: The name of the group.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the group.
       additionalProperties: false
     UserProfileStatus:
       enum:
@@ -1140,80 +1201,19 @@ components:
       - Inactive
       - PendingRegistration
       type: string
-    PageInfoWithTotalsApi:
-      required:
-      - count
-      - limit
-      - offset
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The results of the current page.
-          format: int32
-        limit:
-          type: integer
-          description: The limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: The offset of the current page of results.
-          format: int32
-        totalResults:
-          type:
-          - integer
-          - 'null'
-          description: The total number of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: The offset of the next page of results. (optional)
-          format: int32
-          readOnly: true
-        totalPages:
-          type:
-          - integer
-          - 'null'
-          description: The total number of pages with results.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-    ApplicationRoleApiResponse:
+    GroupCreateResponse:
       type: object
       properties:
         key:
           type: string
-          description: The application role key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the application role.
-        environmentKey:
-          type: string
-          description: The environment key.
-          format: uuid
-        assetKey:
-          type: string
-          description: The asset key.
-          format: uuid
-        externalKey:
-          type: string
-          description: The unique identifier for an application role independently of the environment.
-          format: uuid
-        claim:
-          type:
-          - string
-          - 'null'
-          description: The claim name.
-        portfolioKey:
-          type: string
-          description: The portfolio key associated with the environment.
+          description: The group key.
           format: uuid
       additionalProperties: false
+    UserProfileEmbedType:
+      enum:
+      - ApplicationRoles
+      - UserIdentityProviders
+      type: string
     ApplicationRoleApiResponsePaginatedResponseApi:
       type: object
       properties:

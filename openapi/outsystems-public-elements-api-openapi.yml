@@ -68,6 +68,30 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
     DependenciesPublicElementFilter:
       type: object
       properties:
@@ -128,48 +152,6 @@ components:
             $ref: '#/components/schemas/ApplicationFilter'
           description: Filters which asset elements to search by
       additionalProperties: false
-    PublicElementStringTypesPagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PublicElementStringTypes'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
     PublicElementStringTypes:
       type: object
       properties:
@@ -232,6 +214,38 @@ components:
           description: Type of public element
       additionalProperties: false
       description: Represents a public element of an asset.
+    PublicElementStringTypesPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicElementStringTypes'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    ApplicationFilter:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Key of the application to filter by
+        digest:
+          type:
+          - string
+          - 'null'
+          description: Digest of the application to filter by, if empty will use the latest revision
+      additionalProperties: false
     PageInfoWithTotals:
       type: object
       properties:
@@ -264,20 +278,6 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
-    ApplicationFilter:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Key of the application to filter by
-        digest:
-          type:
-          - string
-          - 'null'
-          description: Digest of the application to filter by, if empty will use the latest revision
-      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

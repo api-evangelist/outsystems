@@ -130,36 +130,6 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Edit asset configurations** permission.
 components:
   schemas:
-    Origin:
-      enum:
-      - Override
-      - Default
-      type: string
-      description: The origin of the value. Either being overridden by the user or set to its default.
-    LibraryConfigurationResponse:
-      required:
-      - key
-      - revision
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        revision:
-          type: integer
-          description: The revision number of the configuration
-          format: int32
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExtensibilitySettingsItemResponse'
-          description: Settings associated with Library configuration
-      additionalProperties: false
-      description: Library configurations for Extensibility settings
     ProblemDetails:
       type: object
       properties:
@@ -196,6 +166,23 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    GenericConfigDataType:
+      enum:
+      - Text
+      - Integer
+      - LongInteger
+      - Decimal
+      - Boolean
+      - DateTime
+      - Date
+      - Time
+      - PhoneNumber
+      - Email
+      - Currency
+      - EntityIdentifierType
+      - BinaryUrl
+      type: string
+      description: Type of configuration
     ExtensibilitySettingsItemResponse:
       required:
       - defaultValue
@@ -304,60 +291,6 @@ components:
           description: Metadata of the configuration
       additionalProperties: false
       description: A configuration item identified by a key, with an optional new value for the configuration  and optional metadata entries.
-    GenericConfigDataType:
-      enum:
-      - Text
-      - Integer
-      - LongInteger
-      - Decimal
-      - Boolean
-      - DateTime
-      - Date
-      - Time
-      - PhoneNumber
-      - Email
-      - Currency
-      - EntityIdentifierType
-      - BinaryUrl
-      type: string
-      description: Type of configuration
-    ExtensibilitySettingsRequest:
-      type: object
-      properties:
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
-          description: Extensibility settings to be updated
-        libraries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LibraryConfigurationRequest'
-          description: Library configurations
-      additionalProperties: false
-      description: Optional extensibility settings and library-specific configurations to apply.
-    Metadata:
-      required:
-      - key
-      - value
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Metadata Item Key
-        value:
-          type:
-          - string
-          - 'null'
-          description: Metadata Item Value
-      additionalProperties: false
-      description: Metadata about Extensibility setting
     ExtensibilitySettingsResponse:
       type: object
       properties:
@@ -377,6 +310,73 @@ components:
           description: Library configurations
       additionalProperties: false
       description: The extensibility settings and library configurations for the application.
+    Origin:
+      enum:
+      - Override
+      - Default
+      type: string
+      description: The origin of the value. Either being overridden by the user or set to its default.
+    Metadata:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Metadata Item Key
+        value:
+          type:
+          - string
+          - 'null'
+          description: Metadata Item Value
+      additionalProperties: false
+      description: Metadata about Extensibility setting
+    ExtensibilitySettingsRequest:
+      type: object
+      properties:
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
+          description: Extensibility settings to be updated
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigurationRequest'
+          description: Library configurations
+      additionalProperties: false
+      description: Optional extensibility settings and library-specific configurations to apply.
+    LibraryConfigurationResponse:
+      required:
+      - key
+      - revision
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revision:
+          type: integer
+          description: The revision number of the configuration
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemResponse'
+          description: Settings associated with Library configuration
+      additionalProperties: false
+      description: Library configurations for Extensibility settings
   securitySchemes:
     bearerAuth:
       type: http

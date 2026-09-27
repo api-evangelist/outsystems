@@ -129,6 +129,63 @@ paths:
       x-os-permissions: API client must have at least one permission.
 components:
   schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    SamlConfigurationItemModel:
+      type: object
+      properties:
+        configName:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the ConfigName value.
+        configValue:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the ConfigValue value.
+      additionalProperties: false
+    ClientAuthenticationMethodServiceModel:
+      enum:
+      - client_secret_post
+      - client_secret_basic
+      - client_secret_jwt
+      - private_key_jwt
+      type: string
     ClientAssertionSigningAlgorithmServiceModel:
       enum:
       - ES256
@@ -226,88 +283,20 @@ components:
           - $ref: '#/components/schemas/ProfileLinkingFieldServiceModel'
           description: Gets or sets the profile linking field.
       additionalProperties: false
-    TokenNormalizationModel:
-      type: object
-      properties:
-        normalClaim:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the NormalClaim value.
-        foreignClaim:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the ForeignClaim value.
-      additionalProperties: false
-    HostingServiceModel:
+    ProviderSubtypeServiceModel:
       enum:
-      - oscloud
-      - selfhosted
+      - Custom
+      - AppleId
+      - Google
+      - Facebook
+      - LinkedIn
+      - OutSystems11
       type: string
-    PkceMethodServiceModel:
+    EmailTrustTypeServiceModel:
       enum:
-      - plain
-      - S256
-      type: string
-    ClientAuthenticationMethodServiceModel:
-      enum:
-      - client_secret_post
-      - client_secret_basic
-      - client_secret_jwt
-      - private_key_jwt
-      type: string
-    ProviderTypeServiceModel:
-      enum:
-      - OIDC
-      - SAML
-      - Cognito
-      type: string
-    PageInfoWithTotalsApi:
-      required:
-      - count
-      - limit
-      - offset
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The results of the current page.
-          format: int32
-        limit:
-          type: integer
-          description: The limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: The offset of the current page of results.
-          format: int32
-        totalResults:
-          type:
-          - integer
-          - 'null'
-          description: The total number of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: The offset of the next page of results. (optional)
-          format: int32
-          readOnly: true
-        totalPages:
-          type:
-          - integer
-          - 'null'
-          description: The total number of pages with results.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-    ProfileLinkingFieldServiceModel:
-      enum:
-      - Email
-      - Username
       - None
+      - EmailVerifiedClaim
+      - All
       type: string
     IdentityProviderResponsePaginatedResponseApi:
       type: object
@@ -324,42 +313,6 @@ components:
           - $ref: '#/components/schemas/PageInfoWithTotalsApi'
           description: The details of the page information.
       additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     OidcConfigurationResponse:
       type: object
       properties:
@@ -455,34 +408,81 @@ components:
           - 'null'
           description: Gets or sets the TeamId value.
       additionalProperties: false
-    SamlConfigurationItemModel:
+    PkceMethodServiceModel:
+      enum:
+      - plain
+      - S256
+      type: string
+    HostingServiceModel:
+      enum:
+      - oscloud
+      - selfhosted
+      type: string
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
       type: object
       properties:
-        configName:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
           type:
-          - string
+          - integer
           - 'null'
-          description: Gets or sets the ConfigName value.
-        configValue:
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
           type:
-          - string
+          - integer
           - 'null'
-          description: Gets or sets the ConfigValue value.
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
       additionalProperties: false
-    EmailTrustTypeServiceModel:
+    TokenNormalizationModel:
+      type: object
+      properties:
+        normalClaim:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the NormalClaim value.
+        foreignClaim:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the ForeignClaim value.
+      additionalProperties: false
+    ProfileLinkingFieldServiceModel:
       enum:
+      - Email
+      - Username
       - None
-      - EmailVerifiedClaim
-      - All
       type: string
-    ProviderSubtypeServiceModel:
+    ProviderTypeServiceModel:
       enum:
-      - Custom
-      - AppleId
-      - Google
-      - Facebook
-      - LinkedIn
-      - OutSystems11
+      - OIDC
+      - SAML
+      - Cognito
       type: string
   securitySchemes:
     bearerAuth:

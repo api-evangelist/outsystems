@@ -156,6 +156,55 @@ paths:
       x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
 components:
   schemas:
+    FindingsSummaryMetricResponseV1:
+      title: FindingsSummaryMetricResponse
+      type: object
+      properties:
+        latestFindingsCount:
+          type: integer
+          description: Number of findings in the current/latest analysis.
+          format: int32
+        findingsDifferenceCount:
+          type: integer
+          description: Change in findings count compared to the previous analysis.
+          format: int32
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     FindingsSummaryResponseV1:
       title: FindingsSummaryResponse
       type: object
@@ -213,55 +262,6 @@ components:
       - architecture
       - maintainability
       type: string
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    FindingsSummaryMetricResponseV1:
-      title: FindingsSummaryMetricResponse
-      type: object
-      properties:
-        latestFindingsCount:
-          type: integer
-          description: Number of findings in the current/latest analysis.
-          format: int32
-        findingsDifferenceCount:
-          type: integer
-          description: Change in findings count compared to the previous analysis.
-          format: int32
-      additionalProperties: false
     FindingSeverity:
       enum:
       - Low

@@ -152,98 +152,6 @@ paths:
       x-os-permissions: API Client needs the **Analyze > Manage code quality findings** permission.
 components:
   schemas:
-    CodeAnalysisStatusResponseV1:
-      title: CodeAnalysisStatusResponse
-      type: object
-      properties:
-        analysisKey:
-          type: string
-          format: uuid
-        status:
-          type:
-          - string
-          - 'null'
-        findings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RevisionFindingsResponseV1'
-        qualityScore:
-          type: number
-          format: double
-        summary:
-          title: FindingsSummary
-          allOf:
-          - $ref: '#/components/schemas/FindingsSummary'
-          description: Overview of Finding Summary by categories and severities
-      additionalProperties: false
-    CodeAnalysisResponseV1:
-      title: CodeAnalysisResponse
-      type: object
-      properties:
-        analysisKey:
-          type: string
-          format: uuid
-        status:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    AdhocAnalysisRequestV1:
-      title: CodeAnalysisRequest
-      required:
-      - assetKey
-      - assetRevision
-      type: object
-      properties:
-        assetKey:
-          minLength: 1
-          type: string
-          description: Unique identifier of the asset to analyze.
-          example: 12345678-1234-1234-1234-123456789abc
-        assetRevision:
-          maximum: 2147483647
-          minimum: 1
-          type: integer
-          description: Revision number of the asset to analyze.
-          format: int32
-          example: 42
-      additionalProperties: false
-    SeverityBreakdown:
-      title: SeverityBreakdown
-      type: object
-      properties:
-        lowSeverity:
-          type: integer
-          format: int64
-        mediumSeverity:
-          type: integer
-          format: int64
-        highSeverity:
-          type: integer
-          format: int64
-        criticalSeverity:
-          type: integer
-          format: int64
-      additionalProperties: false
-      description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-    ElementPath:
-      type: object
-      properties:
-        elementKey:
-          type:
-          - string
-          - 'null'
-        elementName:
-          type:
-          - string
-          - 'null'
-        elementType:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -280,6 +188,135 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    ElementPath:
+      type: object
+      properties:
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    AdhocAnalysisRequestV1:
+      title: CodeAnalysisRequest
+      required:
+      - assetKey
+      - assetRevision
+      type: object
+      properties:
+        assetKey:
+          minLength: 1
+          type: string
+          description: Unique identifier of the asset to analyze.
+          example: 12345678-1234-1234-1234-123456789abc
+        assetRevision:
+          maximum: 2147483647
+          minimum: 1
+          type: integer
+          description: Revision number of the asset to analyze.
+          format: int32
+          example: 42
+      additionalProperties: false
+    FindingsSummary:
+      title: FindingsSummary
+      type: object
+      properties:
+        categories:
+          title: CodeAnalysisCategories
+          allOf:
+          - $ref: '#/components/schemas/CodeAnalysisCategories'
+          description: Finding Counts for all analysis categories and severities
+      additionalProperties: false
+      description: Overview of Finding Summary by categories and severities
+    CodeAnalysisResponseV1:
+      title: CodeAnalysisResponse
+      type: object
+      properties:
+        analysisKey:
+          type: string
+          format: uuid
+        status:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SeverityBreakdown:
+      title: SeverityBreakdown
+      type: object
+      properties:
+        lowSeverity:
+          type: integer
+          format: int64
+        mediumSeverity:
+          type: integer
+          format: int64
+        highSeverity:
+          type: integer
+          format: int64
+        criticalSeverity:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+    CodeAnalysisCategories:
+      title: CodeAnalysisCategories
+      type: object
+      properties:
+        security:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        performance:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        architecture:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        maintainability:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+      additionalProperties: false
+      description: Finding Counts for all analysis categories and severities
+    CodeAnalysisStatusResponseV1:
+      title: CodeAnalysisStatusResponse
+      type: object
+      properties:
+        analysisKey:
+          type: string
+          format: uuid
+        status:
+          type:
+          - string
+          - 'null'
+        findings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RevisionFindingsResponseV1'
+        qualityScore:
+          type: number
+          format: double
+        summary:
+          title: FindingsSummary
+          allOf:
+          - $ref: '#/components/schemas/FindingsSummary'
+          description: Overview of Finding Summary by categories and severities
+      additionalProperties: false
     RevisionFindingsResponseV1:
       title: RevisionFindingsResponse
       type: object
@@ -385,43 +422,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    CodeAnalysisCategories:
-      title: CodeAnalysisCategories
-      type: object
-      properties:
-        security:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-        performance:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-        architecture:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-        maintainability:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-      additionalProperties: false
-      description: Finding Counts for all analysis categories and severities
-    FindingsSummary:
-      title: FindingsSummary
-      type: object
-      properties:
-        categories:
-          title: CodeAnalysisCategories
-          allOf:
-          - $ref: '#/components/schemas/CodeAnalysisCategories'
-          description: Finding Counts for all analysis categories and severities
-      additionalProperties: false
-      description: Overview of Finding Summary by categories and severities
   securitySchemes:
     bearerAuth:
       type: http

@@ -216,30 +216,6 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Manage private gateways** permission for the target environment (stage).
 components:
   schemas:
-    ServerHealth:
-      enum:
-      - Healthy
-      - Unhealthy
-      type: string
-    SecureGateway:
-      type: object
-      properties:
-        serverActive:
-          type: boolean
-          description: Indicates if the private gateway service is active.
-        serverHealth:
-          allOf:
-          - $ref: '#/components/schemas/ServerHealth'
-          description: Indicates the health status of the private gateway.
-        isDeactivating:
-          type: boolean
-          description: Indicates if the private gateway is in the process of deactivating.
-        url:
-          type:
-          - string
-          - 'null'
-          description: The url value to connect to the private gateway.
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -276,6 +252,30 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    SecureGateway:
+      type: object
+      properties:
+        serverActive:
+          type: boolean
+          description: Indicates if the private gateway service is active.
+        serverHealth:
+          allOf:
+          - $ref: '#/components/schemas/ServerHealth'
+          description: Indicates the health status of the private gateway.
+        isDeactivating:
+          type: boolean
+          description: Indicates if the private gateway is in the process of deactivating.
+        url:
+          type:
+          - string
+          - 'null'
+          description: The url value to connect to the private gateway.
+      additionalProperties: false
+    ServerHealth:
+      enum:
+      - Healthy
+      - Unhealthy
+      type: string
     SecureGatewayToken:
       type: object
       properties:

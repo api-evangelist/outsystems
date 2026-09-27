@@ -387,38 +387,68 @@ paths:
       x-os-permissions: You need the **Asset management > Open** permission.
 components:
   schemas:
-    SecurityVulnerability:
+    GeneratedCodePackagingStatus:
+      enum:
+      - NotStarted
+      - Running
+      - Finished
+      - TimedOut
+      - Failed
+      type: string
+    ProblemDetails:
       type: object
       properties:
-        id:
+        type:
           type:
           - string
           - 'null'
-          description: The Id the vulnerability
-        severity:
+          description: A URI reference that identifies the problem type.
+        title:
           type:
           - string
           - 'null'
-          description: The Severity level of the vulnerability
-        details:
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
           type:
           - string
           - 'null'
-          description: The Link to the vulnerability description
-        publishedDate:
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
           type: string
-          description: The Published date of the vulnerability
-          format: date-time
-      additionalProperties: false
-      description: Security Vulnerability
-    GeneratedCodePackagingResponse:
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    BuildResponse:
       type: object
       properties:
+        buildKey:
+          type: string
+          description: A unique identifier generated for the Build. Can be used to retrieve or outputs the status of associated build.
+          format: uuid
         isSuccessful:
           type: boolean
-          description: Indicates whether the packaging was initiated successfully.
+          description: Signals whether the build start successfully
       additionalProperties: false
-      description: Represents the response from initiating the packaging of a build's generated code.
+      description: The response of a build request
+    BuildType:
+      enum:
+      - Debug
+      - Release
+      type: string
+      description: The type of build
     GeneratedCodePackageResponse:
       type: object
       properties:
@@ -440,6 +470,101 @@ components:
           description: The list of errors that occurred while packaging.
       additionalProperties: false
       description: Represents the result of packaging a build's generated code.
+    GeneratedCodePackagingResponse:
+      type: object
+      properties:
+        isSuccessful:
+          type: boolean
+          description: Indicates whether the packaging was initiated successfully.
+      additionalProperties: false
+      description: Represents the response from initiating the packaging of a build's generated code.
+    SecurityVulnerabilities:
+      type: object
+      properties:
+        vulnerabilities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SecurityVulnerability'
+          description: A list of the security vulnerabilities
+      additionalProperties: false
+      description: Security Vulnerabilities
+    BuildFeedbackDetails:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: The timestamp representing the instant when the message was issued
+          format: date-time
+        type:
+          type:
+          - string
+          - 'null'
+          description: An identifier for the message
+        severity:
+          type:
+          - string
+          - 'null'
+          description: 'The severity of the message: Error, Info, Warning, etc.'
+        message:
+          type:
+          - string
+          - 'null'
+          description: The content of the message
+        stepId:
+          type:
+          - string
+          - 'null'
+          description: The identifier of the stage the message corresponds to
+        assetKey:
+          type: string
+          description: The key of the application being processed by the build
+          format: uuid
+        errorCode:
+          type:
+          - string
+          - 'null'
+          description: A unique identifier for the error message
+      additionalProperties: false
+      description: A message issued during the build process
+    BuildOperationDetails:
+      type: object
+      properties:
+        assetKey:
+          type: string
+          description: Specifies the key of the asset to be built
+          format: uuid
+        assetRevision:
+          type: integer
+          description: Specifies the revision of the asset to be built
+          format: int32
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/BuildType'
+          description: 'Specifies the type of build to be created. Accepts: ''Debug'' or ''Release'''
+          default: Debug
+      additionalProperties: false
+      description: The specification of a build request
+    GeneratedCodePackagingError:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: The timestamp representing the instant when the message was issued
+          format: date-time
+        severity:
+          type:
+          - string
+          - 'null'
+          description: 'The severity of the error: Error, Info, Warning, etc.'
+        message:
+          type:
+          - string
+          - 'null'
+          description: The content of the error
+      additionalProperties: false
+      description: A message issued during the packaging of a build's generated code
     BuildDetailsBuildListResponse:
       type: object
       properties:
@@ -452,6 +577,27 @@ components:
           description: The list of builds
       additionalProperties: false
       description: The list of builds that match provided criteria
+    BuildStatus:
+      enum:
+      - Pending
+      - Finished
+      - FinishedWithErrors
+      - Running
+      - Deleted
+      - ToBeDeleted
+      type: string
+    BuildFeedbackDetailsResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BuildFeedbackDetails'
+          description: The messages issued during a build
+      additionalProperties: false
+      description: All messages issued during a build
     BuildDetails:
       required:
       - assetKey
@@ -503,176 +649,30 @@ components:
           description: The Security audit with list of security vulnerabilities
       additionalProperties: false
       description: The status of a particular build
-    SecurityVulnerabilities:
+    SecurityVulnerability:
       type: object
       properties:
-        vulnerabilities:
+        id:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/SecurityVulnerability'
-          description: A list of the security vulnerabilities
-      additionalProperties: false
-      description: Security Vulnerabilities
-    BuildResponse:
-      type: object
-      properties:
-        buildKey:
-          type: string
-          description: A unique identifier generated for the Build. Can be used to retrieve or outputs the status of associated build.
-          format: uuid
-        isSuccessful:
-          type: boolean
-          description: Signals whether the build start successfully
-      additionalProperties: false
-      description: The response of a build request
-    BuildOperationDetails:
-      type: object
-      properties:
-        assetKey:
-          type: string
-          description: Specifies the key of the asset to be built
-          format: uuid
-        assetRevision:
-          type: integer
-          description: Specifies the revision of the asset to be built
-          format: int32
-        buildType:
-          allOf:
-          - $ref: '#/components/schemas/BuildType'
-          description: 'Specifies the type of build to be created. Accepts: ''Debug'' or ''Release'''
-          default: Debug
-      additionalProperties: false
-      description: The specification of a build request
-    GeneratedCodePackagingError:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: The timestamp representing the instant when the message was issued
-          format: date-time
+          description: The Id the vulnerability
         severity:
           type:
           - string
           - 'null'
-          description: 'The severity of the error: Error, Info, Warning, etc.'
-        message:
+          description: The Severity level of the vulnerability
+        details:
           type:
           - string
           - 'null'
-          description: The content of the error
-      additionalProperties: false
-      description: A message issued during the packaging of a build's generated code
-    BuildFeedbackDetailsResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BuildFeedbackDetails'
-          description: The messages issued during a build
-      additionalProperties: false
-      description: All messages issued during a build
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
+          description: The Link to the vulnerability description
+        publishedDate:
           type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    BuildType:
-      enum:
-      - Debug
-      - Release
-      type: string
-      description: The type of build
-    BuildFeedbackDetails:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: The timestamp representing the instant when the message was issued
+          description: The Published date of the vulnerability
           format: date-time
-        type:
-          type:
-          - string
-          - 'null'
-          description: An identifier for the message
-        severity:
-          type:
-          - string
-          - 'null'
-          description: 'The severity of the message: Error, Info, Warning, etc.'
-        message:
-          type:
-          - string
-          - 'null'
-          description: The content of the message
-        stepId:
-          type:
-          - string
-          - 'null'
-          description: The identifier of the stage the message corresponds to
-        assetKey:
-          type: string
-          description: The key of the application being processed by the build
-          format: uuid
-        errorCode:
-          type:
-          - string
-          - 'null'
-          description: A unique identifier for the error message
       additionalProperties: false
-      description: A message issued during the build process
-    GeneratedCodePackagingStatus:
-      enum:
-      - NotStarted
-      - Running
-      - Finished
-      - TimedOut
-      - Failed
-      type: string
-    BuildStatus:
-      enum:
-      - Pending
-      - Finished
-      - FinishedWithErrors
-      - Running
-      - Deleted
-      - ToBeDeleted
-      type: string
+      description: Security Vulnerability
   securitySchemes:
     bearerAuth:
       type: http
