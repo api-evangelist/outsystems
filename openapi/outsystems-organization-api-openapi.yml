@@ -195,63 +195,6 @@ paths:
       x-os-permissions: API Client needs the **Subscriptions > View subscription** permission.
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    UsageDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp for this data point.
-          format: date-time
-        value:
-          type:
-          - number
-          - 'null'
-          description: Usage value at this timestamp.
-          format: double
-        cumulativeValue:
-          type:
-          - number
-          - 'null'
-          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
-          format: double
-      additionalProperties: false
-      description: Represents a single data point in a usage time series.
     EntitlementUsageItemListResponse:
       type: object
       properties:
@@ -264,155 +207,6 @@ components:
           description: List of results.
       additionalProperties: false
       description: Represents a response containing a list of results.
-    Addon:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Internal name (internal identifier of the Add-on, visible in APIs only).
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the Add-on.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the Add-on that explains the purpose.
-        documentationUrl:
-          type:
-          - string
-          - 'null'
-          description: Documentation URL for the Add-on.
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/DataType'
-          description: Data type of the value associated with the addon, one of ["bool", "float", "str", "int"].
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value associated with the Add-on. A null value means not subscribed.
-        startDate:
-          type:
-          - string
-          - 'null'
-          description: Date when the Add-on starts to be available.
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: Date when the Add-on expires (e.g. trials or time-bound Add-ons).
-        unit:
-          type:
-          - string
-          - 'null'
-          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
-      additionalProperties: false
-      description: Represents the Add-on information.
-    OrganizationConfigurations:
-      type: object
-      properties:
-        areAllEmailDomainsInternal:
-          type: boolean
-          description: Defines whether all email user domains are internal or not
-        internalEmailDomains:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of email user domains to be considered as internal
-      additionalProperties: false
-      description: Represents the configurations for the Organization.
-    DataType:
-      enum:
-      - Bool
-      - Float
-      - Str
-      - Int
-      type: string
-      description: Data type of the value of an addon or entitlement.
-    EntitlementUsageItem:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Entitlement identifier (e.g., "applicationObjects").
-        name:
-          type:
-          - string
-          - 'null'
-          description: Human-readable name of the entitlement.
-        aggregation:
-          type:
-          - string
-          - 'null'
-          description: Aggregation function applied (e.g., "avg", "max", "total").
-        lastUpdatedDate:
-          type:
-          - string
-          - 'null'
-          description: Last time this usage data was updated.
-          format: date-time
-        usage:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UsageDataPoint'
-          description: Time series of usage data points.
-      additionalProperties: false
-      description: Represents usage data for a single entitlement type.
-    Entitlement:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Internal identifier of the entitlement, visible in APIs only.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the entitlement.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the entitlement.
-        documentationUrl:
-          type:
-          - string
-          - 'null'
-          description: Entitlement documentation URL.
-        value:
-          type:
-          - string
-          - 'null'
-          description: A value that is assigned to the entitlement, overriding the default value.
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/DataType'
-          description: Data type of the value associated with the entitlement , one of ["bool", "float", "str", "int"].
-        unit:
-          type:
-          - string
-          - 'null'
-          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
-        kind:
-          type:
-          - string
-          - 'null'
-          description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
-      additionalProperties: false
-      description: Represents the Entitlement information.
     OrganizationEntitlements:
       type: object
       properties:
@@ -464,6 +258,212 @@ components:
           description: Collection of the entitlements the organization is entitled to.
       additionalProperties: false
       description: Represents the entitlements present in an organization
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    Entitlement:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Internal identifier of the entitlement, visible in APIs only.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the entitlement.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the entitlement.
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+          description: Entitlement documentation URL.
+        value:
+          type:
+          - string
+          - 'null'
+          description: A value that is assigned to the entitlement, overriding the default value.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType'
+          description: Data type of the value associated with the entitlement , one of ["bool", "float", "str", "int"].
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+        kind:
+          type:
+          - string
+          - 'null'
+          description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
+      additionalProperties: false
+      description: Represents the Entitlement information.
+    EntitlementUsageItem:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Entitlement identifier (e.g., "applicationObjects").
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the entitlement.
+        aggregation:
+          type:
+          - string
+          - 'null'
+          description: Aggregation function applied (e.g., "avg", "max", "total").
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: Last time this usage data was updated.
+          format: date-time
+        usage:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UsageDataPoint'
+          description: Time series of usage data points.
+      additionalProperties: false
+      description: Represents usage data for a single entitlement type.
+    UsageDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp for this data point.
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value at this timestamp.
+          format: double
+        cumulativeValue:
+          type:
+          - number
+          - 'null'
+          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
+          format: double
+      additionalProperties: false
+      description: Represents a single data point in a usage time series.
+    OrganizationConfigurations:
+      type: object
+      properties:
+        areAllEmailDomainsInternal:
+          type: boolean
+          description: Defines whether all email user domains are internal or not
+        internalEmailDomains:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of email user domains to be considered as internal
+      additionalProperties: false
+      description: Represents the configurations for the Organization.
+    Addon:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Internal name (internal identifier of the Add-on, visible in APIs only).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the Add-on.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the Add-on that explains the purpose.
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+          description: Documentation URL for the Add-on.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType'
+          description: Data type of the value associated with the addon, one of ["bool", "float", "str", "int"].
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value associated with the Add-on. A null value means not subscribed.
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on starts to be available.
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on expires (e.g. trials or time-bound Add-ons).
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+      additionalProperties: false
+      description: Represents the Add-on information.
+    DataType:
+      enum:
+      - Bool
+      - Float
+      - Str
+      - Int
+      type: string
+      description: Data type of the value of an addon or entitlement.
   securitySchemes:
     bearerAuth:
       type: http

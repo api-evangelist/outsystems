@@ -983,6 +983,58 @@ paths:
           description: The domain of your organization
 components:
   schemas:
+    LibraryConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: The revision of the library being patched
+          format: int32
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: System Configurations for the Environment configurations
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: Settings of the application
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationPatch'
+          description: Integration configurations
+      additionalProperties: false
+    TimerPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: List of configurations properties to patch
+      additionalProperties: false
     IntegrationPatch:
       type: object
       properties:
@@ -999,6 +1051,68 @@ components:
             $ref: '#/components/schemas/GenericConfigPatch'
           description: List of configurations properties to patch
       additionalProperties: false
+    TimerResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the Timer configuration
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: List of configurations properties
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     AgentConfigResult:
       type: object
       properties:
@@ -1058,85 +1172,6 @@ components:
           - 'null'
           description: Date of the last deployment of the configuration
           format: date-time
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    AgentConfigPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        revisionBaseline:
-          type:
-          - integer
-          - 'null'
-          description: The asset's revision.
-          format: int32
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: The asset's settings.
-        timers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TimerPatch'
-          description: Timer configurations
-        integrations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IntegrationPatch'
-          description: Integration configurations
-        libraries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LibraryConfigPatch'
-          description: Libraries configurations
       additionalProperties: false
     ApplicationConfigResult:
       type: object
@@ -1205,7 +1240,16 @@ components:
             $ref: '#/components/schemas/GenericConfigResult'
           description: System Configurations for the Environment configurations
       additionalProperties: false
-    LibraryConfigPatch:
+    Origin:
+      enum:
+      - EnvironmentLevelOverride
+      - EnvironmentLevelDefault
+      - ApplicationLevelOverride
+      - ApplicationLevelDefault
+      - LibraryLevelOverride
+      - LibraryLevelDefault
+      type: string
+    AgentConfigPatch:
       type: object
       properties:
         key:
@@ -1213,26 +1257,26 @@ components:
           - string
           - 'null'
           description: The key identifier of the configuration
-        revision:
+        revisionBaseline:
           type:
           - integer
           - 'null'
-          description: The revision of the library being patched
+          description: The asset's revision.
           format: int32
-        systemConfigurations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: System Configurations for the Environment configurations
         settings:
           type:
           - array
           - 'null'
           items:
             $ref: '#/components/schemas/GenericConfigPatch'
-          description: Settings of the application
+          description: The asset's settings.
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerPatch'
+          description: Timer configurations
         integrations:
           type:
           - array
@@ -1240,6 +1284,146 @@ components:
           items:
             $ref: '#/components/schemas/IntegrationPatch'
           description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigPatch'
+          description: Libraries configurations
+      additionalProperties: false
+    GenericConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key of the value being changed
+        value:
+          type:
+          - string
+          - 'null'
+          description: The new value
+        filename:
+          type:
+          - string
+          - 'null'
+          description: For binary values, the original file name, to be stored
+      additionalProperties: false
+    EnvironmentConfigResult:
+      type: object
+      properties:
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: System Configurations for the Environment configurations
+      additionalProperties: false
+    ApplicationConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: The asset's revision.
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: The asset's settings.
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerPatch'
+          description: Timer configurations
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationPatch'
+          description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigPatch'
+          description: Libraries configurations
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: System Configurations for the Environment configurations
+      additionalProperties: false
+    IntegrationResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        pluginType:
+          type:
+          - string
+          - 'null'
+          description: 'The type of the Integration used (e.g: RestConsumer, RestExpose)'
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: List of configurations properties
+      additionalProperties: false
+    DataType:
+      enum:
+      - Text
+      - Integer
+      - LongInteger
+      - Decimal
+      - Boolean
+      - DateTime
+      - Date
+      - Time
+      - PhoneNumber
+      - Email
+      - Currency
+      - EntityIdentifierType
+      - BinaryUrl
+      type: string
+    EnvironmentConfigPatch:
+      type: object
+      properties:
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: System Configurations for the Environment configurations
       additionalProperties: false
     GenericConfigResult:
       type: object
@@ -1306,171 +1490,6 @@ components:
           - 'null'
           description: For binary values, the original file name
       additionalProperties: false
-    EnvironmentConfigPatch:
-      type: object
-      properties:
-        systemConfigurations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: System Configurations for the Environment configurations
-      additionalProperties: false
-    Origin:
-      enum:
-      - EnvironmentLevelOverride
-      - EnvironmentLevelDefault
-      - ApplicationLevelOverride
-      - ApplicationLevelDefault
-      - LibraryLevelOverride
-      - LibraryLevelDefault
-      type: string
-    ApplicationConfigPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        revisionBaseline:
-          type:
-          - integer
-          - 'null'
-          description: The asset's revision.
-          format: int32
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: The asset's settings.
-        timers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TimerPatch'
-          description: Timer configurations
-        integrations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IntegrationPatch'
-          description: Integration configurations
-        libraries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LibraryConfigPatch'
-          description: Libraries configurations
-        systemConfigurations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: System Configurations for the Environment configurations
-      additionalProperties: false
-    DataType:
-      enum:
-      - Text
-      - Integer
-      - LongInteger
-      - Decimal
-      - Boolean
-      - DateTime
-      - Date
-      - Time
-      - PhoneNumber
-      - Email
-      - Currency
-      - EntityIdentifierType
-      - BinaryUrl
-      type: string
-    EnvironmentConfigResult:
-      type: object
-      properties:
-        systemConfigurations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: System Configurations for the Environment configurations
-      additionalProperties: false
-    TimerPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        configs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: List of configurations properties to patch
-      additionalProperties: false
-    TimerResult:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the configuration
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the Timer configuration
-        configs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: List of configurations properties
-      additionalProperties: false
-    IntegrationResult:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the configuration
-        pluginType:
-          type:
-          - string
-          - 'null'
-          description: 'The type of the Integration used (e.g: RestConsumer, RestExpose)'
-        configs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: List of configurations properties
-      additionalProperties: false
     LibraryConfigResult:
       type: object
       properties:
@@ -1518,25 +1537,6 @@ components:
             $ref: '#/components/schemas/IntegrationResult'
           description: Integration configurations
       additionalProperties: false
-    GenericConfigPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key of the value being changed
-        value:
-          type:
-          - string
-          - 'null'
-          description: The new value
-        filename:
-          type:
-          - string
-          - 'null'
-          description: For binary values, the original file name, to be stored
-      additionalProperties: false
     ProblemDetails_2:
       type: object
       properties:
@@ -1573,29 +1573,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    UpdateEnvironmentRequest:
-      required:
-      - key
-      type: object
-      properties:
-        key:
-          type: string
-          description: The environment key to update
-          format: uuid
-        name:
-          maxLength: 50
-          minLength: 1
-          type:
-          - string
-          - 'null'
-          description: Optional new environment name (min 1, max 50 characters)
-        order:
-          type:
-          - integer
-          - 'null'
-          description: Optional new environment order
-          format: int32
-      description: Request to update environment properties
     SelfHostedStateKind:
       enum:
       - Pending
@@ -1620,29 +1597,6 @@ components:
           description: List of results.
       additionalProperties: false
       description: Represents a response containing a list of results.
-    EnvironmentPurpose:
-      enum:
-      - Development
-      - NonProduction
-      - Production
-      type: string
-    PatchEnvironmentRequest:
-      type: object
-      properties:
-        name:
-          maxLength: 50
-          minLength: 1
-          type:
-          - string
-          - 'null'
-          description: Optional new environment name (min 1, max 50 characters)
-        order:
-          type:
-          - integer
-          - 'null'
-          description: Optional new environment order
-          format: int32
-      description: Request to update a single environment's properties
     Environment:
       type: object
       properties:
@@ -1710,6 +1664,64 @@ components:
           description: List of environment updates to apply
       additionalProperties: false
       description: Batch request to update multiple environments
+    UpdateEnvironmentRequest:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          type: string
+          description: The environment key to update
+          format: uuid
+        name:
+          maxLength: 50
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Optional new environment name (min 1, max 50 characters)
+        order:
+          type:
+          - integer
+          - 'null'
+          description: Optional new environment order
+          format: int32
+      description: Request to update environment properties
+    EnvironmentPurpose:
+      enum:
+      - Development
+      - NonProduction
+      - Production
+      type: string
+    PatchEnvironmentRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Optional new environment name (min 1, max 50 characters)
+        order:
+          type:
+          - integer
+          - 'null'
+          description: Optional new environment order
+          format: int32
+      description: Request to update a single environment's properties
+    EntitlementUsageItemListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EntitlementUsageItem'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
     EnvironmentEntitlements:
       type: object
       properties:
@@ -1729,57 +1741,6 @@ components:
           description: List of entitlements in an environment
       additionalProperties: false
       description: Represents the entitlements present in an environment
-    UnifiedEntitlementAssetRow:
-      type: object
-      properties:
-        assetKey:
-          type:
-          - string
-          - 'null'
-          description: Asset unique identifier (GUID).
-        name:
-          type:
-          - string
-          - 'null'
-          description: Asset name.
-        assetType:
-          type:
-          - string
-          - 'null'
-          description: Asset type (e.g., "Application", "Library").
-        value:
-          type:
-          - number
-          - 'null'
-          description: Aggregated usage value for this asset.
-          format: double
-        revision:
-          type:
-          - integer
-          - 'null'
-          description: Asset revision number.
-          format: int32
-        details:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UnifiedEntitlementDetailRow'
-          description: Detail-level breakdown within this asset's entitlement usage.
-      additionalProperties: false
-      description: Represents a single asset row with entitlement usage value.
-    EntitlementUsageItemListResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/EntitlementUsageItem'
-          description: List of results.
-      additionalProperties: false
-      description: Represents a response containing a list of results.
     Entitlement:
       type: object
       properties:
@@ -1824,6 +1785,157 @@ components:
           description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
       additionalProperties: false
       description: Represents the Entitlement information.
+    EntitlementUsageItem:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Entitlement identifier (e.g., "applicationObjects").
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the entitlement.
+        aggregation:
+          type:
+          - string
+          - 'null'
+          description: Aggregation function applied (e.g., "avg", "max", "total").
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: Last time this usage data was updated.
+          format: date-time
+        usage:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UsageDataPoint'
+          description: Time series of usage data points.
+      additionalProperties: false
+      description: Represents usage data for a single entitlement type.
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    UsageDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp for this data point.
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value at this timestamp.
+          format: double
+        cumulativeValue:
+          type:
+          - number
+          - 'null'
+          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
+          format: double
+      additionalProperties: false
+      description: Represents a single data point in a usage time series.
+    UnifiedEntitlementAssetRow:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset unique identifier (GUID).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Asset name.
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: Asset type (e.g., "Application", "Library").
+        value:
+          type:
+          - number
+          - 'null'
+          description: Aggregated usage value for this asset.
+          format: double
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: Asset revision number.
+          format: int32
+        details:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnifiedEntitlementDetailRow'
+          description: Detail-level breakdown within this asset's entitlement usage.
+      additionalProperties: false
+      description: Represents a single asset row with entitlement usage value.
+    DataType_2:
+      enum:
+      - Bool
+      - Float
+      - Str
+      - Int
+      type: string
+      description: Data type of the value of an addon or entitlement.
+    UnifiedEntitlementByAssetBlockPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnifiedEntitlementByAssetBlock'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
     Addon:
       type: object
       properties:
@@ -1873,46 +1985,6 @@ components:
           description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
       additionalProperties: false
       description: Represents the Add-on information.
-    DataType_2:
-      enum:
-      - Bool
-      - Float
-      - Str
-      - Int
-      type: string
-      description: Data type of the value of an addon or entitlement.
-    PageInfoWithTotals:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: Offset of the current page of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: Offset of the next page of results. Null when there is no next page.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total of results.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total of result pages.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      description: Contains response page information including totals.
     UnifiedEntitlementByAssetBlock:
       type: object
       properties:
@@ -1940,78 +2012,6 @@ components:
           description: Collection of assets with usage values for this entitlement.
       additionalProperties: false
       description: Represents usage data for a single entitlement type, with breakdown by assets.
-    EntitlementUsageItem:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Entitlement identifier (e.g., "applicationObjects").
-        name:
-          type:
-          - string
-          - 'null'
-          description: Human-readable name of the entitlement.
-        aggregation:
-          type:
-          - string
-          - 'null'
-          description: Aggregation function applied (e.g., "avg", "max", "total").
-        lastUpdatedDate:
-          type:
-          - string
-          - 'null'
-          description: Last time this usage data was updated.
-          format: date-time
-        usage:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UsageDataPoint'
-          description: Time series of usage data points.
-      additionalProperties: false
-      description: Represents usage data for a single entitlement type.
-    UsageDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp for this data point.
-          format: date-time
-        value:
-          type:
-          - number
-          - 'null'
-          description: Usage value at this timestamp.
-          format: double
-        cumulativeValue:
-          type:
-          - number
-          - 'null'
-          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
-          format: double
-      additionalProperties: false
-      description: Represents a single data point in a usage time series.
-    UnifiedEntitlementByAssetBlockPagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UnifiedEntitlementByAssetBlock'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
     UnifiedEntitlementDetailRow:
       type: object
       properties:

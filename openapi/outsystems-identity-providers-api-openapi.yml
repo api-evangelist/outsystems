@@ -129,6 +129,96 @@ paths:
       x-os-permissions: API client must have at least one permission.
 components:
   schemas:
+    ProviderSubtypeServiceModel:
+      enum:
+      - Custom
+      - AppleId
+      - Google
+      - Facebook
+      - LinkedIn
+      - OutSystems11
+      type: string
+    OidcConfigurationResponse:
+      type: object
+      properties:
+        discoveryUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets discovery url of the identity provider.
+        authorizationUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets authorization url of the identity provider.
+        tokenUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets token url of the identity provider.
+        userInfoUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets userInfo url of the identity provider.
+        logoutUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets logout url of the identity provider.
+        jwksUrl:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets json web key sets url of the identity provider.
+        issuer:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets issuer of the identity provider.
+        clientAuthenticationMethod:
+          allOf:
+          - $ref: '#/components/schemas/ClientAuthenticationMethodServiceModel'
+          description: Gets or sets client authentication method of the identity provider.
+        clientAssertionSigningAlgorithm:
+          allOf:
+          - $ref: '#/components/schemas/ClientAssertionSigningAlgorithmServiceModel'
+          description: Gets or sets client assertation signing algorithm of the identity provider.
+        scopes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Gets or sets list of scopes supported by the identity provider.
+        clientId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets client id provided by the identity provider.
+        clientSecret:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets client secret provided by the identity provider.
+        usePkce:
+          type: boolean
+          description: Gets or sets a value indicating whether true if authorization code flow should be used.
+        pkceMethod:
+          enum:
+          - plain
+          - S256
+          allOf:
+          - $ref: '#/components/schemas/PkceMethodServiceModel'
+          description: Gets or sets pkceMethod of the identity provider.
+        providerCustomConfig:
+          allOf:
+          - $ref: '#/components/schemas/ProviderCustomConfigModel'
+          description: Gets or sets ProviderCustomConfig of the identity provider.
+        suppressNonceVerification:
+          type: boolean
+          description: Gets or sets a value indicating whether gets or Sets the field SuppressNonceVerification.
+      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -165,27 +255,26 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    SamlConfigurationItemModel:
+    EmailTrustTypeServiceModel:
+      enum:
+      - None
+      - EmailVerifiedClaim
+      - All
+      type: string
+    ProviderCustomConfigModel:
       type: object
       properties:
-        configName:
+        keyId:
           type:
           - string
           - 'null'
-          description: Gets or sets the ConfigName value.
-        configValue:
+          description: Gets or sets the KeyId value.
+        teamId:
           type:
           - string
           - 'null'
-          description: Gets or sets the ConfigValue value.
+          description: Gets or sets the TeamId value.
       additionalProperties: false
-    ClientAuthenticationMethodServiceModel:
-      enum:
-      - client_secret_post
-      - client_secret_basic
-      - client_secret_jwt
-      - private_key_jwt
-      type: string
     ClientAssertionSigningAlgorithmServiceModel:
       enum:
       - ES256
@@ -283,21 +372,6 @@ components:
           - $ref: '#/components/schemas/ProfileLinkingFieldServiceModel'
           description: Gets or sets the profile linking field.
       additionalProperties: false
-    ProviderSubtypeServiceModel:
-      enum:
-      - Custom
-      - AppleId
-      - Google
-      - Facebook
-      - LinkedIn
-      - OutSystems11
-      type: string
-    EmailTrustTypeServiceModel:
-      enum:
-      - None
-      - EmailVerifiedClaim
-      - All
-      type: string
     IdentityProviderResponsePaginatedResponseApi:
       type: object
       properties:
@@ -313,110 +387,57 @@ components:
           - $ref: '#/components/schemas/PageInfoWithTotalsApi'
           description: The details of the page information.
       additionalProperties: false
-    OidcConfigurationResponse:
-      type: object
-      properties:
-        discoveryUrl:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets discovery url of the identity provider.
-        authorizationUrl:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets authorization url of the identity provider.
-        tokenUrl:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets token url of the identity provider.
-        userInfoUrl:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets userInfo url of the identity provider.
-        logoutUrl:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets logout url of the identity provider.
-        jwksUrl:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets json web key sets url of the identity provider.
-        issuer:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets issuer of the identity provider.
-        clientAuthenticationMethod:
-          allOf:
-          - $ref: '#/components/schemas/ClientAuthenticationMethodServiceModel'
-          description: Gets or sets client authentication method of the identity provider.
-        clientAssertionSigningAlgorithm:
-          allOf:
-          - $ref: '#/components/schemas/ClientAssertionSigningAlgorithmServiceModel'
-          description: Gets or sets client assertation signing algorithm of the identity provider.
-        scopes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Gets or sets list of scopes supported by the identity provider.
-        clientId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets client id provided by the identity provider.
-        clientSecret:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets client secret provided by the identity provider.
-        usePkce:
-          type: boolean
-          description: Gets or sets a value indicating whether true if authorization code flow should be used.
-        pkceMethod:
-          enum:
-          - plain
-          - S256
-          allOf:
-          - $ref: '#/components/schemas/PkceMethodServiceModel'
-          description: Gets or sets pkceMethod of the identity provider.
-        providerCustomConfig:
-          allOf:
-          - $ref: '#/components/schemas/ProviderCustomConfigModel'
-          description: Gets or sets ProviderCustomConfig of the identity provider.
-        suppressNonceVerification:
-          type: boolean
-          description: Gets or sets a value indicating whether gets or Sets the field SuppressNonceVerification.
-      additionalProperties: false
-    ProviderCustomConfigModel:
-      type: object
-      properties:
-        keyId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the KeyId value.
-        teamId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the TeamId value.
-      additionalProperties: false
     PkceMethodServiceModel:
       enum:
       - plain
       - S256
       type: string
-    HostingServiceModel:
+    ProfileLinkingFieldServiceModel:
       enum:
-      - oscloud
-      - selfhosted
+      - Email
+      - Username
+      - None
+      type: string
+    SamlConfigurationItemModel:
+      type: object
+      properties:
+        configName:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the ConfigName value.
+        configValue:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the ConfigValue value.
+      additionalProperties: false
+    ClientAuthenticationMethodServiceModel:
+      enum:
+      - client_secret_post
+      - client_secret_basic
+      - client_secret_jwt
+      - private_key_jwt
+      type: string
+    TokenNormalizationModel:
+      type: object
+      properties:
+        normalClaim:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the NormalClaim value.
+        foreignClaim:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the ForeignClaim value.
+      additionalProperties: false
+    ProviderTypeServiceModel:
+      enum:
+      - OIDC
+      - SAML
+      - Cognito
       type: string
     PageInfoWithTotalsApi:
       required:
@@ -458,31 +479,10 @@ components:
           format: int32
           readOnly: true
       additionalProperties: false
-    TokenNormalizationModel:
-      type: object
-      properties:
-        normalClaim:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the NormalClaim value.
-        foreignClaim:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the ForeignClaim value.
-      additionalProperties: false
-    ProfileLinkingFieldServiceModel:
+    HostingServiceModel:
       enum:
-      - Email
-      - Username
-      - None
-      type: string
-    ProviderTypeServiceModel:
-      enum:
-      - OIDC
-      - SAML
-      - Cognito
+      - oscloud
+      - selfhosted
       type: string
   securitySchemes:
     bearerAuth:

@@ -422,6 +422,66 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Manage custom domains** permission for the target environment (stage).
 components:
   schemas:
+    DomainPatchRequest:
+      type: object
+      properties:
+        defaultApplicationKey:
+          type:
+          - string
+          - 'null'
+          description: The application key to set as the default for the domain.
+          format: uuid
+        redirectOption:
+          allOf:
+          - $ref: '#/components/schemas/RedirectOption'
+          description: 'The type of redirect to use, enum of [Permanent, Temporary, None]
+
+            Default is Permanent (301) redirect.'
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    DomainPatchResponse:
+      type: object
+      properties:
+        domain:
+          allOf:
+          - $ref: '#/components/schemas/Domain'
+          description: The updated domain information after the patch operation
+      additionalProperties: false
     Domain:
       type: object
       properties:
@@ -468,77 +528,6 @@ components:
 
             Default is Permanent (301) redirect.'
       additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    PatchDefaultDomainRequest:
-      type: object
-      properties:
-        defaultDomain:
-          type:
-          - string
-          - 'null'
-          description: The default domain to set for the environment (stage).
-      additionalProperties: false
-    DomainPagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Domain'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    DomainPatchResponse:
-      type: object
-      properties:
-        domain:
-          allOf:
-          - $ref: '#/components/schemas/Domain'
-          description: The updated domain information after the patch operation
-      additionalProperties: false
     DomainCertificateStatus:
       enum:
       - Creating
@@ -550,73 +539,14 @@ components:
       - Expired
       - Active
       type: string
-    DomainRequest:
+    PatchDefaultDomainRequest:
       type: object
       properties:
-        hostname:
+        defaultDomain:
           type:
           - string
           - 'null'
-          description: The hostname for the new domain.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name for the new domain.
-      additionalProperties: false
-    RedirectOption:
-      enum:
-      - Permanent
-      - Temporary
-      - None
-      type: string
-      description: The type of redirect to use for domains.
-    DomainCertificate:
-      type: object
-      properties:
-        status:
-          allOf:
-          - $ref: '#/components/schemas/DomainCertificateStatus'
-          description: Current status of the certificate
-        cNameKey:
-          type:
-          - string
-          - 'null'
-          description: Key correlating CName with certificate
-        cNameValue:
-          type:
-          - string
-          - 'null'
-          description: CName correlated to certificate
-        renewalEligibility:
-          type: boolean
-          description: If it is renewable
-        statusErrorCode:
-          type:
-          - string
-          - 'null'
-          description: Associated error value for when the status is in Error
-        statusErrorMessage:
-          type:
-          - string
-          - 'null'
-          description: Associated error message for when the status is in Error
-      additionalProperties: false
-    DomainPatchRequest:
-      type: object
-      properties:
-        defaultApplicationKey:
-          type:
-          - string
-          - 'null'
-          description: The application key to set as the default for the domain.
-          format: uuid
-        redirectOption:
-          allOf:
-          - $ref: '#/components/schemas/RedirectOption'
-          description: 'The type of redirect to use, enum of [Permanent, Temporary, None]
-
-            Default is Permanent (301) redirect.'
+          description: The default domain to set for the environment (stage).
       additionalProperties: false
     PageInfoWithTotals:
       type: object
@@ -648,6 +578,69 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
+    DomainCertificate:
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/DomainCertificateStatus'
+          description: Current status of the certificate
+        cNameKey:
+          type:
+          - string
+          - 'null'
+          description: Key correlating CName with certificate
+        cNameValue:
+          type:
+          - string
+          - 'null'
+          description: CName correlated to certificate
+        renewalEligibility:
+          type: boolean
+          description: If it is renewable
+        statusErrorCode:
+          type:
+          - string
+          - 'null'
+          description: Associated error value for when the status is in Error
+        statusErrorMessage:
+          type:
+          - string
+          - 'null'
+          description: Associated error message for when the status is in Error
+      additionalProperties: false
+    DomainPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Domain'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    DomainRequest:
+      type: object
+      properties:
+        hostname:
+          type:
+          - string
+          - 'null'
+          description: The hostname for the new domain.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name for the new domain.
+      additionalProperties: false
     DefaultDomainResponse:
       type: object
       properties:
@@ -657,6 +650,13 @@ components:
           - 'null'
           description: The default domain for the given environment (stage).
       additionalProperties: false
+    RedirectOption:
+      enum:
+      - Permanent
+      - Temporary
+      - None
+      type: string
+      description: The type of redirect to use for domains.
   securitySchemes:
     bearerAuth:
       type: http

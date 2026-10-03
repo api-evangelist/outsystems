@@ -261,135 +261,24 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Edit asset configurations** permission.
 components:
   schemas:
-    ProblemDetails:
+    MobileFrameworkNullablePatchConfig:
       type: object
       properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    StringConfig:
-      required:
-      - dataType
-      type: object
-      properties:
-        isSecret:
-          type: boolean
-          description: Date string for date field was last updated
-          readOnly: true
-        lastUpdateDate:
-          type:
-          - string
-          - 'null'
-          description: Date string for date field was last updated
-          format: date-time
-        value:
-          type:
-          - string
-          - 'null'
-          description: Config Value
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/GenericConfigDataType'
-          description: Value data type
-      additionalProperties: false
-      description: Get request basic config value
-    IosBuildTypeNullableConfig:
-      required:
-      - dataType
-      type: object
-      properties:
-        isSecret:
-          type: boolean
-          description: Date string for date field was last updated
-          readOnly: true
-        lastUpdateDate:
-          type:
-          - string
-          - 'null'
-          description: Date string for date field was last updated
-          format: date-time
-        value:
-          allOf:
-          - $ref: '#/components/schemas/IosBuildType'
-          description: Config Value
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/GenericConfigDataType'
-          description: Value data type
-      additionalProperties: false
-      description: Get request basic config value
-    GenericConfigDataType:
-      enum:
-      - Text
-      - Integer
-      - LongInteger
-      - Decimal
-      - Boolean
-      - DateTime
-      - Date
-      - Time
-      - PhoneNumber
-      - Email
-      - Currency
-      - EntityIdentifierType
-      - BinaryUrl
-      type: string
-      description: Type of configuration
-    MobileFrameworkNullableConfig:
-      required:
-      - dataType
-      type: object
-      properties:
-        isSecret:
-          type: boolean
-          description: Date string for date field was last updated
-          readOnly: true
-        lastUpdateDate:
-          type:
-          - string
-          - 'null'
-          description: Date string for date field was last updated
-          format: date-time
         value:
           allOf:
           - $ref: '#/components/schemas/MobileFramework'
           description: Config Value
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/GenericConfigDataType'
-          description: Value data type
       additionalProperties: false
-      description: Get request basic config value
+      description: Patch request basic config value
+    IosBuildTypePatchConfig:
+      type: object
+      properties:
+        value:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildType'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
     IosBuildConfigurationRequest:
       type: object
       properties:
@@ -431,6 +320,50 @@ components:
           description: The framework that should be used when building mobile applications
       additionalProperties: false
       description: Request payload model for native IOS Build configurations
+    SecretConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          type:
+          - string
+          - 'null'
+          description: Null Value
+          readOnly: true
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+      additionalProperties: false
+      description: Get request secret config value
+    GenericConfigDataType:
+      enum:
+      - Text
+      - Integer
+      - LongInteger
+      - Decimal
+      - Boolean
+      - DateTime
+      - Date
+      - Time
+      - PhoneNumber
+      - Email
+      - Currency
+      - EntityIdentifierType
+      - BinaryUrl
+      type: string
+      description: Type of configuration
     AndroidBuildConfigurationRequest:
       type: object
       properties:
@@ -472,143 +405,6 @@ components:
           description: The framework that should be used when building mobile applications
       additionalProperties: false
       description: Result payload model for native Android Build configurations
-    IosBuildTypePatchConfig:
-      type: object
-      properties:
-        value:
-          allOf:
-          - $ref: '#/components/schemas/IosBuildType'
-          description: Config Value
-      additionalProperties: false
-      description: Patch request basic config value
-    IosBuildType:
-      enum:
-      - Development
-      - AppStore
-      - Adhoc
-      - InHouse
-      - Simulator
-      type: string
-      description: IOS Build type
-    SecretConfig:
-      required:
-      - dataType
-      type: object
-      properties:
-        lastUpdateDate:
-          type:
-          - string
-          - 'null'
-          description: Date string for date field was last updated
-          format: date-time
-        value:
-          type:
-          - string
-          - 'null'
-          description: Null Value
-          readOnly: true
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/GenericConfigDataType'
-          description: Value data type
-        isSecret:
-          type: boolean
-          description: Date string for date field was last updated
-          readOnly: true
-      additionalProperties: false
-      description: Get request secret config value
-    AndroidBuildTypeNullableConfig:
-      required:
-      - dataType
-      type: object
-      properties:
-        isSecret:
-          type: boolean
-          description: Date string for date field was last updated
-          readOnly: true
-        lastUpdateDate:
-          type:
-          - string
-          - 'null'
-          description: Date string for date field was last updated
-          format: date-time
-        value:
-          allOf:
-          - $ref: '#/components/schemas/AndroidBuildType'
-          description: Config Value
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/GenericConfigDataType'
-          description: Value data type
-      additionalProperties: false
-      description: Get request basic config value
-    StringPatchConfig:
-      type: object
-      properties:
-        value:
-          type:
-          - string
-          - 'null'
-          description: Config Value
-      additionalProperties: false
-      description: Patch request basic config value
-    AndroidBuildConfigurationResult:
-      required:
-      - alias
-      - aliasPassword
-      - appIdentifier
-      - buildType
-      - keystore
-      - keystoreName
-      - keystorePassword
-      - mabsVersion
-      - mobileFramework
-      type: object
-      properties:
-        keystore:
-          allOf:
-          - $ref: '#/components/schemas/SecretConfig'
-          description: Android Keystore Reference
-        keystoreName:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: Android Keystore Name
-        keystorePassword:
-          allOf:
-          - $ref: '#/components/schemas/SecretConfig'
-          description: Android Keystore Password
-        alias:
-          allOf:
-          - $ref: '#/components/schemas/SecretConfig'
-          description: Android Alias
-        aliasPassword:
-          allOf:
-          - $ref: '#/components/schemas/SecretConfig'
-          description: Android Alias Password
-        appIdentifier:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: Application Identifier
-        buildType:
-          allOf:
-          - $ref: '#/components/schemas/AndroidBuildTypeNullableConfig'
-          description: Native Build Type
-        mabsVersion:
-          allOf:
-          - $ref: '#/components/schemas/StringConfig'
-          description: Mabs Version Number
-        mobileFramework:
-          allOf:
-          - $ref: '#/components/schemas/MobileFrameworkNullableConfig'
-          description: Mobile framework
-      additionalProperties: false
-      description: Request payload model for native Android Build configurations
-    MobileFramework:
-      enum:
-      - Capacitor
-      - Cordova
-      type: string
-      description: This enum is used to specify which framework should be used when building mobile applications
     IosBuildConfigurationResult:
       required:
       - appIdentifier
@@ -660,6 +456,90 @@ components:
           description: Mobile framework
       additionalProperties: false
       description: Result payload model for native IOS Build configurations
+    IosBuildTypeNullableConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          allOf:
+          - $ref: '#/components/schemas/IosBuildType'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
+    AndroidBuildType:
+      enum:
+      - Bundle
+      - Debug
+      - Release
+      type: string
+      description: Android Build type
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    MobileFramework:
+      enum:
+      - Capacitor
+      - Cordova
+      type: string
+      description: This enum is used to specify which framework should be used when building mobile applications
+    StringPatchConfig:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+          description: Config Value
+      additionalProperties: false
+      description: Patch request basic config value
     AndroidBuildTypePatchConfig:
       type: object
       properties:
@@ -669,22 +549,142 @@ components:
           description: Config Value
       additionalProperties: false
       description: Patch request basic config value
-    MobileFrameworkNullablePatchConfig:
+    MobileFrameworkNullableConfig:
+      required:
+      - dataType
       type: object
       properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
         value:
           allOf:
           - $ref: '#/components/schemas/MobileFramework'
           description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
       additionalProperties: false
-      description: Patch request basic config value
-    AndroidBuildType:
+      description: Get request basic config value
+    StringConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          type:
+          - string
+          - 'null'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
+    AndroidBuildConfigurationResult:
+      required:
+      - alias
+      - aliasPassword
+      - appIdentifier
+      - buildType
+      - keystore
+      - keystoreName
+      - keystorePassword
+      - mabsVersion
+      - mobileFramework
+      type: object
+      properties:
+        keystore:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Keystore Reference
+        keystoreName:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Android Keystore Name
+        keystorePassword:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Keystore Password
+        alias:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Alias
+        aliasPassword:
+          allOf:
+          - $ref: '#/components/schemas/SecretConfig'
+          description: Android Alias Password
+        appIdentifier:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Application Identifier
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildTypeNullableConfig'
+          description: Native Build Type
+        mabsVersion:
+          allOf:
+          - $ref: '#/components/schemas/StringConfig'
+          description: Mabs Version Number
+        mobileFramework:
+          allOf:
+          - $ref: '#/components/schemas/MobileFrameworkNullableConfig'
+          description: Mobile framework
+      additionalProperties: false
+      description: Request payload model for native Android Build configurations
+    IosBuildType:
       enum:
-      - Bundle
-      - Debug
-      - Release
+      - Development
+      - AppStore
+      - Adhoc
+      - InHouse
+      - Simulator
       type: string
-      description: Android Build type
+      description: IOS Build type
+    AndroidBuildTypeNullableConfig:
+      required:
+      - dataType
+      type: object
+      properties:
+        isSecret:
+          type: boolean
+          description: Date string for date field was last updated
+          readOnly: true
+        lastUpdateDate:
+          type:
+          - string
+          - 'null'
+          description: Date string for date field was last updated
+          format: date-time
+        value:
+          allOf:
+          - $ref: '#/components/schemas/AndroidBuildType'
+          description: Config Value
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/GenericConfigDataType'
+          description: Value data type
+      additionalProperties: false
+      description: Get request basic config value
   securitySchemes:
     bearerAuth:
       type: http

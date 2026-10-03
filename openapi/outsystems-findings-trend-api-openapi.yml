@@ -178,23 +178,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    FindingsTrendResponseV1ResultsResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FindingsTrendResponseV1'
-      additionalProperties: false
-    Categories:
-      enum:
-      - performance
-      - security
-      - architecture
-      - maintainability
-      type: string
     FindingsTrendResponseV1:
       title: FindingsTrendResponse
       type: object
@@ -244,6 +227,23 @@ components:
       - High
       - Critical
       type: string
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
+    FindingsTrendResponseV1ResultsResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FindingsTrendResponseV1'
+      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

@@ -168,36 +168,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    Portfolio:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The portfolio key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The portfolio name.
-        type:
-          type:
-          - string
-          - 'null'
-          description: The portfolio hosting type.
-        isMainPortfolio:
-          type: boolean
-          description: Indicates whether this is the main portfolio where system assets are installed.
-        nonProductionEnvironmentCount:
-          type:
-          - integer
-          - 'null'
-          description: Number of non-production environments in the portfolio. Null when not available.
-          format: int32
-      additionalProperties: false
-      description: Portfolio
     PatchPortfolioRequest:
       type: object
       properties:
@@ -244,6 +214,36 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
+    Portfolio:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The portfolio key.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The portfolio name.
+        type:
+          type:
+          - string
+          - 'null'
+          description: The portfolio hosting type.
+        isMainPortfolio:
+          type: boolean
+          description: Indicates whether this is the main portfolio where system assets are installed.
+        nonProductionEnvironmentCount:
+          type:
+          - integer
+          - 'null'
+          description: Number of non-production environments in the portfolio. Null when not available.
+          format: int32
+      additionalProperties: false
+      description: Portfolio
     PortfolioPagedListResponse:
       type: object
       properties:

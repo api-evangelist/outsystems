@@ -1802,100 +1802,7 @@ paths:
           description: The domain of your organization
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    PermissionType:
-      enum:
-      - AppDebug
-      - AppChange
-      - AppDelete
-      - AppUserView
-      - AppDeploy
-      - AppRelease
-      - AppMonitor
-      - AppMonitorUserInfo
-      - AppAccessManage
-      - CfgView
-      - AppCfgChange
-      - ConnConfig
-      - AppViewSourceCode
-      - AppGroupManage
-      - CodeQualityView
-      - CodeQualityManage
-      - UpdatesView
-      type: string
-    AssetRevisionV1ListResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssetRevisionV1'
-          description: List of results.
-      additionalProperties: false
-      description: Represents a response containing a list of results.
-    ApplicationType:
-      enum:
-      - WebApplication
-      - MobileApplication
-      - LowCodeLibrary
-      - ExtensionLibrary
-      - ExternalConnection
-      - ExternalLibrary
-      type: string
-      description: Enumeration of application types.
-    AssetSourceCode:
-      type: object
-      properties:
-        sourceCodeBinaryUrl:
-          type:
-          - string
-          - 'null'
-          description: URL to fetch the application source code
-        sourceCodeDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest of the sourcecode binary
-          format: uuid
-      additionalProperties: false
-    AssetReleaseNoteContent:
+    AssetReleaseNote:
       type: object
       properties:
         tag:
@@ -1903,146 +1810,11 @@ components:
           - string
           - 'null'
           description: The version tag that is associated with the revision, using the semantic versioning format (MAJOR.MINOR.PATCH).
-        content:
+        releaseNoteUrl:
           type:
           - string
           - 'null'
-          description: The release notes text content associated with the revision.
-      additionalProperties: false
-    AssetIcon:
-      type: object
-      properties:
-        iconUrl:
-          type:
-          - string
-          - 'null'
-          description: URL to fetch the application icon, if one is defined
-        iconDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest of the icon binary
-          format: uuid
-      additionalProperties: false
-    AssetRevisionV1:
-      required:
-      - assetKey
-      - name
-      type: object
-      properties:
-        assetKey:
-          minLength: 1
-          type: string
-          description: 'Asset key (format: guid).'
-        portfolioKey:
-          type:
-          - string
-          - 'null'
-          description: 'Key of the portfolio this asset belongs to (format: guid).'
-        revision:
-          type: integer
-          description: Revision number.
-          format: int32
-        name:
-          minLength: 1
-          type: string
-          description: Name of the asset.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the asset.
-        isExternal:
-          type: boolean
-          description: If an asset is installed by an external system
-        tag:
-          type:
-          - string
-          - 'null'
-          description: Version tag associated with this revision, in MAJOR.MINOR.PATCH format.
-        modelDigest:
-          type:
-          - string
-          - 'null'
-          description: 'Digest that allows checking if the asset model has any changes. (format: guid)'
-        clonedFromTemplateKey:
-          type:
-          - string
-          - 'null'
-          description: 'Key of the template used to generate the asset (format: guid).'
-        assetType:
-          type:
-          - string
-          - 'null'
-          description: Type of the owner asset
-        createdBy:
-          type:
-          - string
-          - 'null'
-          description: Identifier of whom or what tool created the revision
-        createdAt:
-          type: string
-          description: Timestamp when the revision was created.
-          format: date-time
-        commitMessage:
-          type:
-          - string
-          - 'null'
-          description: An optional commit message that can be populated by the user when creating or updating an asset version.
-        taggedBy:
-          type:
-          - string
-          - 'null'
-          description: Identifier of whom or what tool tagged the revision
-        taggedAt:
-          type:
-          - string
-          - 'null'
-          description: Asset Tagging Date Time
-          format: date-time
-        _embedded:
-          allOf:
-          - $ref: '#/components/schemas/AssetEmbeddingV1'
-          description: Embedded details for the asset
-      additionalProperties: false
-    AssetVersionPatchRequest:
-      type: object
-      properties:
-        tag:
-          type:
-          - string
-          - 'null'
-          description: 'SemVer tag to associate with the revision
-
-            Must exist and be of the “Major#.Minor#.Patch#” format'
-        releaseNotes:
-          type:
-          - string
-          - 'null'
-          description: The release notes associated with the asset. Can’t be present if no tag is set or provided.
-        commitMessage:
-          type:
-          - string
-          - 'null'
-          description: Commit message to associate with the revision, optional and can be null.
-      additionalProperties: false
-    AssetListFilter:
-      type: object
-      properties:
-        assetVersionFilters:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssetVersionFilter'
-          description: Filters which asset versions to retrieve
-        embeds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Extra embedded fields to include in the output, recognized values are [releaseNote, icon, sourceCode, signature, metadata]
+          description: URL to fetch the asset release note
       additionalProperties: false
     BaseAssetMetadata:
       type: object
@@ -2090,37 +1862,28 @@ components:
           type: boolean
           description: Indicates whether the asset is a built-in app.
       additionalProperties: false
-    AssetCreateFromTemplateRequest:
+    AssetRevisionV1ListResponse:
       type: object
       properties:
-        assetName:
+        results:
           type:
-          - string
+          - array
           - 'null'
-          description: Name of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template.
-        assetType:
-          type:
-          - string
-          - 'null'
-          description: 'Type of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template.
-
-            Recognized values are [WebApplication, MobileApplication, MobileLibrary, LowCodeLibrary, Agent, Workflow]'
-        templateKey:
-          type:
-          - string
-          - 'null'
-          description: Asset key to be used as template for the new asset, optional and can be null. To get the template key, use GET /assets and filter by template type (refer to the endpoint description)
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the asset. Optional and can be null.
-        iconBase64:
-          type:
-          - string
-          - 'null'
-          description: Base64 data containing the icon for the new asset. Optional and can be null.
+          items:
+            $ref: '#/components/schemas/AssetRevisionV1'
+          description: List of results.
       additionalProperties: false
+      description: Represents a response containing a list of results.
+    ApplicationType:
+      enum:
+      - WebApplication
+      - MobileApplication
+      - LowCodeLibrary
+      - ExtensionLibrary
+      - ExternalConnection
+      - ExternalLibrary
+      type: string
+      description: Enumeration of application types.
     AssetMetadata:
       type: object
       properties:
@@ -2172,100 +1935,21 @@ components:
           - 'null'
           description: An optional commit message that can be populated by the user when creating or updating an asset version.
       additionalProperties: false
-    AssetVersionCreationRequest:
+    AssetSourceCode:
       type: object
       properties:
-        tag:
+        sourceCodeBinaryUrl:
           type:
           - string
           - 'null'
-          description: 'SemVer tag to associate with the revision to be created.
-
-            Must not exist and be of the “Major#.Minor#.Patch#” format'
-        releaseNotes:
+          description: URL to fetch the application source code
+        sourceCodeDigest:
           type:
           - string
           - 'null'
-          description: The release notes associated with the asset. Can’t be present if no tag is provided.
-        skipSequentialVersionValidation:
-          type: boolean
-          description: If set to true, skips the sequential revision validation.
-        commitMessage:
-          type:
-          - string
-          - 'null'
-          description: An optional commit message that can be populated when creating or updating an asset version.
-        portfolioKey:
-          type:
-          - string
-          - 'null'
-          description: '(Optional) The key of the portfolio to associate the asset with.
-
-            For new assets: If not provided, uses the main portfolio.
-
-            For existing assets: If provided, must match existing portfolio or an error is returned.'
+          description: Digest of the sourcecode binary
           format: uuid
-        fileUri:
-          type:
-          - string
-          - 'null'
-          description: "(Optional) Allows providing application source code for the new version (OML or XIF formats are supported). \nIf an OML or XIF is provided, its key is used to associate to the correct application - The application key must always match the OML/XIF key"
-          format: uri
-        assetCreationDetails:
-          allOf:
-          - $ref: '#/components/schemas/AssetCreateFromTemplateRequest'
-          description: "(Optional) Allows providing a configuration to create a new asset as first revision, either from a template or as an empty OML \nOnly usable when the source file is not provided."
       additionalProperties: false
-    AssetRevisionV1PagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssetRevisionV1'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    PageInfoWithTotals:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: Offset of the current page of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: Offset of the next page of results. Null when there is no next page.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total of results.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total of result pages.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      description: Contains response page information including totals.
     ApplicationVersion:
       required:
       - applicationKey
@@ -2444,44 +2128,6 @@ components:
           format: date-time
       additionalProperties: false
       description: Represents a version of an application.
-    AssetReleaseNote:
-      type: object
-      properties:
-        tag:
-          type:
-          - string
-          - 'null'
-          description: The version tag that is associated with the revision, using the semantic versioning format (MAJOR.MINOR.PATCH).
-        releaseNoteUrl:
-          type:
-          - string
-          - 'null'
-          description: URL to fetch the asset release note
-      additionalProperties: false
-    AssetEmbeddingV1:
-      type: object
-      properties:
-        releaseNote:
-          allOf:
-          - $ref: '#/components/schemas/AssetReleaseNote'
-          description: Embedded Release Note
-        icon:
-          allOf:
-          - $ref: '#/components/schemas/AssetIcon'
-          description: Embedded Icon
-        sourceCode:
-          allOf:
-          - $ref: '#/components/schemas/AssetSourceCode'
-          description: Embedded SourceCode
-        signature:
-          allOf:
-          - $ref: '#/components/schemas/AssetSignature'
-          description: Embedded Signature
-        metadata:
-          allOf:
-          - $ref: '#/components/schemas/BaseAssetMetadata'
-          description: Embedded Metadata
-      additionalProperties: false
     AssetVersionFilter:
       type: object
       properties:
@@ -2513,6 +2159,45 @@ components:
 
             Either digest, revision or IsHighestTag are mandatory'
       additionalProperties: false
+    AssetVersionPatchRequest:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'SemVer tag to associate with the revision
+
+            Must exist and be of the “Major#.Minor#.Patch#” format'
+        releaseNotes:
+          type:
+          - string
+          - 'null'
+          description: The release notes associated with the asset. Can’t be present if no tag is set or provided.
+        commitMessage:
+          type:
+          - string
+          - 'null'
+          description: Commit message to associate with the revision, optional and can be null.
+      additionalProperties: false
+    AssetRevisionV1PagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetRevisionV1'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
     AssetSignature:
       type: object
       properties:
@@ -2534,36 +2219,353 @@ components:
           description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
           format: uuid
       additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    AssetEmbeddingV1:
+      type: object
+      properties:
+        releaseNote:
+          allOf:
+          - $ref: '#/components/schemas/AssetReleaseNote'
+          description: Embedded Release Note
+        icon:
+          allOf:
+          - $ref: '#/components/schemas/AssetIcon'
+          description: Embedded Icon
+        sourceCode:
+          allOf:
+          - $ref: '#/components/schemas/AssetSourceCode'
+          description: Embedded SourceCode
+        signature:
+          allOf:
+          - $ref: '#/components/schemas/AssetSignature'
+          description: Embedded Signature
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/BaseAssetMetadata'
+          description: Embedded Metadata
+      additionalProperties: false
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    AssetIcon:
+      type: object
+      properties:
+        iconUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to fetch the application icon, if one is defined
+        iconDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest of the icon binary
+          format: uuid
+      additionalProperties: false
+    AssetReleaseNoteContent:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: The version tag that is associated with the revision, using the semantic versioning format (MAJOR.MINOR.PATCH).
+        content:
+          type:
+          - string
+          - 'null'
+          description: The release notes text content associated with the revision.
+      additionalProperties: false
+    AssetVersionCreationRequest:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: 'SemVer tag to associate with the revision to be created.
+
+            Must not exist and be of the “Major#.Minor#.Patch#” format'
+        releaseNotes:
+          type:
+          - string
+          - 'null'
+          description: The release notes associated with the asset. Can’t be present if no tag is provided.
+        skipSequentialVersionValidation:
+          type: boolean
+          description: If set to true, skips the sequential revision validation.
+        commitMessage:
+          type:
+          - string
+          - 'null'
+          description: An optional commit message that can be populated when creating or updating an asset version.
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: '(Optional) The key of the portfolio to associate the asset with.
+
+            For new assets: If not provided, uses the main portfolio.
+
+            For existing assets: If provided, must match existing portfolio or an error is returned.'
+          format: uuid
+        fileUri:
+          type:
+          - string
+          - 'null'
+          description: "(Optional) Allows providing application source code for the new version (OML or XIF formats are supported). \nIf an OML or XIF is provided, its key is used to associate to the correct application - The application key must always match the OML/XIF key"
+          format: uri
+        assetCreationDetails:
+          allOf:
+          - $ref: '#/components/schemas/AssetCreateFromTemplateRequest'
+          description: "(Optional) Allows providing a configuration to create a new asset as first revision, either from a template or as an empty OML \nOnly usable when the source file is not provided."
+      additionalProperties: false
+    AssetListFilter:
+      type: object
+      properties:
+        assetVersionFilters:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetVersionFilter'
+          description: Filters which asset versions to retrieve
+        embeds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Extra embedded fields to include in the output, recognized values are [releaseNote, icon, sourceCode, signature, metadata]
+      additionalProperties: false
+    AssetRevisionV1:
+      required:
+      - assetKey
+      - name
+      type: object
+      properties:
+        assetKey:
+          minLength: 1
+          type: string
+          description: 'Asset key (format: guid).'
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the portfolio this asset belongs to (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        name:
+          minLength: 1
+          type: string
+          description: Name of the asset.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the asset.
+        isExternal:
+          type: boolean
+          description: If an asset is installed by an external system
+        tag:
+          type:
+          - string
+          - 'null'
+          description: Version tag associated with this revision, in MAJOR.MINOR.PATCH format.
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: 'Digest that allows checking if the asset model has any changes. (format: guid)'
+        clonedFromTemplateKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the template used to generate the asset (format: guid).'
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: Type of the owner asset
+        createdBy:
+          type:
+          - string
+          - 'null'
+          description: Identifier of whom or what tool created the revision
+        createdAt:
+          type: string
+          description: Timestamp when the revision was created.
+          format: date-time
+        commitMessage:
+          type:
+          - string
+          - 'null'
+          description: An optional commit message that can be populated by the user when creating or updating an asset version.
+        taggedBy:
+          type:
+          - string
+          - 'null'
+          description: Identifier of whom or what tool tagged the revision
+        taggedAt:
+          type:
+          - string
+          - 'null'
+          description: Asset Tagging Date Time
+          format: date-time
+        _embedded:
+          allOf:
+          - $ref: '#/components/schemas/AssetEmbeddingV1'
+          description: Embedded details for the asset
+      additionalProperties: false
+    PermissionType:
+      enum:
+      - AppDebug
+      - AppChange
+      - AppDelete
+      - AppUserView
+      - AppDeploy
+      - AppRelease
+      - AppMonitor
+      - AppMonitorUserInfo
+      - AppAccessManage
+      - CfgView
+      - AppCfgChange
+      - ConnConfig
+      - AppViewSourceCode
+      - AppGroupManage
+      - CodeQualityView
+      - CodeQualityManage
+      - UpdatesView
+      type: string
+    AssetCreateFromTemplateRequest:
+      type: object
+      properties:
+        assetName:
+          type:
+          - string
+          - 'null'
+          description: Name of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template.
+        assetType:
+          type:
+          - string
+          - 'null'
+          description: 'Type of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template.
+
+            Recognized values are [WebApplication, MobileApplication, MobileLibrary, LowCodeLibrary, Agent, Workflow]'
+        templateKey:
+          type:
+          - string
+          - 'null'
+          description: Asset key to be used as template for the new asset, optional and can be null. To get the template key, use GET /assets and filter by template type (refer to the endpoint description)
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the asset. Optional and can be null.
+        iconBase64:
+          type:
+          - string
+          - 'null'
+          description: Base64 data containing the icon for the new asset. Optional and can be null.
+      additionalProperties: false
     TemplateType:
       enum:
       - ApplicationTemplate
       - ScreenTemplateBundle
       type: string
       description: Enumeration of application template types.
-    AssetRevisionSummaryResponse:
+    CodeAnalysisCategories:
+      title: CodeAnalysisCategories
       type: object
       properties:
-        assetKey:
-          type:
-          - string
-          - 'null'
-        assetRevision:
-          type: integer
-          format: int64
-        analysisDate:
-          type: string
-          format: date
-        qualityScore:
-          type:
-          - number
-          - 'null'
-          format: double
-        summary:
-          title: FindingsSummary
+        security:
+          title: SeverityBreakdown
           allOf:
-          - $ref: '#/components/schemas/FindingsSummary'
-          description: Overview of Finding Summary by categories and severities
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        performance:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        architecture:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
+        maintainability:
+          title: SeverityBreakdown
+          allOf:
+          - $ref: '#/components/schemas/SeverityBreakdown'
+          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
       additionalProperties: false
+      description: Finding Counts for all analysis categories and severities
     FindingsSummary:
       title: FindingsSummary
       type: object
@@ -2593,93 +2595,29 @@ components:
           format: int64
       additionalProperties: false
       description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-    CodeAnalysisCategories:
-      title: CodeAnalysisCategories
+    AssetRevisionSummaryResponse:
       type: object
       properties:
-        security:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-        performance:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-        architecture:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-        maintainability:
-          title: SeverityBreakdown
-          allOf:
-          - $ref: '#/components/schemas/SeverityBreakdown'
-          description: Findings Count grouped by severity level (Low, Medium, High, Critical)
-      additionalProperties: false
-      description: Finding Counts for all analysis categories and severities
-    AssetDependencyWithProducerReferences:
-      required:
-      - key
-      type: object
-      properties:
-        key:
-          minLength: 1
-          type: string
-          description: 'Key (format: guid).'
-        portfolioKey:
+        assetKey:
           type:
           - string
           - 'null'
-          description: 'Key of the portfolio this asset belongs to (format: guid).'
-        revision:
+        assetRevision:
           type: integer
-          description: Revision number.
-          format: int32
-        name:
+          format: int64
+        analysisDate:
+          type: string
+          format: date
+        qualityScore:
           type:
-          - string
+          - number
           - 'null'
-          description: Name of the application.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the application.
-        type:
-          type:
-          - string
-          - 'null'
-          description: Descriptive value for the asset type.
-        signatureDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
-          format: uuid
-        compatibilitySignatureDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
-          format: uuid
-        modelDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest that allows checking if the application model has any changes.
-          format: uuid
-        isDirectProducer:
-          type: boolean
-          description: Indicates if this asset is a direct producer of the asset this http call was made under.
-        producers:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: All child producers this producer depends on.
+          format: double
+        summary:
+          title: FindingsSummary
+          allOf:
+          - $ref: '#/components/schemas/FindingsSummary'
+          description: Overview of Finding Summary by categories and severities
       additionalProperties: false
     AssetDependencyWithProducerReferencesListResponse:
       type: object
@@ -2756,6 +2694,128 @@ components:
           - 'null'
           description: Type of the referenced asset
       additionalProperties: false
+    ProblemDetails_2:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    AssetDependencyListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssetDependency'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    ReferencedElementStringTypesListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ReferencedElementStringTypes'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
+    AssetDependencyWithProducerReferences:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          minLength: 1
+          type: string
+          description: 'Key (format: guid).'
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the portfolio this asset belongs to (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the application.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the application.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Descriptive value for the asset type.
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
+          format: uuid
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
+          format: uuid
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the application model has any changes.
+          format: uuid
+        isDirectProducer:
+          type: boolean
+          description: Indicates if this asset is a direct producer of the asset this http call was made under.
+        producers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: All child producers this producer depends on.
+      additionalProperties: false
+    PublicElementStringTypesListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicElementStringTypes'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
     PublicElementStringTypes:
       type: object
       properties:
@@ -2818,70 +2878,6 @@ components:
           description: Type of public element
       additionalProperties: false
       description: Represents a public element of an asset.
-    AssetDependencyListResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssetDependency'
-          description: List of results.
-      additionalProperties: false
-      description: Represents a response containing a list of results.
-    AssetDependency:
-      required:
-      - key
-      type: object
-      properties:
-        key:
-          minLength: 1
-          type: string
-          description: 'Key (format: guid).'
-        portfolioKey:
-          type:
-          - string
-          - 'null'
-          description: 'Key of the portfolio this asset belongs to (format: guid).'
-        revision:
-          type: integer
-          description: Revision number.
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the application.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the application.
-        type:
-          type:
-          - string
-          - 'null'
-          description: Descriptive value for the asset type.
-        signatureDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
-          format: uuid
-        compatibilitySignatureDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
-          format: uuid
-        modelDigest:
-          type:
-          - string
-          - 'null'
-          description: Digest that allows checking if the application model has any changes.
-          format: uuid
-      additionalProperties: false
     AssetDependencyProducerListResponse:
       type: object
       properties:
@@ -2891,54 +2887,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/AssetDependencyProducer'
-          description: List of results.
-      additionalProperties: false
-      description: Represents a response containing a list of results.
-    PublicElementStringTypesListResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PublicElementStringTypes'
-          description: List of results.
-      additionalProperties: false
-      description: Represents a response containing a list of results.
-    ProblemDetails_2:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-    ReferencedElementStringTypesListResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ReferencedElementStringTypes'
           description: List of results.
       additionalProperties: false
       description: Represents a response containing a list of results.
@@ -3000,6 +2948,58 @@ components:
           items:
             $ref: '#/components/schemas/AssetDependencyProducer'
           description: All child producers this producer depends on.
+      additionalProperties: false
+    AssetDependency:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          minLength: 1
+          type: string
+          description: 'Key (format: guid).'
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Key of the portfolio this asset belongs to (format: guid).'
+        revision:
+          type: integer
+          description: Revision number.
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the application.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the application.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Descriptive value for the asset type.
+        signatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the the signature of any of the public elements of the application has changes.
+          format: uuid
+        compatibilitySignatureDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.
+          format: uuid
+        modelDigest:
+          type:
+          - string
+          - 'null'
+          description: Digest that allows checking if the application model has any changes.
+          format: uuid
       additionalProperties: false
   securitySchemes:
     bearerAuth:

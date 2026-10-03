@@ -355,6 +355,75 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    BaseIpFilterGroup:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the IP filter group.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the IP filter group.
+        accessType:
+          allOf:
+          - $ref: '#/components/schemas/IpFilterGroupAccessType'
+          description: The default access type of the IP filter group, after all rules are applied.
+        ipRules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IpFilterGroupRule'
+          description: The list of IP filter rules associated with this group.
+        appKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: The list of all app keys that are explicitly assigned to this group.
+      additionalProperties: false
+    PatchIpFilterGroup:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the group
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the group
+        accessType:
+          allOf:
+          - $ref: '#/components/schemas/IpFilterGroupAccessType'
+          description: Default access type in group, after all rules are applied
+        ipRules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IpFilterGroupRule'
+          description: All the rules associated with this group
+        appKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of all applications that are explicitly assigned to this group.
+      additionalProperties: false
+    IpFilterGroupAccessType:
+      enum:
+      - DENYLIST
+      - ALLOWLIST
+      type: string
     IpFilterGroupRule:
       type: object
       properties:
@@ -373,6 +442,26 @@ components:
         isActive:
           type: boolean
           description: Indicates if the IP rule is currently active.
+      additionalProperties: false
+    IpFilterGroups:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IpFilterGroup'
+          description: The list of IP filter groups.
+      additionalProperties: false
+    IpFilterGroupKey:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the Ip filter group
       additionalProperties: false
     IpFilterGroup:
       type: object
@@ -411,95 +500,6 @@ components:
           - 'null'
           description: The unique identifier of the IP filter group.
       additionalProperties: false
-    IpFilterGroupKey:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the Ip filter group
-      additionalProperties: false
-    PatchIpFilterGroup:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the group
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of the group
-        accessType:
-          allOf:
-          - $ref: '#/components/schemas/IpFilterGroupAccessType'
-          description: Default access type in group, after all rules are applied
-        ipRules:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IpFilterGroupRule'
-          description: All the rules associated with this group
-        appKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of all applications that are explicitly assigned to this group.
-      additionalProperties: false
-    IpFilterGroups:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IpFilterGroup'
-          description: The list of IP filter groups.
-      additionalProperties: false
-    BaseIpFilterGroup:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the IP filter group.
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of the IP filter group.
-        accessType:
-          allOf:
-          - $ref: '#/components/schemas/IpFilterGroupAccessType'
-          description: The default access type of the IP filter group, after all rules are applied.
-        ipRules:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IpFilterGroupRule'
-          description: The list of IP filter rules associated with this group.
-        appKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: The list of all app keys that are explicitly assigned to this group.
-      additionalProperties: false
-    IpFilterGroupAccessType:
-      enum:
-      - DENYLIST
-      - ALLOWLIST
-      type: string
   securitySchemes:
     bearerAuth:
       type: http

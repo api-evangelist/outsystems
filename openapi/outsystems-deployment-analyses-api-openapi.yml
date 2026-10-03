@@ -111,6 +111,12 @@ paths:
       x-os-permissions: API Client needs the **Release management > Deploy assets** permission.
 components:
   schemas:
+    ProcessStatus:
+      enum:
+      - InProgress
+      - Finished
+      - Failed
+      type: string
     ApplicationIssue:
       type: object
       properties:
@@ -128,6 +134,19 @@ components:
           - 'null'
           description: Hint to understand the conflict
       additionalProperties: false
+    ApplicationConflictType:
+      enum:
+      - NameCollision
+      - MissingApplication
+      - UrlDiscrepancy
+      - UnsupportedRuntime
+      type: string
+    AnalysisStatus:
+      enum:
+      - NoIssuesFound
+      - WarningsFound
+      - ErrorsFound
+      type: string
     ProblemDetails:
       type: object
       properties:
@@ -157,21 +176,54 @@ components:
       - Deployment
       - Deletion
       type: string
-    PublicDeploymentAnalysisReport:
+    PublicLaunchDeploymentAnalysisRequest:
       type: object
       properties:
-        status:
-          allOf:
-          - $ref: '#/components/schemas/AnalysisStatus'
-          description: Analysis global status
-          readOnly: true
-        impactedAssets:
+        revision:
+          type: integer
+          description: Intended revision to deploy
+          format: int32
+        environmentKey:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/PublicApplicationReport'
-          description: List of impacted assets
+          description: Intended Environment Key to deploy to
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset Key for the analysis
+      additionalProperties: false
+    ElementIssue:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Element Name
+        type:
+          type:
+          - string
+          - 'null'
+          description: Element type
+        conflictType:
+          allOf:
+          - $ref: '#/components/schemas/ElementConflictType'
+          description: Conflict Type
+        conflictSeverity:
+          allOf:
+          - $ref: '#/components/schemas/ConflictSeverity'
+          description: Conflict Severity
+        incompatibilityType:
+          allOf:
+          - $ref: '#/components/schemas/IncompatibilityType'
+          description: Type of incompatibility, if any
+        hint:
+          type:
+          - string
+          - 'null'
+          description: Hint to help identify the conflict
       additionalProperties: false
     PublicApplicationReport:
       type: object
@@ -211,36 +263,66 @@ components:
           - 'null'
           description: Asset Key
       additionalProperties: false
-    ElementIssue:
+    IncompatibilityType:
+      enum:
+      - None
+      - MissingMandatoryInputParameter
+      - InputParameterMismatch
+      - InputParameterTypeMismatch
+      - OutputParameterMismatch
+      - OutputParameterTypeMismatch
+      - MissingMandatoryEntityAttribute
+      - EntityAttributeMismatch
+      - EntityAttributeTypeMismatch
+      - MissingMandatoryStructureAttribute
+      - StructureAttributeMismatch
+      - StructureAttributeTypeMismatch
+      - MissingRecord
+      - RecordIdentifierMismatch
+      - ScreenNameMismatch
+      - ScreenPageNameMismatch
+      - ScreenURLStructureMismatch
+      - ServerEntityNameMismatch
+      - ServiceActionNameMismatch
+      - StaticEntityNameMismatch
+      - StructureNameMismatch
+      - MissingScreen
+      - MissingServerEntity
+      - MissingServiceAction
+      - MissingStaticEntity
+      - MissingStructure
+      - MissingConsumerElementSignature
+      - EventNameMismatch
+      - MissingEvent
+      - InputParameterDefaultValueMismatch
+      - ScreenUrlDiscrepancy
+      - MissingRole
+      type: string
+    ElementConflictType:
+      enum:
+      - MissingElement
+      - IncompatibleElement
+      type: string
+    ConflictSeverity:
+      enum:
+      - Warning
+      - Error
+      type: string
+    PublicDeploymentAnalysisReport:
       type: object
       properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Element Name
-        type:
-          type:
-          - string
-          - 'null'
-          description: Element type
-        conflictType:
+        status:
           allOf:
-          - $ref: '#/components/schemas/ElementConflictType'
-          description: Conflict Type
-        conflictSeverity:
-          allOf:
-          - $ref: '#/components/schemas/ConflictSeverity'
-          description: Conflict Severity
-        incompatibilityType:
-          allOf:
-          - $ref: '#/components/schemas/IncompatibilityType'
-          description: Type of incompatibility, if any
-        hint:
+          - $ref: '#/components/schemas/AnalysisStatus'
+          description: Analysis global status
+          readOnly: true
+        impactedAssets:
           type:
-          - string
+          - array
           - 'null'
-          description: Hint to help identify the conflict
+          items:
+            $ref: '#/components/schemas/PublicApplicationReport'
+          description: List of impacted assets
       additionalProperties: false
     PublicDeploymentAnalysisReportPublicAnalysisResult:
       type: object
@@ -281,87 +363,12 @@ components:
           description: Asset Key
           format: uuid
       additionalProperties: false
-    AnalysisStatus:
-      enum:
-      - NoIssuesFound
-      - WarningsFound
-      - ErrorsFound
-      type: string
-    PublicLaunchDeploymentAnalysisRequest:
-      type: object
-      properties:
-        revision:
-          type: integer
-          description: Intended revision to deploy
-          format: int32
-        environmentKey:
-          type:
-          - string
-          - 'null'
-          description: Intended Environment Key to deploy to
-        assetKey:
-          type:
-          - string
-          - 'null'
-          description: Asset Key for the analysis
-      additionalProperties: false
-    IncompatibilityType:
-      enum:
-      - None
-      - MissingMandatoryInputParameter
-      - InputParameterMismatch
-      - InputParameterTypeMismatch
-      - OutputParameterMismatch
-      - OutputParameterTypeMismatch
-      - MissingMandatoryEntityAttribute
-      - EntityAttributeMismatch
-      - EntityAttributeTypeMismatch
-      - MissingMandatoryStructureAttribute
-      - StructureAttributeMismatch
-      - StructureAttributeTypeMismatch
-      - MissingRecord
-      - RecordIdentifierMismatch
-      - ScreenNameMismatch
-      - ScreenPageNameMismatch
-      - ScreenURLStructureMismatch
-      - ServerEntityNameMismatch
-      - ServiceActionNameMismatch
-      - StaticEntityNameMismatch
-      - StructureNameMismatch
-      - MissingScreen
-      - MissingServerEntity
-      - MissingServiceAction
-      - MissingStaticEntity
-      - MissingStructure
-      - MissingConsumerElementSignature
-      - EventNameMismatch
-      - MissingEvent
-      - InputParameterDefaultValueMismatch
-      - ScreenUrlDiscrepancy
-      - MissingRole
-      type: string
     ReferenceType:
       enum:
       - Producer
       - Consumer
       - None
       - Deployed
-      type: string
-    ElementConflictType:
-      enum:
-      - MissingElement
-      - IncompatibleElement
-      type: string
-    ConflictSeverity:
-      enum:
-      - Warning
-      - Error
-      type: string
-    ProcessStatus:
-      enum:
-      - InProgress
-      - Finished
-      - Failed
       type: string
     ReferenceKeyResponse:
       type: object
@@ -372,13 +379,6 @@ components:
           - 'null'
           description: Analysis Key
       additionalProperties: false
-    ApplicationConflictType:
-      enum:
-      - NameCollision
-      - MissingApplication
-      - UrlDiscrepancy
-      - UnsupportedRuntime
-      type: string
   securitySchemes:
     bearerAuth:
       type: http

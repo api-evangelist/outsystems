@@ -192,6 +192,107 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    FindingsChangeV1:
+      title: FindingsChange
+      type: object
+      properties:
+        latestFindingsCount:
+          type:
+          - integer
+          - 'null'
+          description: Number of findings in the current/latest analysis.
+          format: int32
+        findingsDifferenceCount:
+          type:
+          - integer
+          - 'null'
+          description: Change in findings count compared to previous analysis.
+          format: int32
+      additionalProperties: false
+      description: Findings count with change information.
+    AppsOverviewResponseV1PagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AppsOverviewResponseV1'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    ScoreChangeV1:
+      title: ScoreChange
+      type: object
+      properties:
+        latestScore:
+          type:
+          - integer
+          - 'null'
+          description: Quality score from the current/latest analysis (0-100).
+          format: int32
+        differenceScore:
+          type:
+          - integer
+          - 'null'
+          description: Change in quality score compared to previous analysis.
+          format: int32
+      additionalProperties: false
+      description: Quality score with change information.
+    FindingStatus:
+      enum:
+      - Open
+      - Resolved
+      - Dismissed
+      - Snoozed
+      - Closed
+      type: string
+    FindingSeverity:
+      enum:
+      - Low
+      - Medium
+      - High
+      - Critical
+      type: string
     AppsOverviewResponseV1:
       title: AppsOverviewResponse
       type: object
@@ -260,113 +361,12 @@ components:
             latestFindingsCount: 2
             findingsDifferenceCount: 0
         assetName: MyWebApplication
-    ScoreChangeV1:
-      title: ScoreChange
-      type: object
-      properties:
-        latestScore:
-          type:
-          - integer
-          - 'null'
-          description: Quality score from the current/latest analysis (0-100).
-          format: int32
-        differenceScore:
-          type:
-          - integer
-          - 'null'
-          description: Change in quality score compared to previous analysis.
-          format: int32
-      additionalProperties: false
-      description: Quality score with change information.
-    FindingsChangeV1:
-      title: FindingsChange
-      type: object
-      properties:
-        latestFindingsCount:
-          type:
-          - integer
-          - 'null'
-          description: Number of findings in the current/latest analysis.
-          format: int32
-        findingsDifferenceCount:
-          type:
-          - integer
-          - 'null'
-          description: Change in findings count compared to previous analysis.
-          format: int32
-      additionalProperties: false
-      description: Findings count with change information.
-    AppsOverviewResponseV1PagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AppsOverviewResponseV1'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
     Categories:
       enum:
       - performance
       - security
       - architecture
       - maintainability
-      type: string
-    PageInfoWithTotals:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: Offset of the current page of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: Offset of the next page of results. Null when there is no next page.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total of results.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total of result pages.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      description: Contains response page information including totals.
-    FindingSeverity:
-      enum:
-      - Low
-      - Medium
-      - High
-      - Critical
-      type: string
-    FindingStatus:
-      enum:
-      - Open
-      - Resolved
-      - Dismissed
-      - Snoozed
-      - Closed
       type: string
   securitySchemes:
     bearerAuth:

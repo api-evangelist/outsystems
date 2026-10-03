@@ -49,6 +49,18 @@ paths:
       x-os-permissions: API client must have at least one permission.
 components:
   schemas:
+    NativeBuilderVersionListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NativeBuilderVersion'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
     ProblemDetails:
       type: object
       properties:
@@ -122,18 +134,6 @@ components:
           format: date
       additionalProperties: false
       description: Native builder version
-    NativeBuilderVersionListResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/NativeBuilderVersion'
-          description: List of results.
-      additionalProperties: false
-      description: Represents a response containing a list of results.
     MobileFramework:
       enum:
       - Capacitor

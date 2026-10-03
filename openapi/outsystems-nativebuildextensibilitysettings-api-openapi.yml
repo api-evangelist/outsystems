@@ -130,6 +130,25 @@ paths:
       x-os-permissions: API Client needs the **Configuration management > Edit asset configurations** permission.
 components:
   schemas:
+    ExtensibilitySettingsResponse:
+      type: object
+      properties:
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemResponse'
+          description: Extensibility settings to be returned
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigurationResponse'
+          description: Library configurations
+      additionalProperties: false
+      description: The extensibility settings and library configurations for the application.
     ProblemDetails:
       type: object
       properties:
@@ -183,6 +202,73 @@ components:
       - BinaryUrl
       type: string
       description: Type of configuration
+    LibraryConfigurationRequest:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
+          description: Settings associated with Library configuration
+      additionalProperties: false
+      description: Library configurations for Extensibility settings
+    Origin:
+      enum:
+      - Override
+      - Default
+      type: string
+      description: The origin of the value. Either being overridden by the user or set to its default.
+    ExtensibilitySettingsItemRequest:
+      required:
+      - key
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value to be set for the configuration
+        metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Metadata'
+          description: Metadata of the configuration
+      additionalProperties: false
+      description: A configuration item identified by a key, with an optional new value for the configuration  and optional metadata entries.
+    Metadata:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Metadata Item Key
+        value:
+          type:
+          - string
+          - 'null'
+          description: Metadata Item Value
+      additionalProperties: false
+      description: Metadata about Extensibility setting
     ExtensibilitySettingsItemResponse:
       required:
       - defaultValue
@@ -248,111 +334,6 @@ components:
           description: Metadata of the configuration
       additionalProperties: false
       description: Represents the basic configuration properties that will be returned in the GET endpoint
-    LibraryConfigurationRequest:
-      required:
-      - key
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
-          description: Settings associated with Library configuration
-      additionalProperties: false
-      description: Library configurations for Extensibility settings
-    ExtensibilitySettingsItemRequest:
-      required:
-      - key
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value to be set for the configuration
-        metadata:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Metadata'
-          description: Metadata of the configuration
-      additionalProperties: false
-      description: A configuration item identified by a key, with an optional new value for the configuration  and optional metadata entries.
-    ExtensibilitySettingsResponse:
-      type: object
-      properties:
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExtensibilitySettingsItemResponse'
-          description: Extensibility settings to be returned
-        libraries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LibraryConfigurationResponse'
-          description: Library configurations
-      additionalProperties: false
-      description: The extensibility settings and library configurations for the application.
-    Origin:
-      enum:
-      - Override
-      - Default
-      type: string
-      description: The origin of the value. Either being overridden by the user or set to its default.
-    Metadata:
-      required:
-      - key
-      - value
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Metadata Item Key
-        value:
-          type:
-          - string
-          - 'null'
-          description: Metadata Item Value
-      additionalProperties: false
-      description: Metadata about Extensibility setting
-    ExtensibilitySettingsRequest:
-      type: object
-      properties:
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
-          description: Extensibility settings to be updated
-        libraries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LibraryConfigurationRequest'
-          description: Library configurations
-      additionalProperties: false
-      description: Optional extensibility settings and library-specific configurations to apply.
     LibraryConfigurationResponse:
       required:
       - key
@@ -377,6 +358,25 @@ components:
           description: Settings associated with Library configuration
       additionalProperties: false
       description: Library configurations for Extensibility settings
+    ExtensibilitySettingsRequest:
+      type: object
+      properties:
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtensibilitySettingsItemRequest'
+          description: Extensibility settings to be updated
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigurationRequest'
+          description: Library configurations
+      additionalProperties: false
+      description: Optional extensibility settings and library-specific configurations to apply.
   securitySchemes:
     bearerAuth:
       type: http

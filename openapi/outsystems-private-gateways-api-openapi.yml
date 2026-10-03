@@ -252,6 +252,20 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    SecureGatewayToken:
+      type: object
+      properties:
+        authToken:
+          type:
+          - string
+          - 'null'
+          description: The authentication token for the private gateway.
+      additionalProperties: false
+    ServerHealth:
+      enum:
+      - Healthy
+      - Unhealthy
+      type: string
     SecureGateway:
       type: object
       properties:
@@ -270,20 +284,6 @@ components:
           - string
           - 'null'
           description: The url value to connect to the private gateway.
-      additionalProperties: false
-    ServerHealth:
-      enum:
-      - Healthy
-      - Unhealthy
-      type: string
-    SecureGatewayToken:
-      type: object
-      properties:
-        authToken:
-          type:
-          - string
-          - 'null'
-          description: The authentication token for the private gateway.
       additionalProperties: false
   securitySchemes:
     bearerAuth:
