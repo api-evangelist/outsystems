@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-environment-entitlements-schema.json",
+  "title": "EnvironmentEntitlements",
+  "description": "Represents the entitlements present in an environment",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-environments-api-openapi.yml#/components/schemas/EnvironmentEntitlements",
+  "type": "object",
+  "properties": {
+    "addons": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/Addon"
+      },
+      "description": "List of addOns in an environment"
+    },
+    "entitlements": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/Entitlement"
+      },
+      "description": "List of entitlements in an environment"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Addon": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Internal name (internal identifier of the Add-on, visible in APIs only)."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the Add-on."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Description of the Add-on that explains the purpose."
+        },
+        "documentationUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Documentation URL for the Add-on."
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/DataType_2"
+            }
+          ],
+          "description": "Data type of the value associated with the addon, one of [\"bool\", \"float\", \"str\", \"int\"]."
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Value associated with the Add-on. A null value means not subscribed."
+        },
+        "startDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date when the Add-on starts to be available."
+        },
+        "endDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date when the Add-on expires (e.g. trials or time-bound Add-ons)."
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents the Add-on information."
+    },
+    "DataType_2": {
+      "enum": [
+        "Bool",
+        "Float",
+        "Str",
+        "Int"
+      ],
+      "type": "string",
+      "description": "Data type of the value of an addon or entitlement."
+    },
+    "Entitlement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Internal identifier of the entitlement, visible in APIs only."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the entitlement."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Description of the entitlement."
+        },
+        "documentationUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Entitlement documentation URL."
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A value that is assigned to the entitlement, overriding the default value."
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/DataType_2"
+            }
+          ],
+          "description": "Data type of the value associated with the entitlement , one of [\"bool\", \"float\", \"str\", \"int\"]."
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour)."
+        },
+        "kind": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as \"other\"."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents the Entitlement information."
+    }
+  }
+}

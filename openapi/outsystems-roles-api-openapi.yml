@@ -1,0 +1,330 @@
+openapi: 3.2.0
+info:
+  title: LifeTime REST /roles API
+  description: The LifeTime API allows you to manage applications, modules, environments, deployments, users, teams, roles and deployment zones of your OutSystems infrastructure.
+  version: v2
+servers:
+- url: /lifetimeapi/rest/v2
+tags:
+- name: /roles
+paths:
+  /roles/:
+    get:
+      tags:
+      - /roles
+      summary: Lists all the roles
+      operationId: Roles_List
+      parameters:
+      - name: IncludeEnvPermissions
+        in: query
+        required: false
+        description: Defines if it is to include a list of environment permissions for each role.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Roles list successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+                description: A list of Role records including EnvironmentPermissions sub-list, if requested.
+        '403':
+          description: User has no permissions to retrieve roles list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    post:
+      tags:
+      - /roles
+      summary: Creates a role with the specified permissions
+      operationId: Roles_Create
+      responses:
+        '201':
+          description: Role created with success.
+          content:
+            text/plain:
+              schema:
+                type: string
+                default: ''
+                description: The key of the newly created role.
+        '400':
+          description: Failed to create role because invalid role name, role is protected, wrong combination of infrastructure and manage teams flags or not defined/wrong permissions for all environments.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to create a new role.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+        description: The role to be created.
+        required: true
+  /roles/{RoleKey}/:
+    get:
+      tags:
+      - /roles
+      summary: Returns the details of a given role
+      operationId: Roles_Get
+      parameters:
+      - name: RoleKey
+        in: path
+        required: true
+        description: Role key to retrieve.
+        schema:
+          type: string
+      - name: IncludeEnvPermissions
+        in: query
+        required: false
+        description: Defines if it is to include a list of environment permissions for role.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Record of Role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '403':
+          description: User doesn't have permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Role not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    put:
+      tags:
+      - /roles
+      summary: Updates a role with the specified permissions
+      operationId: Roles_Update
+      parameters:
+      - name: RoleKey
+        in: path
+        required: true
+        description: Role key to update.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Role updated with success.
+          content:
+            text/plain:
+              schema:
+                type: string
+                default: ''
+                description: The key of the updated role.
+        '400':
+          description: Failed to update role because invalid role name, role is protected, wrong combination of infrastructure and manage teams flags or not defined/wrong permissions for all environments.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the role.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Role not found.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+        description: The role to be update.
+        required: true
+    delete:
+      tags:
+      - /roles
+      summary: Deletes a role
+      operationId: Roles_Delete
+      parameters:
+      - name: RoleKey
+        in: path
+        required: true
+        description: Role key to delete.
+        schema:
+          type: string
+      - name: UsersNewRoleKey
+        in: query
+        required: false
+        description: Indicates the role that should replace the deleted role, for the users that have this role assigned (both as defaullt, application and team role). Needed if there are users with the role assigned.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '204':
+          description: Role deleted with success.
+        '400':
+          description: Role can't be deleted because it is reserved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to delete the role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Role not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /roles/permissionlevels/:
+    get:
+      tags:
+      - /roles
+      summary: Gets available permission levels
+      operationId: Roles_PermissionLevels
+      responses:
+        '200':
+          description: List of permission levels.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionLevels'
+        '403':
+          description: No permissions to manage users and roles.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+components:
+  schemas:
+    PermissionLevels:
+      type: object
+      properties:
+        level:
+          type: integer
+          description: Value that identifies the permission level.
+        levelLabel:
+          type: string
+          description: Short description of the permission level.
+        description:
+          type: string
+          description: Full description of the permission level.
+    Role:
+      description: Full definition of a role.
+      type: object
+      properties:
+        Key:
+          type: string
+          description: Identifier of a role.
+          readOnly: true
+        name:
+          type: string
+          description: Name of a role
+        description:
+          type: string
+          description: Description of the role.
+        manageInfrastructure:
+          type: boolean
+          default: false
+          description: In OutSystems Cloud, users with a role that has this attribute can manage IT users, roles, and teams. In self-managed infrastructures, it additionally includes permission to manage environments and their configurations.
+        manageTeams:
+          type: boolean
+          default: false
+          description: Allows to manage teams and roles.
+        environmentPermissions:
+          type: array
+          description: Definition of permission levels per environment.
+          items:
+            $ref: '#/components/schemas/EnvironmentPermission'
+    EnvironmentPermission:
+      description: Definition of Environment Permissions
+      type: object
+      properties:
+        environmentKey:
+          type: string
+          description: Key of the environment that refers to the permission.
+        environmentName:
+          type: string
+          description: Name of the environment that refers to the permission.
+        level:
+          type: integer
+          description: Level of permission.
+        levelLabel:
+          type: string
+          description: Short description of the permission level.
+        createApplications:
+          type: boolean
+          default: false
+          description: Allows to create new applications.
+        addDependenciesToSystem:
+          type: boolean
+          default: false
+          description: Allows to add depedencies to System application.
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.

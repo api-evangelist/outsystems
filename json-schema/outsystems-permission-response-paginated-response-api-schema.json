@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-permission-response-paginated-response-api-schema.json",
+  "title": "PermissionResponsePaginatedResponseApi",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-permissions-api-openapi.yml#/components/schemas/PermissionResponsePaginatedResponseApi",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/PermissionResponse"
+      },
+      "description": "The List of results."
+    },
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotalsApi"
+        }
+      ],
+      "description": "The details of the page information."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AssetContext": {
+      "enum": [
+        "Organization",
+        "Asset"
+      ],
+      "type": "string"
+    },
+    "OrgRolePermissionsVisibility": {
+      "enum": [
+        "Hidden",
+        "Public",
+        "Internal"
+      ],
+      "type": "string"
+    },
+    "PageInfoWithTotalsApi": {
+      "required": [
+        "count",
+        "limit",
+        "offset"
+      ],
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "The results of the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "The limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "The offset of the current page of results.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The total number of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The offset of the next page of results. (optional)",
+          "format": "int32",
+          "readOnly": true
+        },
+        "totalPages": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The total number of pages with results.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "PermissionInheritance": {
+      "required": [
+        "realmStages"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Gets or sets the permission key.",
+          "format": "uuid"
+        },
+        "realmStages": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/StageServiceModel"
+          },
+          "description": "Gets or sets the realm stage list."
+        },
+        "realmPortfolio": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/PortfolioInheritanceServiceModel"
+            }
+          ],
+          "description": "Gets or sets the realm portfolio."
+        }
+      },
+      "additionalProperties": false
+    },
+    "PermissionResponse": {
+      "required": [
+        "allowedScopes",
+        "inherits"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Gets or sets the permission key.",
+          "format": "uuid"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the permission name."
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the category for the permission."
+        },
+        "purpose": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the purpose for the permission."
+        },
+        "visibility": {
+          "enum": [
+            "Hidden",
+            "Public",
+            "Internal"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/$defs/OrgRolePermissionsVisibility"
+            }
+          ],
+          "description": "Gets or sets the visibility for the permission."
+        },
+        "inherits": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/PermissionInheritance"
+          },
+          "description": "Gets or sets the inherits."
+        },
+        "allowStages": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether permission applies to a specific stage."
+        },
+        "allowPortfolios": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether permission applies to a specific portfolio."
+        },
+        "allowedScopes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/AssetContext"
+          },
+          "description": "Gets or sets the allowed scopes."
+        },
+        "claimName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the claim name."
+        },
+        "remarks": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the remarks for the permission."
+        }
+      },
+      "additionalProperties": false
+    },
+    "PortfolioInheritanceServiceModel": {
+      "enum": [
+        "SAME_PORTFOLIO",
+        "MAIN_PORTFOLIO",
+        "ALL_PORTFOLIO"
+      ],
+      "type": "string"
+    },
+    "StageServiceModel": {
+      "enum": [
+        "PRD",
+        "QA",
+        "DEV",
+        "SAME_STAGE"
+      ],
+      "type": "string"
+    }
+  }
+}

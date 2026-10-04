@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-user-profile-api-response-schema.json",
+  "title": "UserProfileApiResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-users-api-openapi.yml#/components/schemas/UserProfileApiResponse",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The user key (format: guid).",
+      "format": "uuid"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user's full name."
+    },
+    "email": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user's email address."
+    },
+    "status": {
+      "enum": [
+        "Active",
+        "Invited",
+        "Inactive",
+        "PendingRegistration"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/UserProfileStatus"
+        }
+      ],
+      "description": "The user's Profile Status."
+    },
+    "access": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/UserProfileAccessResponse"
+        }
+      ],
+      "description": "The user's profile access."
+    },
+    "lastLoginAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The timestamp of the last login (or token refresh) for this user in UTC.",
+      "format": "date-time"
+    },
+    "isActive": {
+      "type": "boolean",
+      "description": "The value indicating whether user profile is active or not."
+    },
+    "photoUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user's photo URL."
+    },
+    "isEmailVerified": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "The value indicating whether or not the user's email is verified."
+    },
+    "isTermsAndConditionsAccepted": {
+      "type": "boolean",
+      "description": "The value indicating whether or not the user has accepted the terms and conditions."
+    },
+    "_embedded": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/UserProfileWithApplicationRolesEmbeddedResponse"
+        }
+      ],
+      "description": "The embedded information to provide. (optional)\nOnly available when the request includes the query parameter `embed=`,\ne.g. `embed=applicationRoles`"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AssignedGroupInfoApiResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The application group key.",
+          "format": "uuid"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the application group."
+        },
+        "membershipType": {
+          "enum": [
+            "Assigned",
+            "Mapped"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/$defs/MembershipType"
+            }
+          ],
+          "description": "The membership type of the user in the application group."
+        }
+      },
+      "additionalProperties": false
+    },
+    "MembershipType": {
+      "enum": [
+        "Assigned",
+        "Mapped"
+      ],
+      "type": "string"
+    },
+    "UserApplicationRoleApiResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The application role key.",
+          "format": "uuid"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the application role."
+        },
+        "environmentKey": {
+          "type": "string",
+          "description": "The environment key.",
+          "format": "uuid"
+        },
+        "assetKey": {
+          "type": "string",
+          "description": "The asset key.",
+          "format": "uuid"
+        },
+        "externalKey": {
+          "type": "string",
+          "description": "The unique identifier for an application role independently of the environment.",
+          "format": "uuid"
+        },
+        "claim": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The claim name."
+        },
+        "portfolioKey": {
+          "type": "string",
+          "description": "The portfolio key associated with the environment.",
+          "format": "uuid"
+        },
+        "isDirectlyAssigned": {
+          "type": "boolean",
+          "description": "Indicates whether the role is directly assigned to the user."
+        },
+        "assignedGroups": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/AssignedGroupInfoApiResponse"
+          },
+          "description": "The application groups through which the user inherits this role, if any."
+        }
+      },
+      "additionalProperties": false
+    },
+    "UserIdpProfileResponse": {
+      "type": "object",
+      "properties": {
+        "userKey": {
+          "type": "string",
+          "description": "The user key.",
+          "format": "uuid"
+        },
+        "identityProviderKey": {
+          "type": "string",
+          "description": "The identity provider key (format: guid).",
+          "format": "uuid"
+        },
+        "subject": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The subject claims in the token issued by the IdP."
+        },
+        "username": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The username."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The user's full name."
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The user's email address."
+        },
+        "photoUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The user's photo URL."
+        },
+        "firstLoginAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The timestamp of the first login for this user using the idp in UTC.",
+          "format": "date-time"
+        },
+        "lastLoginAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The timestamp of the last login for this user using the idp in UTC.",
+          "format": "date-time"
+        },
+        "isEmailVerified": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "The value indicating whether or not the user's email is verified."
+        }
+      },
+      "additionalProperties": false
+    },
+    "UserProfileAccessResponse": {
+      "type": "object",
+      "properties": {
+        "hasOrganizationRoles": {
+          "type": "boolean",
+          "description": "User has organization-level roles"
+        },
+        "hasApplicationRoles": {
+          "type": "boolean",
+          "description": "User has application roles"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UserProfileStatus": {
+      "enum": [
+        "Active",
+        "Invited",
+        "Inactive",
+        "PendingRegistration"
+      ],
+      "type": "string"
+    },
+    "UserProfileWithApplicationRolesEmbeddedResponse": {
+      "type": "object",
+      "properties": {
+        "applicationRoles": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/UserApplicationRoleApiResponse"
+          },
+          "description": "List of application roles. Each role includes whether it is directly assigned to the user\nand the application groups through which the user inherits it, if any."
+        },
+        "userIdentityProviders": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/UserIdpProfileResponse"
+          },
+          "description": "List of user identity providers."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-public-launch-deletion-analysis-request-schema.json",
+  "title": "PublicLaunchDeletionAnalysisRequest",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-deletion-analyses-api-openapi.yml#/components/schemas/PublicLaunchDeletionAnalysisRequest",
+  "type": "object",
+  "properties": {
+    "assetKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Asset Key for the analysis"
+    }
+  },
+  "additionalProperties": false
+}

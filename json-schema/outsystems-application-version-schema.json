@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-application-version-schema.json",
+  "title": "ApplicationVersion",
+  "description": "Represents a version of an application.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-assets-api-openapi.yml#/components/schemas/ApplicationVersion",
+  "required": [
+    "applicationKey",
+    "name"
+  ],
+  "type": "object",
+  "properties": {
+    "applicationKey": {
+      "minLength": 1,
+      "type": "string",
+      "description": "Application key (format: guid)."
+    },
+    "revision": {
+      "type": "integer",
+      "description": "Revision number.",
+      "format": "int32"
+    },
+    "revisionUserKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Key of the user that created the revision (format: guid)."
+    },
+    "revisionUserName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Name of the user that created the revision.",
+      "deprecated": true
+    },
+    "revisionUserEmail": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Email of the user that created the revision."
+    },
+    "revisionDateTime": {
+      "type": "string",
+      "description": "Timestamp when the revision was created.",
+      "format": "date-time"
+    },
+    "tag": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Version tag associated with this revision, in MAJOR.MINOR.PATCH format."
+    },
+    "name": {
+      "minLength": 1,
+      "type": "string",
+      "description": "Name of the application."
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Description of the application."
+    },
+    "applicationType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ApplicationType"
+        }
+      ],
+      "description": "Type of the application."
+    },
+    "isExternal": {
+      "type": "boolean",
+      "description": "If an application is installed by an external system"
+    },
+    "isDeployable": {
+      "type": "boolean",
+      "description": "Indicates whether the application is of a deployable application type."
+    },
+    "isBuiltInApp": {
+      "type": "boolean",
+      "description": "Indicates whether the application is a built-in app."
+    },
+    "fromTemplateKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Key of the template used to generate the application (format: guid)."
+    },
+    "iconUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL of the application icon.",
+      "format": "uri"
+    },
+    "primaryColor": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Primary color of the application (format: hexadecimal RGB with leading #)."
+    },
+    "urlPath": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL base path where the application will be made available. Only available for deployable applications."
+    },
+    "templateType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/TemplateType"
+        }
+      ],
+      "description": "Type of template when application is a template."
+    },
+    "toolVersion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "IDE version used to create the application revision."
+    },
+    "sourceCodeBinaryUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL to fetch the application source code.",
+      "format": "uri"
+    },
+    "metamodelJsonUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL to fetch metamodel JSON, which contains meta-information about the application.",
+      "format": "uri"
+    },
+    "signatureBinaryUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL to fetch the signature binary, to perform dependency analysis.",
+      "format": "uri"
+    },
+    "releaseNotesUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL to fetch the release notes.",
+      "format": "uri"
+    },
+    "signatureDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Digest that allows checking if the the signature of any of the public elements of the application has changes. (format: guid)"
+    },
+    "compatibilitySignatureDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Digest that allows checking if the signature of any of the public elements of the application might have breaking changes. (format: guid)"
+    },
+    "modelDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Digest that allows checking if the application model has any changes. (format: guid)"
+    },
+    "labels": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "description": "Dictionary of all the labels assigned to an application revision"
+    },
+    "runtime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "If the application is of the 'External Library' type, this field will inform us in which runtime the high-code was written to run"
+    },
+    "publishUserEmail": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Application Revision Last Publish User Email"
+    },
+    "publishUserKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Application Revision Last Publish User Key"
+    },
+    "publishDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Application Revision Last Publish Timestamp",
+      "format": "date-time"
+    },
+    "releaseUserEmail": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Application Release User Email"
+    },
+    "releaseUserKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Application Release User Key"
+    },
+    "releaseDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Application Release Date Time",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ApplicationType": {
+      "enum": [
+        "WebApplication",
+        "MobileApplication",
+        "LowCodeLibrary",
+        "ExtensionLibrary",
+        "ExternalConnection",
+        "ExternalLibrary"
+      ],
+      "type": "string",
+      "description": "Enumeration of application types."
+    },
+    "TemplateType": {
+      "enum": [
+        "ApplicationTemplate",
+        "ScreenTemplateBundle"
+      ],
+      "type": "string",
+      "description": "Enumeration of application template types."
+    }
+  }
+}

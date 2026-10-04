@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-apps-overview-response-v1-paged-list-response-schema.json",
+  "title": "AppsOverviewResponseV1PagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/AppsOverviewResponseV1PagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotals"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/AppsOverviewResponseV1"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AppsOverviewResponseV1": {
+      "title": "AppsOverviewResponse",
+      "type": "object",
+      "properties": {
+        "assetName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the asset."
+        },
+        "assetRevision": {
+          "type": "integer",
+          "description": "Revision number of the asset.",
+          "format": "int32"
+        },
+        "score": {
+          "title": "ScoreChange",
+          "allOf": [
+            {
+              "$ref": "#/$defs/ScoreChangeV1"
+            }
+          ],
+          "description": "Quality score with change compared to previous analysis."
+        },
+        "severity": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "$ref": "#/$defs/FindingsChangeV1"
+          },
+          "description": "Findings count grouped by severity level (Low, Medium, High, Critical)."
+        },
+        "status": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "$ref": "#/$defs/FindingsChangeV1"
+          },
+          "description": "Findings count grouped by status (Open, Resolved, Dismissed, Snoozed, Closed)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Overview response for an asset, including quality scores and findings distribution by severity and status."
+    },
+    "FindingsChangeV1": {
+      "title": "FindingsChange",
+      "type": "object",
+      "properties": {
+        "latestFindingsCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Number of findings in the current/latest analysis.",
+          "format": "int32"
+        },
+        "findingsDifferenceCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Change in findings count compared to previous analysis.",
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Findings count with change information."
+    },
+    "PageInfoWithTotals": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results. Null when there is no next page.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": "integer",
+          "description": "Total of results.",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total of result pages.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information including totals."
+    },
+    "ScoreChangeV1": {
+      "title": "ScoreChange",
+      "type": "object",
+      "properties": {
+        "latestScore": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Quality score from the current/latest analysis (0-100).",
+          "format": "int32"
+        },
+        "differenceScore": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Change in quality score compared to previous analysis.",
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Quality score with change information."
+    }
+  }
+}

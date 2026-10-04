@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-extensibility-settings-request-schema.json",
+  "title": "ExtensibilitySettingsRequest",
+  "description": "Optional extensibility settings and library-specific configurations to apply.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-nativebuildextensibilitysettings-api-openapi.yml#/components/schemas/ExtensibilitySettingsRequest",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/ExtensibilitySettingsItemRequest"
+      },
+      "description": "Extensibility settings to be updated"
+    },
+    "libraries": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/LibraryConfigurationRequest"
+      },
+      "description": "Library configurations"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ExtensibilitySettingsItemRequest": {
+      "required": [
+        "key"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Value to be set for the configuration"
+        },
+        "metadata": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/Metadata"
+          },
+          "description": "Metadata of the configuration"
+        }
+      },
+      "additionalProperties": false,
+      "description": "A configuration item identified by a key, with an optional new value for the configuration  and optional metadata entries."
+    },
+    "LibraryConfigurationRequest": {
+      "required": [
+        "key"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "settings": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ExtensibilitySettingsItemRequest"
+          },
+          "description": "Settings associated with Library configuration"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Library configurations for Extensibility settings"
+    },
+    "Metadata": {
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Metadata Item Key"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Metadata Item Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Metadata about Extensibility setting"
+    }
+  }
+}

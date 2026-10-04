@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-agent-config-patch-schema.json",
+  "title": "AgentConfigPatch",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-environments-api-openapi.yml#/components/schemas/AgentConfigPatch",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The key identifier of the configuration"
+    },
+    "revisionBaseline": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "The asset's revision.",
+      "format": "int32"
+    },
+    "settings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/GenericConfigPatch"
+      },
+      "description": "The asset's settings."
+    },
+    "timers": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/TimerPatch"
+      },
+      "description": "Timer configurations"
+    },
+    "integrations": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/IntegrationPatch"
+      },
+      "description": "Integration configurations"
+    },
+    "libraries": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/LibraryConfigPatch"
+      },
+      "description": "Libraries configurations"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "GenericConfigPatch": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key of the value being changed"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The new value"
+        },
+        "filename": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "For binary values, the original file name, to be stored"
+        }
+      },
+      "additionalProperties": false
+    },
+    "IntegrationPatch": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "configs": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigPatch"
+          },
+          "description": "List of configurations properties to patch"
+        }
+      },
+      "additionalProperties": false
+    },
+    "LibraryConfigPatch": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The revision of the library being patched",
+          "format": "int32"
+        },
+        "systemConfigurations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigPatch"
+          },
+          "description": "System Configurations for the Environment configurations"
+        },
+        "settings": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigPatch"
+          },
+          "description": "Settings of the application"
+        },
+        "integrations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/IntegrationPatch"
+          },
+          "description": "Integration configurations"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TimerPatch": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "configs": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigPatch"
+          },
+          "description": "List of configurations properties to patch"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

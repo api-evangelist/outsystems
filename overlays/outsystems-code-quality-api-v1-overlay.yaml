@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for Code Quality API (v1)
   version: 1.0.0
-extends: openapi/outsystems-code-quality-api-v1-openapi.json
+extends: ../openapi/_original/outsystems-code-quality-api-v1-openapi.json
 x-generated: '2026-08-02'
 x-method: generated
 x-source: openapi/outsystems-code-quality-api-v1-openapi.json

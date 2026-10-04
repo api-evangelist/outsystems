@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-contents-response-schema.json",
+  "title": "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationContentsResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-generationoperations-api-openapi.yml#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationContentsResponse",
+  "type": "object",
+  "properties": {
+    "actions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ActionResponse"
+      },
+      "description": "List of actions defined in the HCPkg. Contains the delta for the currently published version in the update scenario"
+    },
+    "structures": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.StructureResponse"
+      },
+      "description": "List of structures defined in the HCPkg. Contains the delta for the currently published version in the update scenario"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType": {
+      "enum": [
+        "None",
+        "Added",
+        "Removed",
+        "Updated",
+        "Unchanged"
+      ],
+      "type": "string"
+    },
+    "OutSystems.ExternalLibraryGeneration.Application.Enums.ParameterType": {
+      "enum": [
+        "None",
+        "Input",
+        "Output"
+      ],
+      "type": "string"
+    },
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ActionResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the action"
+        },
+        "parameters": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ParameterResponse"
+          },
+          "description": "List of parameters of the action"
+        },
+        "changeType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType"
+            }
+          ],
+          "description": "Change compared with previous version"
+        },
+        "iconBase64": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Icon of the action represented in Base64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.AttributeResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the attribute"
+        },
+        "dataType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "OutSystems data type of the attribute"
+        },
+        "changeType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType"
+            }
+          ],
+          "description": "Change compared with previous version"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.ParameterResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the parameter"
+        },
+        "dataType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "OutSystems data type of the parameter"
+        },
+        "parameterType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Application.Enums.ParameterType"
+            }
+          ],
+          "description": "Type of parameter"
+        },
+        "changeType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType"
+            }
+          ],
+          "description": "Change compared with previous version"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.StructureResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the Structure"
+        },
+        "attributes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.AttributeResponse"
+          },
+          "description": "List of attributes of the structure"
+        },
+        "changeType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Application.Enums.ChangeType"
+            }
+          ],
+          "description": "Change compared with previous version"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

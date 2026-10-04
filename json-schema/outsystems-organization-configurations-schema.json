@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-organization-configurations-schema.json",
+  "title": "OrganizationConfigurations",
+  "description": "Represents the configurations for the Organization.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-organization-api-openapi.yml#/components/schemas/OrganizationConfigurations",
+  "type": "object",
+  "properties": {
+    "areAllEmailDomainsInternal": {
+      "type": "boolean",
+      "description": "Defines whether all email user domains are internal or not"
+    },
+    "internalEmailDomains": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "List of email user domains to be considered as internal"
+    }
+  },
+  "additionalProperties": false
+}

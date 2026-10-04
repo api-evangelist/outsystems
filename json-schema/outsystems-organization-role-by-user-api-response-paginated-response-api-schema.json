@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-organization-role-by-user-api-response-paginated-response-api-schema.json",
+  "title": "OrganizationRoleByUserApiResponsePaginatedResponseApi",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-users-api-openapi.yml#/components/schemas/OrganizationRoleByUserApiResponsePaginatedResponseApi",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/OrganizationRoleByUserApiResponse"
+      },
+      "description": "The List of results."
+    },
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotalsApi"
+        }
+      ],
+      "description": "The details of the page information."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "GrantPeriodApiModel": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The start date and time in utc.",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The end date and time in utc.",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrganizationRoleByUserApiResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Gets or sets organization role key.",
+          "format": "uuid"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets organization role name."
+        },
+        "grantPeriod": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GrantPeriodApiModel"
+            }
+          ],
+          "description": "Gets or sets the period during which the role is valid."
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the asset key.",
+          "format": "uuid"
+        },
+        "portfolioKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the portfolio key this assignment belongs to.",
+          "format": "uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PageInfoWithTotalsApi": {
+      "required": [
+        "count",
+        "limit",
+        "offset"
+      ],
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "The results of the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "The limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "The offset of the current page of results.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The total number of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The offset of the next page of results. (optional)",
+          "format": "int32",
+          "readOnly": true
+        },
+        "totalPages": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The total number of pages with results.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -219,6 +219,41 @@ components:
           type: boolean
           description: Gets or sets a value indicating whether gets or Sets the field SuppressNonceVerification.
       additionalProperties: false
+    ProfileLinkingFieldServiceModel:
+      enum:
+      - Email
+      - Username
+      - None
+      type: string
+    IdentityProviderResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IdentityProviderResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    ProviderCustomConfigModel:
+      type: object
+      properties:
+        keyId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the KeyId value.
+        teamId:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the TeamId value.
+      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -255,26 +290,28 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    HostingServiceModel:
+      enum:
+      - oscloud
+      - selfhosted
+      type: string
+    ProviderTypeServiceModel:
+      enum:
+      - OIDC
+      - SAML
+      - Cognito
+      type: string
+    PkceMethodServiceModel:
+      enum:
+      - plain
+      - S256
+      type: string
     EmailTrustTypeServiceModel:
       enum:
       - None
       - EmailVerifiedClaim
       - All
       type: string
-    ProviderCustomConfigModel:
-      type: object
-      properties:
-        keyId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the KeyId value.
-        teamId:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the TeamId value.
-      additionalProperties: false
     ClientAssertionSigningAlgorithmServiceModel:
       enum:
       - ES256
@@ -289,6 +326,67 @@ components:
       - RS256
       - RS384
       - RS512
+      type: string
+    TokenNormalizationModel:
+      type: object
+      properties:
+        normalClaim:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the NormalClaim value.
+        foreignClaim:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets the ForeignClaim value.
+      additionalProperties: false
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    ClientAuthenticationMethodServiceModel:
+      enum:
+      - client_secret_post
+      - client_secret_basic
+      - client_secret_jwt
+      - private_key_jwt
       type: string
     IdentityProviderResponse:
       type: object
@@ -372,32 +470,6 @@ components:
           - $ref: '#/components/schemas/ProfileLinkingFieldServiceModel'
           description: Gets or sets the profile linking field.
       additionalProperties: false
-    IdentityProviderResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IdentityProviderResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
-    PkceMethodServiceModel:
-      enum:
-      - plain
-      - S256
-      type: string
-    ProfileLinkingFieldServiceModel:
-      enum:
-      - Email
-      - Username
-      - None
-      type: string
     SamlConfigurationItemModel:
       type: object
       properties:
@@ -412,78 +484,6 @@ components:
           - 'null'
           description: Gets or sets the ConfigValue value.
       additionalProperties: false
-    ClientAuthenticationMethodServiceModel:
-      enum:
-      - client_secret_post
-      - client_secret_basic
-      - client_secret_jwt
-      - private_key_jwt
-      type: string
-    TokenNormalizationModel:
-      type: object
-      properties:
-        normalClaim:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the NormalClaim value.
-        foreignClaim:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets the ForeignClaim value.
-      additionalProperties: false
-    ProviderTypeServiceModel:
-      enum:
-      - OIDC
-      - SAML
-      - Cognito
-      type: string
-    PageInfoWithTotalsApi:
-      required:
-      - count
-      - limit
-      - offset
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The results of the current page.
-          format: int32
-        limit:
-          type: integer
-          description: The limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: The offset of the current page of results.
-          format: int32
-        totalResults:
-          type:
-          - integer
-          - 'null'
-          description: The total number of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: The offset of the next page of results. (optional)
-          format: int32
-          readOnly: true
-        totalPages:
-          type:
-          - integer
-          - 'null'
-          description: The total number of pages with results.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-    HostingServiceModel:
-      enum:
-      - oscloud
-      - selfhosted
-      type: string
   securitySchemes:
     bearerAuth:
       type: http

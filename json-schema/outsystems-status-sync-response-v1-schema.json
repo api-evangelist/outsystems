@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-status-sync-response-v1-schema.json",
+  "title": "StatusAnalysisResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-analysis-status-api-openapi.yml#/components/schemas/StatusSyncResponseV1",
+  "type": "object",
+  "properties": {
+    "result": {
+      "title": "StatusAnalysisResponseResult",
+      "allOf": [
+        {
+          "$ref": "#/$defs/StatusSyncResponseResultV1"
+        }
+      ],
+      "description": "The result of the status sync"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "LastSuccessfulAnalysisV1": {
+      "title": "LastSuccessfulAnalysis",
+      "type": "object",
+      "properties": {
+        "startedOn": {
+          "type": "string",
+          "description": "The date and time of when the analysis started",
+          "format": "date-time"
+        },
+        "completedOn": {
+          "type": "string",
+          "description": "The date and time of when the analysis finished",
+          "format": "date-time"
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The status of the analysis"
+        },
+        "newFindingsCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The count of the new findings",
+          "format": "int32"
+        },
+        "solvedFindingsCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The count of the solved findings",
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents the last successful analysis"
+    },
+    "LatestAnalysisV1": {
+      "title": "LatestAnalysis",
+      "type": "object",
+      "properties": {
+        "startedOn": {
+          "type": "string",
+          "description": "The date and time of when the analysis started",
+          "format": "date-time"
+        },
+        "completedOn": {
+          "type": "string",
+          "description": "The date and time of when the analysis finished",
+          "format": "date-time"
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The status of the analysis"
+        },
+        "newFindingsCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The count of the new findings",
+          "format": "int32"
+        },
+        "solvedFindingsCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The count of the solved findings",
+          "format": "int32"
+        },
+        "errorCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The error code returned in case the latest analysis has failed status"
+        },
+        "errorMessage": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The error message returned in case the latest analysis has failed status"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents the latest analysis (may include error information)"
+    },
+    "NextAnalysisV1": {
+      "title": "NextAnalysis",
+      "type": "object",
+      "properties": {
+        "scheduledOn": {
+          "type": "string",
+          "description": "The date and time of when the analysis was scheduled to run",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents the next scheduled analysis"
+    },
+    "StatusSyncResponseResultV1": {
+      "title": "StatusAnalysisResponseResult",
+      "type": "object",
+      "properties": {
+        "lastSuccessfulAnalysis": {
+          "title": "LastSuccessfulAnalysis",
+          "allOf": [
+            {
+              "$ref": "#/$defs/LastSuccessfulAnalysisV1"
+            }
+          ],
+          "description": "Info about the latest successful analysis"
+        },
+        "latestAnalysis": {
+          "title": "LatestAnalysis",
+          "allOf": [
+            {
+              "$ref": "#/$defs/LatestAnalysisV1"
+            }
+          ],
+          "description": "Info about the latest analysis"
+        },
+        "nextAnalysis": {
+          "title": "NextAnalysis",
+          "allOf": [
+            {
+              "$ref": "#/$defs/NextAnalysisV1"
+            }
+          ],
+          "description": "Info about the next analysis"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

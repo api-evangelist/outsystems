@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-generated-code-package-response-schema.json",
+  "title": "GeneratedCodePackageResponse",
+  "description": "Represents the result of packaging a build's generated code.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-build-api-openapi.yml#/components/schemas/GeneratedCodePackageResponse",
+  "type": "object",
+  "properties": {
+    "status": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/GeneratedCodePackagingStatus"
+        }
+      ],
+      "description": "The current status of the packaging."
+    },
+    "uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The URI of the generated code package."
+    },
+    "errors": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/GeneratedCodePackagingError"
+      },
+      "description": "The list of errors that occurred while packaging."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "GeneratedCodePackagingError": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "description": "The timestamp representing the instant when the message was issued",
+          "format": "date-time"
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The severity of the error: Error, Info, Warning, etc."
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The content of the error"
+        }
+      },
+      "additionalProperties": false,
+      "description": "A message issued during the packaging of a build's generated code"
+    },
+    "GeneratedCodePackagingStatus": {
+      "enum": [
+        "NotStarted",
+        "Running",
+        "Finished",
+        "TimedOut",
+        "Failed"
+      ],
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-source-code-download-schema.json",
+  "title": "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.SourceCodeDownload",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-sourcecodedownload-api-openapi.yml#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.SourceCodeDownload",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The key of the download operation.",
+      "format": "uuid"
+    },
+    "fileUri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The source code presigned URL."
+    },
+    "libraryKey": {
+      "type": "string",
+      "description": "The key of the specified library.",
+      "format": "uuid"
+    },
+    "libraryName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The name of the specified library."
+    },
+    "libraryDescription": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The description of the specified library."
+    },
+    "status": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus"
+        }
+      ],
+      "description": "The status of the download operation."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus": {
+      "enum": [
+        "None",
+        "Generating",
+        "GenerationError",
+        "ReadyForDownload"
+      ],
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-patterns-response-paged-list-response-schema.json",
+  "title": "PatternsResponsePagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-patterns-api-openapi.yml#/components/schemas/PatternsResponsePagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotals"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/PatternsResponse"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "PageInfoWithTotals": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results. Null when there is no next page.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": "integer",
+          "description": "Total of results.",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total of result pages.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information including totals."
+    },
+    "PatternsResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "impact": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "howToSolve": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "documentationUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "showFlowViz": {
+          "type": "boolean"
+        },
+        "showOpenInSS": {
+          "type": "boolean"
+        },
+        "showHierarchyTree": {
+          "type": "boolean"
+        },
+        "showConsumedElements": {
+          "type": "boolean"
+        },
+        "showWhereObject": {
+          "type": "boolean"
+        },
+        "showWhoObject": {
+          "type": "boolean"
+        },
+        "showCreatedByUsername": {
+          "type": "boolean"
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

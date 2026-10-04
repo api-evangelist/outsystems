@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-code-analysis-status-response-v1-schema.json",
+  "title": "CodeAnalysisStatusResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-code-analyses-api-openapi.yml#/components/schemas/CodeAnalysisStatusResponseV1",
+  "type": "object",
+  "properties": {
+    "analysisKey": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "findings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/RevisionFindingsResponseV1"
+      }
+    },
+    "qualityScore": {
+      "type": "number",
+      "format": "double"
+    },
+    "summary": {
+      "title": "FindingsSummary",
+      "allOf": [
+        {
+          "$ref": "#/$defs/FindingsSummary"
+        }
+      ],
+      "description": "Overview of Finding Summary by categories and severities"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "CodeAnalysisCategories": {
+      "title": "CodeAnalysisCategories",
+      "type": "object",
+      "properties": {
+        "security": {
+          "title": "SeverityBreakdown",
+          "allOf": [
+            {
+              "$ref": "#/$defs/SeverityBreakdown"
+            }
+          ],
+          "description": "Findings Count grouped by severity level (Low, Medium, High, Critical)"
+        },
+        "performance": {
+          "title": "SeverityBreakdown",
+          "allOf": [
+            {
+              "$ref": "#/$defs/SeverityBreakdown"
+            }
+          ],
+          "description": "Findings Count grouped by severity level (Low, Medium, High, Critical)"
+        },
+        "architecture": {
+          "title": "SeverityBreakdown",
+          "allOf": [
+            {
+              "$ref": "#/$defs/SeverityBreakdown"
+            }
+          ],
+          "description": "Findings Count grouped by severity level (Low, Medium, High, Critical)"
+        },
+        "maintainability": {
+          "title": "SeverityBreakdown",
+          "allOf": [
+            {
+              "$ref": "#/$defs/SeverityBreakdown"
+            }
+          ],
+          "description": "Findings Count grouped by severity level (Low, Medium, High, Critical)"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Finding Counts for all analysis categories and severities"
+    },
+    "ElementPath": {
+      "type": "object",
+      "properties": {
+        "elementKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FindingsSummary": {
+      "title": "FindingsSummary",
+      "type": "object",
+      "properties": {
+        "categories": {
+          "title": "CodeAnalysisCategories",
+          "allOf": [
+            {
+              "$ref": "#/$defs/CodeAnalysisCategories"
+            }
+          ],
+          "description": "Finding Counts for all analysis categories and severities"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Overview of Finding Summary by categories and severities"
+    },
+    "RevisionFindingsResponseV1": {
+      "title": "RevisionFindingsResponse",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "patternId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "discoveredOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rediscoveredOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementPath": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ElementPath"
+          },
+          "readOnly": true
+        },
+        "elementLastModifiedBy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementLastModifiedOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementPath": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ElementPath"
+          },
+          "readOnly": true
+        },
+        "whereElementLastModifiedBy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementLastModifiedOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dismissReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "snoozedUntil": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assetRevision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int32"
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SeverityBreakdown": {
+      "title": "SeverityBreakdown",
+      "type": "object",
+      "properties": {
+        "lowSeverity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mediumSeverity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "highSeverity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "criticalSeverity": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Findings Count grouped by severity level (Low, Medium, High, Critical)"
+    }
+  }
+}

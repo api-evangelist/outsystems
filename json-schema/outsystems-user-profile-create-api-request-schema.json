@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-user-profile-create-api-request-schema.json",
+  "title": "UserProfileCreateApiRequest",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-users-api-openapi.yml#/components/schemas/UserProfileCreateApiRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user's name."
+    },
+    "email": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user’s email address."
+    },
+    "isActive": {
+      "type": "boolean",
+      "description": "Sets the user as active. Default is true (active)."
+    },
+    "photoUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user’s photo url."
+    },
+    "addToBuiltInIdentityProvider": {
+      "type": "boolean",
+      "description": "Creates the user in the built-in identity provider. Default is false (not created in the built-in identity provider)."
+    },
+    "identityProviderKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The identity provider key. When provided, a UserIdpProfile will be created or linked.",
+      "format": "uuid"
+    },
+    "subject": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user’s subject claim value for this IdP."
+    },
+    "username": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user’s username for this IdP."
+    }
+  },
+  "additionalProperties": false
+}

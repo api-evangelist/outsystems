@@ -1,5 +1,7 @@
 generated: '2026-08-02'
 method: searched
+install: []
+commands: []
 source: https://github.com/OutSystems/outsystems-pipeline
 docs: https://github.com/OutSystems/outsystems-pipeline#readme
 summary: >-

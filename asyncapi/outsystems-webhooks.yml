@@ -1,0 +1,23 @@
+generated: '2026-10-03'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://extranetprdintegrations.outsystems.net/Documentation_API/rest/getContentMarkdown/doc?Guid=73db3695-0270-4495-915a-df56d5f993c1
+sources:
+- https://extranetprdintegrations.outsystems.net/Documentation_API/rest/getContentMarkdown/doc?Guid=73db3695-0270-4495-915a-df56d5f993c1
+- https://extranetprdintegrations.outsystems.net/Documentation_API/rest/getContentMarkdown/doc?Guid=8517ea53-04e1-4f9d-b707-524259744ff9
+- https://extranetprdintegrations.outsystems.net/Documentation_API/rest/getContentMarkdown/doc?Guid=b4aafec5-ef56-4f96-9359-0e30e838f07e
+- https://extranetprdintegrations.outsystems.net/Documentation_API/rest/getContentMarkdown/doc?Guid=e23f04cc-761b-4d4c-8ef3-b639f4a80c83
+description: OutSystems ODC events are delivered via an internal event queue with retry and back‑off handling.
+events:
+- event: OnCreate
+  description: A database event triggered automatically when a new record is added to an entity after a successful transaction commit.
+- event: OnUpdate
+  description: A database event triggered automatically when an existing record is updated in an entity after a successful transaction commit.
+- event: OnDelete
+  description: A database event triggered automatically when a record is deleted from an entity after a successful transaction commit.
+- event: OnPurchaseStarted
+  description: An example public event that is triggered whenever a customer initiates a purchase, allowing other apps to react asynchronously.
+delivery:
+  retries: '10'
+note: The documentation does not specify any signature header or authentication mechanism for event deliveries.
+docs: https://extranetprdintegrations.outsystems.net/Documentation_API/rest/getContentMarkdown/doc?Guid=73db3695-0270-4495-915a-df56d5f993c1

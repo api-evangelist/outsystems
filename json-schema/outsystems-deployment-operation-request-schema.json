@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-deployment-operation-request-schema.json",
+  "title": "DeploymentOperationRequest",
+  "description": "Deployment job request data",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-deployment-operations-api-openapi.yml#/components/schemas/DeploymentOperationRequest",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/DeploymentOperationsType"
+        }
+      ],
+      "description": "Operation to be executed.\nMandatory: Deploy, Undeploy, ApplyConfigs."
+    },
+    "assetKey": {
+      "type": "string",
+      "description": "Asset unique identifier.\nMandatory for Apply Configurations and Deployment.",
+      "format": "uuid"
+    },
+    "buildKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Build unique identifier.\nMandatory for Deployment.",
+      "format": "uuid"
+    },
+    "revision": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Revision identifier.\nMandatory for Apply Configurations and Deployment.",
+      "format": "int32"
+    },
+    "environmentKey": {
+      "type": "string",
+      "description": "Environment Identifier.\nMandatory.",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "DeploymentOperationsType": {
+      "enum": [
+        "Deploy",
+        "Undeploy",
+        "ApplyConfigs"
+      ],
+      "type": "string"
+    }
+  }
+}

@@ -2,6 +2,7 @@
 generated: '2026-09-20'
 method: searched
 source: https://www.outsystems.com/pricing-and-editions
+name: OutSystems API Plans
 sources:
 - https://www.outsystems.com/pricing-and-editions
 - https://www.outsystems.com/pricing-and-editions/

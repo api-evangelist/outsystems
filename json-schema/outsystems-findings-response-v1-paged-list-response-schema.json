@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-findings-response-v1-paged-list-response-schema.json",
+  "title": "FindingsResponseV1PagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-findings-api-openapi.yml#/components/schemas/FindingsResponseV1PagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotals"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/FindingsResponseV1"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ElementPath": {
+      "type": "object",
+      "properties": {
+        "elementKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FindingsResponseV1": {
+      "title": "FindingsResponse",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "patternId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "discoveredOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rediscoveredOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementPath": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ElementPath"
+          },
+          "readOnly": true
+        },
+        "elementLastModifiedBy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elementLastModifiedOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementPath": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ElementPath"
+          },
+          "readOnly": true
+        },
+        "whereElementLastModifiedBy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "whereElementLastModifiedOn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dismissReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "snoozedUntil": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assetRevision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PageInfoWithTotals": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results. Null when there is no next page.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": "integer",
+          "description": "Total of results.",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total of result pages.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information including totals."
+    }
+  }
+}

@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-public-deployment-analysis-report-public-analysis-result-schema.json",
+  "title": "PublicDeploymentAnalysisReportPublicAnalysisResult",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-deployment-analyses-api-openapi.yml#/components/schemas/PublicDeploymentAnalysisReportPublicAnalysisResult",
+  "type": "object",
+  "properties": {
+    "analysisKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Key of the analysis"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AnalysisReportType"
+        }
+      ],
+      "description": "Type of analysis"
+    },
+    "processStatus": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProcessStatus"
+        }
+      ],
+      "description": "Status of the analysis"
+    },
+    "error": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProblemDetails"
+        }
+      ],
+      "description": "Processing error, if any"
+    },
+    "report": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PublicDeploymentAnalysisReport"
+        }
+      ],
+      "description": "Report"
+    },
+    "environmentKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Environment Key, if any",
+      "format": "uuid"
+    },
+    "startedAt": {
+      "type": "string",
+      "description": "Start date of the analysis",
+      "format": "date-time"
+    },
+    "assetKey": {
+      "type": "string",
+      "description": "Asset Key",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AnalysisReportType": {
+      "enum": [
+        "Deployment",
+        "Deletion"
+      ],
+      "type": "string"
+    },
+    "AnalysisStatus": {
+      "enum": [
+        "NoIssuesFound",
+        "WarningsFound",
+        "ErrorsFound"
+      ],
+      "type": "string"
+    },
+    "ApplicationConflictType": {
+      "enum": [
+        "NameCollision",
+        "MissingApplication",
+        "UrlDiscrepancy",
+        "UnsupportedRuntime"
+      ],
+      "type": "string"
+    },
+    "ApplicationIssue": {
+      "type": "object",
+      "properties": {
+        "conflictType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ApplicationConflictType"
+            }
+          ],
+          "description": "Conflict Type"
+        },
+        "conflictSeverity": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ConflictSeverity"
+            }
+          ],
+          "description": "Conflict Severity"
+        },
+        "hint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Hint to understand the conflict"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ConflictSeverity": {
+      "enum": [
+        "Warning",
+        "Error"
+      ],
+      "type": "string"
+    },
+    "ElementConflictType": {
+      "enum": [
+        "MissingElement",
+        "IncompatibleElement"
+      ],
+      "type": "string"
+    },
+    "ElementIssue": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Element Name"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Element type"
+        },
+        "conflictType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ElementConflictType"
+            }
+          ],
+          "description": "Conflict Type"
+        },
+        "conflictSeverity": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ConflictSeverity"
+            }
+          ],
+          "description": "Conflict Severity"
+        },
+        "incompatibilityType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/IncompatibilityType"
+            }
+          ],
+          "description": "Type of incompatibility, if any"
+        },
+        "hint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Hint to help identify the conflict"
+        }
+      },
+      "additionalProperties": false
+    },
+    "IncompatibilityType": {
+      "enum": [
+        "None",
+        "MissingMandatoryInputParameter",
+        "InputParameterMismatch",
+        "InputParameterTypeMismatch",
+        "OutputParameterMismatch",
+        "OutputParameterTypeMismatch",
+        "MissingMandatoryEntityAttribute",
+        "EntityAttributeMismatch",
+        "EntityAttributeTypeMismatch",
+        "MissingMandatoryStructureAttribute",
+        "StructureAttributeMismatch",
+        "StructureAttributeTypeMismatch",
+        "MissingRecord",
+        "RecordIdentifierMismatch",
+        "ScreenNameMismatch",
+        "ScreenPageNameMismatch",
+        "ScreenURLStructureMismatch",
+        "ServerEntityNameMismatch",
+        "ServiceActionNameMismatch",
+        "StaticEntityNameMismatch",
+        "StructureNameMismatch",
+        "MissingScreen",
+        "MissingServerEntity",
+        "MissingServiceAction",
+        "MissingStaticEntity",
+        "MissingStructure",
+        "MissingConsumerElementSignature",
+        "EventNameMismatch",
+        "MissingEvent",
+        "InputParameterDefaultValueMismatch",
+        "ScreenUrlDiscrepancy",
+        "MissingRole"
+      ],
+      "type": "string"
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int32"
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instance": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ProcessStatus": {
+      "enum": [
+        "InProgress",
+        "Finished",
+        "Failed"
+      ],
+      "type": "string"
+    },
+    "PublicApplicationReport": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Revision, if applicable",
+          "format": "int32"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Type of application"
+        },
+        "referenceType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ReferenceType"
+            }
+          ],
+          "description": "Reference Type of the application"
+        },
+        "elementLevelIssues": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ElementIssue"
+          },
+          "description": "List of Element Level Issues"
+        },
+        "applicationLevelIssues": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ApplicationIssue"
+          },
+          "description": "List of Application Level Issues"
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset Key"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicDeploymentAnalysisReport": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AnalysisStatus"
+            }
+          ],
+          "description": "Analysis global status",
+          "readOnly": true
+        },
+        "impactedAssets": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/PublicApplicationReport"
+          },
+          "description": "List of impacted assets"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ReferenceType": {
+      "enum": [
+        "Producer",
+        "Consumer",
+        "None",
+        "Deployed"
+      ],
+      "type": "string"
+    }
+  }
+}

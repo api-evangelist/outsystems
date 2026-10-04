@@ -1,0 +1,22 @@
+generated: '2026-10-03'
+source: https://www.outsystems.com/legal/terms-of-use/privacy-statement
+method: probed
+signals:
+  data_subject_request:
+    - source: https://www.outsystems.com/legal/terms-of-use/privacy-statement
+      http_status: 200
+      fetched: true
+      quote: "You may request OutSystems to confirm if information about you is processed. If such is the case, you will receive access to your information."
+      note: confirms right of access to personal data
+  data_retention:
+    - source: https://www.outsystems.com/legal/terms-of-use/privacy-statement
+      http_status: 200
+      fetched: true
+      quote: "Should no legal retention periods apply, in some cases, we may keep your personal information for a shorter period if you ask us to delete your personal information."
+      note: outlines data retention policy
+  subprocessors:
+    - source: https://www.outsystems.com/legal/terms-of-use/privacy-statement
+      http_status: 200
+      fetched: true
+      quote: "External service providers: We may also pass your Information to our external service providers, for the purposes of completing tasks and providing Services to you on our behalf."
+      note: mentions use of subprocessors

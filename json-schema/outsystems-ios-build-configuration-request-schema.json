@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-ios-build-configuration-request-schema.json",
+  "title": "IosBuildConfigurationRequest",
+  "description": "Request payload model for native IOS Build configurations",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-nativemobileconfigurations-api-openapi.yml#/components/schemas/IosBuildConfigurationRequest",
+  "type": "object",
+  "properties": {
+    "certificate": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "IOS Signing Cert Reference"
+    },
+    "certificateName": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "IOS Signing Cert Name"
+    },
+    "certificatePassword": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "IOS Signing Cert Password"
+    },
+    "provisioningProfile": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "IOS Provisioning Profile Reference"
+    },
+    "provisioningProfileName": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "IOS Provisioning Profile Name"
+    },
+    "appIdentifier": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Application Identifier"
+    },
+    "buildType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/IosBuildTypePatchConfig"
+        }
+      ],
+      "description": "Native Build Type"
+    },
+    "mabsVersion": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Mabs Version Number"
+    },
+    "mobileFramework": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobileFrameworkNullablePatchConfig"
+        }
+      ],
+      "description": "The framework that should be used when building mobile applications"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "IosBuildType": {
+      "enum": [
+        "Development",
+        "AppStore",
+        "Adhoc",
+        "InHouse",
+        "Simulator"
+      ],
+      "type": "string",
+      "description": "IOS Build type"
+    },
+    "IosBuildTypePatchConfig": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/IosBuildType"
+            }
+          ],
+          "description": "Config Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Patch request basic config value"
+    },
+    "MobileFramework": {
+      "enum": [
+        "Capacitor",
+        "Cordova"
+      ],
+      "type": "string",
+      "description": "This enum is used to specify which framework should be used when building mobile applications"
+    },
+    "MobileFrameworkNullablePatchConfig": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MobileFramework"
+            }
+          ],
+          "description": "Config Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Patch request basic config value"
+    },
+    "StringPatchConfig": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Config Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Patch request basic config value"
+    }
+  }
+}

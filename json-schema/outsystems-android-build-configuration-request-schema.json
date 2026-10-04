@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-android-build-configuration-request-schema.json",
+  "title": "AndroidBuildConfigurationRequest",
+  "description": "Result payload model for native Android Build configurations",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-nativemobileconfigurations-api-openapi.yml#/components/schemas/AndroidBuildConfigurationRequest",
+  "type": "object",
+  "properties": {
+    "keystore": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Android Keystore Reference"
+    },
+    "keystoreName": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Android Keystore Name"
+    },
+    "keystorePassword": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Android Keystore Password"
+    },
+    "alias": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Android Alias"
+    },
+    "aliasPassword": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Android Alias Password"
+    },
+    "appIdentifier": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Application Identifier"
+    },
+    "buildType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AndroidBuildTypePatchConfig"
+        }
+      ],
+      "description": "Native Build Type"
+    },
+    "mabsVersion": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPatchConfig"
+        }
+      ],
+      "description": "Mabs Version Number"
+    },
+    "mobileFramework": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobileFrameworkNullablePatchConfig"
+        }
+      ],
+      "description": "The framework that should be used when building mobile applications"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AndroidBuildType": {
+      "enum": [
+        "Bundle",
+        "Debug",
+        "Release"
+      ],
+      "type": "string",
+      "description": "Android Build type"
+    },
+    "AndroidBuildTypePatchConfig": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AndroidBuildType"
+            }
+          ],
+          "description": "Config Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Patch request basic config value"
+    },
+    "MobileFramework": {
+      "enum": [
+        "Capacitor",
+        "Cordova"
+      ],
+      "type": "string",
+      "description": "This enum is used to specify which framework should be used when building mobile applications"
+    },
+    "MobileFrameworkNullablePatchConfig": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MobileFramework"
+            }
+          ],
+          "description": "Config Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Patch request basic config value"
+    },
+    "StringPatchConfig": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Config Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Patch request basic config value"
+    }
+  }
+}

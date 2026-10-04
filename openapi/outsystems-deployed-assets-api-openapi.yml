@@ -139,86 +139,6 @@ paths:
       x-os-permissions: API client must have at least one permission. The result only shows assets in environments (stages) for which the API Client has **Stage > View stage** permission.
 components:
   schemas:
-    DeployedAssetPagedListResponse:
-      type: object
-      properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/DeployedAsset'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    DeployedAsset:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: The type of asset (WebApplication, MobileApplication, Workflow).
-        key:
-          type: string
-          description: The asset key.
-          format: uuid
-        isBuiltIn:
-          type: boolean
-          description: Whether the asset is built-in.
-        deployments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Deployment'
-          description: Where the asset is deployed and its details.
-      additionalProperties: false
-      description: Deployed asset
     PageInfoWithTotals:
       type: object
       properties:
@@ -253,6 +173,50 @@ components:
           readOnly: true
       additionalProperties: false
       description: Contains response page information including totals.
+    DeployedAssetPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeployedAsset'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
+    DeployedAsset:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of asset (WebApplication, MobileApplication, Workflow).
+        key:
+          type: string
+          description: The asset key.
+          format: uuid
+        isBuiltIn:
+          type: boolean
+          description: Whether the asset is built-in.
+        deployments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Deployment'
+          description: Where the asset is deployed and its details.
+      additionalProperties: false
+      description: Deployed asset
     Deployment:
       required:
       - buildKey
@@ -339,6 +303,42 @@ components:
           format: uuid
       additionalProperties: false
       description: Deployment instance
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
   securitySchemes:
     bearerAuth:
       type: http

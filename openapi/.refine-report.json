@@ -12,7 +12,8 @@
     "_original/outsystems-native-application-orchestration-service-api-v1-openapi.json",
     "_original/outsystems-portfolio-api-v2-openapi.json",
     "_original/outsystems-subscription-api-v1-openapi.json",
-    "_original/outsystems-user-access-management-api-v1-openapi.json"
+    "_original/outsystems-user-access-management-api-v1-openapi.json",
+    "lifetime-api.json"
   ],
   "outputs": [
     "outsystems-environments-api-openapi.yml",
@@ -50,9 +51,17 @@
     "outsystems-identity-providers-api-openapi.yml",
     "outsystems-organization-roles-api-openapi.yml",
     "outsystems-permissions-api-openapi.yml",
-    "outsystems-users-api-openapi.yml"
+    "outsystems-users-api-openapi.yml",
+    "outsystems-applications-api-openapi.yml",
+    "outsystems-auth-api-openapi.yml",
+    "outsystems-deployments-api-openapi.yml",
+    "outsystems-modules-api-openapi.yml",
+    "outsystems-roles-api-openapi.yml",
+    "outsystems-teams-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "archived openapi/lifetime-api.json"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -143,9 +152,12 @@
     "outsystems-subscription-api-v1-openapi.json: declared missing tag: Environments",
     "outsystems-subscription-api-v1-openapi.json: declared missing tag: Organization",
     "outsystems-user-access-management-api-v1-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tag 'Environments' spans 3 source specs (outsystems-asset-configurations-api-v1-openapi.json, outsystems-portfolio-api-v2-openapi.json, outsystems-subscription-api-v1-openapi.json): per-path servers applied",
+    "lifetime-api.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "lifetime-api.json: declared missing tag: /users",
+    "tag 'Environments' spans 4 source specs (outsystems-asset-configurations-api-v1-openapi.json, outsystems-portfolio-api-v2-openapi.json, outsystems-subscription-api-v1-openapi.json, lifetime-api.json): per-path servers applied",
     "tag 'Assets' spans 3 source specs (outsystems-asset-repository-api-v1-openapi.json, outsystems-code-quality-api-v1-openapi.json, outsystems-dependency-management-api-v1-openapi.json): per-path servers applied",
-    "apis.yml register: already-registered"
+    "tag 'users' spans 2 source specs (outsystems-user-access-management-api-v1-openapi.json, lifetime-api.json): per-path servers applied",
+    "apis.yml register: written (+6 apis, 43 total)"
   ],
   "skipped": [
     "_original/outsystems-portfolio-api-v1-openapi.json: archived document superseded by a larger archived document",

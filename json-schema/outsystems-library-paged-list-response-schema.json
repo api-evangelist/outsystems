@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-library-paged-list-response-schema.json",
+  "title": "LibraryPagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-libraries-api-openapi.yml#/components/schemas/LibraryPagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotals"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/Library"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Library": {
+      "required": [
+        "portfolioKey",
+        "type"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The asset key.",
+          "format": "uuid"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The type of library (LowCodeLibrary, ExtensionLibrary, ExternalLibrary, WidgetLibrary)."
+        },
+        "isBuiltIn": {
+          "type": "boolean",
+          "description": "Whether the library is a built-in asset."
+        },
+        "portfolioKey": {
+          "type": "string",
+          "description": "The portfolio key the library belongs to.",
+          "format": "uuid"
+        },
+        "revisions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/LibraryRevision"
+          },
+          "description": "The library revisions (latest revision and all tagged revisions, deduplicated)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Library asset with its available revisions."
+    },
+    "LibraryRevision": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "description": "The revision number.",
+          "format": "int32"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the library at this revision."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The description of the library at this revision."
+        },
+        "iconUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The pre-signed URL for the library icon."
+        },
+        "publishDateTime": {
+          "type": "string",
+          "description": "The date and time at which this revision was published (UTC).",
+          "format": "date-time"
+        },
+        "publishUserKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key of the user who published this revision."
+        },
+        "tag": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The version tag applied to this revision, if any."
+        },
+        "taggingUserKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key of the user who applied the version tag, if any."
+        },
+        "taggingDateTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The date and time at which the version tag was applied (UTC), if any.",
+          "format": "date-time"
+        },
+        "isLatest": {
+          "type": "boolean",
+          "description": "Whether this is the latest revision of the library. Derived at read time as\n`revision == max(revision)` across the library's cached revisions; not a persisted flag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "A specific revision of a library asset."
+    },
+    "PageInfoWithTotals": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": "integer",
+          "description": "Total of results.",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total of result pages.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information including totals."
+    }
+  }
+}

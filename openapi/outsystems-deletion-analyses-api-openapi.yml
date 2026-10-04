@@ -115,54 +115,74 @@ paths:
       x-os-permissions: API Client needs the **Asset management > Delete** permission.
 components:
   schemas:
-    ProcessStatus:
-      enum:
-      - InProgress
-      - Finished
-      - Failed
-      type: string
-    AnalysisStatus:
-      enum:
-      - NoIssuesFound
-      - WarningsFound
-      - ErrorsFound
-      type: string
     AnalysisReportType:
       enum:
       - Deployment
       - Deletion
       type: string
-    ProblemDetails:
+    PublicDependencyPath:
       type: object
       properties:
-        type:
+        indirectElements:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicIndirectElement'
+          description: List of indirect Element elements reference in this dependency path
+      additionalProperties: false
+    EnvironmentReport:
+      type: object
+      properties:
+        environmentKey:
           type:
           - string
           - 'null'
-        title:
+          description: Environment key
+        name:
           type:
           - string
           - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
+          description: Environment name
+        purpose:
+          allOf:
+          - $ref: '#/components/schemas/TenantEnvironmentPurpose'
+          description: Environment purpose
+      additionalProperties: false
+    PublicDeployedRevision:
+      type: object
+      properties:
+        revision:
+          type: integer
+          description: Deployed Application Revision
           format: int32
-        detail:
+        environmentKey:
           type:
           - string
           - 'null'
-        instance:
+          description: Environment in which application is deployed
+        consumerType:
           type:
           - string
           - 'null'
-    TenantEnvironmentPurpose:
-      enum:
-      - Unknown
-      - Development
-      - NonProduction
-      - Production
-      type: string
+          description: Application Consumer Type
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/ConflictSeverity'
+          description: Conflict severity
+        indirectLibraryHint:
+          type:
+          - string
+          - 'null'
+          description: Indirect library hint
+        indirectDependencies:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicDependencyPath'
+          description: Indirect dependencies for the library
+      additionalProperties: false
     PublicIndirectElement:
       type: object
       properties:
@@ -191,23 +211,120 @@ components:
           - 'null'
           description: Asset Key
       additionalProperties: false
-    EnvironmentReport:
+    ProcessStatus:
+      enum:
+      - InProgress
+      - Finished
+      - Failed
+      type: string
+    TenantEnvironmentPurpose:
+      enum:
+      - Unknown
+      - Development
+      - NonProduction
+      - Production
+      type: string
+    PublicDeletionAnalysisReport:
       type: object
       properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AnalysisStatus'
+          description: Analysis global status
+          readOnly: true
+        deployedEnvironments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EnvironmentReport'
+          description: List of environments where application is deployed
+        impactedDomains:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ImpactedDomain'
+          description: List of impacted custom domains
+        impactedAssets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PublicImpactedApplication'
+          description: List of impacted assets
+      additionalProperties: false
+    PublicLaunchDeletionAnalysisRequest:
+      type: object
+      properties:
+        assetKey:
+          type:
+          - string
+          - 'null'
+          description: Asset Key for the analysis
+      additionalProperties: false
+    AnalysisStatus:
+      enum:
+      - NoIssuesFound
+      - WarningsFound
+      - ErrorsFound
+      type: string
+    ImpactedDomain:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: Domain Key
+        hostname:
+          type:
+          - string
+          - 'null'
+          description: Hostname of the domain
         environmentKey:
           type:
           - string
           - 'null'
-          description: Environment key
-        name:
+          description: Environment key where the domain is configured
+        environmentName:
           type:
           - string
           - 'null'
-          description: Environment name
-        purpose:
-          allOf:
-          - $ref: '#/components/schemas/TenantEnvironmentPurpose'
-          description: Environment purpose
+          description: Environment name where the domain is configured
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    ReferenceKeyResponse:
+      type: object
+      properties:
+        analysisKey:
+          type:
+          - string
+          - 'null'
+          description: Analysis Key
       additionalProperties: false
     PublicImpactedApplication:
       type: object
@@ -245,63 +362,11 @@ components:
             $ref: '#/components/schemas/PublicDeployedRevision'
           description: Deployed Revisions of the impacted application
       additionalProperties: false
-    ReferenceKeyResponse:
-      type: object
-      properties:
-        analysisKey:
-          type:
-          - string
-          - 'null'
-          description: Analysis Key
-      additionalProperties: false
     ConflictSeverity:
       enum:
       - Warning
       - Error
       type: string
-    PublicLaunchDeletionAnalysisRequest:
-      type: object
-      properties:
-        assetKey:
-          type:
-          - string
-          - 'null'
-          description: Asset Key for the analysis
-      additionalProperties: false
-    PublicDeployedRevision:
-      type: object
-      properties:
-        revision:
-          type: integer
-          description: Deployed Application Revision
-          format: int32
-        environmentKey:
-          type:
-          - string
-          - 'null'
-          description: Environment in which application is deployed
-        consumerType:
-          type:
-          - string
-          - 'null'
-          description: Application Consumer Type
-        severity:
-          allOf:
-          - $ref: '#/components/schemas/ConflictSeverity'
-          description: Conflict severity
-        indirectLibraryHint:
-          type:
-          - string
-          - 'null'
-          description: Indirect library hint
-        indirectDependencies:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PublicDependencyPath'
-          description: Indirect dependencies for the library
-      additionalProperties: false
     PublicDeletionAnalysisReportPublicAnalysisResult:
       type: object
       properties:
@@ -340,71 +405,6 @@ components:
           type: string
           description: Asset Key
           format: uuid
-      additionalProperties: false
-    PublicDependencyPath:
-      type: object
-      properties:
-        indirectElements:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PublicIndirectElement'
-          description: List of indirect Element elements reference in this dependency path
-      additionalProperties: false
-    ImpactedDomain:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: Domain Key
-        hostname:
-          type:
-          - string
-          - 'null'
-          description: Hostname of the domain
-        environmentKey:
-          type:
-          - string
-          - 'null'
-          description: Environment key where the domain is configured
-        environmentName:
-          type:
-          - string
-          - 'null'
-          description: Environment name where the domain is configured
-      additionalProperties: false
-    PublicDeletionAnalysisReport:
-      type: object
-      properties:
-        status:
-          allOf:
-          - $ref: '#/components/schemas/AnalysisStatus'
-          description: Analysis global status
-          readOnly: true
-        deployedEnvironments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/EnvironmentReport'
-          description: List of environments where application is deployed
-        impactedDomains:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ImpactedDomain'
-          description: List of impacted custom domains
-        impactedAssets:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PublicImpactedApplication'
-          description: List of impacted assets
       additionalProperties: false
   securitySchemes:
     bearerAuth:

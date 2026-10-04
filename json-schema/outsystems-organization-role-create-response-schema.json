@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-organization-role-create-response-schema.json",
+  "title": "OrganizationRoleCreateResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-organization-roles-api-openapi.yml#/components/schemas/OrganizationRoleCreateResponse",
+  "type": "object",
+  "properties": {
+    "orgRoleKey": {
+      "type": "string",
+      "description": "Gets or sets the Organization Role Key.",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false
+}

@@ -47,6 +47,19 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    UploadsResponse:
+      required:
+      - uploadUrl
+      type: object
+      properties:
+        uploadUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to where the file needs to be uploaded
+          format: uri
+      additionalProperties: false
+      description: Represents an upload response
     ProblemDetails:
       type: object
       properties:
@@ -83,19 +96,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    UploadsResponse:
-      required:
-      - uploadUrl
-      type: object
-      properties:
-        uploadUrl:
-          type:
-          - string
-          - 'null'
-          description: URL to where the file needs to be uploaded
-          format: uri
-      additionalProperties: false
-      description: Represents an upload response
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-grant-details-request-schema.json",
+  "title": "GrantDetailsRequest",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-users-api-openapi.yml#/components/schemas/GrantDetailsRequest",
+  "type": "object",
+  "properties": {
+    "grantPeriod": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/GrantPeriodApiModel"
+        }
+      ],
+      "description": "Gets or sets the grant period."
+    },
+    "assetKeys": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the asset keys."
+    },
+    "portfolioKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the portfolio key this assignment belongs to. Optional; applies only to asset-scoped grants\nand, when omitted, the assignment is associated with the tenant's main portfolio.",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "GrantPeriodApiModel": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The start date and time in utc.",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The end date and time in utc.",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

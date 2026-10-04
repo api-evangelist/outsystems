@@ -1,0 +1,334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-asset-revision-v1-schema.json",
+  "title": "AssetRevisionV1",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetRevisionV1",
+  "required": [
+    "assetKey",
+    "name"
+  ],
+  "type": "object",
+  "properties": {
+    "assetKey": {
+      "minLength": 1,
+      "type": "string",
+      "description": "Asset key (format: guid)."
+    },
+    "portfolioKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Key of the portfolio this asset belongs to (format: guid)."
+    },
+    "revision": {
+      "type": "integer",
+      "description": "Revision number.",
+      "format": "int32"
+    },
+    "name": {
+      "minLength": 1,
+      "type": "string",
+      "description": "Name of the asset."
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Description of the asset."
+    },
+    "isExternal": {
+      "type": "boolean",
+      "description": "If an asset is installed by an external system"
+    },
+    "tag": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Version tag associated with this revision, in MAJOR.MINOR.PATCH format."
+    },
+    "modelDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Digest that allows checking if the asset model has any changes. (format: guid)"
+    },
+    "clonedFromTemplateKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Key of the template used to generate the asset (format: guid)."
+    },
+    "assetType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Type of the owner asset"
+    },
+    "createdBy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Identifier of whom or what tool created the revision"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the revision was created.",
+      "format": "date-time"
+    },
+    "commitMessage": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "An optional commit message that can be populated by the user when creating or updating an asset version."
+    },
+    "taggedBy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Identifier of whom or what tool tagged the revision"
+    },
+    "taggedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Asset Tagging Date Time",
+      "format": "date-time"
+    },
+    "_embedded": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AssetEmbeddingV1"
+        }
+      ],
+      "description": "Embedded details for the asset"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AssetEmbeddingV1": {
+      "type": "object",
+      "properties": {
+        "releaseNote": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AssetReleaseNote"
+            }
+          ],
+          "description": "Embedded Release Note"
+        },
+        "icon": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AssetIcon"
+            }
+          ],
+          "description": "Embedded Icon"
+        },
+        "sourceCode": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AssetSourceCode"
+            }
+          ],
+          "description": "Embedded SourceCode"
+        },
+        "signature": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AssetSignature"
+            }
+          ],
+          "description": "Embedded Signature"
+        },
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/BaseAssetMetadata"
+            }
+          ],
+          "description": "Embedded Metadata"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AssetIcon": {
+      "type": "object",
+      "properties": {
+        "iconUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "URL to fetch the application icon, if one is defined"
+        },
+        "iconDigest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Digest of the icon binary",
+          "format": "uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AssetReleaseNote": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The version tag that is associated with the revision, using the semantic versioning format (MAJOR.MINOR.PATCH)."
+        },
+        "releaseNoteUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "URL to fetch the asset release note"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AssetSignature": {
+      "type": "object",
+      "properties": {
+        "signatureBinaryUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "URL to fetch the signature binary, to perform dependency analysis"
+        },
+        "signatureDigest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Digest that allows checking if the the signature of any of the public elements of the application has changes.",
+          "format": "uuid"
+        },
+        "compatibilitySignatureDigest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.",
+          "format": "uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AssetSourceCode": {
+      "type": "object",
+      "properties": {
+        "sourceCodeBinaryUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "URL to fetch the application source code"
+        },
+        "sourceCodeDigest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Digest of the sourcecode binary",
+          "format": "uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BaseAssetMetadata": {
+      "type": "object",
+      "properties": {
+        "templateType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/TemplateType"
+            }
+          ],
+          "description": "Type of template when asset is a template."
+        },
+        "toolVersion": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "IDE version used to create the asset revision."
+        },
+        "runtime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "If the asset is of the 'External Library' type, this field will inform us in which runtime the high-code was written to run"
+        },
+        "mobileFrameworks": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "If the asset is of the 'Mobile Library' type, this field will inform us in which mobile frameworks are supported"
+        },
+        "assemblyVersion": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly version of the internal image"
+        },
+        "assemblyName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly name of the internal image"
+        },
+        "urlPath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "URL base path where the asset will be made available. Only available for deployable asset."
+        },
+        "isDeployable": {
+          "type": "boolean",
+          "description": "Indicates whether the asset is of a deployable asset type."
+        },
+        "isBuiltInAsset": {
+          "type": "boolean",
+          "description": "Indicates whether the asset is a built-in app."
+        }
+      },
+      "additionalProperties": false
+    },
+    "TemplateType": {
+      "enum": [
+        "ApplicationTemplate",
+        "ScreenTemplateBundle"
+      ],
+      "type": "string",
+      "description": "Enumeration of application template types."
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-native-build-versions-schema.json",
+  "title": "NativeBuildVersions",
+  "description": "Describes the suggested next mobile version",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/NativeBuildVersions",
+  "type": "object",
+  "properties": {
+    "mobileVersionNumber": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The suggested Mobile Version Number. Format X.Y.Z"
+    },
+    "mobileVersionCode": {
+      "type": "integer",
+      "description": "The suggested Mobile Version Code.\nIncreasing integer that indicates if one version was build after another",
+      "format": "int32"
+    },
+    "mobilePlatform": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobilePlatform"
+        }
+      ],
+      "description": "The mobile platform the suggested versions are related to"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "MobilePlatform": {
+      "enum": [
+        "Android",
+        "iOS"
+      ],
+      "type": "string",
+      "description": "Mobile platform"
+    }
+  }
+}

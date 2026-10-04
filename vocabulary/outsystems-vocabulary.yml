@@ -1,0 +1,425 @@
+generated: '2026-10-03'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/outsystems-analysis-status-api-openapi.yml
+- openapi/outsystems-application-roles-api-openapi.yml
+- openapi/outsystems-assets-api-openapi.yml
+- openapi/outsystems-assets-quality-metrics-api-openapi.yml
+- openapi/outsystems-build-api-openapi.yml
+vocabulary:
+  name: OutSystems Domain Vocabulary
+  description: 'Terms declared by OutSystems''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-03'
+  terms:
+  - term: Domains
+    definition: Manage custom domains for environments.
+    tags:
+    - Resource Group
+    source: openapi/outsystems-domains-api-openapi.yml
+  - term: IP filters
+    definition: Create, update, and delete IP filter groups and rules.
+    tags:
+    - Resource Group
+    source: openapi/outsystems-ip-filters-api-openapi.yml
+  - term: Private gateways
+    definition: Activate, deactivate, and manage private gateways.
+    tags:
+    - Resource Group
+    source: openapi/outsystems-private-gateways-api-openapi.yml
+  - term: ProblemDetails
+    definition: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    tags:
+    - Object
+    source: openapi/outsystems-analysis-status-api-openapi.yml#/components/schemas/ProblemDetails
+  - term: StatusAnalysisResponseResult
+    definition: 'Object declared by the contract with fields: lastSuccessfulAnalysis, latestAnalysis, nextAnalysis.'
+    tags:
+    - Object
+    source: openapi/outsystems-analysis-status-api-openapi.yml#/components/schemas/StatusSyncResponseResultV1
+  - term: StatusAnalysisResponse
+    definition: 'Object declared by the contract with fields: result.'
+    tags:
+    - Object
+    source: openapi/outsystems-analysis-status-api-openapi.yml#/components/schemas/StatusSyncResponseV1
+  - term: LatestAnalysis
+    definition: Represents the latest analysis (may include error information)
+    tags:
+    - Object
+    source: openapi/outsystems-analysis-status-api-openapi.yml#/components/schemas/LatestAnalysisV1
+  - term: LastSuccessfulAnalysis
+    definition: Represents the last successful analysis
+    tags:
+    - Object
+    source: openapi/outsystems-analysis-status-api-openapi.yml#/components/schemas/LastSuccessfulAnalysisV1
+  - term: NextAnalysis
+    definition: Represents the next scheduled analysis
+    tags:
+    - Object
+    source: openapi/outsystems-analysis-status-api-openapi.yml#/components/schemas/NextAnalysisV1
+  - term: UserProfileEmbedType
+    definition: 'Enumeration declared by the contract with values: ApplicationRoles, UserIdentityProviders.'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/UserProfileEmbedType
+  - term: RoleUserResponse
+    definition: 'Object declared by the contract with fields: key, name, email, status, photoUrl, lastLoginAt, _embedded.'
+    tags:
+    - Object
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/RoleUserResponse
+  - term: UserProfileStatus
+    definition: 'Enumeration declared by the contract with values: Active, Invited, Inactive, PendingRegistration.'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/UserProfileStatus
+  - term: ApplicationRoleApiResponsePaginatedResponseApi
+    definition: 'Object declared by the contract with fields: results, page.'
+    tags:
+    - Object
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/ApplicationRoleApiResponsePaginatedResponseApi
+  - term: UserIdpProfileResponse
+    definition: 'Object declared by the contract with fields: userKey, identityProviderKey, subject, username, name, email, photoUrl, firstLoginAt,
+      lastLoginAt, isEmailVerified.'
+    tags:
+    - Object
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/UserIdpProfileResponse
+  - term: RoleUserResponsePaginatedResponseApi
+    definition: 'Object declared by the contract with fields: results, page.'
+    tags:
+    - Object
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/RoleUserResponsePaginatedResponseApi
+  - term: ApplicationRoleApiResponse
+    definition: 'Object declared by the contract with fields: key, name, environmentKey, assetKey, externalKey, claim, portfolioKey.'
+    tags:
+    - Object
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/ApplicationRoleApiResponse
+  - term: PageInfoWithTotalsApi
+    definition: 'Object declared by the contract with fields: count, limit, offset, totalResults, nextPageOffset, totalPages.'
+    tags:
+    - Object
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/PageInfoWithTotalsApi
+  - term: UserProfileEmbeddedResponse
+    definition: 'Object declared by the contract with fields: applicationRoles, userIdentityProviders.'
+    tags:
+    - Object
+    source: openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/UserProfileEmbeddedResponse
+  - term: AssetReleaseNote
+    definition: 'Object declared by the contract with fields: tag, releaseNoteUrl.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetReleaseNote
+  - term: BaseAssetMetadata
+    definition: 'Object declared by the contract with fields: templateType, toolVersion, runtime, mobileFrameworks, assemblyVersion, assemblyName,
+      urlPath, isDeployable, isBuiltInAsset.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/BaseAssetMetadata
+  - term: AssetRevisionV1ListResponse
+    definition: Represents a response containing a list of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetRevisionV1ListResponse
+  - term: ApplicationType
+    definition: Enumeration of application types.
+    tags:
+    - Enumeration
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/ApplicationType
+  - term: AssetMetadata
+    definition: 'Object declared by the contract with fields: templateType, toolVersion, runtime, mobileFrameworks, assemblyVersion, assemblyName,
+      urlPath, isDeployable, isBuiltInAsset, commitMessage.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetMetadata
+  - term: AssetSourceCode
+    definition: 'Object declared by the contract with fields: sourceCodeBinaryUrl, sourceCodeDigest.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetSourceCode
+  - term: ApplicationVersion
+    definition: Represents a version of an application.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/ApplicationVersion
+  - term: AssetVersionFilter
+    definition: 'Object declared by the contract with fields: key, digest, revision, isHighestTag.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetVersionFilter
+  - term: AssetVersionPatchRequest
+    definition: 'Object declared by the contract with fields: tag, releaseNotes, commitMessage.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetVersionPatchRequest
+  - term: AssetRevisionV1PagedListResponse
+    definition: Represents a response containing a paged set of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetRevisionV1PagedListResponse
+  - term: AssetSignature
+    definition: 'Object declared by the contract with fields: signatureBinaryUrl, signatureDigest, compatibilitySignatureDigest.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetSignature
+  - term: AssetEmbeddingV1
+    definition: 'Object declared by the contract with fields: releaseNote, icon, sourceCode, signature, metadata.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetEmbeddingV1
+  - term: PageInfoWithTotals
+    definition: Contains response page information including totals.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/PageInfoWithTotals
+  - term: AssetIcon
+    definition: 'Object declared by the contract with fields: iconUrl, iconDigest.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetIcon
+  - term: AssetReleaseNoteContent
+    definition: 'Object declared by the contract with fields: tag, content.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetReleaseNoteContent
+  - term: AssetVersionCreationRequest
+    definition: 'Object declared by the contract with fields: tag, releaseNotes, skipSequentialVersionValidation, commitMessage, portfolioKey,
+      fileUri, assetCreationDetails.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetVersionCreationRequest
+  - term: AssetListFilter
+    definition: 'Object declared by the contract with fields: assetVersionFilters, embeds.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetListFilter
+  - term: AssetRevisionV1
+    definition: 'Object declared by the contract with fields: assetKey, portfolioKey, revision, name, description, isExternal, tag, modelDigest,
+      clonedFromTemplateKey, assetType, createdBy, createdAt. (4 more)'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetRevisionV1
+  - term: PermissionType
+    definition: 'Enumeration declared by the contract with values: AppDebug, AppChange, AppDelete, AppUserView, AppDeploy, AppRelease, AppMonitor,
+      AppMonitorUserInfo, AppAccessManage, CfgView, AppCfgChange, ConnConfig. (5 more)'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/PermissionType
+  - term: AssetCreateFromTemplateRequest
+    definition: 'Object declared by the contract with fields: assetName, assetType, templateKey, description, iconBase64.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetCreateFromTemplateRequest
+  - term: TemplateType
+    definition: Enumeration of application template types.
+    tags:
+    - Enumeration
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/TemplateType
+  - term: CodeAnalysisCategories
+    definition: Finding Counts for all analysis categories and severities
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/CodeAnalysisCategories
+  - term: FindingsSummary
+    definition: Overview of Finding Summary by categories and severities
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/FindingsSummary
+  - term: SeverityBreakdown
+    definition: Findings Count grouped by severity level (Low, Medium, High, Critical)
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/SeverityBreakdown
+  - term: AssetRevisionSummaryResponse
+    definition: 'Object declared by the contract with fields: assetKey, assetRevision, analysisDate, qualityScore, summary.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetRevisionSummaryResponse
+  - term: AssetDependencyWithProducerReferencesListResponse
+    definition: Represents a response containing a list of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetDependencyWithProducerReferencesListResponse
+  - term: ReferencedElementStringTypes
+    definition: 'Object declared by the contract with fields: assetKey, revision, key, name, description, isHidden, signatureDigest, compatibilitySignatureDigest,
+      producerAssetKey, producerAssetName, type, producerAssetType.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/ReferencedElementStringTypes
+  - term: ProblemDetails_2
+    definition: 'Object declared by the contract with fields: type, title, status, detail, instance.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/ProblemDetails_2
+  - term: AssetDependencyListResponse
+    definition: Represents a response containing a list of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetDependencyListResponse
+  - term: ReferencedElementStringTypesListResponse
+    definition: Represents a response containing a list of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/ReferencedElementStringTypesListResponse
+  - term: AssetDependencyWithProducerReferences
+    definition: 'Object declared by the contract with fields: key, portfolioKey, revision, name, description, type, signatureDigest, compatibilitySignatureDigest,
+      modelDigest, isDirectProducer, producers.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetDependencyWithProducerReferences
+  - term: PublicElementStringTypesListResponse
+    definition: Represents a response containing a list of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/PublicElementStringTypesListResponse
+  - term: PublicElementStringTypes
+    definition: Represents a public element of an asset.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/PublicElementStringTypes
+  - term: AssetDependencyProducerListResponse
+    definition: Represents a response containing a list of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetDependencyProducerListResponse
+  - term: AssetDependencyProducer
+    definition: 'Object declared by the contract with fields: key, portfolioKey, revision, name, description, type, signatureDigest, compatibilitySignatureDigest,
+      modelDigest, producers.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetDependencyProducer
+  - term: AssetDependency
+    definition: 'Object declared by the contract with fields: key, portfolioKey, revision, name, description, type, signatureDigest, compatibilitySignatureDigest,
+      modelDigest.'
+    tags:
+    - Object
+    source: openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetDependency
+  - term: FindingsChange
+    definition: Findings count with change information.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/FindingsChangeV1
+  - term: AppsOverviewResponseV1PagedListResponse
+    definition: Represents a response containing a paged set of results.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/AppsOverviewResponseV1PagedListResponse
+  - term: ScoreChange
+    definition: Quality score with change information.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/ScoreChangeV1
+  - term: FindingStatus
+    definition: 'Enumeration declared by the contract with values: Open, Resolved, Dismissed, Snoozed, Closed.'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/FindingStatus
+  - term: FindingSeverity
+    definition: 'Enumeration declared by the contract with values: Low, Medium, High, Critical.'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/FindingSeverity
+  - term: AppsOverviewResponse
+    definition: Overview response for an asset, including quality scores and findings distribution by severity and status.
+    tags:
+    - Object
+    source: openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/AppsOverviewResponseV1
+  - term: Categories
+    definition: 'Enumeration declared by the contract with values: performance, security, architecture, maintainability.'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-assets-quality-metrics-api-openapi.yml#/components/schemas/Categories
+  - term: GeneratedCodePackagingError
+    definition: A message issued during the packaging of a build's generated code
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/GeneratedCodePackagingError
+  - term: SecurityVulnerability
+    definition: Security Vulnerability
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/SecurityVulnerability
+  - term: BuildType
+    definition: The type of build
+    tags:
+    - Enumeration
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildType
+  - term: BuildResponse
+    definition: The response of a build request
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildResponse
+  - term: BuildFeedbackDetailsResponse
+    definition: All messages issued during a build
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildFeedbackDetailsResponse
+  - term: GeneratedCodePackagingStatus
+    definition: 'Enumeration declared by the contract with values: NotStarted, Running, Finished, TimedOut, Failed.'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/GeneratedCodePackagingStatus
+  - term: GeneratedCodePackagingResponse
+    definition: Represents the response from initiating the packaging of a build's generated code.
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/GeneratedCodePackagingResponse
+  - term: BuildOperationDetails
+    definition: The specification of a build request
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildOperationDetails
+  - term: BuildStatus
+    definition: 'Enumeration declared by the contract with values: Pending, Finished, FinishedWithErrors, Running, Deleted, ToBeDeleted.'
+    tags:
+    - Enumeration
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildStatus
+  - term: BuildDetails
+    definition: The status of a particular build
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildDetails
+  - term: GeneratedCodePackageResponse
+    definition: Represents the result of packaging a build's generated code.
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/GeneratedCodePackageResponse
+  - term: BuildFeedbackDetails
+    definition: A message issued during the build process
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildFeedbackDetails
+  - term: BuildDetailsBuildListResponse
+    definition: The list of builds that match provided criteria
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildDetailsBuildListResponse
+  - term: SecurityVulnerabilities
+    definition: Security Vulnerabilities
+    tags:
+    - Object
+    source: openapi/outsystems-build-api-openapi.yml#/components/schemas/SecurityVulnerabilities
+  - term: AppShieldUsage
+    definition: AppShield usage in the native build
+    tags:
+    - Enumeration
+    source: openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/AppShieldUsage
+  - term: BuildOperationValidationRequest
+    definition: Native build validation request for public API
+    tags:
+    - Object
+    source: openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/BuildOperationValidationRequest
+  - term: TaskProgressMessage
+    definition: Represents a user facing message about the progress of an operation.
+    tags:
+    - Object
+    source: openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/TaskProgressMessage
+  - term: NativeBuildVersions
+    definition: Describes the suggested next mobile version
+    tags:
+    - Object
+    source: openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/NativeBuildVersions
+  - term: MobilePlatform
+    definition: Mobile platform
+    tags:
+    - Enumeration
+    source: openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/MobilePlatform

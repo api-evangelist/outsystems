@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-asset-metadata-schema.json",
+  "title": "AssetMetadata",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetMetadata",
+  "type": "object",
+  "properties": {
+    "templateType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/TemplateType"
+        }
+      ],
+      "description": "Type of template when asset is a template."
+    },
+    "toolVersion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "IDE version used to create the asset revision."
+    },
+    "runtime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "If the asset is of the 'External Library' type, this field will inform us in which runtime the high-code was written to run"
+    },
+    "mobileFrameworks": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "If the asset is of the 'Mobile Library' type, this field will inform us in which mobile frameworks are supported"
+    },
+    "assemblyVersion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly version of the internal image"
+    },
+    "assemblyName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "If the asset is of the 'Model Plugin' type, this field will inform us in which is the assembly name of the internal image"
+    },
+    "urlPath": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL base path where the asset will be made available. Only available for deployable asset."
+    },
+    "isDeployable": {
+      "type": "boolean",
+      "description": "Indicates whether the asset is of a deployable asset type."
+    },
+    "isBuiltInAsset": {
+      "type": "boolean",
+      "description": "Indicates whether the asset is a built-in app."
+    },
+    "commitMessage": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "An optional commit message that can be populated by the user when creating or updating an asset version."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "TemplateType": {
+      "enum": [
+        "ApplicationTemplate",
+        "ScreenTemplateBundle"
+      ],
+      "type": "string",
+      "description": "Enumeration of application template types."
+    }
+  }
+}

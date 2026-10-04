@@ -137,6 +137,86 @@ paths:
       x-os-permissions: API client must have at least one permission.
 components:
   schemas:
+    StageServiceModel:
+      enum:
+      - PRD
+      - QA
+      - DEV
+      - SAME_STAGE
+      type: string
+    PortfolioInheritanceServiceModel:
+      enum:
+      - SAME_PORTFOLIO
+      - MAIN_PORTFOLIO
+      - ALL_PORTFOLIO
+      type: string
+    PermissionInheritance:
+      required:
+      - realmStages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets or sets the permission key.
+          format: uuid
+        realmStages:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/StageServiceModel'
+          description: Gets or sets the realm stage list.
+        realmPortfolio:
+          allOf:
+          - $ref: '#/components/schemas/PortfolioInheritanceServiceModel'
+          description: Gets or sets the realm portfolio.
+      additionalProperties: false
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    OrgRolePermissionsVisibility:
+      enum:
+      - Hidden
+      - Public
+      - Internal
+      type: string
     PermissionResponse:
       required:
       - allowedScopes
@@ -201,27 +281,11 @@ components:
           - 'null'
           description: Gets or sets the remarks for the permission.
       additionalProperties: false
-    PortfolioInheritanceServiceModel:
+    AssetContext:
       enum:
-      - SAME_PORTFOLIO
-      - MAIN_PORTFOLIO
-      - ALL_PORTFOLIO
+      - Organization
+      - Asset
       type: string
-    PermissionResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PermissionResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -258,84 +322,20 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    AssetContext:
-      enum:
-      - Organization
-      - Asset
-      type: string
-    PermissionInheritance:
-      required:
-      - realmStages
+    PermissionResponsePaginatedResponseApi:
       type: object
       properties:
-        key:
-          type: string
-          description: Gets or sets the permission key.
-          format: uuid
-        realmStages:
+        results:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/StageServiceModel'
-          description: Gets or sets the realm stage list.
-        realmPortfolio:
+            $ref: '#/components/schemas/PermissionResponse'
+          description: The List of results.
+        page:
           allOf:
-          - $ref: '#/components/schemas/PortfolioInheritanceServiceModel'
-          description: Gets or sets the realm portfolio.
-      additionalProperties: false
-    StageServiceModel:
-      enum:
-      - PRD
-      - QA
-      - DEV
-      - SAME_STAGE
-      type: string
-    OrgRolePermissionsVisibility:
-      enum:
-      - Hidden
-      - Public
-      - Internal
-      type: string
-    PageInfoWithTotalsApi:
-      required:
-      - count
-      - limit
-      - offset
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The results of the current page.
-          format: int32
-        limit:
-          type: integer
-          description: The limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: The offset of the current page of results.
-          format: int32
-        totalResults:
-          type:
-          - integer
-          - 'null'
-          description: The total number of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: The offset of the next page of results. (optional)
-          format: int32
-          readOnly: true
-        totalPages:
-          type:
-          - integer
-          - 'null'
-          description: The total number of pages with results.
-          format: int32
-          readOnly: true
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
       additionalProperties: false
   securitySchemes:
     bearerAuth:

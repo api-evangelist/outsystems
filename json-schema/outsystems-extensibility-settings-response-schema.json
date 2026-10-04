@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-extensibility-settings-response-schema.json",
+  "title": "ExtensibilitySettingsResponse",
+  "description": "The extensibility settings and library configurations for the application.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-nativebuildextensibilitysettings-api-openapi.yml#/components/schemas/ExtensibilitySettingsResponse",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/ExtensibilitySettingsItemResponse"
+      },
+      "description": "Extensibility settings to be returned"
+    },
+    "libraries": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/LibraryConfigurationResponse"
+      },
+      "description": "Library configurations"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ExtensibilitySettingsItemResponse": {
+      "required": [
+        "defaultValue",
+        "description",
+        "isSecret",
+        "key",
+        "name",
+        "value",
+        "valueOrigin"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the configuration"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Description of the configuration"
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GenericConfigDataType"
+            }
+          ],
+          "description": "Type of the configuration"
+        },
+        "defaultValue": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Default value of the configuration"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Last set value of the configuration"
+        },
+        "valueOrigin": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Origin"
+            }
+          ],
+          "description": "The origin of the value. Either being overridden by the user or set to its default."
+        },
+        "isSecret": {
+          "type": "boolean",
+          "description": "If the configuration is a secret"
+        },
+        "isMandatory": {
+          "type": "boolean",
+          "description": "If the configuration is mandatory"
+        },
+        "lastUpdateDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date of the last update of the configuration",
+          "format": "date-time"
+        },
+        "metadata": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/Metadata"
+          },
+          "description": "Metadata of the configuration"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents the basic configuration properties that will be returned in the GET endpoint"
+    },
+    "GenericConfigDataType": {
+      "enum": [
+        "Text",
+        "Integer",
+        "LongInteger",
+        "Decimal",
+        "Boolean",
+        "DateTime",
+        "Date",
+        "Time",
+        "PhoneNumber",
+        "Email",
+        "Currency",
+        "EntityIdentifierType",
+        "BinaryUrl"
+      ],
+      "type": "string",
+      "description": "Type of configuration"
+    },
+    "LibraryConfigurationResponse": {
+      "required": [
+        "key",
+        "revision"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "revision": {
+          "type": "integer",
+          "description": "The revision number of the configuration",
+          "format": "int32"
+        },
+        "settings": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ExtensibilitySettingsItemResponse"
+          },
+          "description": "Settings associated with Library configuration"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Library configurations for Extensibility settings"
+    },
+    "Metadata": {
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Metadata Item Key"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Metadata Item Value"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Metadata about Extensibility setting"
+    },
+    "Origin": {
+      "enum": [
+        "Override",
+        "Default"
+      ],
+      "type": "string",
+      "description": "The origin of the value. Either being overridden by the user or set to its default."
+    }
+  }
+}

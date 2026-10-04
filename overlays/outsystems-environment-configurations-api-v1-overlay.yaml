@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for Environment Configurations API (v1)
   version: 1.0.0
-extends: openapi/outsystems-environment-configurations-api-v1-openapi.json
+extends: ../openapi/_original/outsystems-environment-configurations-api-v1-openapi.json
 x-generated: '2026-08-02'
 x-method: generated
 x-source: openapi/outsystems-environment-configurations-api-v1-openapi.json

@@ -177,6 +177,52 @@ paths:
       x-os-permissions: API Client needs the **Analyze > View Code Quality findings** permission.
 components:
   schemas:
+    AssetType:
+      enum:
+      - WebApplication
+      - MobileApplication
+      - LowCodeLibrary
+      - MobileLibrary
+      type: string
+    FindingSeverity:
+      enum:
+      - Low
+      - Medium
+      - High
+      - Critical
+      type: string
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
     FindingsResponseV1PagedListResponse:
       type: object
       properties:
@@ -195,6 +241,29 @@ components:
           readOnly: true
       additionalProperties: false
       description: Represents a response containing a paged set of results.
+    ElementPath:
+      type: object
+      properties:
+        elementKey:
+          type:
+          - string
+          - 'null'
+        elementName:
+          type:
+          - string
+          - 'null'
+        elementType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Categories:
+      enum:
+      - performance
+      - security
+      - architecture
+      - maintainability
+      type: string
     ProblemDetails:
       type: object
       properties:
@@ -231,52 +300,6 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    AssetType:
-      enum:
-      - WebApplication
-      - MobileApplication
-      - LowCodeLibrary
-      - MobileLibrary
-      type: string
-    PageInfoWithTotals:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: Offset of the current page of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: Offset of the next page of results. Null when there is no next page.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total of results.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total of result pages.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      description: Contains response page information including totals.
-    FindingSeverity:
-      enum:
-      - Low
-      - Medium
-      - High
-      - Critical
-      type: string
     FindingsResponseV1:
       title: FindingsResponse
       type: object
@@ -378,29 +401,6 @@ components:
           - 'null'
           format: int32
       additionalProperties: false
-    ElementPath:
-      type: object
-      properties:
-        elementKey:
-          type:
-          - string
-          - 'null'
-        elementName:
-          type:
-          - string
-          - 'null'
-        elementType:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Categories:
-      enum:
-      - performance
-      - security
-      - architecture
-      - maintainability
-      type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,0 +1,909 @@
+openapi: 3.2.0
+info:
+  title: LifeTime REST /deployments API
+  description: The LifeTime API allows you to manage applications, modules, environments, deployments, users, teams, roles and deployment zones of your OutSystems infrastructure.
+  version: v2
+servers:
+- url: /lifetimeapi/rest/v2
+tags:
+- name: /deployments
+paths:
+  /deployments/:
+    post:
+      tags:
+      - /deployments
+      summary: Creates a deployment to a target environment
+      description: 'An optional list of applications to include in the deployment can be specified. The input is a subset of deployment object. Application versions that are associated to blocked applications in the target environment cannot be included in the deployment.
+
+
+        From LifeTime 11.21.0, it is possible to create and edit multiple deployment plans for the same target environment in parallel.'
+      operationId: Deployments_Create
+      responses:
+        '200':
+          description: Deployment successfully created.
+          content:
+            text/plain:
+              schema:
+                type: string
+                default: ''
+                description: The key of the newly created deployment.
+        '400':
+          description: Invalid request.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Invalid user permissions.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Source or target environment not found.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to create deployment from environment <SourceEnvironmentKey> to environment <TargetEnvironmentKey>.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersionKeyDeploymentZoneKeyRecordListTextTextTextRecord'
+        description: A Deployment record.
+        required: true
+    get:
+      tags:
+      - /deployments
+      summary: Returns a list of deployments ordered by creation date, from newest to oldest
+      operationId: Deployments_List
+      parameters:
+      - name: MinDate
+        in: query
+        required: false
+        x-example: '2014-12-31'
+        description: The minimum creation date of the deployments to return. The default value is 1 week before the current date.
+        schema:
+          type: string
+          format: date
+      - name: MaxDate
+        in: query
+        required: false
+        x-example: '2014-12-31'
+        description: The maximum creation date of the deployments to return. The default value is the current date.
+        schema:
+          type: string
+          format: date
+      - name: TargetEnvironmentKey
+        in: query
+        required: false
+        description: The key of the target environment to return the deployments from. If the user does not have access to the environment, the list returned will be empty. If no environment key is passed, the list will not be filtered by any target environment.
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: Deployments list successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Deployment_v2'
+                description: A list of Deployment records.
+        '204':
+          description: There are no deployments created between <MinDate> and <MaxDate> for environment key <TargetEnvironmentKey>.
+        '400':
+          description: Invalid request for list of deployments created between <MinDate> and <MaxDate> for environment key <TargetEnvironmentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have access to any environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to list the deployments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /deployments/{DeploymentKey}/:
+    delete:
+      tags:
+      - /deployments
+      summary: Discards a deployment, if possible
+      description: Only deployments whose state is “saved” can be deleted.
+      operationId: Deployments_Delete
+      parameters:
+      - name: DeploymentKey
+        in: path
+        required: true
+        description: The key of the deployment to delete.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deployment successfully deleted.
+        '400':
+          description: Deployment with key <DeploymentKey> cannot be deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Service Account doesn't have permissions to the deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Deployment with key <DeploymentKey> not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to delete deployment <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    put:
+      tags:
+      - /deployments
+      summary: Updates a given deployment
+      description: 'An optional list of applications to include in the deployment can be specified. The input is a subset of deployment object. Using this method to remove apps from a deployment plan sets their status as ''Do Nothing'', but they still appear in the deployment details. Application versions that are associated to blocked applications in the target environment cannot be included in the deployment.
+
+
+        From LifeTime 11.21.0, it is possible to create and edit multiple deployment plans for the same target environment in parallel.
+
+        From LifeTime 11.22.0 or later, the apps are removed from the deployment plan. For more information, refer to Breaking Changes.'
+      operationId: Deployments_Update
+      parameters:
+      - name: DeploymentKey
+        in: path
+        required: true
+        description: The key of the deployment to update.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deployment successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentData_v2'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Invalid user permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Deployment plan not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to update deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersionKeyDeploymentZoneKeyRecordListTextTextTextRecord'
+        description: The deployment information to update.
+        required: true
+    get:
+      tags:
+      - /deployments
+      summary: Returns the details of a given deployment
+      description: The returned information contains the included applications and the possible conflicts that can arise from the deployment of the current applications. Bear in mind that while this is a GET method, calling it may update the state of the deployment plan. This is because knowing the state of a deployment plan requires the plan to have been validated, and the validation process may change the plan's state (e.g. for instance, calling this method immediately after having created a new deployment plan will change its state to either valid or invalid).
+      operationId: Deployments_Get
+      parameters:
+      - name: DeploymentKey
+        in: path
+        required: true
+        description: The key of the desired deployment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deployment details successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationConflictListTextListDeployment_v2Record'
+        '403':
+          description: User doesn't have permissions to the deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Deployment with key <DeploymentKey> not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to access the details of deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /deployments/{DeploymentKey}/{Command}/:
+    post:
+      tags:
+      - /deployments
+      summary: Executes the given command in a specified deployment
+      description: 'The allowed commands are “start”, “continue” and “abort”. These commands cannot be executed if there are applications marked as Tag & Deploy through UI in the deployment plan.
+
+
+        start:
+
+        is accepted only if staging has not yet been started, contains applications, no inconsistencies are found after staging validation, and the target environment is not in maintenance mode or offline.
+
+        continue:
+
+        is accepted when staging has already started but requires user intervention to continue. Examples: in the transition between stage one and two, awaiting progression to step two (if two-step deployment is configured) and the target environment is not in maintenance mode or offline; the deployment has been suspended due to an error.
+
+        abort:
+
+        is accepted until the moment before staging begins to be deployed on the platform server of the target environment.
+
+
+        Use GET /deployments/{DeploymentKey}/status/ to monitor the deployment execution progress.
+
+
+        Starting with LifeTime 11.24.0, it is possible to execute multiple deployment plans for the same target environment in parallel.'
+      operationId: Deployments_ExecuteCommand
+      parameters:
+      - name: DeploymentKey
+        in: path
+        required: true
+        description: The key of the deployment where the command will be executed.
+        schema:
+          type: string
+      - name: Command
+        in: path
+        required: true
+        description: 'The command to execute. One of “start”, “continue” or “abort”. '
+        schema:
+          type: string
+      - name: RedeployOutdated
+        in: query
+        required: false
+        x-example: false
+        description: If True, outdated applications in the target environment will be redeployed.
+        schema:
+          type: boolean
+      - name: IncludeErrorDetails
+        in: query
+        required: false
+        x-example: false
+        description: If True, when an error occurs the returned message will contain more details about the error in question.
+        schema:
+          type: boolean
+      responses:
+        '202':
+          description: Command <Command> executed successfully for deployment <DeploymentKey>.
+        '400':
+          description: Command <Command> can't be executed for deployment <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Service Account doesn't have permissions to the deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Deployment with key <DeploymentKey> not found, or command not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to execute command <Command> for deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /deployments/{DeploymentKey}/status/:
+    get:
+      tags:
+      - /deployments
+      summary: Returns the details of a given deployment execution, including the deployment…
+      operationId: Deployments_GetStatus
+      parameters:
+      - name: DeploymentKey
+        in: path
+        required: true
+        description: The key of the deployment whose status is being requested.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deployment status successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentMessageListTextTextRecord'
+        '403':
+          description: User doesn't have permissions to the deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Deployment with key <DeploymentKey> not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve the status of the deployment with key <DeploymentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /deployments/{DeploymentKey}/getmissingdbmappings/:
+    get:
+      tags:
+      - /deployments
+      summary: Returns the list of extension logical databases that need to be mapped to…
+      operationId: Deployments_GetMissingDbMappings
+      parameters:
+      - name: DeploymentKey
+        in: path
+        required: true
+        description: The key of the desired deployment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of extensions and logical databases to be mapped.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/REST_LogicalDatabase'
+        '400':
+          description: 'One of the following errors:
+
+            - The deployment provided does not exist
+
+            - The target environment does not have this capability'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Message describing the error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /deployments/{DeploymentKey}/configuration/:
+    post:
+      tags:
+      - /deployments
+      summary: Maps the database connections for the extensions' logical databases in the…
+      description: This endpoint requires LifeTime version 11.21.1, or higher.
+      operationId: Deployments_Configuration
+      parameters:
+      - name: DeploymentKey
+        in: path
+        required: true
+        description: The key of the desired deployment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Command <Command> executed successfully for deployment <DeploymentKey>.
+        '400':
+          description: 'One of the following errors:
+
+            - The deployment provided is not awaiting for confirmation
+
+            - Extension mappings were not provided
+
+            - DB mappings were not provided for extension <ExtensionKey>
+
+            - The extension provided does not exist or is not part of this deployment: <ExtensionKey>
+
+            - The logical database <LogicalDatabaseName> does not exist for this extension
+
+            - The database <DatabaseName> does not exist for this extension
+
+            - The mapping for the following extension was not provided: <ExtensionKey>
+
+            - The mapping for the following logical database was not provided: <LogicalDatabase>
+
+            - The target environment does not have this capability'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: You don't have permissions to continue with the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: 'One of the following errors:
+
+            - The requested resource does not exist.
+
+            - The deployment provided does not exist'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: There was an internal error when continuing with the deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ExtensionDBFullMapping'
+        description: The mapping to database connections for all the logical databases of an extension.
+        required: true
+components:
+  schemas:
+    ModuleConflict:
+      description: A module conflict.
+      type: object
+      properties:
+        ProducerModuleKey:
+          type: string
+          default: ''
+          description: Producer Module unique identifier.
+        ConsumerModuleKey:
+          type: string
+          default: ''
+          description: Consumer Module unique identifier.
+        TotalRequiredElements:
+          type: integer
+          example: 0
+          format: int32
+          description: Total number of required elements.
+        ConflictType:
+          type: string
+          default: ''
+          description: "Type of conflict: \n\n-Producer Module Missing\n-Producer Element Missing\n-Producer Element Incompatible\n-Consumer Module Outdated\n-Newer Producer Module Available\n-IncompatiblePlatformServer\n-ConsumerModuleMoved\n-ProducerModuleMoved\n-NameColision"
+    ApplicationOperation:
+      description: Operation executed in the deployment over the application.
+      type: object
+      properties:
+        ApplicationKey:
+          type: string
+          default: ''
+          description: Application unique identifier.
+        ApplicationVersionKey:
+          type: string
+          default: ''
+          description: Application Version unique identifier.
+        DeploymentOperation:
+          type: string
+          default: ''
+          description: 'Label of the operation to be performed. Example: Deploy 1.5.'
+    ApplicationOperation_v2:
+      description: Operation executed in the deployment over the application.
+      type: object
+      properties:
+        ApplicationKey:
+          type: string
+          default: ''
+          description: Application unique identifier.
+        ApplicationVersionKey:
+          type: string
+          default: ''
+          description: Application Version unique identifier.
+        DeploymentOperation:
+          type: string
+          default: ''
+          description: 'Label of the operation to be performed. Example: Deploy 1.5.'
+        DeploymentZoneKey:
+          type: string
+          default: ''
+          description: Deployment Zone unique identifier
+    ModuleToDelete:
+      description: Simple Module information.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Module unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of the module.
+        Description:
+          type: string
+          default: ''
+          description: Description of the module.
+    ExtensionDBFullMapping:
+      description: The mapping for all the logical databases of an extension to database connections.
+      type: object
+      properties:
+        ExtensionKey:
+          type: string
+          default: ''
+          description: Extension unique identifier.
+        DBMapping:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtensionDBMapping'
+    REST_LogicalDatabase:
+      description: Combination of extension and logical database to be mapped.
+      type: object
+      properties:
+        ExtensionKey:
+          type: string
+          default: ''
+          description: Extension unique identifier.
+        ExtensionName:
+          type: string
+          default: ''
+          description: Extension name.
+        LogicalDatabase:
+          type: string
+          default: ''
+          description: Name of the database connection that needs to be mapped.
+    TextTextRecord:
+      description: ''
+      type: object
+      properties:
+        ApplicationVersionKey:
+          type: string
+          default: ''
+        DeploymentZoneKey:
+          type: string
+          default: ''
+      required:
+      - ApplicationVersionKey
+      - DeploymentZoneKey
+    DeploymentMessageListTextTextRecord:
+      description: ''
+      type: object
+      properties:
+        DeploymentStatus:
+          type: string
+          default: ''
+          description: "Type of deployment status: \n\n<ul><li><b>aborted:</b></li> The staging was aborted. In UI representation, the staging is displayed as “Aborted”. <li><b>aborting:</b></li> The staging is in the process of being aborted. In UI representation, the staging is displayed as “Aborting”. <li><b>finished_successful:</b></li> The staging finished successfully. In UI representation, the staging is displayed as “Finished successfully”.<li><b>finished_with_errors:</b></li> The staging finished but encountered errors. In UI representation, the staging is displayed as “Finished with errors”. <li><b>finished_with_warnings:</b></li> The staging finished but encountered warnings. In UI representation, the staging is displayed as “Finished with warnings”. <li><b>force_finished:</b></li> The staging was forcefully finished. In UI representation, the staging is displayed as “Force finished”.<li><b>needs_user_intervention:</b></li> The staging requires user intervention to proceed. Check <b>Info</b> property for the required action. In UI representation, the staging is displayed as “Waiting configuration or confirmation”. <li><b>running:</b></li> The staging is currently running. In UI representation, the staging is displayed as “Running” or “Started”.<li><b>saved:</b></li> The staging has been saved but not yet started. In UI representation, the staging is displayed as “Saved”.</ul>\n\nThe following UI statuses do not have a direct mapping from the API statuses but are part of the deployment plan: \n\n<ul><li><b>Validated:</b></li> The staging has been validated and is ready for the next steps.<li><b>Review:</b></li> The staging is in review plan mode.<li><b>Prepared:</b></li> The staging is prepared and ready to run.</ul>"
+        Info:
+          type: string
+          default: ''
+          description: 'When <b>DeploymentStatus</b> is needs_user_intervention, the following values can be returned:
+
+
+            <ul><li><b>business_process_impact:</b></li> Is requested to check the warning messages before continuing the deployment.<li><b>deployment_prepared:</b></li> Indicates that new application versions are ready for deployment when the two-step deployment is configured.<li><b>needs_configuration_or_confirmation:</b></li> Is waiting for application settings in the plan or confirmation to continue. When configuring an extension''s logical database connection, ensure the Service Account has permissions on the target database. Otherwise, the deployment continues to the default database without pausing.<li><b>deployment_suspended:</b></li> Deployment has been suspended. An error occurred in a step while deploying to the target environment. Is requested to check the error message and decide to continue or abort the deployment.</ul>'
+        DeploymentLog:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentMessage'
+      required:
+      - DeploymentStatus
+      - Info
+      - DeploymentLog
+    DeploymentData_v2:
+      description: Deployment information with the operations executed.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Deployment unique identifier.
+        SourceEnvironmentKey:
+          type: string
+          default: ''
+          description: Source environment unique identifier.
+        TargetEnvironmentKey:
+          type: string
+          default: ''
+          description: Target environment unique identifier.
+        Notes:
+          type: string
+          default: ''
+          description: Deployment notes.
+        CreatedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: Date and time when the deployment plan was created.
+        CreatedBy:
+          type: string
+          default: ''
+          description: Name of the user who created the deployment plan.
+        CreatedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who created the deployment plan.
+        SavedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The date and time when the deployment plan was saved.
+        SavedBy:
+          type: string
+          default: ''
+          description: Name of the user who last saved the deployment plan.
+        SavedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who last saved the deployment plan.
+        StartedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The date and time when the deployment started.
+        StartedBy:
+          type: string
+          default: ''
+          description: Name of the user who started the deployment.
+        StartedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who started the deployment.
+        AbortedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The date and time when the deployment was aborted.
+        AbortedBy:
+          type: string
+          default: ''
+          description: Name of the user who aborted the deployment.
+        AbortedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who aborted the deployment.
+        ApplicationOperations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextTextRecord'
+          description: List of Application Operations included in the deployment.
+    Deployment_v2:
+      description: Deployment information with the operations executed.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Deployment unique identifier.
+        SourceEnvironmentKey:
+          type: string
+          default: ''
+          description: Source environment unique identifier.
+        TargetEnvironmentKey:
+          type: string
+          default: ''
+          description: Target environment unique identifier.
+        DetailsURL:
+          type: string
+          default: ''
+          description: The URL to access the deployment plan in LifeTime.
+        Notes:
+          type: string
+          default: ''
+          description: Deployment notes.
+        CreatedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: Date and time when the deployment plan was created.
+        CreatedBy:
+          type: string
+          default: ''
+          description: Name of the user who created the deployment plan.
+        CreatedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who created the deployment plan.
+        SavedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The date and time when the deployment plan was saved.
+        SavedBy:
+          type: string
+          default: ''
+          description: Name of the user who last saved the deployment plan.
+        SavedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who last saved the deployment plan.
+        StartedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The date and time when the deployment started.
+        StartedBy:
+          type: string
+          default: ''
+          description: Name of the user who started the deployment.
+        StartedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who started the deployment.
+        AbortedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The date and time when the deployment was aborted.
+        AbortedBy:
+          type: string
+          default: ''
+          description: Name of the user who aborted the deployment.
+        AbortedByUsername:
+          type: string
+          default: ''
+          description: Username of the user who aborted the deployment.
+        ApplicationOperations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationOperation_v2'
+          description: List of Application Operations included in the deployment.
+    ApplicationConflictListTextListDeployment_v2Record:
+      description: ''
+      type: object
+      properties:
+        Deployment:
+          $ref: '#/components/schemas/Deployment_v2'
+        ApplicationsToDeploy:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationInBinary'
+        ApplicationsToRedeploy:
+          type: array
+          items:
+            type: string
+            default: ''
+        ApplicationConflicts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationConflict'
+        ModulesToDelete:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleToDelete'
+    DeploymentMessage:
+      description: Message from a deployment operation log.
+      type: object
+      properties:
+        Instant:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: Date and time when the message was logged.
+        Message:
+          type: string
+          default: ''
+          description: Details of the message.
+        Type:
+          type: string
+          default: ''
+          description: Type of the message. [Info|Warning|Error]
+    ExtensionDBMapping:
+      description: The mapping of the logical database of an extension and a database connection in the destination environment.
+      type: object
+      properties:
+        DatabaseName:
+          type: string
+          default: ''
+          description: The name of the database connection as it stands in the destination environment.
+        LogicalDatabaseName:
+          type: string
+          default: ''
+          description: The name of the logical database in the extension.
+    ApplicationVersionKeyDeploymentZoneKeyRecordListTextTextTextRecord:
+      description: ''
+      type: object
+      properties:
+        Notes:
+          type: string
+          default: ''
+        SourceEnvironmentKey:
+          type: string
+          default: ''
+        TargetEnvironmentKey:
+          type: string
+          default: ''
+        ApplicationOperations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextTextRecord'
+      required:
+      - Notes
+      - SourceEnvironmentKey
+      - TargetEnvironmentKey
+      - ApplicationOperations
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.
+    ApplicationConflict:
+      description: A deployment conflict.
+      type: object
+      properties:
+        Message:
+          type: string
+          default: ''
+          description: Description of the conflict.
+        ProducerApplicationOperation:
+          $ref: '#/components/schemas/ApplicationOperation'
+        ConsumerApplicationOperation:
+          $ref: '#/components/schemas/ApplicationOperation'
+        ModuleConflict:
+          $ref: '#/components/schemas/ModuleConflict'
+    ApplicationInBinary:
+      type: object
+      properties:
+        ApplicationKey:
+          type: string
+          default: ''
+        ApplicationName:
+          type: string
+          default: ''
+        IsNew:
+          type: boolean
+          example: false
+        ModulesInBinary:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModulesInBinary'
+    ModulesInBinary:
+      type: object
+      properties:
+        ModuleKey:
+          type: string
+          description: Module unique identifier.
+          default: ''
+        ModuleName:
+          type: string
+          description: Name of the module.
+          default: ''
+        IsNew:
+          type: boolean
+          example: false

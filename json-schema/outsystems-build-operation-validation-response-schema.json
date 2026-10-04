@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-operation-validation-response-schema.json",
+  "title": "BuildOperationValidationResponse",
+  "description": "Native build validation response for public API",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/BuildOperationValidationResponse",
+  "type": "object",
+  "properties": {
+    "platformResults": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Android": {
+          "$ref": "#/$defs/NativeBuildValidationResult"
+        },
+        "iOS": {
+          "$ref": "#/$defs/NativeBuildValidationResult"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Native Build Validation results by mobile platform"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "NativeBuildValidationResult": {
+      "enum": [
+        "NativeBuildNeeded",
+        "NativeBuildNotNeeded",
+        "MissingConfiguration"
+      ],
+      "type": "string",
+      "description": "Native Build Validation Result"
+    }
+  }
+}

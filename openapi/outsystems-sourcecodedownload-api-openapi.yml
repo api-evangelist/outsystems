@@ -143,14 +143,6 @@ paths:
       x-os-permissions: 'Required permissions: **Asset management > Change**'
 components:
   schemas:
-    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse:
-      type: object
-      properties:
-        operationKey:
-          type: string
-          description: The operation key
-          format: uuid
-      additionalProperties: false
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -224,6 +216,14 @@ components:
           allOf:
           - $ref: '#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.SourceCodeDownloadStatus'
           description: The status of the download operation.
+      additionalProperties: false
+    OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.CreationOperationResponse:
+      type: object
+      properties:
+        operationKey:
+          type: string
+          description: The operation key
+          format: uuid
       additionalProperties: false
   securitySchemes:
     bearerAuth:

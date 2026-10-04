@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-findings-summary-response-v1-schema.json",
+  "title": "FindingsSummaryResponse",
+  "description": "Summary response containing total findings count and hierarchical breakdown based on grouping parameters.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-findings-summary-api-openapi.yml#/components/schemas/FindingsSummaryResponseV1",
+  "type": "object",
+  "properties": {
+    "totalFindings": {
+      "title": "FindingsSummaryMetricResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/FindingsSummaryMetricResponseV1"
+        }
+      ],
+      "description": "Total count of findings across all groups."
+    },
+    "results": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Hierarchical breakdown of findings grouped by the requested parameters (e.g., Category → Status → Severity).\nEach level contains either nested groups (as dictionaries) or leaf metrics with count information.\nThe structure depth and keys depend on the GroupBy parameter specified in the request."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "FindingsSummaryMetricResponseV1": {
+      "title": "FindingsSummaryMetricResponse",
+      "type": "object",
+      "properties": {
+        "latestFindingsCount": {
+          "type": "integer",
+          "description": "Number of findings in the current/latest analysis.",
+          "format": "int32"
+        },
+        "findingsDifferenceCount": {
+          "type": "integer",
+          "description": "Change in findings count compared to the previous analysis.",
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

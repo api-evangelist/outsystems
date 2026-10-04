@@ -220,47 +220,6 @@ paths:
       x-os-permissions: API Client needs the **User management > View end users** permission.
 components:
   schemas:
-    UserProfileEmbedType:
-      enum:
-      - ApplicationRoles
-      - UserIdentityProviders
-      type: string
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     RoleUserResponse:
       type: object
       properties:
@@ -307,27 +266,39 @@ components:
 
             e.g. `embed=userIdentityProviders`'
       additionalProperties: false
-    UserProfileStatus:
-      enum:
-      - Active
-      - Invited
-      - Inactive
-      - PendingRegistration
-      type: string
-    ApplicationRoleApiResponsePaginatedResponseApi:
+    ApplicationRoleApiResponse:
       type: object
       properties:
-        results:
+        key:
+          type: string
+          description: The application role key.
+          format: uuid
+        name:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/ApplicationRoleApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
+          description: The name of the application role.
+        environmentKey:
+          type: string
+          description: The environment key.
+          format: uuid
+        assetKey:
+          type: string
+          description: The asset key.
+          format: uuid
+        externalKey:
+          type: string
+          description: The unique identifier for an application role independently of the environment.
+          format: uuid
+        claim:
+          type:
+          - string
+          - 'null'
+          description: The claim name.
+        portfolioKey:
+          type: string
+          description: The portfolio key associated with the environment.
+          format: uuid
       additionalProperties: false
     UserIdpProfileResponse:
       type: object
@@ -383,6 +354,46 @@ components:
           - 'null'
           description: The value indicating whether or not the user's email is verified.
       additionalProperties: false
+    UserProfileEmbeddedResponse:
+      type: object
+      properties:
+        applicationRoles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationRoleApiResponse'
+          description: List of application roles.
+        userIdentityProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserIdpProfileResponse'
+          description: List of user identity providers.
+      additionalProperties: false
+    UserProfileStatus:
+      enum:
+      - Active
+      - Invited
+      - Inactive
+      - PendingRegistration
+      type: string
+    ApplicationRoleApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApplicationRoleApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
     RoleUserResponsePaginatedResponseApi:
       type: object
       properties:
@@ -397,40 +408,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/PageInfoWithTotalsApi'
           description: The details of the page information.
-      additionalProperties: false
-    ApplicationRoleApiResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The application role key.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the application role.
-        environmentKey:
-          type: string
-          description: The environment key.
-          format: uuid
-        assetKey:
-          type: string
-          description: The asset key.
-          format: uuid
-        externalKey:
-          type: string
-          description: The unique identifier for an application role independently of the environment.
-          format: uuid
-        claim:
-          type:
-          - string
-          - 'null'
-          description: The claim name.
-        portfolioKey:
-          type: string
-          description: The portfolio key associated with the environment.
-          format: uuid
       additionalProperties: false
     PageInfoWithTotalsApi:
       required:
@@ -472,24 +449,47 @@ components:
           format: int32
           readOnly: true
       additionalProperties: false
-    UserProfileEmbeddedResponse:
+    UserProfileEmbedType:
+      enum:
+      - ApplicationRoles
+      - UserIdentityProviders
+      type: string
+    ProblemDetails:
       type: object
       properties:
-        applicationRoles:
+        type:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/ApplicationRoleApiResponse'
-          description: List of application roles.
-        userIdentityProviders:
+          description: A URI reference that identifies the problem type.
+        title:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/UserIdpProfileResponse'
-          description: List of user identity providers.
-      additionalProperties: false
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
   securitySchemes:
     bearerAuth:
       type: http

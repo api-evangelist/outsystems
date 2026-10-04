@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-findings-trend-response-v1-results-response-schema.json",
+  "title": "FindingsTrendResponseV1ResultsResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-findings-trend-api-openapi.yml#/components/schemas/FindingsTrendResponseV1ResultsResponse",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/FindingsTrendResponseV1"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "FindingsTrendResponseV1": {
+      "title": "FindingsTrendResponse",
+      "type": "object",
+      "properties": {
+        "openFindingsCount": {
+          "type": "integer",
+          "description": "Represents the count of open findings for the specified day.\nThis property is used to track the number of findings that are still open on that day.",
+          "format": "int64"
+        },
+        "snoozedFindingsCount": {
+          "type": "integer",
+          "description": "Represents the count of snoozed findings for the specified day.\nThis property is used to track the number of findings that are still snoozed on that day.",
+          "format": "int64"
+        },
+        "resolvedFindingsCount": {
+          "type": "integer",
+          "description": "Represents the count of resolved findings for the specified day.\nThis property is used to track the number of findings that are still resolved on that day.",
+          "format": "int64"
+        },
+        "dismissedFindingsCount": {
+          "type": "integer",
+          "description": "Represents the count of dismissed findings for the specified day.\nThis property is used to track the number of findings that are still dismissed on that day.",
+          "format": "int64"
+        },
+        "closedFindingsCount": {
+          "type": "integer",
+          "description": "Represents the count of closed findings for the specified day.\nThis property is used to track the number of findings that have been closed on that day.",
+          "format": "int64"
+        },
+        "analysisDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Represents the day of the findings trend data.\nThe format is typically \"YYYY-MM-DD\"."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

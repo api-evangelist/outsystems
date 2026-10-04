@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-operation-result-schema.json",
+  "title": "BuildOperationResult",
+  "description": "Build operation result",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/BuildOperationResult",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Native Build Key",
+      "format": "uuid"
+    },
+    "applicationKey": {
+      "type": "string",
+      "description": "Application Key",
+      "format": "uuid"
+    },
+    "buildKey": {
+      "type": "string",
+      "description": "Build Key",
+      "format": "uuid"
+    },
+    "appIdentifier": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "AppIdentifier"
+    },
+    "buildType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BuildType"
+        }
+      ],
+      "description": "BuildType"
+    },
+    "revision": {
+      "type": "integer",
+      "description": "Revision",
+      "format": "int32"
+    },
+    "mobilePlatform": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobilePlatform"
+        }
+      ],
+      "description": "MobilePlatform"
+    },
+    "mobileFramework": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobileFramework"
+        }
+      ],
+      "description": "The mobile framework (e.g., Cordova, Capacitor) used for the build."
+    },
+    "status": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BuildStatus"
+        }
+      ],
+      "description": "Status"
+    },
+    "estimatedFinishDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "EstimatedFinishDateTime",
+      "format": "date-time"
+    },
+    "appBinaryDownloadUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "AppBinaryDownloadUrl"
+    },
+    "appSourceDownloadUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "AppSourceDownloadUrl"
+    },
+    "mobileBuildLogUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "MobileBuildLogUrl"
+    },
+    "appShieldMappingUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "AppShieldMappingUrl"
+    },
+    "appShieldUsage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AppShieldUsage"
+        }
+      ],
+      "description": "AppShieldUsage"
+    },
+    "mobileVersionNumber": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "MobileVersionNumber"
+    },
+    "mobileVersionCode": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "MobileVersionCode",
+      "format": "int32"
+    },
+    "startedDateTime": {
+      "type": "string",
+      "description": "StartedDateTime",
+      "format": "date-time"
+    },
+    "finishedDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "FinishedDateTime",
+      "format": "date-time"
+    },
+    "nativeBuilderVersion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "NativeBuilderVersion"
+    },
+    "isNativeBuilderVersionLocked": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "IsNativeBuilderVersionLocked"
+    },
+    "requestingUserKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "RequestingUserId"
+    },
+    "appDeploymentFileDownloadUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Deployment file download URL (for iOS builds with status Done)"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AppShieldUsage": {
+      "enum": [
+        "Unused",
+        "Disabled",
+        "Applied"
+      ],
+      "type": "string",
+      "description": "AppShield usage in the native build"
+    },
+    "BuildStatus": {
+      "enum": [
+        "Waiting",
+        "Validating",
+        "Building",
+        "Shielding",
+        "Finished",
+        "Error"
+      ],
+      "type": "string",
+      "description": "Build status"
+    },
+    "BuildType": {
+      "enum": [
+        "Bundle",
+        "Debug",
+        "Release",
+        "Development",
+        "AppStore",
+        "Adhoc",
+        "InHouse",
+        "Simulator"
+      ],
+      "type": "string",
+      "description": "Build type"
+    },
+    "MobileFramework": {
+      "enum": [
+        "Capacitor",
+        "Cordova"
+      ],
+      "type": "string",
+      "description": "This enum is used to specify which framework should be used when building mobile applications"
+    },
+    "MobilePlatform": {
+      "enum": [
+        "Android",
+        "iOS"
+      ],
+      "type": "string",
+      "description": "Mobile platform"
+    }
+  }
+}

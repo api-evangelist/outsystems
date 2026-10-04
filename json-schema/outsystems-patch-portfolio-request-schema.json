@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-patch-portfolio-request-schema.json",
+  "title": "PatchPortfolioRequest",
+  "description": "Request to update a portfolio's name",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-portfolios-api-openapi.yml#/components/schemas/PatchPortfolioRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "maxLength": 50,
+      "minLength": 1,
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "New portfolio name (min 1, max 50 characters)"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-secure-gateway-schema.json",
+  "title": "SecureGateway",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-private-gateways-api-openapi.yml#/components/schemas/SecureGateway",
+  "type": "object",
+  "properties": {
+    "serverActive": {
+      "type": "boolean",
+      "description": "Indicates if the private gateway service is active."
+    },
+    "serverHealth": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ServerHealth"
+        }
+      ],
+      "description": "Indicates the health status of the private gateway."
+    },
+    "isDeactivating": {
+      "type": "boolean",
+      "description": "Indicates if the private gateway is in the process of deactivating."
+    },
+    "url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The url value to connect to the private gateway."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ServerHealth": {
+      "enum": [
+        "Healthy",
+        "Unhealthy"
+      ],
+      "type": "string"
+    }
+  }
+}

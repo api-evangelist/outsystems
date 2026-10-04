@@ -1,6 +1,7 @@
 generated: '2026-08-02'
 method: searched
 source: https://github.com/OutSystems/docs-odc/blob/main/src/eap/reference/apis/public-rest-apis/rate-limiting.md
+name: OutSystems API Rate Limits
 docs: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/rate_limits/
 scope: OutSystems Developer Cloud (ODC) public REST APIs
 model:
@@ -20,7 +21,8 @@ model:
   retry_after_header: false
   rate_limit_headers: false
 limits:
-- api_domain: User and access management
+- name: User and access management
+  api_domain: User and access management
   spec: openapi/outsystems-user-access-management-api-v1-openapi.json
   limit_count: 100
   unit: requests
@@ -28,7 +30,8 @@ limits:
   endpoint_limits:
   - endpoint: POST /users/bulk
     limit_count: 5
-- api_domain: Portfolio
+- name: Portfolio
+  api_domain: Portfolio
   spec: openapi/outsystems-portfolio-api-v2-openapi.json
   limit_count: 100
   unit: requests

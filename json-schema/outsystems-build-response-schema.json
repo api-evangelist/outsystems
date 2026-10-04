@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-response-schema.json",
+  "title": "BuildResponse",
+  "description": "The response of a build request",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildResponse",
+  "type": "object",
+  "properties": {
+    "buildKey": {
+      "type": "string",
+      "description": "A unique identifier generated for the Build. Can be used to retrieve or outputs the status of associated build.",
+      "format": "uuid"
+    },
+    "isSuccessful": {
+      "type": "boolean",
+      "description": "Signals whether the build start successfully"
+    }
+  },
+  "additionalProperties": false
+}

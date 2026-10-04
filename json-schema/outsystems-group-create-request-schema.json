@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-group-create-request-schema.json",
+  "title": "GroupCreateRequest",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-groups-api-openapi.yml#/components/schemas/GroupCreateRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The name of the group."
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The description of the group."
+    },
+    "environmentKey": {
+      "type": "string",
+      "description": "The environment key to associate with the group.",
+      "format": "uuid"
+    },
+    "applicationRoleKeys": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "The application role keys to associate with the group."
+    },
+    "userKeys": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "The user keys to associate with the group."
+    }
+  },
+  "additionalProperties": false
+}

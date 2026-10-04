@@ -449,112 +449,55 @@ paths:
       x-os-permissions: API Client needs the **Stage > View stage** permission.
 components:
   schemas:
-    AppShieldUsage:
-      enum:
-      - Unused
-      - Disabled
-      - Applied
-      type: string
-      description: AppShield usage in the native build
-    BuildOperationValidationRequest:
+    Int32PageInfo:
       type: object
       properties:
-        environmentKey:
-          type: string
-          description: Unique identifier of the environment
-          format: uuid
-        applicationKey:
-          type: string
-          description: Unique identifier of the application
-          format: uuid
-        buildKey:
-          type: string
-          description: Unique identifier of the build
-          format: uuid
-        revision:
+        count:
           type: integer
-          description: App revision
+          description: Number of results in the current page.
           format: int32
-        mobilePlatform:
-          allOf:
-          - $ref: '#/components/schemas/MobilePlatform'
-          description: Mobile platform (optional). If not specified, returns validation for all platforms.
-      additionalProperties: false
-      description: Native build validation request for public API
-    TaskProgressMessage:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: message timestamp
-          format: date-time
-        type:
-          type:
-          - string
-          - 'null'
-          description: message type (e.g., error code)
-        severity:
-          allOf:
-          - $ref: '#/components/schemas/MessageSeverity'
-          description: message severity (info, warning or error)
-        message:
-          type:
-          - string
-          - 'null'
-          description: message detail
-      additionalProperties: false
-      description: Represents a user facing message about the progress of an operation.
-    NativeBuildVersions:
-      type: object
-      properties:
-        mobileVersionNumber:
-          type:
-          - string
-          - 'null'
-          description: The suggested Mobile Version Number. Format X.Y.Z
-        mobileVersionCode:
+        limit:
           type: integer
-          description: 'The suggested Mobile Version Code.
-
-            Increasing integer that indicates if one version was build after another'
+          description: Limit of results per page.
           format: int32
-        mobilePlatform:
-          allOf:
-          - $ref: '#/components/schemas/MobilePlatform'
-          description: The mobile platform the suggested versions are related to
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type: integer
+          description: Offset of the next page of results.
+          format: int32
       additionalProperties: false
-      description: Describes the suggested next mobile version
-    MobilePlatform:
+      description: Contains response page information.
+    BuildStatus:
       enum:
-      - Android
-      - iOS
+      - Waiting
+      - Validating
+      - Building
+      - Shielding
+      - Finished
+      - Error
       type: string
-      description: Mobile platform
-    BuildType:
-      enum:
-      - Bundle
-      - Debug
-      - Release
-      - Development
-      - AppStore
-      - Adhoc
-      - InHouse
-      - Simulator
-      type: string
-      description: Build type
-    MobileFramework:
-      enum:
-      - Capacitor
-      - Cordova
-      type: string
-      description: This enum is used to specify which framework should be used when building mobile applications
-    NativeBuildValidationResult:
-      enum:
-      - NativeBuildNeeded
-      - NativeBuildNotNeeded
-      - MissingConfiguration
-      type: string
-      description: Native Build Validation Result
+      description: Build status
+    BuildOperationResultPagedListResponse:
+      type: object
+      properties:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BuildOperationResult'
+          description: List of results.
+          readOnly: true
+      additionalProperties: false
+      description: Represents a response containing a paged set of results.
     ProblemDetails:
       type: object
       properties:
@@ -591,92 +534,51 @@ components:
           type: string
           description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    Int32TaskProgressMessagePagedListResponse:
+    MobileFramework:
+      enum:
+      - Capacitor
+      - Cordova
+      type: string
+      description: This enum is used to specify which framework should be used when building mobile applications
+    NativeBuildVersions:
       type: object
       properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/Int32PageInfo'
-          description: Page information.
-          readOnly: true
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TaskProgressMessage'
-          description: List of results.
-          readOnly: true
-      additionalProperties: false
-      description: Represents a response containing a paged set of results.
-    PageInfoWithTotals:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: Offset of the current page of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: Offset of the next page of results. Null when there is no next page.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total of results.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total of result pages.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      description: Contains response page information including totals.
-    BuildOperationRequest:
-      type: object
-      properties:
-        buildKey:
-          type: string
-          description: Unique identifier of the build
-          format: uuid
-        revision:
-          type: integer
-          description: App revision
-          format: int32
         mobileVersionNumber:
           type:
           - string
           - 'null'
-          description: 'Mobile package Version: incremental number with the format major.minor.patch'
+          description: The suggested Mobile Version Number. Format X.Y.Z
         mobileVersionCode:
-          type:
-          - integer
-          - 'null'
-          description: 'Mobile package Version Code: an incremental integer'
+          type: integer
+          description: 'The suggested Mobile Version Code.
+
+            Increasing integer that indicates if one version was build after another'
           format: int32
         mobilePlatform:
           allOf:
           - $ref: '#/components/schemas/MobilePlatform'
-          description: Mobile platform
-        environmentKey:
-          type: string
-          description: Unique identifier of the environment
-          format: uuid
-        applicationKey:
-          type: string
-          description: Unique identifier of the application
-          format: uuid
+          description: The mobile platform the suggested versions are related to
       additionalProperties: false
-      description: Build operation request
+      description: Describes the suggested next mobile version
+    BuildType:
+      enum:
+      - Bundle
+      - Debug
+      - Release
+      - Development
+      - AppStore
+      - Adhoc
+      - InHouse
+      - Simulator
+      type: string
+      description: Build type
+    AppShieldUsage:
+      enum:
+      - Unused
+      - Disabled
+      - Applied
+      type: string
+      description: AppShield usage in the native build
     BuildOperationResult:
       type: object
       properties:
@@ -790,23 +692,85 @@ components:
           description: Deployment file download URL (for iOS builds with status Done)
       additionalProperties: false
       description: Build operation result
-    BuildOperationValidationResponse:
+    BuildOperationRequest:
       type: object
       properties:
-        platformResults:
+        buildKey:
+          type: string
+          description: Unique identifier of the build
+          format: uuid
+        revision:
+          type: integer
+          description: App revision
+          format: int32
+        mobileVersionNumber:
           type:
-          - object
+          - string
           - 'null'
-          properties:
-            Android:
-              $ref: '#/components/schemas/NativeBuildValidationResult'
-            iOS:
-              $ref: '#/components/schemas/NativeBuildValidationResult'
-          additionalProperties: false
-          description: Native Build Validation results by mobile platform
+          description: 'Mobile package Version: incremental number with the format major.minor.patch'
+        mobileVersionCode:
+          type:
+          - integer
+          - 'null'
+          description: 'Mobile package Version Code: an incremental integer'
+          format: int32
+        mobilePlatform:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+          description: Mobile platform
+        environmentKey:
+          type: string
+          description: Unique identifier of the environment
+          format: uuid
+        applicationKey:
+          type: string
+          description: Unique identifier of the application
+          format: uuid
       additionalProperties: false
-      description: Native build validation response for public API
-    Int32PageInfo:
+      description: Build operation request
+    NativeBuildValidationResult:
+      enum:
+      - NativeBuildNeeded
+      - NativeBuildNotNeeded
+      - MissingConfiguration
+      type: string
+      description: Native Build Validation Result
+    MobilePlatform:
+      enum:
+      - Android
+      - iOS
+      type: string
+      description: Mobile platform
+    MessageSeverity:
+      enum:
+      - Info
+      - Warning
+      - Error
+      type: string
+    TaskProgressMessage:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: message timestamp
+          format: date-time
+        type:
+          type:
+          - string
+          - 'null'
+          description: message type (e.g., error code)
+        severity:
+          allOf:
+          - $ref: '#/components/schemas/MessageSeverity'
+          description: message severity (info, warning or error)
+        message:
+          type:
+          - string
+          - 'null'
+          description: message detail
+      additionalProperties: false
+      description: Represents a user facing message about the progress of an operation.
+    PageInfoWithTotals:
       type: object
       properties:
         count:
@@ -822,11 +786,22 @@ components:
           description: Offset of the current page of results.
           format: int32
         nextPageOffset:
-          type: integer
-          description: Offset of the next page of results.
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
           format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
       additionalProperties: false
-      description: Contains response page information.
+      description: Contains response page information including totals.
     VersionSuggestionsRequest:
       type: object
       properties:
@@ -846,28 +821,37 @@ components:
             If not provided, suggestions for both platforms will be returned.'
       additionalProperties: false
       description: Version suggestions request
-    BuildStatus:
-      enum:
-      - Waiting
-      - Validating
-      - Building
-      - Shielding
-      - Finished
-      - Error
-      type: string
-      description: Build status
-    MessageSeverity:
-      enum:
-      - Info
-      - Warning
-      - Error
-      type: string
-    BuildOperationResultPagedListResponse:
+    BuildOperationValidationRequest:
+      type: object
+      properties:
+        environmentKey:
+          type: string
+          description: Unique identifier of the environment
+          format: uuid
+        applicationKey:
+          type: string
+          description: Unique identifier of the application
+          format: uuid
+        buildKey:
+          type: string
+          description: Unique identifier of the build
+          format: uuid
+        revision:
+          type: integer
+          description: App revision
+          format: int32
+        mobilePlatform:
+          allOf:
+          - $ref: '#/components/schemas/MobilePlatform'
+          description: Mobile platform (optional). If not specified, returns validation for all platforms.
+      additionalProperties: false
+      description: Native build validation request for public API
+    Int32TaskProgressMessagePagedListResponse:
       type: object
       properties:
         page:
           allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
+          - $ref: '#/components/schemas/Int32PageInfo'
           description: Page information.
           readOnly: true
         results:
@@ -875,11 +859,27 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/BuildOperationResult'
+            $ref: '#/components/schemas/TaskProgressMessage'
           description: List of results.
           readOnly: true
       additionalProperties: false
       description: Represents a response containing a paged set of results.
+    BuildOperationValidationResponse:
+      type: object
+      properties:
+        platformResults:
+          type:
+          - object
+          - 'null'
+          properties:
+            Android:
+              $ref: '#/components/schemas/NativeBuildValidationResult'
+            iOS:
+              $ref: '#/components/schemas/NativeBuildValidationResult'
+          additionalProperties: false
+          description: Native Build Validation results by mobile platform
+      additionalProperties: false
+      description: Native build validation response for public API
   securitySchemes:
     bearerAuth:
       type: http

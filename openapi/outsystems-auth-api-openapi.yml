@@ -1,0 +1,93 @@
+openapi: 3.2.0
+info:
+  title: LifeTime REST /auth API
+  description: The LifeTime API allows you to manage applications, modules, environments, deployments, users, teams, roles and deployment zones of your OutSystems infrastructure.
+  version: v2
+servers:
+- url: /lifetimeapi/rest/v2
+tags:
+- name: /auth
+paths:
+  /auth/tokens/:
+    post:
+      tags:
+      - /auth
+      summary: Renew the token of the user making the call
+      operationId: Auth_Token
+      responses:
+        '200':
+          description: New Token Information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RenewedTokenRecord'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Invalid user permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Invalid Operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DurationRecord'
+        description: How long the token should be renewed.
+        required: true
+components:
+  schemas:
+    DurationRecord:
+      description: How long we want to renew the token.
+      type: object
+      properties:
+        timePeriod:
+          type: integer
+          default: ''
+          description: Duration of the new token, in the specified units.
+        unit:
+          type: string
+          default: M
+          description: 'Unit in which time period is set. Available units: M = Months'
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.
+    RenewedTokenRecord:
+      description: Data for the renewed token.
+      type: object
+      properties:
+        token:
+          type: string
+          default: ''
+          description: New Token
+        expiresAt:
+          type: string
+          format: date-time
+          x-example: '2024-03-31T23:59:59.938Z'
+          description: Date and time which the token expires

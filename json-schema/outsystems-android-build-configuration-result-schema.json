@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-android-build-configuration-result-schema.json",
+  "title": "AndroidBuildConfigurationResult",
+  "description": "Request payload model for native Android Build configurations",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-nativemobileconfigurations-api-openapi.yml#/components/schemas/AndroidBuildConfigurationResult",
+  "required": [
+    "alias",
+    "aliasPassword",
+    "appIdentifier",
+    "buildType",
+    "keystore",
+    "keystoreName",
+    "keystorePassword",
+    "mabsVersion",
+    "mobileFramework"
+  ],
+  "type": "object",
+  "properties": {
+    "keystore": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/SecretConfig"
+        }
+      ],
+      "description": "Android Keystore Reference"
+    },
+    "keystoreName": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringConfig"
+        }
+      ],
+      "description": "Android Keystore Name"
+    },
+    "keystorePassword": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/SecretConfig"
+        }
+      ],
+      "description": "Android Keystore Password"
+    },
+    "alias": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/SecretConfig"
+        }
+      ],
+      "description": "Android Alias"
+    },
+    "aliasPassword": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/SecretConfig"
+        }
+      ],
+      "description": "Android Alias Password"
+    },
+    "appIdentifier": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringConfig"
+        }
+      ],
+      "description": "Application Identifier"
+    },
+    "buildType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AndroidBuildTypeNullableConfig"
+        }
+      ],
+      "description": "Native Build Type"
+    },
+    "mabsVersion": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringConfig"
+        }
+      ],
+      "description": "Mabs Version Number"
+    },
+    "mobileFramework": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobileFrameworkNullableConfig"
+        }
+      ],
+      "description": "Mobile framework"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AndroidBuildType": {
+      "enum": [
+        "Bundle",
+        "Debug",
+        "Release"
+      ],
+      "type": "string",
+      "description": "Android Build type"
+    },
+    "AndroidBuildTypeNullableConfig": {
+      "required": [
+        "dataType"
+      ],
+      "type": "object",
+      "properties": {
+        "isSecret": {
+          "type": "boolean",
+          "description": "Date string for date field was last updated",
+          "readOnly": true
+        },
+        "lastUpdateDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date string for date field was last updated",
+          "format": "date-time"
+        },
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AndroidBuildType"
+            }
+          ],
+          "description": "Config Value"
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GenericConfigDataType"
+            }
+          ],
+          "description": "Value data type"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Get request basic config value"
+    },
+    "GenericConfigDataType": {
+      "enum": [
+        "Text",
+        "Integer",
+        "LongInteger",
+        "Decimal",
+        "Boolean",
+        "DateTime",
+        "Date",
+        "Time",
+        "PhoneNumber",
+        "Email",
+        "Currency",
+        "EntityIdentifierType",
+        "BinaryUrl"
+      ],
+      "type": "string",
+      "description": "Type of configuration"
+    },
+    "MobileFramework": {
+      "enum": [
+        "Capacitor",
+        "Cordova"
+      ],
+      "type": "string",
+      "description": "This enum is used to specify which framework should be used when building mobile applications"
+    },
+    "MobileFrameworkNullableConfig": {
+      "required": [
+        "dataType"
+      ],
+      "type": "object",
+      "properties": {
+        "isSecret": {
+          "type": "boolean",
+          "description": "Date string for date field was last updated",
+          "readOnly": true
+        },
+        "lastUpdateDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date string for date field was last updated",
+          "format": "date-time"
+        },
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MobileFramework"
+            }
+          ],
+          "description": "Config Value"
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GenericConfigDataType"
+            }
+          ],
+          "description": "Value data type"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Get request basic config value"
+    },
+    "SecretConfig": {
+      "required": [
+        "dataType"
+      ],
+      "type": "object",
+      "properties": {
+        "lastUpdateDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date string for date field was last updated",
+          "format": "date-time"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Null Value",
+          "readOnly": true
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GenericConfigDataType"
+            }
+          ],
+          "description": "Value data type"
+        },
+        "isSecret": {
+          "type": "boolean",
+          "description": "Date string for date field was last updated",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false,
+      "description": "Get request secret config value"
+    },
+    "StringConfig": {
+      "required": [
+        "dataType"
+      ],
+      "type": "object",
+      "properties": {
+        "isSecret": {
+          "type": "boolean",
+          "description": "Date string for date field was last updated",
+          "readOnly": true
+        },
+        "lastUpdateDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date string for date field was last updated",
+          "format": "date-time"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Config Value"
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GenericConfigDataType"
+            }
+          ],
+          "description": "Value data type"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Get request basic config value"
+    }
+  }
+}

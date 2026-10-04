@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-application-role-api-response-paginated-response-api-schema.json",
+  "title": "ApplicationRoleApiResponsePaginatedResponseApi",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-application-roles-api-openapi.yml#/components/schemas/ApplicationRoleApiResponsePaginatedResponseApi",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/ApplicationRoleApiResponse"
+      },
+      "description": "The List of results."
+    },
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotalsApi"
+        }
+      ],
+      "description": "The details of the page information."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ApplicationRoleApiResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The application role key.",
+          "format": "uuid"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the application role."
+        },
+        "environmentKey": {
+          "type": "string",
+          "description": "The environment key.",
+          "format": "uuid"
+        },
+        "assetKey": {
+          "type": "string",
+          "description": "The asset key.",
+          "format": "uuid"
+        },
+        "externalKey": {
+          "type": "string",
+          "description": "The unique identifier for an application role independently of the environment.",
+          "format": "uuid"
+        },
+        "claim": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The claim name."
+        },
+        "portfolioKey": {
+          "type": "string",
+          "description": "The portfolio key associated with the environment.",
+          "format": "uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PageInfoWithTotalsApi": {
+      "required": [
+        "count",
+        "limit",
+        "offset"
+      ],
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "The results of the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "The limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "The offset of the current page of results.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The total number of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The offset of the next page of results. (optional)",
+          "format": "int32",
+          "readOnly": true
+        },
+        "totalPages": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The total number of pages with results.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

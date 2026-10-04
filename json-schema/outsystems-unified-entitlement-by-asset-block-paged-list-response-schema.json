@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-unified-entitlement-by-asset-block-paged-list-response-schema.json",
+  "title": "UnifiedEntitlementByAssetBlockPagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-environments-api-openapi.yml#/components/schemas/UnifiedEntitlementByAssetBlockPagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotals"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/UnifiedEntitlementByAssetBlock"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "PageInfoWithTotals": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results. Null when there is no next page.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": "integer",
+          "description": "Total of results.",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total of result pages.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information including totals."
+    },
+    "UnifiedEntitlementAssetRow": {
+      "type": "object",
+      "properties": {
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset unique identifier (GUID)."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset name."
+        },
+        "assetType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset type (e.g., \"Application\", \"Library\")."
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Aggregated usage value for this asset.",
+          "format": "double"
+        },
+        "revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Asset revision number.",
+          "format": "int32"
+        },
+        "details": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/UnifiedEntitlementDetailRow"
+          },
+          "description": "Detail-level breakdown within this asset's entitlement usage."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents a single asset row with entitlement usage value."
+    },
+    "UnifiedEntitlementByAssetBlock": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Entitlement identifier (e.g., \"applicationObjects\")."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Human-readable name of the entitlement."
+        },
+        "aggregation": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Aggregation function applied to this entitlement's values (e.g., \"Total\", \"Max\", \"P95\", \"P90\")."
+        },
+        "assets": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/UnifiedEntitlementAssetRow"
+          },
+          "description": "Collection of assets with usage values for this entitlement."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents usage data for a single entitlement type, with breakdown by assets."
+    },
+    "UnifiedEntitlementDetailRow": {
+      "type": "object",
+      "properties": {
+        "detailKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Detail unique identifier."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Detail name."
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Detail type."
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Usage value for this detail.",
+          "format": "double"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents a detail-level breakdown within an asset's entitlement usage."
+    }
+  }
+}

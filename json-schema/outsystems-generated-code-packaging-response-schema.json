@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-generated-code-packaging-response-schema.json",
+  "title": "GeneratedCodePackagingResponse",
+  "description": "Represents the response from initiating the packaging of a build's generated code.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-build-api-openapi.yml#/components/schemas/GeneratedCodePackagingResponse",
+  "type": "object",
+  "properties": {
+    "isSuccessful": {
+      "type": "boolean",
+      "description": "Indicates whether the packaging was initiated successfully."
+    }
+  },
+  "additionalProperties": false
+}

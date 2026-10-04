@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-operation-details-schema.json",
+  "title": "BuildOperationDetails",
+  "description": "The specification of a build request",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildOperationDetails",
+  "type": "object",
+  "properties": {
+    "assetKey": {
+      "type": "string",
+      "description": "Specifies the key of the asset to be built",
+      "format": "uuid"
+    },
+    "assetRevision": {
+      "type": "integer",
+      "description": "Specifies the revision of the asset to be built",
+      "format": "int32"
+    },
+    "buildType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BuildType"
+        }
+      ],
+      "description": "Specifies the type of build to be created. Accepts: 'Debug' or 'Release'",
+      "default": "Debug"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "BuildType": {
+      "enum": [
+        "Debug",
+        "Release"
+      ],
+      "type": "string",
+      "description": "The type of build"
+    }
+  }
+}

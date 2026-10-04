@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Outsystems Environments API
   version: '1.0'
-  description: 'Operations tagged Environments across 3 of this provider''s published API definitions: outsystems-asset-configurations-api-v1-openapi.json, outsystems-portfolio-api-v2-openapi.json, outsystems-subscription-api-v1-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Environments across 4 of this provider''s published API definitions: outsystems-asset-configurations-api-v1-openapi.json, outsystems-portfolio-api-v2-openapi.json, outsystems-subscription-api-v1-openapi.json, lifetime-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
   description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -28,8 +28,7 @@ servers:
     '{odc-portal-domain}':
       default: '{odc-portal-domain}'
       description: The domain of your organization
-security:
-- bearerAuth: []
+- url: /lifetimeapi/rest/v2
 tags:
 - name: Environments
 paths:
@@ -92,6 +91,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -166,6 +167,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -234,6 +237,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -308,6 +313,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -379,6 +386,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -450,6 +459,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **Configuration management > Edit configurations** permission for the target environment (stage).
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -502,6 +513,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **Configuration management > View configurations** permission for the target environment (stage).
+      security:
+      - bearerAuth: []
     patch:
       tags:
       - Environments
@@ -557,6 +570,8 @@ paths:
 
 
         To update email configurations, API Client needs the **Configuration management > Manage Email SMTP configuration** permission for the target environment (stage).'
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/asset-configurations/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -612,6 +627,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentListResponse'
       x-os-permissions: The result only shows environments (stages) for which the API Client has **Stage > View stage** permission.
       description: The result only shows environments (stages) for which the API Client has **Stage > View stage** permission.
+      security:
+      - bearerAuth: []
     patch:
       tags:
       - Environments
@@ -659,6 +676,8 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails_2'
       x-os-permissions: Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.
       description: Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/portfolios/v2
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -724,6 +743,8 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails_2'
       x-os-permissions: Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.
       description: Requires **Portfolio management > Manage stages** permission for environments when changing name only, and **Portfolio management > Manage portfolio** when changing order.
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/portfolios/v2
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -833,6 +854,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: To fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage.
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -889,6 +912,8 @@ paths:
       x-os-permissions: 'To fetch the entitlements, API Client needs the **Stage > View stage** permission in the target stage.
 
         To additionally fetch the add-ons, API Client also needs the **Subscriptions > View subscription** permission.'
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -972,6 +997,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: To fetch the usage, API Client needs the **Stage > View stage** and **Subscriptions > View subscription** permissions in the target stage.
+      security:
+      - bearerAuth: []
     servers:
     - url: https://ODC_PORTAL_DOMAIN/api/subscription/v1
       description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -981,8 +1008,2225 @@ paths:
         '{odc-portal-domain}':
           default: '{odc-portal-domain}'
           description: The domain of your organization
+  /environments/:
+    post:
+      tags:
+      - Environments
+      summary: Register the environment in LifeTime
+      operationId: Environment_Register
+      responses:
+        '201':
+          description: Environment registration response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextEnvironmentRegistration_UsersListRecord'
+        '400':
+          description: Failed to register the environment with key <EnvironmentKey> because there are invalid parameters in the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Failed to register the environment with key <EnvironmentKey> because of invalid permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '405':
+          description: Failed to register the environment with key <EnvironmentKey> because the feature is not enabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to register the environment with key <EnvironmentKey> because of an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentRegistration'
+        description: An environment record
+        required: true
+    get:
+      tags:
+      - Environments
+      summary: Lists all the environments in the infrastructure
+      operationId: Environments_List
+      responses:
+        '200':
+          description: Environments list successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Environment_2'
+                description: A list of Environment records.
+        '204':
+          description: No environments found.
+        '500':
+          description: Failed to list the environments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}:
+    delete:
+      tags:
+      - Environments
+      summary: Unregister the environment in LifeTime
+      operationId: Environment_Unregister
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: An environment key
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Environment deleted with success.
+        '404':
+          description: Failed to unregister the environment with key <EnvironmentKey> because it was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '405':
+          description: Failed to unregister the environment with key <EnvironmentKey> because the feature is not enabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to unregister environment from LifeTime.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the details of a given environment
+      operationId: Environments_Get
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the desired environment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Environment details successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment_2'
+        '403':
+          description: 'Failed to retrieve the environment with key: <EnvironmentKey>. The user does not have the required permissions.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: 'Failed to retrieve the environment with key: <EnvironmentKey>.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to access the details of environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/applications/:
+    get:
+      tags:
+      - Environments
+      summary: Returns information about the running versions of all applications in a given…
+      operationId: Environments_GetRunningApps
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment whose list of running applications is being requested.
+        schema:
+          type: string
+      - name: IncludeModules
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the modules details are also retrieved. The default value is false.
+        schema:
+          type: boolean
+      - name: IncludeEnvStatus
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the applications' status information in the environment is included in the result. The default value is false.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Applications list for the given environment successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+                description: A list of Application records.
+        '204':
+          description: No applications found in environment with key <EnvironmentKey>.
+        '400':
+          description: Failed to retrieve applications published in environment because IncludeModules and IncludeEnvStatus parameters were incorrect, or Invalid request when getting running applications for environment with key <EnvironmentKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Failed to retrieve the running applications for environment with key <EnvironmentKey> because user has insufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve running applications for environment with key <EnvironmentKey> because it was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    post:
+      tags:
+      - Environments
+      summary: Creates a new application
+      operationId: Environments_Applications_Create
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment to create the application.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: The key of the newly created application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationKey'
+        '400':
+          description: Failed to create the application in the environment with key <EnvironmentKey> because there are invalid parameters in the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Failed to create the applicaton in the environment with key <EnvironmentKey> because the user has insufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to create a new application in the environment with key <EnvironmentKey> because it was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to create the application in the environment with key <EnvironmentKey> because of an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationCreate'
+        description: A structure holding the name, description and other attributes of the new application.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/applications/{ApplicationKey}/:
+    get:
+      tags:
+      - Environments
+      summary: Returns information about the running version of the specified application in a…
+      operationId: Environments_GetRunningApp
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the running application details.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application whose details are being requested.
+        schema:
+          type: string
+      - name: IncludeEnvStatus
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the applications' status information in the environment is included in the result. The default value is false.
+        schema:
+          type: boolean
+      - name: IncludeModules
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the modules details are also retrieved. The default value is false.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Application information successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Request asked for Modules but not for Status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve the environment with key <EnvironmentKey> or the application with key <ApplicationKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to access the running version of an application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/applications/{ApplicationKey}/content/:
+    get:
+      tags:
+      - Environments
+      summary: Returns a link where the binary file for a given application can be downloaded
+      description: If the requested type of binary file is '.aab', and the application binary file type is '.apk', the download link will get a '.apk' binary file. Otherwise, it will get a '.aab' binary file.
+      operationId: Environments_DownloadRunningApp
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the application binary file link.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application for which to get the binary file link.
+        schema:
+          type: string
+      - name: Type
+        in: query
+        required: false
+        description: The type of binary file to return, when applicable. One of “oap”, “apk”, “aab” or “ipa”.
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: Binary file download link successfully retrieved.
+          headers:
+            Expires:
+              x-example: '2014-12-31T23:59:59.938Z'
+              description: The expiration date and time of the returned link.
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadLink'
+        '204':
+          description: No binary available for given type and keys.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '400':
+          description: The required type <Type> is invalid for given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve the environment with key <EnvironmentKey> or the application with key <ApplicationKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to download <Type> of an application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/applications/{ApplicationKey}/sourcecodeaccess/:
+    post:
+      tags:
+      - Environments
+      summary: Request the creation of the source code package of the application to be…
+      description: This endpoint requires LifeTime version 11.21.1 and Platform Server 11.27.0, or higher.
+      operationId: Environments_Applications_SourceCode
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the source code of the application.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application for which to get the source code.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Operation key identifier, status and operation messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceCode_Status'
+        '400':
+          description: The required type <Type> is invalid for given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment or application found. Please check that the EnvironmentKey and ApplicationKey exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to start the operation to package all the source code files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/applications/{ApplicationKey}/sourcecodeaccess/{PackageKey}/download/:
+    get:
+      tags:
+      - Environments
+      summary: Returns a link where the source code package can be downloaded
+      description: The link will expire in 60 minutes. This endpoint requires LifeTime version 11.21.1 and Platform Server 11.27.0, or higher.
+      operationId: Environments_Applications_DownloadSourceCode
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the source code of the application.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application for which to get the source code.
+        schema:
+          type: string
+      - name: PackageKey
+        in: path
+        required: true
+        description: The key of the application's source code operation.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The link for the application binary file.
+          headers:
+            Expires:
+              x-example: '2014-12-31T23:59:59.938Z'
+              description: The expiration date and time of the returned link.
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadLink'
+        '400':
+          description: The required type <Type> is invalid for given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment or application found. Please check that the EnvironmentKey and ApplicationKey exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to start the operation to package all the source code files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/applications/{ApplicationKey}/sourcecodeaccess/{PackageKey}/status/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the details of a given source code packaging execution, including the…
+      description: This endpoint requires LifeTime version 11.21.1 and Platform Server 11.27.0, or higher.
+      operationId: Environments_Applications_SourceCode_Status
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the source code of the application.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application for which to get the source code.
+        schema:
+          type: string
+      - name: PackageKey
+        in: path
+        required: true
+        description: The key of the application's source code operation.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Operation key identifier, status and operation messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceCode_Status'
+        '400':
+          description: The required type <Type> is invalid for given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; ApplicationKey:<ApplicationKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment or application found. Please check that the EnvironmentKey and ApplicationKey exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to start the operation to package all the source code files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/applications/{ApplicationKey}/versions/:
+    post:
+      tags:
+      - Environments
+      summary: Creates a new version of the application based on the current running instance
+      description: Note that the new version will require some processing time before it becomes available for use.
+      operationId: Environments_Applications_Versions_Create
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the application.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application for which to generate a new version.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Application version successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextRecord'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Invalid user permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Environment or application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to tag an application, or Failed to create a new version for application <ApplicationName>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersionCreate'
+        description: A structure holding the new version name for the application and for its native applications, if applicable.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/modules/{ModuleKey}/sourcecodeaccess/:
+    post:
+      tags:
+      - Environments
+      summary: Request the creation of the source code package of the module to be downloaded
+      operationId: Environments_Modules_SourceCode
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the source code of the module.
+        schema:
+          type: string
+      - name: ModuleKey
+        in: path
+        required: true
+        description: The key of the module for which to get the source code.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Operation key identifier, status and operation messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceCode_Status'
+        '400':
+          description: The required type <Type> is invalid for given keys (EnvironmentKey:<EnvironmentKey>; ModuleKey:<ModuleKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; ModuleKey:<ModuleKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment or module found. Please check that the EnvironmentKey and ModuleKey exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to start the operation to package all the source code files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/modules/{ModuleKey}/sourcecodeaccess/{PackageKey}/download/:
+    get:
+      tags:
+      - Environments
+      summary: Returns a link where the module's source code package can be downloaded
+      description: The link will expire in 60 minutes.
+      operationId: Environments_Modules_DownloadSourceCode
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the source code of the module.
+        schema:
+          type: string
+      - name: ModuleKey
+        in: path
+        required: true
+        description: The key of the module for which to get the source code.
+        schema:
+          type: string
+      - name: PackageKey
+        in: path
+        required: true
+        description: The key of the module's source code operation.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The link for the module binary file.
+          headers:
+            Expires:
+              x-example: '2014-12-31T23:59:59.938Z'
+              description: The expiration date and time of the returned link.
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadLink'
+        '400':
+          description: The required type <Type> is invalid for given keys (EnvironmentKey:<EnvironmentKey>; ModuleKey:<ModuleKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; Module:<ModuleKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment or module found. Please check that the EnvironmentKey and ModuleKey exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to start the operation to package all the source code files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/modules/{ModuleKey}/sourcecodeaccess/{PackageKey}/status/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the details of a given module's source code packaging execution…
+      operationId: Environments_Modules_SourceCode_Status
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the source code of the module.
+        schema:
+          type: string
+      - name: ModuleKey
+        in: path
+        required: true
+        description: The key of the module for which to get the source code.
+        schema:
+          type: string
+      - name: PackageKey
+        in: path
+        required: true
+        description: The key of the module's source code operation.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Operation key identifier, status and operation messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceCode_Status'
+        '400':
+          description: The required type 'Type' is invalid for given keys (EnvironmentKey:<EnvironmentKey>; ModuleKey:<ModuleKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions for the given keys (EnvironmentKey:<EnvironmentKey>; ModuleKey:<ModuleKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment or module found. Please check that the EnvironmentKey and ModuleKey exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to start the operation to package all the source code files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/deploymentzones/:
+    get:
+      tags:
+      - Environments
+      summary: Returns information about the deployment zones available in a given environment
+      operationId: Environments_GetDeploymentZones
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the running application details.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deployment zone information successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeploymentZone_v2'
+                description: A list of DeploymentZone records.
+        '400':
+          description: Failed to access the deployment zones of environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: 'Failed to retrieve the deployment zones of environment <EnvironmentName> (key: <EnvironmentKey>). Error: The user does not have the required permissions, or Feature not Licensed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: 'Failed to retrieve the deployment zones of environment with key: <EnvironmentKey>.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to access the deployment zones of environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/maintenancemode:
+    put:
+      tags:
+      - Environments
+      summary: Sets the maintenance mode (true or false) of a given environment
+      operationId: Environments_SetMaintenanceMode
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: Key of the Environment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Maintenance mode status updated successfuly.
+        '400':
+          description: Failed to update the maintenance mode status due to a bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Environment not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceModeSetting'
+        description: "IsMaintenanceModeEnabled: value to the maintenance mode of an Environment.\n True: Changes the maintenance mode of the environment to enabled.\n False: Changes the maintenance mode of the to disabled.\n\nReason: The reason why the environment maintenance mode is being set to enabled or disabled."
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/templates/:
+    get:
+      tags:
+      - Environments
+      summary: Returns information about the templates available in a given environment
+      operationId: Environments_GetTemplates
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the running application details.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Templates list successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Template'
+                description: A list of Template records.
+        '400':
+          description: Environment doesn't support list templates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Environment not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/content_security_policies/:
+    get:
+      tags:
+      - Environments
+      summary: Returns information about the content security policies in a given environment
+      operationId: Environment_GetCSP
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the running content security policies.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Content security policies successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CSPDirectives'
+        '400':
+          description: Failed to retrieve content security policies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Environment not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    put:
+      tags:
+      - Environments
+      summary: Sets the Content Security Policies for a given environment
+      operationId: Environments_SetCSP
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment from which to get the running content security policies.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Content security policies successfully set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment_CSP_Response'
+        '400':
+          description: Failed to retrieve content security policies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn't have permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Environment not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CSPDirectives'
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/dbconnections/:
+    get:
+      tags:
+      - Environments
+      summary: Returns all the DB connections of a given environment
+      operationId: Environments_DBConnections_List
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The list of DB connections for an environment.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DBConnection_Response'
+                description: The list of DB connections for an environment.
+        '400':
+          description: Failed to retrieve DB connections due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve DB connections due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve DB connections due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    post:
+      tags:
+      - Environments
+      summary: Creates a new DB connection for an environment
+      operationId: Environments_DBConnections_Create
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: DB connection creation response.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DBConnection_Response'
+        '400':
+          description: Failed to create DB connections due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to create DB connections due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to create DB connections due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConnection_Request_POST'
+        description: A structure holding the data for the DB connection.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/dbconnections/{DbConnectionName}/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the detail of a DB connection for a given environment
+      operationId: Environments_DBConnections_Get
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: DB connections for an environment.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DBConnection_Response'
+        '400':
+          description: Failed to retrieve DB connection due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve DB connection due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve DB connection due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    put:
+      tags:
+      - Environments
+      summary: Updates a DB connection for an environment
+      operationId: Environments_DBConnections_Edit
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: DB connection updated successfully.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+        '400':
+          description: Failed to update DB connection due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to update DB connection due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to update DB connection due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConnection_Request_POST'
+        description: A structure holding the data for the DB connection.
+        required: true
+    delete:
+      tags:
+      - Environments
+      summary: Deletes a DB connection for an environment
+      operationId: Environments_DBConnections_Delete
+      parameters:
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: DB connection deleted successfully.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+        '400':
+          description: Failed to delete DB connection due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to delete DB connection due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to delete DB connection due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/dbconnections/{DbConnectionName}/rolepermissionlevel/:
+    put:
+      tags:
+      - Environments
+      summary: Sets the DB connection permission levels for a Role in a given environment
+      operationId: Environments_DBConnections_SetRolePermissions
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Permission level setted successfully.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+        '400':
+          description: Failed to update the permission level due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to update the permission level due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to update the permission level due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConnection_RolePermissionLevel'
+        description: 'The value of the permission level: Full Control, No Access, Read-Only'
+        required: true
+    delete:
+      tags:
+      - Environments
+      summary: Revokes the DB connection permissions for a Role in an environment
+      operationId: Environments_DBConnections_RevokeRolePermissions
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Permission level revoked successfully
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+        '400':
+          description: Failed to revoke the permission level due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to revoke the permission level due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to revoke the permission level due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConnectionRole'
+        description: The name of the role.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/dbconnections/{DbConnectionName}/rolepermissionlevel/{Role}/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the DB connection permission level of a Role for a given environment
+      operationId: Environments_DBConnections_GetRolePermissions
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      - name: Role
+        in: path
+        required: true
+        description: The name of the role for which the permission levels will be checked.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The permission level for a role.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DbConnectionPermissionLevel'
+        '400':
+          description: Failed to retrieve permission level due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve permission level due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve permission level due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/dbconnections/{DbConnectionName}/userpermissionlevel/:
+    put:
+      tags:
+      - Environments
+      summary: Sets the DB connection permission levels for a User in a given environment
+      operationId: Environments_DBConnections_SetUserPermissions
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Permission level setted successfully.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+        '400':
+          description: Failed to update the permission level due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to update the permission level due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to update the permission level due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConnection_UserPermissionLevel'
+        description: 'The value of the permission level: Full Control, No Access, Read-Only'
+        required: true
+    delete:
+      tags:
+      - Environments
+      summary: Revokes the DB connection permissions for a User in an environment
+      operationId: Environments_DBConnections_RevokeUserPermissions
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Permission level revoked successfully
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+        '400':
+          description: Failed to revoke the permission level due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to revoke the permission level due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to revoke the permission level due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConnectionUser'
+        description: The username of the user.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/dbconnections/{DbConnectionName}/userpermissionlevel/{Username}/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the DB connection permission level of a User for a given environment
+      operationId: Environments_DBConnections_GetUserPermissions
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      - name: DbConnectionName
+        in: path
+        required: true
+        description: The name of the DB connection.
+        schema:
+          type: string
+      - name: Username
+        in: path
+        required: true
+        description: The username of the user for whom the permission levels will be checked.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The permission level for a user.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DbConnectionPermissionLevel'
+        '400':
+          description: Failed to retrieve permission level due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve permission level due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve permission level due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/dbconnection/dbproviders/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the list of providers for all the DB connections in a given environment
+      operationId: Environments_DBConnections_ListProviders
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The list of providers for the environment's DB connections.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DbProvider'
+                description: The list of providers for the environment's DB connections.
+        '400':
+          description: Failed to retrieve the providers due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve the providers due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve the providers due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/deployment/:
+    post:
+      tags:
+      - Environments
+      summary: Creates a deployment of a binary to a target environment
+      description: This deployment won't perform impact analysis. The modules in the binary to deploy must not be IPP protected or the deployment in the target will fail for the IPP protected modules. This endpoint requires LifeTime version 11.22.0 or higher.
+      operationId: Deployments_CreateWithBinary
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        description: The key of the target environment
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Deployment successfully created.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DeploymentResponse'
+        '400':
+          description: Invalid request.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Invalid user permissions.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Target environment not found.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to create deployment to environment <EnvironmentKey>.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        description: The binary file to be deployed
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/dbconnection/permissionlevels/:
+    get:
+      tags:
+      - Environments
+      summary: Returns the permission levels for the DB connections
+      operationId: Environments_DBConnections_ListPermissionLevels
+      responses:
+        '200':
+          description: The list of permission leels for the DB connection.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DbConnectionPermissionLevelRecord'
+                description: The list of permission leels for the DB connection.
+        '500':
+          description: Failed to retrieve permission levels due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/testdbconnection/:
+    post:
+      tags:
+      - Environments
+      summary: Tests the DB connection
+      operationId: Environments_DBConnections_TestConnection
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: The key of the environment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: DB connection tested successfully.
+          headers:
+            Success:
+              x-example: false
+              description: Boolean indicating if the request was successful.
+              schema:
+                type: boolean
+        '400':
+          description: Failed to test DB Connection due to missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to test DB Connection due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to test DB Connection due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConnection_Request_POST'
+        description: A structure holding the data for the DB connection.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/blockedipaddresses/:
+    get:
+      tags:
+      - Environments
+      summary: Gets the IP addresses blocked login attempts
+      operationId: BlockedAddresses_Get
+      parameters:
+      - name: EnvironmentKey
+        in: query
+        required: false
+        description: Key for the environment to check, if empty all environments are returned
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: A list of login attempts for an IP address.
+          headers:
+            Success:
+              x-example: false
+              description: True if the method was successful, False otherwise.
+              schema:
+                type: boolean
+            StatusCode:
+              x-example: 0
+              description: The http status code of the request.
+              schema:
+                type: integer
+                format: int32
+            Message:
+              description: The success message of the request.
+              schema:
+                type: string
+                default: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlatformLoginAttempt'
+                description: A list of login attempts for an IP address.
+        '403':
+          description: Failed to retrieve login attempts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve login attempts due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve login attempts due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '501':
+          description: Feature not supported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/blockedipaddresses/{IPAddress}/:
+    delete:
+      tags:
+      - Environments
+      summary: Unblocks a given IP Address
+      operationId: BlockedAddresses_Unblock
+      parameters:
+      - name: IPAddress
+        in: path
+        required: true
+        description: IP Address to be unblocked.
+        schema:
+          type: string
+      - name: EnvironmentKey
+        in: query
+        required: false
+        description: Key for the environment to unblock, if empty all environments are unblocked.
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: IP Address unblocked successfully.
+          headers:
+            Success:
+              x-example: false
+              description: True if the method was successful, False otherwise.
+              schema:
+                type: boolean
+            StatusCode:
+              x-example: 0
+              description: The http status code of the request.
+              schema:
+                type: integer
+                format: int32
+            Message:
+              description: The success message of the request.
+              schema:
+                type: string
+                default: ''
+        '403':
+          description: Failed to delete login attempts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to delete login attempts due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to delete login attempts due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '501':
+          description: Feature not supported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/solution:
+    post:
+      tags:
+      - Environments
+      summary: Creates a temporary solution
+      operationId: Environments_SolutionCreate
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: Key for the environment from which the applications are obtained.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Solution created with success.
+          content:
+            application/json:
+              schema:
+                type: string
+                default: ''
+                description: Key for the solution.
+        '400':
+          description: Invalid request due to invalid input paramenters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment with key was found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '405':
+          description: The requested resource does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to create a solution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Solution_Request_POST'
+        description: A structure holding the solution name, the application keys and a boolean to include or not application references.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/solution/{SolutionKey}:
+    get:
+      tags:
+      - Environments
+      summary: Download the given solution
+      operationId: Environments_SolutionDownload
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: Key for the environment.
+        schema:
+          type: string
+      - name: SolutionKey
+        in: path
+        required: true
+        description: Key for the solution to be downloaded.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Solution downloaded with success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DownloadSolutionLink'
+                description: Download url and expiration date.
+        '400':
+          description: Invalid request due to invalid input paramenters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment with key was found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '405':
+          description: The requested resource does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to download solution key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /environments/{EnvironmentKey}/solutionstatus/{SolutionKey}:
+    get:
+      tags:
+      - Environments
+      summary: Returns the status of the solution being created
+      operationId: Environments_SolutionStatus
+      parameters:
+      - name: EnvironmentKey
+        in: path
+        required: true
+        description: Key for the environment.
+        schema:
+          type: string
+      - name: SolutionKey
+        in: path
+        required: true
+        description: Key for the solution to be downloaded.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Solution status returned with success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SolutionStatus'
+                description: Solution status.
+        '400':
+          description: Invalid request due to invalid input paramenters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: No environment with key was found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '405':
+          description: The requested resource does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to get status for solution key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
 components:
   schemas:
+    TimerPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: List of configurations properties to patch
+      additionalProperties: false
+    LibraryConfigResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        revision:
+          type:
+          - integer
+          - 'null'
+          description: The revision of the library
+          format: int32
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: Base revision of the library
+          format: int32
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: System Configurations for the Environment configurations
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: Settings of the application
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationResult'
+          description: Integration configurations
+      additionalProperties: false
+    GenericConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key of the value being changed
+        value:
+          type:
+          - string
+          - 'null'
+          description: The new value
+        filename:
+          type:
+          - string
+          - 'null'
+          description: For binary values, the original file name, to be stored
+      additionalProperties: false
+    EnvironmentConfigResult:
+      type: object
+      properties:
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: System Configurations for the Environment configurations
+      additionalProperties: false
+    DataType:
+      enum:
+      - Text
+      - Integer
+      - LongInteger
+      - Decimal
+      - Boolean
+      - DateTime
+      - Date
+      - Time
+      - PhoneNumber
+      - Email
+      - Currency
+      - EntityIdentifierType
+      - BinaryUrl
+      type: string
     LibraryConfigPatch:
       type: object
       properties:
@@ -1019,100 +3263,6 @@ components:
             $ref: '#/components/schemas/IntegrationPatch'
           description: Integration configurations
       additionalProperties: false
-    TimerPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        configs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: List of configurations properties to patch
-      additionalProperties: false
-    IntegrationPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        configs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: List of configurations properties to patch
-      additionalProperties: false
-    TimerResult:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the configuration
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the Timer configuration
-        configs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: List of configurations properties
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
     AgentConfigResult:
       type: object
       properties:
@@ -1173,73 +3323,6 @@ components:
           description: Date of the last deployment of the configuration
           format: date-time
       additionalProperties: false
-    ApplicationConfigResult:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the configuration
-        revisionBaseline:
-          type:
-          - integer
-          - 'null'
-          description: Revision of the application
-          format: int32
-        revisionDeployed:
-          type:
-          - integer
-          - 'null'
-          description: Revision deployed of the application
-          format: int32
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: Settings of the application
-        timers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TimerResult'
-          description: Timer configurations
-        integrations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IntegrationResult'
-          description: Integration configurations
-        libraries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LibraryConfigResult'
-          description: Libraries configurations
-        deployedAt:
-          type:
-          - string
-          - 'null'
-          description: Date of the last deployment of the configuration
-          format: date-time
-        systemConfigurations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: System Configurations for the Environment configurations
-      additionalProperties: false
     Origin:
       enum:
       - EnvironmentLevelOverride
@@ -1249,79 +3332,6 @@ components:
       - LibraryLevelOverride
       - LibraryLevelDefault
       type: string
-    AgentConfigPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        revisionBaseline:
-          type:
-          - integer
-          - 'null'
-          description: The asset's revision.
-          format: int32
-        settings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: The asset's settings.
-        timers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TimerPatch'
-          description: Timer configurations
-        integrations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IntegrationPatch'
-          description: Integration configurations
-        libraries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LibraryConfigPatch'
-          description: Libraries configurations
-      additionalProperties: false
-    GenericConfigPatch:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key of the value being changed
-        value:
-          type:
-          - string
-          - 'null'
-          description: The new value
-        filename:
-          type:
-          - string
-          - 'null'
-          description: For binary values, the original file name, to be stored
-      additionalProperties: false
-    EnvironmentConfigResult:
-      type: object
-      properties:
-        systemConfigurations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: System Configurations for the Environment configurations
-      additionalProperties: false
     ApplicationConfigPatch:
       type: object
       properties:
@@ -1364,59 +3374,6 @@ components:
           items:
             $ref: '#/components/schemas/LibraryConfigPatch'
           description: Libraries configurations
-        systemConfigurations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigPatch'
-          description: System Configurations for the Environment configurations
-      additionalProperties: false
-    IntegrationResult:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The key identifier of the configuration
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the configuration
-        pluginType:
-          type:
-          - string
-          - 'null'
-          description: 'The type of the Integration used (e.g: RestConsumer, RestExpose)'
-        configs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GenericConfigResult'
-          description: List of configurations properties
-      additionalProperties: false
-    DataType:
-      enum:
-      - Text
-      - Integer
-      - LongInteger
-      - Decimal
-      - Boolean
-      - DateTime
-      - Date
-      - Time
-      - PhoneNumber
-      - Email
-      - Currency
-      - EntityIdentifierType
-      - BinaryUrl
-      type: string
-    EnvironmentConfigPatch:
-      type: object
-      properties:
         systemConfigurations:
           type:
           - array
@@ -1490,7 +3447,7 @@ components:
           - 'null'
           description: For binary values, the original file name
       additionalProperties: false
-    LibraryConfigResult:
+    IntegrationResult:
       type: object
       properties:
         key:
@@ -1503,41 +3460,57 @@ components:
           - string
           - 'null'
           description: The name of the configuration
-        revision:
+        pluginType:
           type:
-          - integer
+          - string
           - 'null'
-          description: The revision of the library
-          format: int32
-        revisionBaseline:
+          description: 'The type of the Integration used (e.g: RestConsumer, RestExpose)'
+        configs:
           type:
-          - integer
+          - array
           - 'null'
-          description: Base revision of the library
-          format: int32
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: List of configurations properties
+      additionalProperties: false
+    EnvironmentConfigPatch:
+      type: object
+      properties:
         systemConfigurations:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/GenericConfigResult'
+            $ref: '#/components/schemas/GenericConfigPatch'
           description: System Configurations for the Environment configurations
-        settings:
+      additionalProperties: false
+    TimerResult:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the Timer configuration
+        configs:
           type:
           - array
           - 'null'
           items:
             $ref: '#/components/schemas/GenericConfigResult'
-          description: Settings of the application
-        integrations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/IntegrationResult'
-          description: Integration configurations
+          description: List of configurations properties
       additionalProperties: false
-    ProblemDetails_2:
+    ProblemDetails:
       type: object
       properties:
         type:
@@ -1568,35 +3541,137 @@ components:
           description: A URI that identifies the specific occurrence of the problem.
         traceId:
           type: string
-          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
         errorCode:
           type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
       description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    SelfHostedStateKind:
-      enum:
-      - Pending
-      - Configured
-      - Deployed
-      - MissingConfigurations
-      - Ready
-      - WakingUp
-      - ScheduledForDeletion
-      - Hibernated
-      type: string
-      description: The state of a self-hosted environment
-    EnvironmentListResponse:
+    ApplicationConfigResult:
       type: object
       properties:
-        results:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the configuration
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: Revision of the application
+          format: int32
+        revisionDeployed:
+          type:
+          - integer
+          - 'null'
+          description: Revision deployed of the application
+          format: int32
+        settings:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Environment'
-          description: List of results.
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: Settings of the application
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerResult'
+          description: Timer configurations
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationResult'
+          description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigResult'
+          description: Libraries configurations
+        deployedAt:
+          type:
+          - string
+          - 'null'
+          description: Date of the last deployment of the configuration
+          format: date-time
+        systemConfigurations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigResult'
+          description: System Configurations for the Environment configurations
       additionalProperties: false
-      description: Represents a response containing a list of results.
+    IntegrationPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        configs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: List of configurations properties to patch
+      additionalProperties: false
+    AgentConfigPatch:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The key identifier of the configuration
+        revisionBaseline:
+          type:
+          - integer
+          - 'null'
+          description: The asset's revision.
+          format: int32
+        settings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GenericConfigPatch'
+          description: The asset's settings.
+        timers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimerPatch'
+          description: Timer configurations
+        integrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IntegrationPatch'
+          description: Integration configurations
+        libraries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LibraryConfigPatch'
+          description: Libraries configurations
+      additionalProperties: false
     Environment:
       type: object
       properties:
@@ -1650,20 +3725,6 @@ components:
           format: uuid
       additionalProperties: false
       description: Environment
-    UpdateEnvironmentsBatchRequest:
-      required:
-      - environments
-      type: object
-      properties:
-        environments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UpdateEnvironmentRequest'
-          description: List of environment updates to apply
-      additionalProperties: false
-      description: Batch request to update multiple environments
     UpdateEnvironmentRequest:
       required:
       - key
@@ -1687,12 +3748,6 @@ components:
           description: Optional new environment order
           format: int32
       description: Request to update environment properties
-    EnvironmentPurpose:
-      enum:
-      - Development
-      - NonProduction
-      - Production
-      type: string
     PatchEnvironmentRequest:
       type: object
       properties:
@@ -1710,7 +3765,7 @@ components:
           description: Optional new environment order
           format: int32
       description: Request to update a single environment's properties
-    EntitlementUsageItemListResponse:
+    EnvironmentListResponse:
       type: object
       properties:
         results:
@@ -1718,10 +3773,233 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/EntitlementUsageItem'
+            $ref: '#/components/schemas/Environment'
           description: List of results.
       additionalProperties: false
       description: Represents a response containing a list of results.
+    UpdateEnvironmentsBatchRequest:
+      required:
+      - environments
+      type: object
+      properties:
+        environments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UpdateEnvironmentRequest'
+          description: List of environment updates to apply
+      additionalProperties: false
+      description: Batch request to update multiple environments
+    EnvironmentPurpose:
+      enum:
+      - Development
+      - NonProduction
+      - Production
+      type: string
+    SelfHostedStateKind:
+      enum:
+      - Pending
+      - Configured
+      - Deployed
+      - MissingConfigurations
+      - Ready
+      - WakingUp
+      - ScheduledForDeletion
+      - Hibernated
+      type: string
+      description: The state of a self-hosted environment
+    ProblemDetails_2:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    UnifiedEntitlementDetailRow:
+      type: object
+      properties:
+        detailKey:
+          type:
+          - string
+          - 'null'
+          description: Detail unique identifier.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Detail name.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Detail type.
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value for this detail.
+          format: double
+      additionalProperties: false
+      description: Represents a detail-level breakdown within an asset's entitlement usage.
+    UnifiedEntitlementByAssetBlock:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Entitlement identifier (e.g., "applicationObjects").
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the entitlement.
+        aggregation:
+          type:
+          - string
+          - 'null'
+          description: Aggregation function applied to this entitlement's values (e.g., "Total", "Max", "P95", "P90").
+        assets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnifiedEntitlementAssetRow'
+          description: Collection of assets with usage values for this entitlement.
+      additionalProperties: false
+      description: Represents usage data for a single entitlement type, with breakdown by assets.
+    PageInfoWithTotals:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of results in the current page.
+          format: int32
+        limit:
+          type: integer
+          description: Limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: Offset of the current page of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: Offset of the next page of results. Null when there is no next page.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total of results.
+          format: int32
+        totalPages:
+          type: integer
+          description: Total of result pages.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: Contains response page information including totals.
+    UsageDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp for this data point.
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          description: Usage value at this timestamp.
+          format: double
+        cumulativeValue:
+          type:
+          - number
+          - 'null'
+          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
+          format: double
+      additionalProperties: false
+      description: Represents a single data point in a usage time series.
+    Addon:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Internal name (internal identifier of the Add-on, visible in APIs only).
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the Add-on.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the Add-on that explains the purpose.
+        documentationUrl:
+          type:
+          - string
+          - 'null'
+          description: Documentation URL for the Add-on.
+        dataType:
+          allOf:
+          - $ref: '#/components/schemas/DataType_2'
+          description: Data type of the value associated with the addon, one of ["bool", "float", "str", "int"].
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value associated with the Add-on. A null value means not subscribed.
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on starts to be available.
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the Add-on expires (e.g. trials or time-bound Add-ons).
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
+      additionalProperties: false
+      description: Represents the Add-on information.
     EnvironmentEntitlements:
       type: object
       properties:
@@ -1785,92 +4063,6 @@ components:
           description: Indicates the kind of the entitlement. This is an open list with current values of (feature, limit, other). New values should be treated the same as "other".
       additionalProperties: false
       description: Represents the Entitlement information.
-    EntitlementUsageItem:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Entitlement identifier (e.g., "applicationObjects").
-        name:
-          type:
-          - string
-          - 'null'
-          description: Human-readable name of the entitlement.
-        aggregation:
-          type:
-          - string
-          - 'null'
-          description: Aggregation function applied (e.g., "avg", "max", "total").
-        lastUpdatedDate:
-          type:
-          - string
-          - 'null'
-          description: Last time this usage data was updated.
-          format: date-time
-        usage:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UsageDataPoint'
-          description: Time series of usage data points.
-      additionalProperties: false
-      description: Represents usage data for a single entitlement type.
-    PageInfoWithTotals:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Number of results in the current page.
-          format: int32
-        limit:
-          type: integer
-          description: Limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: Offset of the current page of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: Offset of the next page of results. Null when there is no next page.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total of results.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total of result pages.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      description: Contains response page information including totals.
-    UsageDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp for this data point.
-          format: date-time
-        value:
-          type:
-          - number
-          - 'null'
-          description: Usage value at this timestamp.
-          format: double
-        cumulativeValue:
-          type:
-          - number
-          - 'null'
-          description: Cumulative aggregation value up to this timestamp. Only present for certain aggregation types.
-          format: double
-      additionalProperties: false
-      description: Represents a single data point in a usage time series.
     UnifiedEntitlementAssetRow:
       type: object
       properties:
@@ -1910,14 +4102,51 @@ components:
           description: Detail-level breakdown within this asset's entitlement usage.
       additionalProperties: false
       description: Represents a single asset row with entitlement usage value.
-    DataType_2:
-      enum:
-      - Bool
-      - Float
-      - Str
-      - Int
-      type: string
-      description: Data type of the value of an addon or entitlement.
+    EntitlementUsageItem:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Entitlement identifier (e.g., "applicationObjects").
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the entitlement.
+        aggregation:
+          type:
+          - string
+          - 'null'
+          description: Aggregation function applied (e.g., "avg", "max", "total").
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: Last time this usage data was updated.
+          format: date-time
+        usage:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UsageDataPoint'
+          description: Time series of usage data points.
+      additionalProperties: false
+      description: Represents usage data for a single entitlement type.
+    EntitlementUsageItemListResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EntitlementUsageItem'
+          description: List of results.
+      additionalProperties: false
+      description: Represents a response containing a list of results.
     UnifiedEntitlementByAssetBlockPagedListResponse:
       type: object
       properties:
@@ -1936,108 +4165,893 @@ components:
           readOnly: true
       additionalProperties: false
       description: Represents a response containing a paged set of results.
-    Addon:
+    DataType_2:
+      enum:
+      - Bool
+      - Float
+      - Str
+      - Int
+      type: string
+      description: Data type of the value of an addon or entitlement.
+    Template:
+      description: Template of an environment.
       type: object
       properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Internal name (internal identifier of the Add-on, visible in APIs only).
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the Add-on.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the Add-on that explains the purpose.
-        documentationUrl:
-          type:
-          - string
-          - 'null'
-          description: Documentation URL for the Add-on.
-        dataType:
-          allOf:
-          - $ref: '#/components/schemas/DataType_2'
-          description: Data type of the value associated with the addon, one of ["bool", "float", "str", "int"].
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value associated with the Add-on. A null value means not subscribed.
-        startDate:
-          type:
-          - string
-          - 'null'
-          description: Date when the Add-on starts to be available.
-        endDate:
-          type:
-          - string
-          - 'null'
-          description: Date when the Add-on expires (e.g. trials or time-bound Add-ons).
-        unit:
-          type:
-          - string
-          - 'null'
-          description: Unit type of the value (e.g. gigabyte, terabyte, second, minute, hour).
-      additionalProperties: false
-      description: Represents the Add-on information.
-    UnifiedEntitlementByAssetBlock:
+        Key:
+          type: string
+          default: ''
+          description: Template unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of template.
+        Description:
+          type: string
+          default: ''
+          description: Description of template.
+        ApplicationKind:
+          type: string
+          default: ''
+          description: "Type of the application: \n\n-Web\n-Mobile\n-Service\n-Reactive"
+    MobileAppStatusInEnv:
+      description: Status of mobile application in a given environment.
       type: object
       properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Entitlement identifier (e.g., "applicationObjects").
-        name:
-          type:
-          - string
-          - 'null'
-          description: Human-readable name of the entitlement.
-        aggregation:
-          type:
-          - string
-          - 'null'
-          description: Aggregation function applied to this entitlement's values (e.g., "Total", "Max", "P95", "P90").
-        assets:
-          type:
-          - array
-          - 'null'
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+        NativePlatform:
+          type: string
+          default: ''
+          description: Name of native platform. [Android|iOS]
+        VersionNumber:
+          type: string
+          default: ''
+          description: The version number, like for example 1.5.4, of the native build. It is used to be able to map the version to the version in the Andoid or iOS store.
+        HasBinaryAvailable:
+          type: boolean
+          example: false
+          description: True if the binary of the application is available for the current configuration.
+        IsConfigured:
+          type: boolean
+          example: false
+          description: True if the application is configured.
+        IsConfigurationChanged:
+          type: boolean
+          example: false
+          description: True if the configuration of the Mobile Application has changed in the environment.
+        IsModified:
+          type: boolean
+          example: false
+          description: True if the Native Hash of the Mobile Application does not match the one in the AppVersionNativeBuild baseline.
+    SourceCode_Status:
+      description: ''
+      type: object
+      properties:
+        PackageKey:
+          type: string
+          default: ''
+        Status:
+          type: string
+          default: ''
+        Messages:
+          type: array
           items:
-            $ref: '#/components/schemas/UnifiedEntitlementAssetRow'
-          description: Collection of assets with usage values for this entitlement.
-      additionalProperties: false
-      description: Represents usage data for a single entitlement type, with breakdown by assets.
-    UnifiedEntitlementDetailRow:
+            $ref: '#/components/schemas/Platform_HEMessage'
+    MaintenanceModeSetting:
+      description: ''
       type: object
       properties:
-        detailKey:
-          type:
-          - string
-          - 'null'
-          description: Detail unique identifier.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Detail name.
-        type:
-          type:
-          - string
-          - 'null'
-          description: Detail type.
-        value:
-          type:
-          - number
-          - 'null'
-          description: Usage value for this detail.
-          format: double
-      additionalProperties: false
-      description: Represents a detail-level breakdown within an asset's entitlement usage.
+        IsMaintenanceModeEnabled:
+          type: boolean
+          example: false
+          description: Indicates whether or not an environment is in maintenance mode.
+        Reason:
+          type: string
+          default: ''
+          description: The reason why the environment maintenance mode is being set to enabled or disabled.
+    DBConnection_UserPermissionLevel:
+      description: Structure that holds the data to manipulate the permission level for DB connections for a user.
+      type: object
+      properties:
+        username:
+          type: string
+          default: ''
+          description: Username of the user.
+        permissionLevel:
+          type: integer
+          example: 0
+          format: int32
+          description: 'Identifier of the permission level. Permission levels: Full Control, No Access, Read-Only'
+      required:
+      - Username
+    DbProvider:
+      description: Structure that describes a DB Provider
+      type: object
+      properties:
+        DisplayName:
+          type: string
+          default: ''
+        ProviderKey:
+          type: string
+          default: ''
+    TextRecord:
+      description: ''
+      type: object
+      properties:
+        ApplicationVersionKey:
+          type: string
+          default: ''
+          description: The key of the newly created application version.
+      required:
+      - ApplicationVersionKey
+    ApplicationKey:
+      description: ''
+      type: object
+      properties:
+        ApplicationKey:
+          type: string
+          default: ''
+    Application:
+      description: An application with its details and its status in the environments were it is running.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          readOnly: true
+          description: Application unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of the application.
+        Kind:
+          type: string
+          default: ''
+          description: Identifies the kind of application. [Mobile|WebResponsive]
+        Team:
+          type: string
+          default: ''
+          description: The team that owns the application.
+        Description:
+          type: string
+          default: ''
+          description: Description of the application.
+        URLPath:
+          type: string
+          default: ''
+          readOnly: true
+          description: Relative URL path of the application, starting from the hostname.
+        IconHash:
+          type: string
+          default: ''
+          readOnly: true
+          description: Hash of the application icon. Can be used to detect changes in the application icon.
+        IconURL:
+          type: string
+          default: ''
+          readOnly: true
+          description: The URL for the application icon.
+        DetailsURL:
+          type: string
+          default: ''
+          readOnly: true
+          description: The URL to access the application details in LifeTime.
+        IsSystem:
+          type: boolean
+          example: false
+          readOnly: true
+          description: Indicates if the application is a built-in component of the OutSystems platform (for example, Service Center or LifeTime).
+        AppStatusInEnvs:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/AppStatusInEnv_v2'
+          description: Information about the status of the application in each environment it is running.
+      required:
+      - Name
+      - Kind
+    DownloadSolutionLink:
+      description: A structure holding the download url and the expiration date.
+      type: object
+      properties:
+        Url:
+          type: string
+          default: ''
+          description: Url to download the solution.
+        ExpiresAt:
+          type: string
+          format: date-time
+          x-example: '2024-03-31T23:59:59.938Z'
+          description: The expiration date and time of the returned link.
+    DeploymentResponse:
+      description: Deployment key.
+      type: object
+      properties:
+        DeploymentKey:
+          type: string
+          default: ''
+          description: Deployment key.
+    AppStatusInEnv_v2:
+      description: Status of application in a given environment.
+      type: object
+      properties:
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+        BaseApplicationVersionKey:
+          type: string
+          default: ''
+          description: Base application version unique identifier. If app is not modified in environment, this is the application version deployed.
+        BaseApplicationVersionLabel:
+          type: string
+          default: ''
+          description: Base application version label. If app is not modified in environment, this is the application version deployed.
+        IsModified:
+          type: boolean
+          example: false
+          description: True if the application has been changed since the last tag, false otherwise.
+        IsModifiedReason:
+          type: string
+          default: ''
+          description: Indicates the application status.
+        IsModifiedMessage:
+          type: string
+          default: ''
+          description: Indicates the application status.
+        ConsistencyStatus:
+          type: string
+          default: ''
+          description: Indicates the application consistency status.
+        ConsistencyStatusMessages:
+          type: string
+          default: ''
+          description: Messages regarding the consistency status of the application.
+        MobileAppsStatus:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileAppStatusInEnv'
+          description: Status of mobile apps in environment.
+        ModuleStatusInEnvs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleStatusInEnv'
+          description: Status of modules in environment.
+        DeploymentZoneKey:
+          type: string
+          default: ''
+          description: Deployment Zone unique identifier
+    DBConnection_RolePermissionLevel:
+      description: Structure that holds the data to manipulate the permission level for DB connections for a role.
+      type: object
+      properties:
+        role:
+          type: string
+          default: ''
+          description: Role name.
+        permissionLevel:
+          type: integer
+          example: 0
+          format: int32
+          description: 'Identifier of the permission level. Permission levels: Full Control, No Access, Read-Only'
+      required:
+      - Role
+    SolutionStatus:
+      description: A structure holding the solution status and its reason.
+      type: object
+      properties:
+        Status:
+          type: string
+          default: ''
+          description: Solution status.
+        StatusReason:
+          type: string
+          default: ''
+          description: Status reason.
+    PlatformLoginAttempt:
+      description: Login attempts information.
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 0
+          format: int32
+        username:
+          type: string
+          default: ''
+        success:
+          type: boolean
+          example: false
+        instant:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+        ipAddress:
+          type: string
+          default: ''
+        usernameFailureCount:
+          type: integer
+          example: 0
+          format: int32
+        originAddressFailureCount:
+          type: integer
+          example: 0
+          format: int32
+        userAgent:
+          type: string
+          default: ''
+        visitor:
+          type: string
+          default: ''
+        requestKey:
+          type: string
+          default: ''
+        result:
+          type: string
+          default: ''
+        environmentId:
+          type: integer
+          example: 0
+          format: int32
+        environmentName:
+          type: string
+          default: ''
+      required:
+      - UserId
+      - Username
+      - Success
+      - Instant
+      - IPAddress
+      - UsernameFailureCount
+      - OriginAddressFailureCount
+      - UserAgent
+      - Visitor
+      - RequestKey
+      - Result
+    ApplicationCreate:
+      description: The application information used for its creation.
+      type: object
+      properties:
+        TemplateKey:
+          type: string
+          default: ''
+          description: Key of the template used to bootstrap the application. The template needs to be published in the environment where the application is being created. The list of possible values is obtainable by making a request to GET /environments/{EnvironmentKey}/templates/.
+        TeamKey:
+          type: string
+          default: ''
+          description: 'Key of the team to which the application belongs. '
+        Name:
+          type: string
+          default: ''
+          description: The name of the application. Must be unique.
+        Description:
+          type: string
+          default: ''
+          description: 'A brief description of the application and its purpose. '
+        Color:
+          type: string
+          default: ''
+          description: The primary color of the application used for the theme. Must be in hexadecimal format.
+      required:
+      - TemplateKey
+      - TeamKey
+      - Name
+      - Color
+    DbConnectionPermissionLevel:
+      description: Structure that holds the data to manipulate the permission level for DB connections
+      type: object
+      properties:
+        Id:
+          type: integer
+          example: 0
+          format: int32
+        Label:
+          type: string
+          default: ''
+          description: The label of the environment permission level.
+        ShortLabel:
+          type: string
+          default: ''
+          description: A shorter label of the permission level.
+        Description:
+          type: string
+          default: ''
+          description: The full description of the permission level.
+        Level:
+          type: integer
+          example: 0
+          format: int32
+          description: An integer representing the permission level.
+      required:
+      - Id
+      - Label
+      - Level
+    ModuleStatusInEnv:
+      description: Status of module in a given environment.
+      type: object
+      properties:
+        ApplicationKey:
+          type: string
+          default: ''
+          description: Application unique identifier.
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+        ModuleVersionKey:
+          type: string
+          default: ''
+          description: Module version unique identifier.
+        ConsistencyStatus:
+          type: string
+          default: ''
+          description: Indicates the module consistency status.
+        ConsistencyStatusMessages:
+          type: string
+          default: ''
+          description: Messages regarding the consistency status of the module.
+    DBConnectionRole:
+      description: Structure that describes a Role for a DBConnection
+      type: object
+      properties:
+        role:
+          type: string
+          default: ''
+          description: Role name of the role.
+    Platform_HEMessage:
+      description: ''
+      type: object
+      properties:
+        Id:
+          type: string
+          default: ''
+        Message:
+          type: string
+          default: ''
+        Detail:
+          type: string
+          default: ''
+        HelpRef:
+          type: integer
+          example: 1234567891234567
+          format: int64
+        ExtraInfo:
+          type: string
+          default: ''
+        Type:
+          type: string
+          default: ''
+        Submitable:
+          type: boolean
+          example: false
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.
+    DBConnection_Response:
+      description: Body of the responde of the Get, List and Create methods for a DB Connection.
+      type: object
+      properties:
+        dbConnectionName:
+          type: string
+          default: ''
+          description: The name of the DB connection.
+        description:
+          type: string
+          default: ''
+          description: The description of the DB connection.
+        providerName:
+          type: string
+          default: ''
+          description: The name of the provider for the DB connection.
+        isAdvancedConfiguration:
+          type: boolean
+          example: false
+          description: Boolean to define if it is an advance configuration for the DB connection. True when DB configuration parameters are set in the request.
+        databaseConfiguration:
+          type: string
+          default: ''
+          description: The DB configuration values whens etting an advanced configuration.
+    CSPDirectives:
+      description: ''
+      type: object
+      properties:
+        BaseUri:
+          $ref: '#/components/schemas/CSPDirective'
+        ChildSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        ConnectSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        DefaultSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        FontSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        ImgSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        MediaSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        ObjectSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        PluginTypes:
+          $ref: '#/components/schemas/CSPDirective'
+        ScriptSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        StyleSrc:
+          $ref: '#/components/schemas/CSPDirective'
+        FrameAncestors:
+          $ref: '#/components/schemas/CSPDirective'
+        ReportTo:
+          $ref: '#/components/schemas/CSPDirective'
+        Other:
+          $ref: '#/components/schemas/CSPDirective'
+    DeploymentZone_v2:
+      description: Deployment Zone of an environment.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Deployment Zone unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of deployment zone
+        IsDefault:
+          type: boolean
+          example: false
+          description: True if the deployment zone is the default one in the environment
+        DeploymentTechnology:
+          $ref: '#/components/schemas/DeploymentTechnology_v2'
+    CSPDirective:
+      description: CSP Directives for an application
+      type: object
+      properties:
+        CSPDirectiveId:
+          type: integer
+          example: 0
+          format: int32
+        Value:
+          type: string
+          default: ''
+        IsSetForEnv:
+          type: boolean
+          example: false
+    DBConnectionUser:
+      description: Structure that describes a User for a DBConnection
+      type: object
+      properties:
+        username:
+          type: string
+          default: ''
+          description: Username of the user.
+    DownloadLink:
+      description: The link for the application binary file.
+      type: object
+      properties:
+        url:
+          type: string
+          default: ''
+          description: The link for the application binary file.
+        expires:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The expiration date and time of the returned link.
+    ApplicationVersionCreate:
+      description: A structure holding the new version name for the application and for its native applications, if applicable.
+      type: object
+      properties:
+        ChangeLog:
+          type: string
+          default: ''
+          description: Change log of the version to be created.
+        Version:
+          type: string
+          default: ''
+          description: Version of the application.
+        MobileVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileVersion'
+          description: List of mobile versions.
+        ModuleVersionKeys:
+          type: array
+          items:
+            type: string
+            default: ''
+          description: '[DEPRECATED] List of module version keys to validate if the current state of the application is still the expected. This parameter was deprecated on LifeTime Feb 2019 Release, there is no need to pass the module version keys. If the module version keys are passed, they will still be validated.'
+    EnvironmentRegistration:
+      description: Environment information needed to registration process
+      type: object
+      properties:
+        EnvironmentName:
+          type: string
+          default: ''
+          description: Name that identifies the environment in LifeTime.
+        EnvironmentAddress:
+          type: string
+          default: ''
+          description: Address that LifeTime will use to connect with the environment
+        ServiceCenterUsername:
+          type: string
+          default: ''
+          description: Username of a Service Center user with administrator privileges
+        ServiceCenterPassword:
+          type: string
+          default: ''
+          description: Password of a Service Center user with administrator privileges
+        LifeTimeAddress:
+          type: string
+          default: ''
+          description: Address that the environment will use to communicate with LifeTime
+        EnvironmentPosition:
+          type: integer
+          example: 0
+          format: int32
+          description: The staging position order of the environment in LifeTime
+        OverridePreviousLifetime:
+          type: boolean
+          example: false
+          description: If true, the environment registration will override the previous LifeTime of the environment (when the environment is already registered in another LifeTime)
+        EnvironmentRolePermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnviromentRolePermissions'
+          description: List of roles and permissions
+      required:
+      - EnvironmentName
+      - EnvironmentAddress
+      - ServiceCenterUsername
+      - ServiceCenterPassword
+      - LifeTimeAddress
+      - EnvironmentPosition
+    DbConnectionPermissionLevelRecord:
+      description: Structure that holds DBConnectionPermissionLevel records.
+      type: object
+      properties:
+        DbConnectionPermissionLevel:
+          $ref: '#/components/schemas/DbConnectionPermissionLevel'
+    Environment_2:
+      description: An environment and its information.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Unique identifier of the environment.
+        Name:
+          type: string
+          default: ''
+          description: Name of the environment.
+        OSVersion:
+          type: string
+          default: ''
+          description: Platform Server version. [X.X.X.X]
+        Order:
+          type: integer
+          example: 0
+          format: int32
+          description: The order of the environment as registered in LifeTime.
+        DetailsURL:
+          type: string
+          default: ''
+          description: The URL to access the environment details in LifeTime.
+        HostName:
+          type: string
+          default: ''
+          description: Hostname of the environment as registered.
+        UseHTTPS:
+          type: boolean
+          example: false
+          description: Indicates if connections to the environment are made using HTTPS.
+        EnvironmentType:
+          type: string
+          default: ''
+          description: Indicates the type of the environment. [Development|Test|Production]
+        NumberOfFrontEnds:
+          type: integer
+          example: 0
+          format: int32
+          description: Number of front-end servers in the environment.
+        ApplicationServerType:
+          type: string
+          default: ''
+          description: Stack of the application server. [.NET|JAVA]
+        ApplicationServer:
+          type: string
+          default: ''
+          description: Application server in use. [IIS|JBoss|WebLogic]
+        DatabaseProvider:
+          type: string
+          default: ''
+          description: Type of database provider. [SqlServer|Oracle]
+        IsCloudEnvironment:
+          type: boolean
+          example: false
+          description: Indicates if the environment is running on a cloud service.
+    EnviromentRolePermissions:
+      description: Pair of Role and permissions
+      type: object
+      properties:
+        RoleKey:
+          type: string
+          default: ''
+          description: Role Key
+        PermissionLevel:
+          type: integer
+          example: 0
+          format: int32
+          description: Permission Level
+        CanCreateApplications:
+          type: boolean
+          example: false
+          description: True, if the role allows to create applications
+        CanAddDependenciesToSystem:
+          type: boolean
+          example: false
+          description: True, if the role allows to add dependencies to system
+    TextEnvironmentRegistration_UsersListRecord:
+      description: ''
+      type: object
+      properties:
+        EnvironmentKey:
+          type: string
+          default: ''
+        ImportedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentRegistration_Users'
+    DBConnection_Request_POST:
+      description: Body of the request to create a new DB connection.
+      type: object
+      properties:
+        dbConnectionName:
+          type: string
+          default: ''
+          description: The name of the DB connection.
+        providerKey:
+          type: string
+          default: ''
+          description: The key of the provider for the DB connection.
+        description:
+          type: string
+          default: ''
+          description: The description of the DB connection.
+        dbUsername:
+          type: string
+          default: ''
+          description: The username for the DB connection.
+        dbPassword:
+          type: string
+          default: ''
+          description: The password for the DB connection.
+        dbConfigParams:
+          type: string
+          default: ''
+          description: DB connection configuration parameters. Configuration parameters must be separated by a semi-colon ';'.
+      required:
+      - DBConnectionName
+      - ProviderKey
+      - Description
+      - DBUsername
+      - DBPassword
+      - DBConfigParams
+    DeploymentTechnology_v2:
+      description: Deployment Hosting technology of the Deployment Zone.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Deployment Technology unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of deployment technology
+    Solution_Request_POST:
+      description: A structure holding the solution name, the application keys and a boolean to include or not application references.
+      type: object
+      properties:
+        SolutionName:
+          type: string
+          default: ''
+        ApplicationKeys:
+          type: array
+          items:
+            type: string
+            default: ''
+        IncludeReferences:
+          type: boolean
+          default: true
+      required:
+      - ApplicationKeys
+    EnvironmentRegistration_Users:
+      description: List of imported users
+      type: object
+      properties:
+        Username:
+          type: string
+          default: ''
+          description: Username of an IT user.
+        Name:
+          type: string
+          default: ''
+          description: Name of an IT user.
+        Email:
+          type: string
+          default: ''
+          description: Email of an IT user.
+      required:
+      - Username
+      - Name
+      - Email
+    MobileVersion:
+      description: A mobile version and its information.
+      type: object
+      properties:
+        NativePlatform:
+          type: string
+          default: ''
+          description: Name of native platform. [Android|iOS]
+        VersionNumber:
+          type: string
+          default: ''
+          description: The version number, like for example 1.5.4, of the native build. It is used to be able to map the version to the version in the Andoid or iOS store.
+        VersionDescription:
+          type: string
+          default: ''
+          description: The description of the mobile version.
+    Environment_CSP_Response:
+      description: Structure to hold environment CSP settings
+      type: object
+      properties:
+        Success:
+          type: boolean
+          example: false
+        EnvironmentKey:
+          type: string
+          default: ''
+        ErrorDirectives:
+          type: array
+          items:
+            type: string
+            default: ''
+        ErrorMessage:
+          type: string
+          default: ''
+        NeedsRecompilation:
+          type: boolean
+          example: false
+        AddedDataDirectives:
+          type: array
+          items:
+            type: string
+            default: ''
+        AddedSelfDirectives:
+          type: array
+          items:
+            type: string
+            default: ''
+        AddedInternalDirectives:
+          type: array
+          items:
+            type: string
+            default: ''
+        AddedGapDirectives:
+          type: array
+          items:
+            type: string
+            default: ''
   securitySchemes:
     bearerAuth:
       type: http
@@ -2048,3 +5062,4 @@ x-refined-from:
 - outsystems-asset-configurations-api-v1-openapi.json
 - outsystems-portfolio-api-v2-openapi.json
 - outsystems-subscription-api-v1-openapi.json
+- lifetime-api.json

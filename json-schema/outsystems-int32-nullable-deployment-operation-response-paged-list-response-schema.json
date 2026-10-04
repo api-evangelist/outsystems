@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-int32-nullable-deployment-operation-response-paged-list-response-schema.json",
+  "title": "Int32NullableDeploymentOperationResponsePagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-deployment-operations-api-openapi.yml#/components/schemas/Int32NullableDeploymentOperationResponsePagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Int32NullablePageInfo"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/DeploymentOperationResponse"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "DeploymentOperationResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Unique identifier of the deployment-operation.",
+          "format": "uuid"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Deployment-operation status."
+        },
+        "startedDateTime": {
+          "type": "string",
+          "description": "When the deployment-operation started.",
+          "format": "date-time"
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "description": "When the deployment-operation finished.",
+          "format": "date-time"
+        },
+        "deployedBy": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the requesting subject."
+        },
+        "assetKey": {
+          "type": "string",
+          "description": "Unique identifier of the asset.",
+          "format": "uuid"
+        },
+        "revisions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "List of revisions that had the action performed."
+        },
+        "buildKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the asset build.",
+          "format": "uuid"
+        },
+        "assetName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset name."
+        },
+        "operation": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/DeploymentOperationsType"
+            }
+          ],
+          "description": "Executed Operation."
+        },
+        "portfolioKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Portfolio Key.",
+          "format": "uuid"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Information about one deployment"
+    },
+    "DeploymentOperationsType": {
+      "enum": [
+        "Deploy",
+        "Undeploy",
+        "ApplyConfigs"
+      ],
+      "type": "string"
+    },
+    "Int32NullablePageInfo": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results.",
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information."
+    },
+    "Status": {
+      "enum": [
+        "Running",
+        "FinishedWithError",
+        "Finished"
+      ],
+      "type": "string"
+    }
+  }
+}

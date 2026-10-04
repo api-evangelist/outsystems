@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-publish-operation-response-schema.json",
+  "title": "PublishOperationResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-publish-operations-api-openapi.yml#/components/schemas/PublishOperationResponse",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique identifier of the publish-operation.",
+      "format": "uuid"
+    },
+    "status": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Status"
+        }
+      ],
+      "description": "Publish-operation status."
+    },
+    "startedDateTime": {
+      "type": "string",
+      "description": "When the publish-operation started.",
+      "format": "date-time"
+    },
+    "finishedDateTime": {
+      "type": "string",
+      "description": "When the publish-operation finished.",
+      "format": "date-time"
+    },
+    "deployedBy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Unique identifier of the requesting user."
+    },
+    "assetKey": {
+      "type": "string",
+      "description": "Unique identifier of the asset.",
+      "format": "uuid"
+    },
+    "revision": {
+      "type": "integer",
+      "description": "Revision that had the action performed.",
+      "format": "int32"
+    },
+    "buildKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Unique identifier of the asset build.",
+      "format": "uuid"
+    },
+    "portfolioKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Unique identifier of the portfolio.",
+      "format": "uuid"
+    },
+    "operation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PublishOperationsType"
+        }
+      ],
+      "description": "Executed Operation."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "PublishOperationsType": {
+      "enum": [
+        "Publish"
+      ],
+      "type": "string"
+    },
+    "Status": {
+      "enum": [
+        "Running",
+        "FinishedWithError",
+        "Finished"
+      ],
+      "type": "string"
+    }
+  }
+}

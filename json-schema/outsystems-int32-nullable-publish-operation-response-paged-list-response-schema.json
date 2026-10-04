@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-int32-nullable-publish-operation-response-paged-list-response-schema.json",
+  "title": "Int32NullablePublishOperationResponsePagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-publish-operations-api-openapi.yml#/components/schemas/Int32NullablePublishOperationResponsePagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Int32NullablePageInfo"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/PublishOperationResponse"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Int32NullablePageInfo": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results.",
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information."
+    },
+    "PublishOperationResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Unique identifier of the publish-operation.",
+          "format": "uuid"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Publish-operation status."
+        },
+        "startedDateTime": {
+          "type": "string",
+          "description": "When the publish-operation started.",
+          "format": "date-time"
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "description": "When the publish-operation finished.",
+          "format": "date-time"
+        },
+        "deployedBy": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the requesting user."
+        },
+        "assetKey": {
+          "type": "string",
+          "description": "Unique identifier of the asset.",
+          "format": "uuid"
+        },
+        "revision": {
+          "type": "integer",
+          "description": "Revision that had the action performed.",
+          "format": "int32"
+        },
+        "buildKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the asset build.",
+          "format": "uuid"
+        },
+        "portfolioKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the portfolio.",
+          "format": "uuid"
+        },
+        "operation": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/PublishOperationsType"
+            }
+          ],
+          "description": "Executed Operation."
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublishOperationsType": {
+      "enum": [
+        "Publish"
+      ],
+      "type": "string"
+    },
+    "Status": {
+      "enum": [
+        "Running",
+        "FinishedWithError",
+        "Finished"
+      ],
+      "type": "string"
+    }
+  }
+}

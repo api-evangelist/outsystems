@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-version-suggestions-request-schema.json",
+  "title": "VersionSuggestionsRequest",
+  "description": "Version suggestions request",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/VersionSuggestionsRequest",
+  "type": "object",
+  "properties": {
+    "environmentKey": {
+      "type": "string",
+      "description": "Unique identifier of the environment",
+      "format": "uuid"
+    },
+    "applicationKey": {
+      "type": "string",
+      "description": "Unique identifier of the application",
+      "format": "uuid"
+    },
+    "mobilePlatform": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobilePlatform"
+        }
+      ],
+      "description": "The mobile platform for which the version suggestions are being requested.\nIf not provided, suggestions for both platforms will be returned."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "MobilePlatform": {
+      "enum": [
+        "Android",
+        "iOS"
+      ],
+      "type": "string",
+      "description": "Mobile platform"
+    }
+  }
+}

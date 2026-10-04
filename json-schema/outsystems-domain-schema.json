@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-domain-schema.json",
+  "title": "Domain",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-domains-api-openapi.yml#/components/schemas/Domain",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The domain's unique identifier."
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The domain's name."
+    },
+    "hostname": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The hostname used to access the applications that are deployed in the environment."
+    },
+    "cNameValue": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The CName related to the domain."
+    },
+    "builtIn": {
+      "type": "boolean",
+      "description": "Indicates if the domain is provided by OutSystems."
+    },
+    "certificate": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/DomainCertificate"
+        }
+      ],
+      "description": "The associated certificate for the domain."
+    },
+    "isDefault": {
+      "type": "boolean",
+      "description": "Indicates if this domain is set as the default one for applications in the environment (stage)."
+    },
+    "defaultApplicationKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "If this domain is set as the default one for this application key in that environment",
+      "format": "uuid"
+    },
+    "redirectOption": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RedirectOption"
+        }
+      ],
+      "description": "The type of redirect to use, enum of [Permanent, Temporary, None]\nDefault is Permanent (301) redirect."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "DomainCertificate": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/DomainCertificateStatus"
+            }
+          ],
+          "description": "Current status of the certificate"
+        },
+        "cNameKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Key correlating CName with certificate"
+        },
+        "cNameValue": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "CName correlated to certificate"
+        },
+        "renewalEligibility": {
+          "type": "boolean",
+          "description": "If it is renewable"
+        },
+        "statusErrorCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Associated error value for when the status is in Error"
+        },
+        "statusErrorMessage": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Associated error message for when the status is in Error"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DomainCertificateStatus": {
+      "enum": [
+        "Creating",
+        "PendingValidation",
+        "Issued",
+        "Failed",
+        "Deleting",
+        "Deleted",
+        "Expired",
+        "Active"
+      ],
+      "type": "string"
+    },
+    "RedirectOption": {
+      "enum": [
+        "Permanent",
+        "Temporary",
+        "None"
+      ],
+      "type": "string",
+      "description": "The type of redirect to use for domains."
+    }
+  }
+}

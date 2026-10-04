@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-public-element-string-types-paged-list-response-schema.json",
+  "title": "PublicElementStringTypesPagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-public-elements-api-openapi.yml#/components/schemas/PublicElementStringTypesPagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PageInfoWithTotals"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/PublicElementStringTypes"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "PageInfoWithTotals": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Offset of the current page of results.",
+          "format": "int32"
+        },
+        "nextPageOffset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Offset of the next page of results. Null when there is no next page.",
+          "format": "int32"
+        },
+        "totalResults": {
+          "type": "integer",
+          "description": "Total of results.",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total of result pages.",
+          "format": "int32",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information including totals."
+    },
+    "PublicElementStringTypes": {
+      "type": "object",
+      "properties": {
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier of the owner asset"
+        },
+        "assetName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the owner asset"
+        },
+        "revision": {
+          "type": "integer",
+          "description": "Revision number that identifies the owner asset version",
+          "format": "int32"
+        },
+        "tag": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Tag of the owner asset"
+        },
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique identifier (per asset) of the public element"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Element name"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Element description"
+        },
+        "signatureDigest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Digest that allows checking if the signature of the public element has changes. (format: guid)"
+        },
+        "compatibilitySignatureDigest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Digest that allows checking if the signature of the public element might have breaking changes. (format: guid)"
+        },
+        "isHidden": {
+          "type": "boolean",
+          "description": "True if the element is not marked as public, but is still shared with consumers because another public element uses it (e.g. image, block)"
+        },
+        "assetType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Type of the owner asset"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Type of public element"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents a public element of an asset."
+    }
+  }
+}

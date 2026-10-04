@@ -1,0 +1,410 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-public-deletion-analysis-report-public-analysis-result-schema.json",
+  "title": "PublicDeletionAnalysisReportPublicAnalysisResult",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-deletion-analyses-api-openapi.yml#/components/schemas/PublicDeletionAnalysisReportPublicAnalysisResult",
+  "type": "object",
+  "properties": {
+    "analysisKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Key of the analysis"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AnalysisReportType"
+        }
+      ],
+      "description": "Type of analysis"
+    },
+    "processStatus": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProcessStatus"
+        }
+      ],
+      "description": "Status of the analysis"
+    },
+    "error": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProblemDetails"
+        }
+      ],
+      "description": "Processing error, if any"
+    },
+    "report": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/PublicDeletionAnalysisReport"
+        }
+      ],
+      "description": "Report"
+    },
+    "environmentKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Environment Key, if any",
+      "format": "uuid"
+    },
+    "startedAt": {
+      "type": "string",
+      "description": "Start date of the analysis",
+      "format": "date-time"
+    },
+    "assetKey": {
+      "type": "string",
+      "description": "Asset Key",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AnalysisReportType": {
+      "enum": [
+        "Deployment",
+        "Deletion"
+      ],
+      "type": "string"
+    },
+    "AnalysisStatus": {
+      "enum": [
+        "NoIssuesFound",
+        "WarningsFound",
+        "ErrorsFound"
+      ],
+      "type": "string"
+    },
+    "ConflictSeverity": {
+      "enum": [
+        "Warning",
+        "Error"
+      ],
+      "type": "string"
+    },
+    "EnvironmentReport": {
+      "type": "object",
+      "properties": {
+        "environmentKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Environment key"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Environment name"
+        },
+        "purpose": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/TenantEnvironmentPurpose"
+            }
+          ],
+          "description": "Environment purpose"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ImpactedDomain": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Domain Key"
+        },
+        "hostname": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Hostname of the domain"
+        },
+        "environmentKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Environment key where the domain is configured"
+        },
+        "environmentName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Environment name where the domain is configured"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int32"
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instance": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ProcessStatus": {
+      "enum": [
+        "InProgress",
+        "Finished",
+        "Failed"
+      ],
+      "type": "string"
+    },
+    "PublicDeletionAnalysisReport": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AnalysisStatus"
+            }
+          ],
+          "description": "Analysis global status",
+          "readOnly": true
+        },
+        "deployedEnvironments": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/EnvironmentReport"
+          },
+          "description": "List of environments where application is deployed"
+        },
+        "impactedDomains": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/ImpactedDomain"
+          },
+          "description": "List of impacted custom domains"
+        },
+        "impactedAssets": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/PublicImpactedApplication"
+          },
+          "description": "List of impacted assets"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicDependencyPath": {
+      "type": "object",
+      "properties": {
+        "indirectElements": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/PublicIndirectElement"
+          },
+          "description": "List of indirect Element elements reference in this dependency path"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicDeployedRevision": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "description": "Deployed Application Revision",
+          "format": "int32"
+        },
+        "environmentKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Environment in which application is deployed"
+        },
+        "consumerType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Application Consumer Type"
+        },
+        "severity": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ConflictSeverity"
+            }
+          ],
+          "description": "Conflict severity"
+        },
+        "indirectLibraryHint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Indirect library hint"
+        },
+        "indirectDependencies": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/PublicDependencyPath"
+          },
+          "description": "Indirect dependencies for the library"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicImpactedApplication": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Impacted application name"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Impacted application type"
+        },
+        "portfolioKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Portfolio key for the impacted application"
+        },
+        "portfolioName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Portfolio name for the impacted application"
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset Key"
+        },
+        "deployedRevisions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/PublicDeployedRevision"
+          },
+          "description": "Deployed Revisions of the impacted application"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicIndirectElement": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Element Application Name"
+        },
+        "revision": {
+          "type": "integer",
+          "description": "Element Application Revision",
+          "format": "int32"
+        },
+        "portfolioKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Portfolio key for the element"
+        },
+        "portfolioName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Portfolio name for the element"
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset Key"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TenantEnvironmentPurpose": {
+      "enum": [
+        "Unknown",
+        "Development",
+        "NonProduction",
+        "Production"
+      ],
+      "type": "string"
+    }
+  }
+}

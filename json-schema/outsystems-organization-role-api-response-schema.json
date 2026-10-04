@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-organization-role-api-response-schema.json",
+  "title": "OrganizationRoleApiResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-organization-roles-api-openapi.yml#/components/schemas/OrganizationRoleApiResponse",
+  "required": [
+    "permissions"
+  ],
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Gets or sets the organization role key.",
+      "format": "uuid"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the organization role name."
+    },
+    "permissions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/OrgRolePermissionDetailsApiResponse"
+      },
+      "description": "Gets or sets the permissions."
+    },
+    "isReadOnly": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether the organization role is readonly."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "OrgRolePermissionDetailsApiResponse": {
+      "type": "object",
+      "properties": {
+        "permissionKey": {
+          "type": "string",
+          "description": "Gets or sets the permission key.",
+          "format": "uuid"
+        },
+        "environmentKeys": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "Gets or sets the environment keys."
+        },
+        "portfolioKeys": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "Gets or sets the portfolio keys."
+        },
+        "claimName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the claim name."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the permission name."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

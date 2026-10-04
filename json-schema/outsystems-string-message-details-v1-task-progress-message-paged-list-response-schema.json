@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-string-message-details-v1-task-progress-message-paged-list-response-schema.json",
+  "title": "StringMessageDetailsV1TaskProgressMessagePagedListResponse",
+  "description": "Represents a response containing a paged set of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-deployment-operations-api-openapi.yml#/components/schemas/StringMessageDetailsV1TaskProgressMessagePagedListResponse",
+  "type": "object",
+  "properties": {
+    "page": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/StringPageInfo"
+        }
+      ],
+      "description": "Page information.",
+      "readOnly": true
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/MessageDetailsV1TaskProgressMessage"
+      },
+      "description": "List of results.",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "MessageDetailsV1": {
+      "type": "object",
+      "properties": {
+        "stepId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Step unique identifier."
+        },
+        "assetKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset unique identifier.",
+          "format": "uuid"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Message detailed info."
+    },
+    "MessageDetailsV1TaskProgressMessage": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "description": "message timestamp",
+          "format": "date-time"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "message type (e.g., error code)"
+        },
+        "severity": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MessageSeverity"
+            }
+          ],
+          "description": "message severity (info, warning or error)"
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "message detail"
+        },
+        "additionalInfo": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MessageDetailsV1"
+            }
+          ],
+          "description": "optional message details"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Represents a user facing message about the progress of an operation, including additional details."
+    },
+    "MessageSeverity": {
+      "enum": [
+        "Info",
+        "Warning",
+        "Error"
+      ],
+      "type": "string"
+    },
+    "StringPageInfo": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of results in the current page.",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Limit of results per page.",
+          "format": "int32"
+        },
+        "offset": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Offset of the current page of results."
+        },
+        "nextPageOffset": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Offset of the next page of results."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contains response page information."
+    }
+  }
+}

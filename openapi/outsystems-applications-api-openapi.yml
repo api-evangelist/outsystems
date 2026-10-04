@@ -1,0 +1,740 @@
+openapi: 3.2.0
+info:
+  title: LifeTime REST /applications API
+  description: The LifeTime API allows you to manage applications, modules, environments, deployments, users, teams, roles and deployment zones of your OutSystems infrastructure.
+  version: v2
+servers:
+- url: /lifetimeapi/rest/v2
+tags:
+- name: /applications
+paths:
+  /applications/:
+    get:
+      tags:
+      - /applications
+      summary: Returns a list of applications that exist in the infrastructure
+      operationId: Applications_List
+      parameters:
+      - name: IncludeModules
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the modules are also returned. The default value is false.
+        schema:
+          type: boolean
+      - name: IncludeEnvStatus
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the application status per environment is also returned. The default value is false.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Applications list successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+                description: A list of Application records including AppStatusInEnv sub-lists, if requested.
+        '204':
+          description: No applications available in the infrastructure.
+        '400':
+          description: Failed to retrieve applications because IncludeModules was requested but IncludeEnvStatus was not, or invalid request when listing all applications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to list the applications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /applications/{ApplicationKey}/:
+    get:
+      tags:
+      - /applications
+      summary: Returns the details of a given application
+      operationId: Applications_Get
+      parameters:
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the desired application.
+        schema:
+          type: string
+      - name: IncludeModules
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the modules details are also retrieved. The default value is false.
+        schema:
+          type: boolean
+      - name: IncludeEnvStatus
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the application status per environment is also returned. The default value is false.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: An Application record including an AppStatusInEnv sub-list, if requested.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Failed to retrieve applications because IncludeModules and IncludeEnvStatus parameters were incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Failed listing all applications because user has insufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed getting running applications because one of the environments was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve the application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /applications/{ApplicationKey}/configurations/:
+    get:
+      tags:
+      - /applications
+      summary: Get the application configurations in each environment for the application…
+      operationId: Applications_Configurations_Get
+      parameters:
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the desired application.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of the application configurations in each environment for the application provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationConfigurations'
+        '400':
+          description: Failed getting application configurations because the parameter was incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Failed getting application configurations because user has insufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed getting application configurations because the application was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed getting application configurations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    put:
+      tags:
+      - /applications
+      summary: Updates the application configurations in each environment provided
+      operationId: Applications_Configurations_Update
+      parameters:
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the desired application.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Configurations applied successfully for application <ApplicationKey>.
+        '400':
+          description: Configurations couldn't be applied for application <ApplicationKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Service Account doesn't have change & deploy permission to the application with key <ApplicationKey> in one of the environments provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Application with key <ApplicationKey> not found, or environment with key <EnvironmentKey> not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '405':
+          description: Method not allowed due to the feature being disabled in the infrastructure.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to execute command <Command> for application with key <ApplicationKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationConfigurations'
+        description: List of configurations to be applied to the application in each environment provided.
+        required: true
+  /applications/{ApplicationKey}/versions/:
+    get:
+      tags:
+      - /applications
+      summary: Returns a list of versions of a given application
+      operationId: Applications_Versions_List
+      parameters:
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the desired application.
+        schema:
+          type: string
+      - name: ChangeLogFilter
+        in: query
+        required: false
+        description: Optional filter. If present, only versions containing this string in the change log will be returned.
+        schema:
+          type: string
+          default: ''
+      - name: MaximumVersionsToReturn
+        in: query
+        required: false
+        x-example: 0
+        description: The maximum number of versions to return. The default value is 5.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Application versions list successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationVersion_v2'
+                description: A list of ApplicationVersion records.
+        '400':
+          description: Invalid request due to invalid max versions to return (less than 0).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: Failed to retrieve the application with key <ApplicationKey>. The user does not have the required permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve the application with key <ApplicationKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to list the application versions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /applications/{ApplicationKey}/versions/{VersionKey}/:
+    delete:
+      tags:
+      - /applications
+      summary: Discards an application version, if possible
+      description: Running versions, or versions used in Deployments cannot be deleted.
+      operationId: Applications_Versions_Delete
+      parameters:
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application whose version to be deleted.
+        schema:
+          type: string
+      - name: VersionKey
+        in: path
+        required: true
+        description: The key of the application version to be deleted.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Application version successfully deleted.
+        '403':
+          description: Service Account doesn't have permissions to delete the specified application version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Application or application version not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to delete application version <VersionKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    get:
+      tags:
+      - /applications
+      summary: Returns the details of a given version of the specified application
+      operationId: Applications_Versions_Get
+      parameters:
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application whose version is being requested.
+        schema:
+          type: string
+      - name: IncludeModules
+        in: query
+        required: true
+        x-example: false
+        description: When set to true, the modules details are also retrieved.
+        schema:
+          type: boolean
+      - name: VersionKey
+        in: path
+        required: true
+        description: The key of the desired application version.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: An ApplicationVersion record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion_v2'
+        '403':
+          description: Failed to retrieve the application with key <ApplicationKey>. The user does not have the required permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve the application with key <ApplicationKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve the application version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /applications/{ApplicationKey}/versions/{VersionKey}/content/:
+    get:
+      tags:
+      - /applications
+      summary: Returns a link where the binary file for a given application version can be…
+      description: The link will expire in 60 minutes.
+      operationId: Applications_Versions_Download
+      parameters:
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application for which to get the binary file link.
+        schema:
+          type: string
+      - name: VersionKey
+        in: path
+        required: true
+        description: The key of the application version for which to get the binary file link.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The link for the application binary file.
+          headers:
+            Expires:
+              x-example: '2014-12-31T23:59:59.938Z'
+              description: The expiration date and time of the returned link.
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadLink'
+        '204':
+          description: No binary available for given keys.
+        '400':
+          description: The request is invalid for the given keys (Application:<ApplicationKey>; ApplicationVersionKey <ApplicationVersionKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: User doesn’t have permissions for the given keys (Application:<ApplicationKey>; ApplicationVersionKey <ApplicationVersionKey>).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to retrieve the application with key <ApplicationKey> or the application version with key <ApplicationVersionKey>.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to download the oap of the application version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+components:
+  schemas:
+    AppStatusInEnv_v2:
+      description: Status of application in a given environment.
+      type: object
+      properties:
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+        BaseApplicationVersionKey:
+          type: string
+          default: ''
+          description: Base application version unique identifier. If app is not modified in environment, this is the application version deployed.
+        BaseApplicationVersionLabel:
+          type: string
+          default: ''
+          description: Base application version label. If app is not modified in environment, this is the application version deployed.
+        IsModified:
+          type: boolean
+          example: false
+          description: True if the application has been changed since the last tag, false otherwise.
+        IsModifiedReason:
+          type: string
+          default: ''
+          description: Indicates the application status.
+        IsModifiedMessage:
+          type: string
+          default: ''
+          description: Indicates the application status.
+        ConsistencyStatus:
+          type: string
+          default: ''
+          description: Indicates the application consistency status.
+        ConsistencyStatusMessages:
+          type: string
+          default: ''
+          description: Messages regarding the consistency status of the application.
+        MobileAppsStatus:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileAppStatusInEnv'
+          description: Status of mobile apps in environment.
+        ModuleStatusInEnvs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleStatusInEnv'
+          description: Status of modules in environment.
+        DeploymentZoneKey:
+          type: string
+          default: ''
+          description: Deployment Zone unique identifier
+    MobileAppStatusInEnv:
+      description: Status of mobile application in a given environment.
+      type: object
+      properties:
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+        NativePlatform:
+          type: string
+          default: ''
+          description: Name of native platform. [Android|iOS]
+        VersionNumber:
+          type: string
+          default: ''
+          description: The version number, like for example 1.5.4, of the native build. It is used to be able to map the version to the version in the Andoid or iOS store.
+        HasBinaryAvailable:
+          type: boolean
+          example: false
+          description: True if the binary of the application is available for the current configuration.
+        IsConfigured:
+          type: boolean
+          example: false
+          description: True if the application is configured.
+        IsConfigurationChanged:
+          type: boolean
+          example: false
+          description: True if the configuration of the Mobile Application has changed in the environment.
+        IsModified:
+          type: boolean
+          example: false
+          description: True if the Native Hash of the Mobile Application does not match the one in the AppVersionNativeBuild baseline.
+    ApplicationConfiguration:
+      description: Represents the application configuration in a specific environment.
+      type: object
+      properties:
+        environmentKey:
+          type: string
+          default: ''
+          description: The key identifier of the environment which the configuration belongs to.
+        isBlocked:
+          type: boolean
+          example: false
+          description: When set to 'True' the application cannot be deployed to the environment, otherwise it can.
+        isBlockedChangeReason:
+          type: string
+          default: ''
+          description: The provided reason why the attribute 'isBlocked' has been changed. Returns empty when the attribute was never modified.
+    DownloadLink:
+      description: The link for the application binary file.
+      type: object
+      properties:
+        url:
+          type: string
+          default: ''
+          description: The link for the application binary file.
+        expires:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: The expiration date and time of the returned link.
+    ApplicationConfigurations:
+      description: ''
+      type: object
+      properties:
+        configurations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationConfiguration'
+    ModuleVersion_v2:
+      description: A module version and its information.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Module version unique identifier.
+        ModuleKey:
+          type: string
+          default: ''
+          description: Module unique identifier.
+        CreatedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: Date and time of the module version creation.
+        CreatedBy:
+          type: string
+          default: ''
+          description: Name of the user that created the version.
+        CreatedByUsername:
+          type: string
+          default: ''
+          description: Username of the user that created the version.
+        GeneralHash:
+          type: string
+          default: ''
+          description: Non-unique hash of the module version. Can be used to validate if two module versions have semantic differences.
+        DirectUpgradeFromHash:
+          type: string
+          default: ''
+          description: If this module version is the result of a direct upgrade of another version, then this field contains the key of that version
+    ModuleStatusInEnv:
+      description: Status of module in a given environment.
+      type: object
+      properties:
+        ApplicationKey:
+          type: string
+          default: ''
+          description: Application unique identifier.
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+        ModuleVersionKey:
+          type: string
+          default: ''
+          description: Module version unique identifier.
+        ConsistencyStatus:
+          type: string
+          default: ''
+          description: Indicates the module consistency status.
+        ConsistencyStatusMessages:
+          type: string
+          default: ''
+          description: Messages regarding the consistency status of the module.
+    ApplicationVersion_v2:
+      description: Information about a specific version of an application and the versions of its modules.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Application version unique identifier.
+        ApplicationKey:
+          type: string
+          default: ''
+          description: Application unique identifier.
+        Version:
+          type: string
+          default: ''
+          description: Version of the application.
+        ChangeLog:
+          type: string
+          default: ''
+          description: Change Log associated to this Application Version.
+        CreatedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: When was the Application Version created.
+        InUse:
+          type: boolean
+          example: false
+          description: Defines if the Application Version is being used.
+        MobileVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileVersion'
+          description: List of mobile versions.
+        PrimaryColor:
+          type: string
+          default: ''
+          description: The primary color of the application interface.
+        NativeHash:
+          type: string
+          default: ''
+          description: The native has relative to the mobile platform.
+        ModuleVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleVersion_v2'
+          description: List of module versions.
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+      required:
+      - Key
+    MobileVersion:
+      description: A mobile version and its information.
+      type: object
+      properties:
+        NativePlatform:
+          type: string
+          default: ''
+          description: Name of native platform. [Android|iOS]
+        VersionNumber:
+          type: string
+          default: ''
+          description: The version number, like for example 1.5.4, of the native build. It is used to be able to map the version to the version in the Andoid or iOS store.
+        VersionDescription:
+          type: string
+          default: ''
+          description: The description of the mobile version.
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.
+    Application:
+      description: An application with its details and its status in the environments were it is running.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          readOnly: true
+          description: Application unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of the application.
+        Kind:
+          type: string
+          default: ''
+          description: Identifies the kind of application. [Mobile|WebResponsive]
+        Team:
+          type: string
+          default: ''
+          description: The team that owns the application.
+        Description:
+          type: string
+          default: ''
+          description: Description of the application.
+        URLPath:
+          type: string
+          default: ''
+          readOnly: true
+          description: Relative URL path of the application, starting from the hostname.
+        IconHash:
+          type: string
+          default: ''
+          readOnly: true
+          description: Hash of the application icon. Can be used to detect changes in the application icon.
+        IconURL:
+          type: string
+          default: ''
+          readOnly: true
+          description: The URL for the application icon.
+        DetailsURL:
+          type: string
+          default: ''
+          readOnly: true
+          description: The URL to access the application details in LifeTime.
+        IsSystem:
+          type: boolean
+          example: false
+          readOnly: true
+          description: Indicates if the application is a built-in component of the OutSystems platform (for example, Service Center or LifeTime).
+        AppStatusInEnvs:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/AppStatusInEnv_v2'
+          description: Information about the status of the application in each environment it is running.
+      required:
+      - Name
+      - Kind

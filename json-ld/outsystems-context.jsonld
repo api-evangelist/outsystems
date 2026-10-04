@@ -1,0 +1,971 @@
+{
+  "@context": {
+    "@vocab": "https://outsystems.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "outsystems": "https://outsystems.com/schema#",
+    "ProblemDetails": "outsystems:ProblemDetails",
+    "type": {
+      "@id": "outsystems:type",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "outsystems:title",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "outsystems:status",
+      "@type": "xsd:integer"
+    },
+    "detail": {
+      "@id": "outsystems:detail",
+      "@type": "xsd:string"
+    },
+    "instance": {
+      "@id": "outsystems:instance",
+      "@type": "xsd:string"
+    },
+    "traceId": {
+      "@id": "outsystems:traceId",
+      "@type": "xsd:string"
+    },
+    "errorCode": {
+      "@id": "outsystems:errorCode",
+      "@type": "xsd:string"
+    },
+    "StatusSyncResponseResultV1": "outsystems:StatusSyncResponseResultV1",
+    "lastSuccessfulAnalysis": {
+      "@id": "outsystems:lastSuccessfulAnalysis"
+    },
+    "latestAnalysis": {
+      "@id": "outsystems:latestAnalysis"
+    },
+    "nextAnalysis": {
+      "@id": "outsystems:nextAnalysis"
+    },
+    "StatusSyncResponseV1": "outsystems:StatusSyncResponseV1",
+    "result": {
+      "@id": "outsystems:result"
+    },
+    "LatestAnalysisV1": "outsystems:LatestAnalysisV1",
+    "startedOn": {
+      "@id": "outsystems:startedOn",
+      "@type": "xsd:dateTime"
+    },
+    "completedOn": {
+      "@id": "outsystems:completedOn",
+      "@type": "xsd:dateTime"
+    },
+    "newFindingsCount": {
+      "@id": "outsystems:newFindingsCount",
+      "@type": "xsd:integer"
+    },
+    "solvedFindingsCount": {
+      "@id": "outsystems:solvedFindingsCount",
+      "@type": "xsd:integer"
+    },
+    "errorMessage": {
+      "@id": "outsystems:errorMessage",
+      "@type": "xsd:string"
+    },
+    "LastSuccessfulAnalysisV1": "outsystems:LastSuccessfulAnalysisV1",
+    "NextAnalysisV1": "outsystems:NextAnalysisV1",
+    "scheduledOn": {
+      "@id": "outsystems:scheduledOn",
+      "@type": "xsd:dateTime"
+    },
+    "UserProfileEmbedType": "outsystems:UserProfileEmbedType",
+    "RoleUserResponse": "outsystems:RoleUserResponse",
+    "key": {
+      "@id": "outsystems:key",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "outsystems:name",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "outsystems:email",
+      "@type": "xsd:string"
+    },
+    "photoUrl": {
+      "@id": "outsystems:photoUrl",
+      "@type": "xsd:string"
+    },
+    "lastLoginAt": {
+      "@id": "outsystems:lastLoginAt",
+      "@type": "xsd:dateTime"
+    },
+    "_embedded": {
+      "@id": "outsystems:_embedded"
+    },
+    "UserProfileStatus": "outsystems:UserProfileStatus",
+    "ApplicationRoleApiResponsePaginatedResponseApi": "outsystems:ApplicationRoleApiResponsePaginatedResponseApi",
+    "results": {
+      "@id": "outsystems:results",
+      "@container": "@list"
+    },
+    "page": {
+      "@id": "outsystems:page"
+    },
+    "UserIdpProfileResponse": "outsystems:UserIdpProfileResponse",
+    "userKey": {
+      "@id": "outsystems:userKey",
+      "@type": "xsd:string"
+    },
+    "identityProviderKey": {
+      "@id": "outsystems:identityProviderKey",
+      "@type": "xsd:string"
+    },
+    "subject": {
+      "@id": "outsystems:subject",
+      "@type": "xsd:string"
+    },
+    "username": {
+      "@id": "outsystems:username",
+      "@type": "xsd:string"
+    },
+    "firstLoginAt": {
+      "@id": "outsystems:firstLoginAt",
+      "@type": "xsd:dateTime"
+    },
+    "isEmailVerified": {
+      "@id": "outsystems:isEmailVerified",
+      "@type": "xsd:boolean"
+    },
+    "RoleUserResponsePaginatedResponseApi": "outsystems:RoleUserResponsePaginatedResponseApi",
+    "ApplicationRoleApiResponse": "outsystems:ApplicationRoleApiResponse",
+    "environmentKey": {
+      "@id": "outsystems:environmentKey",
+      "@type": "xsd:string"
+    },
+    "assetKey": {
+      "@id": "outsystems:assetKey",
+      "@type": "xsd:string"
+    },
+    "externalKey": {
+      "@id": "outsystems:externalKey",
+      "@type": "xsd:string"
+    },
+    "claim": {
+      "@id": "outsystems:claim",
+      "@type": "xsd:string"
+    },
+    "portfolioKey": {
+      "@id": "outsystems:portfolioKey",
+      "@type": "xsd:string"
+    },
+    "PageInfoWithTotalsApi": "outsystems:PageInfoWithTotalsApi",
+    "count": {
+      "@id": "outsystems:count",
+      "@type": "xsd:integer"
+    },
+    "limit": {
+      "@id": "outsystems:limit",
+      "@type": "xsd:integer"
+    },
+    "offset": {
+      "@id": "outsystems:offset",
+      "@type": "xsd:integer"
+    },
+    "totalResults": {
+      "@id": "outsystems:totalResults",
+      "@type": "xsd:integer"
+    },
+    "nextPageOffset": {
+      "@id": "outsystems:nextPageOffset",
+      "@type": "xsd:integer"
+    },
+    "totalPages": {
+      "@id": "outsystems:totalPages",
+      "@type": "xsd:integer"
+    },
+    "UserProfileEmbeddedResponse": "outsystems:UserProfileEmbeddedResponse",
+    "applicationRoles": {
+      "@id": "outsystems:applicationRoles",
+      "@container": "@list"
+    },
+    "userIdentityProviders": {
+      "@id": "outsystems:userIdentityProviders",
+      "@container": "@list"
+    },
+    "AssetReleaseNote": "outsystems:AssetReleaseNote",
+    "tag": {
+      "@id": "outsystems:tag",
+      "@type": "xsd:string"
+    },
+    "releaseNoteUrl": {
+      "@id": "outsystems:releaseNoteUrl",
+      "@type": "xsd:string"
+    },
+    "BaseAssetMetadata": "outsystems:BaseAssetMetadata",
+    "templateType": {
+      "@id": "outsystems:templateType"
+    },
+    "toolVersion": {
+      "@id": "outsystems:toolVersion",
+      "@type": "xsd:string"
+    },
+    "runtime": {
+      "@id": "outsystems:runtime",
+      "@type": "xsd:string"
+    },
+    "mobileFrameworks": {
+      "@id": "outsystems:mobileFrameworks",
+      "@container": "@list"
+    },
+    "assemblyVersion": {
+      "@id": "outsystems:assemblyVersion",
+      "@type": "xsd:string"
+    },
+    "assemblyName": {
+      "@id": "outsystems:assemblyName",
+      "@type": "xsd:string"
+    },
+    "urlPath": {
+      "@id": "outsystems:urlPath",
+      "@type": "xsd:string"
+    },
+    "isDeployable": {
+      "@id": "outsystems:isDeployable",
+      "@type": "xsd:boolean"
+    },
+    "isBuiltInAsset": {
+      "@id": "outsystems:isBuiltInAsset",
+      "@type": "xsd:boolean"
+    },
+    "AssetRevisionV1ListResponse": "outsystems:AssetRevisionV1ListResponse",
+    "ApplicationType": "outsystems:ApplicationType",
+    "AssetMetadata": "outsystems:AssetMetadata",
+    "commitMessage": {
+      "@id": "outsystems:commitMessage",
+      "@type": "xsd:string"
+    },
+    "AssetSourceCode": "outsystems:AssetSourceCode",
+    "sourceCodeBinaryUrl": {
+      "@id": "outsystems:sourceCodeBinaryUrl",
+      "@type": "xsd:string"
+    },
+    "sourceCodeDigest": {
+      "@id": "outsystems:sourceCodeDigest",
+      "@type": "xsd:string"
+    },
+    "ApplicationVersion": "outsystems:ApplicationVersion",
+    "applicationKey": {
+      "@id": "outsystems:applicationKey",
+      "@type": "xsd:string"
+    },
+    "revision": {
+      "@id": "outsystems:revision",
+      "@type": "xsd:integer"
+    },
+    "revisionUserKey": {
+      "@id": "outsystems:revisionUserKey",
+      "@type": "xsd:string"
+    },
+    "revisionUserName": {
+      "@id": "outsystems:revisionUserName",
+      "@type": "xsd:string"
+    },
+    "revisionUserEmail": {
+      "@id": "outsystems:revisionUserEmail",
+      "@type": "xsd:string"
+    },
+    "revisionDateTime": {
+      "@id": "outsystems:revisionDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "description": {
+      "@id": "outsystems:description",
+      "@type": "xsd:string"
+    },
+    "applicationType": {
+      "@id": "outsystems:applicationType"
+    },
+    "isExternal": {
+      "@id": "outsystems:isExternal",
+      "@type": "xsd:boolean"
+    },
+    "isBuiltInApp": {
+      "@id": "outsystems:isBuiltInApp",
+      "@type": "xsd:boolean"
+    },
+    "fromTemplateKey": {
+      "@id": "outsystems:fromTemplateKey",
+      "@type": "xsd:string"
+    },
+    "iconUrl": {
+      "@id": "outsystems:iconUrl",
+      "@type": "@id"
+    },
+    "primaryColor": {
+      "@id": "outsystems:primaryColor",
+      "@type": "xsd:string"
+    },
+    "metamodelJsonUrl": {
+      "@id": "outsystems:metamodelJsonUrl",
+      "@type": "@id"
+    },
+    "signatureBinaryUrl": {
+      "@id": "outsystems:signatureBinaryUrl",
+      "@type": "@id"
+    },
+    "releaseNotesUrl": {
+      "@id": "outsystems:releaseNotesUrl",
+      "@type": "@id"
+    },
+    "signatureDigest": {
+      "@id": "outsystems:signatureDigest",
+      "@type": "xsd:string"
+    },
+    "compatibilitySignatureDigest": {
+      "@id": "outsystems:compatibilitySignatureDigest",
+      "@type": "xsd:string"
+    },
+    "modelDigest": {
+      "@id": "outsystems:modelDigest",
+      "@type": "xsd:string"
+    },
+    "labels": {
+      "@id": "outsystems:labels"
+    },
+    "publishUserEmail": {
+      "@id": "outsystems:publishUserEmail",
+      "@type": "xsd:string"
+    },
+    "publishUserKey": {
+      "@id": "outsystems:publishUserKey",
+      "@type": "xsd:string"
+    },
+    "publishDateTime": {
+      "@id": "outsystems:publishDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "releaseUserEmail": {
+      "@id": "outsystems:releaseUserEmail",
+      "@type": "xsd:string"
+    },
+    "releaseUserKey": {
+      "@id": "outsystems:releaseUserKey",
+      "@type": "xsd:string"
+    },
+    "releaseDateTime": {
+      "@id": "outsystems:releaseDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "AssetVersionFilter": "outsystems:AssetVersionFilter",
+    "digest": {
+      "@id": "outsystems:digest",
+      "@type": "xsd:string"
+    },
+    "isHighestTag": {
+      "@id": "outsystems:isHighestTag",
+      "@type": "xsd:boolean"
+    },
+    "AssetVersionPatchRequest": "outsystems:AssetVersionPatchRequest",
+    "releaseNotes": {
+      "@id": "outsystems:releaseNotes",
+      "@type": "xsd:string"
+    },
+    "AssetRevisionV1PagedListResponse": "outsystems:AssetRevisionV1PagedListResponse",
+    "AssetSignature": "outsystems:AssetSignature",
+    "AssetEmbeddingV1": "outsystems:AssetEmbeddingV1",
+    "releaseNote": {
+      "@id": "outsystems:releaseNote"
+    },
+    "icon": {
+      "@id": "outsystems:icon"
+    },
+    "sourceCode": {
+      "@id": "outsystems:sourceCode"
+    },
+    "signature": {
+      "@id": "outsystems:signature"
+    },
+    "metadata": {
+      "@id": "outsystems:metadata"
+    },
+    "PageInfoWithTotals": "outsystems:PageInfoWithTotals",
+    "AssetIcon": "outsystems:AssetIcon",
+    "iconDigest": {
+      "@id": "outsystems:iconDigest",
+      "@type": "xsd:string"
+    },
+    "AssetReleaseNoteContent": "outsystems:AssetReleaseNoteContent",
+    "content": {
+      "@id": "outsystems:content",
+      "@type": "xsd:string"
+    },
+    "AssetVersionCreationRequest": "outsystems:AssetVersionCreationRequest",
+    "skipSequentialVersionValidation": {
+      "@id": "outsystems:skipSequentialVersionValidation",
+      "@type": "xsd:boolean"
+    },
+    "fileUri": {
+      "@id": "outsystems:fileUri",
+      "@type": "@id"
+    },
+    "assetCreationDetails": {
+      "@id": "outsystems:assetCreationDetails"
+    },
+    "AssetListFilter": "outsystems:AssetListFilter",
+    "assetVersionFilters": {
+      "@id": "outsystems:assetVersionFilters",
+      "@container": "@list"
+    },
+    "embeds": {
+      "@id": "outsystems:embeds",
+      "@container": "@list"
+    },
+    "AssetRevisionV1": "outsystems:AssetRevisionV1",
+    "clonedFromTemplateKey": {
+      "@id": "outsystems:clonedFromTemplateKey",
+      "@type": "xsd:string"
+    },
+    "assetType": {
+      "@id": "outsystems:assetType",
+      "@type": "xsd:string"
+    },
+    "createdBy": {
+      "@id": "outsystems:createdBy",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "outsystems:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "taggedBy": {
+      "@id": "outsystems:taggedBy",
+      "@type": "xsd:string"
+    },
+    "taggedAt": {
+      "@id": "outsystems:taggedAt",
+      "@type": "xsd:dateTime"
+    },
+    "PermissionType": "outsystems:PermissionType",
+    "AssetCreateFromTemplateRequest": "outsystems:AssetCreateFromTemplateRequest",
+    "assetName": {
+      "@id": "outsystems:assetName",
+      "@type": "xsd:string"
+    },
+    "templateKey": {
+      "@id": "outsystems:templateKey",
+      "@type": "xsd:string"
+    },
+    "iconBase64": {
+      "@id": "outsystems:iconBase64",
+      "@type": "xsd:string"
+    },
+    "TemplateType": "outsystems:TemplateType",
+    "CodeAnalysisCategories": "outsystems:CodeAnalysisCategories",
+    "security": {
+      "@id": "outsystems:security"
+    },
+    "performance": {
+      "@id": "outsystems:performance"
+    },
+    "architecture": {
+      "@id": "outsystems:architecture"
+    },
+    "maintainability": {
+      "@id": "outsystems:maintainability"
+    },
+    "FindingsSummary": "outsystems:FindingsSummary",
+    "categories": {
+      "@id": "outsystems:categories"
+    },
+    "SeverityBreakdown": "outsystems:SeverityBreakdown",
+    "lowSeverity": {
+      "@id": "outsystems:lowSeverity",
+      "@type": "xsd:integer"
+    },
+    "mediumSeverity": {
+      "@id": "outsystems:mediumSeverity",
+      "@type": "xsd:integer"
+    },
+    "highSeverity": {
+      "@id": "outsystems:highSeverity",
+      "@type": "xsd:integer"
+    },
+    "criticalSeverity": {
+      "@id": "outsystems:criticalSeverity",
+      "@type": "xsd:integer"
+    },
+    "AssetRevisionSummaryResponse": "outsystems:AssetRevisionSummaryResponse",
+    "assetRevision": {
+      "@id": "outsystems:assetRevision",
+      "@type": "xsd:integer"
+    },
+    "analysisDate": {
+      "@id": "outsystems:analysisDate",
+      "@type": "xsd:date"
+    },
+    "qualityScore": {
+      "@id": "outsystems:qualityScore",
+      "@type": "xsd:decimal"
+    },
+    "summary": {
+      "@id": "outsystems:summary"
+    },
+    "AssetDependencyWithProducerReferencesListResponse": "outsystems:AssetDependencyWithProducerReferencesListResponse",
+    "ReferencedElementStringTypes": "outsystems:ReferencedElementStringTypes",
+    "isHidden": {
+      "@id": "outsystems:isHidden",
+      "@type": "xsd:boolean"
+    },
+    "producerAssetKey": {
+      "@id": "outsystems:producerAssetKey",
+      "@type": "xsd:string"
+    },
+    "producerAssetName": {
+      "@id": "outsystems:producerAssetName",
+      "@type": "xsd:string"
+    },
+    "producerAssetType": {
+      "@id": "outsystems:producerAssetType",
+      "@type": "xsd:string"
+    },
+    "ProblemDetails_2": "outsystems:ProblemDetails_2",
+    "AssetDependencyListResponse": "outsystems:AssetDependencyListResponse",
+    "ReferencedElementStringTypesListResponse": "outsystems:ReferencedElementStringTypesListResponse",
+    "AssetDependencyWithProducerReferences": "outsystems:AssetDependencyWithProducerReferences",
+    "isDirectProducer": {
+      "@id": "outsystems:isDirectProducer",
+      "@type": "xsd:boolean"
+    },
+    "producers": {
+      "@id": "outsystems:producers",
+      "@container": "@list"
+    },
+    "PublicElementStringTypesListResponse": "outsystems:PublicElementStringTypesListResponse",
+    "PublicElementStringTypes": "outsystems:PublicElementStringTypes",
+    "AssetDependencyProducerListResponse": "outsystems:AssetDependencyProducerListResponse",
+    "AssetDependencyProducer": "outsystems:AssetDependencyProducer",
+    "AssetDependency": "outsystems:AssetDependency",
+    "FindingsChangeV1": "outsystems:FindingsChangeV1",
+    "latestFindingsCount": {
+      "@id": "outsystems:latestFindingsCount",
+      "@type": "xsd:integer"
+    },
+    "findingsDifferenceCount": {
+      "@id": "outsystems:findingsDifferenceCount",
+      "@type": "xsd:integer"
+    },
+    "AppsOverviewResponseV1PagedListResponse": "outsystems:AppsOverviewResponseV1PagedListResponse",
+    "ScoreChangeV1": "outsystems:ScoreChangeV1",
+    "latestScore": {
+      "@id": "outsystems:latestScore",
+      "@type": "xsd:integer"
+    },
+    "differenceScore": {
+      "@id": "outsystems:differenceScore",
+      "@type": "xsd:integer"
+    },
+    "FindingStatus": "outsystems:FindingStatus",
+    "FindingSeverity": "outsystems:FindingSeverity",
+    "AppsOverviewResponseV1": "outsystems:AppsOverviewResponseV1",
+    "score": {
+      "@id": "outsystems:score"
+    },
+    "severity": {
+      "@id": "outsystems:severity"
+    },
+    "Categories": "outsystems:Categories",
+    "GeneratedCodePackagingError": "outsystems:GeneratedCodePackagingError",
+    "timestamp": {
+      "@id": "outsystems:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "message": {
+      "@id": "outsystems:message",
+      "@type": "xsd:string"
+    },
+    "SecurityVulnerability": "outsystems:SecurityVulnerability",
+    "id": {
+      "@id": "outsystems:id",
+      "@type": "xsd:string"
+    },
+    "details": {
+      "@id": "outsystems:details",
+      "@type": "xsd:string"
+    },
+    "publishedDate": {
+      "@id": "outsystems:publishedDate",
+      "@type": "xsd:dateTime"
+    },
+    "BuildType": "outsystems:BuildType",
+    "BuildResponse": "outsystems:BuildResponse",
+    "buildKey": {
+      "@id": "outsystems:buildKey",
+      "@type": "xsd:string"
+    },
+    "isSuccessful": {
+      "@id": "outsystems:isSuccessful",
+      "@type": "xsd:boolean"
+    },
+    "BuildFeedbackDetailsResponse": "outsystems:BuildFeedbackDetailsResponse",
+    "GeneratedCodePackagingStatus": "outsystems:GeneratedCodePackagingStatus",
+    "GeneratedCodePackagingResponse": "outsystems:GeneratedCodePackagingResponse",
+    "BuildOperationDetails": "outsystems:BuildOperationDetails",
+    "buildType": {
+      "@id": "outsystems:buildType"
+    },
+    "BuildStatus": "outsystems:BuildStatus",
+    "BuildDetails": "outsystems:BuildDetails",
+    "startedDateTime": {
+      "@id": "outsystems:startedDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "finishedDateTime": {
+      "@id": "outsystems:finishedDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "builtBy": {
+      "@id": "outsystems:builtBy",
+      "@type": "xsd:string"
+    },
+    "securityAudit": {
+      "@id": "outsystems:securityAudit"
+    },
+    "GeneratedCodePackageResponse": "outsystems:GeneratedCodePackageResponse",
+    "uri": {
+      "@id": "outsystems:uri",
+      "@type": "xsd:string"
+    },
+    "errors": {
+      "@id": "outsystems:errors",
+      "@container": "@list"
+    },
+    "BuildFeedbackDetails": "outsystems:BuildFeedbackDetails",
+    "stepId": {
+      "@id": "outsystems:stepId",
+      "@type": "xsd:string"
+    },
+    "BuildDetailsBuildListResponse": "outsystems:BuildDetailsBuildListResponse",
+    "builds": {
+      "@id": "outsystems:builds",
+      "@container": "@list"
+    },
+    "SecurityVulnerabilities": "outsystems:SecurityVulnerabilities",
+    "vulnerabilities": {
+      "@id": "outsystems:vulnerabilities",
+      "@container": "@list"
+    },
+    "AppShieldUsage": "outsystems:AppShieldUsage",
+    "BuildOperationValidationRequest": "outsystems:BuildOperationValidationRequest",
+    "mobilePlatform": {
+      "@id": "outsystems:mobilePlatform"
+    },
+    "TaskProgressMessage": "outsystems:TaskProgressMessage",
+    "NativeBuildVersions": "outsystems:NativeBuildVersions",
+    "mobileVersionNumber": {
+      "@id": "outsystems:mobileVersionNumber",
+      "@type": "xsd:string"
+    },
+    "mobileVersionCode": {
+      "@id": "outsystems:mobileVersionCode",
+      "@type": "xsd:integer"
+    },
+    "MobilePlatform": "outsystems:MobilePlatform",
+    "MobileFramework": "outsystems:MobileFramework",
+    "NativeBuildValidationResult": "outsystems:NativeBuildValidationResult",
+    "Int32TaskProgressMessagePagedListResponse": "outsystems:Int32TaskProgressMessagePagedListResponse",
+    "BuildOperationRequest": "outsystems:BuildOperationRequest",
+    "BuildOperationResult": "outsystems:BuildOperationResult",
+    "appIdentifier": {
+      "@id": "outsystems:appIdentifier",
+      "@type": "xsd:string"
+    },
+    "mobileFramework": {
+      "@id": "outsystems:mobileFramework"
+    },
+    "estimatedFinishDateTime": {
+      "@id": "outsystems:estimatedFinishDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "appBinaryDownloadUrl": {
+      "@id": "outsystems:appBinaryDownloadUrl",
+      "@type": "xsd:string"
+    },
+    "appSourceDownloadUrl": {
+      "@id": "outsystems:appSourceDownloadUrl",
+      "@type": "xsd:string"
+    },
+    "mobileBuildLogUrl": {
+      "@id": "outsystems:mobileBuildLogUrl",
+      "@type": "xsd:string"
+    },
+    "appShieldMappingUrl": {
+      "@id": "outsystems:appShieldMappingUrl",
+      "@type": "xsd:string"
+    },
+    "appShieldUsage": {
+      "@id": "outsystems:appShieldUsage"
+    },
+    "nativeBuilderVersion": {
+      "@id": "outsystems:nativeBuilderVersion",
+      "@type": "xsd:string"
+    },
+    "isNativeBuilderVersionLocked": {
+      "@id": "outsystems:isNativeBuilderVersionLocked",
+      "@type": "xsd:boolean"
+    },
+    "requestingUserKey": {
+      "@id": "outsystems:requestingUserKey",
+      "@type": "xsd:string"
+    },
+    "appDeploymentFileDownloadUrl": {
+      "@id": "outsystems:appDeploymentFileDownloadUrl",
+      "@type": "xsd:string"
+    },
+    "BuildOperationValidationResponse": "outsystems:BuildOperationValidationResponse",
+    "platformResults": {
+      "@id": "outsystems:platformResults"
+    },
+    "Int32PageInfo": "outsystems:Int32PageInfo",
+    "VersionSuggestionsRequest": "outsystems:VersionSuggestionsRequest",
+    "MessageSeverity": "outsystems:MessageSeverity",
+    "BuildOperationResultPagedListResponse": "outsystems:BuildOperationResultPagedListResponse",
+    "AdhocAnalysisRequestV1": "outsystems:AdhocAnalysisRequestV1",
+    "CodeAnalysisResponseV1": "outsystems:CodeAnalysisResponseV1",
+    "analysisKey": {
+      "@id": "outsystems:analysisKey",
+      "@type": "xsd:string"
+    },
+    "RevisionFindingsResponseV1": "outsystems:RevisionFindingsResponseV1",
+    "patternId": {
+      "@id": "outsystems:patternId",
+      "@type": "xsd:string"
+    },
+    "discoveredOn": {
+      "@id": "outsystems:discoveredOn",
+      "@type": "xsd:string"
+    },
+    "rediscoveredOn": {
+      "@id": "outsystems:rediscoveredOn",
+      "@type": "xsd:string"
+    },
+    "elementKey": {
+      "@id": "outsystems:elementKey",
+      "@type": "xsd:string"
+    },
+    "elementName": {
+      "@id": "outsystems:elementName",
+      "@type": "xsd:string"
+    },
+    "elementType": {
+      "@id": "outsystems:elementType",
+      "@type": "xsd:string"
+    },
+    "elementPath": {
+      "@id": "outsystems:elementPath",
+      "@container": "@list"
+    },
+    "elementLastModifiedBy": {
+      "@id": "outsystems:elementLastModifiedBy",
+      "@type": "xsd:string"
+    },
+    "elementLastModifiedOn": {
+      "@id": "outsystems:elementLastModifiedOn",
+      "@type": "xsd:string"
+    },
+    "whereElementKey": {
+      "@id": "outsystems:whereElementKey",
+      "@type": "xsd:string"
+    },
+    "whereElementName": {
+      "@id": "outsystems:whereElementName",
+      "@type": "xsd:string"
+    },
+    "whereElementType": {
+      "@id": "outsystems:whereElementType",
+      "@type": "xsd:string"
+    },
+    "whereElementPath": {
+      "@id": "outsystems:whereElementPath",
+      "@container": "@list"
+    },
+    "whereElementLastModifiedBy": {
+      "@id": "outsystems:whereElementLastModifiedBy",
+      "@type": "xsd:string"
+    },
+    "whereElementLastModifiedOn": {
+      "@id": "outsystems:whereElementLastModifiedOn",
+      "@type": "xsd:string"
+    },
+    "dismissReason": {
+      "@id": "outsystems:dismissReason",
+      "@type": "xsd:string"
+    },
+    "snoozedUntil": {
+      "@id": "outsystems:snoozedUntil",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "outsystems:category",
+      "@type": "xsd:string"
+    },
+    "ElementPath": "outsystems:ElementPath",
+    "CodeAnalysisStatusResponseV1": "outsystems:CodeAnalysisStatusResponseV1",
+    "findings": {
+      "@id": "outsystems:findings",
+      "@container": "@list"
+    },
+    "ProcessStatus": "outsystems:ProcessStatus",
+    "AnalysisStatus": "outsystems:AnalysisStatus",
+    "AnalysisReportType": "outsystems:AnalysisReportType",
+    "TenantEnvironmentPurpose": "outsystems:TenantEnvironmentPurpose",
+    "PublicIndirectElement": "outsystems:PublicIndirectElement",
+    "portfolioName": {
+      "@id": "outsystems:portfolioName",
+      "@type": "xsd:string"
+    },
+    "EnvironmentReport": "outsystems:EnvironmentReport",
+    "purpose": {
+      "@id": "outsystems:purpose"
+    },
+    "PublicImpactedApplication": "outsystems:PublicImpactedApplication",
+    "deployedRevisions": {
+      "@id": "outsystems:deployedRevisions",
+      "@container": "@list"
+    },
+    "ReferenceKeyResponse": "outsystems:ReferenceKeyResponse",
+    "ConflictSeverity": "outsystems:ConflictSeverity",
+    "PublicLaunchDeletionAnalysisRequest": "outsystems:PublicLaunchDeletionAnalysisRequest",
+    "PublicDeployedRevision": "outsystems:PublicDeployedRevision",
+    "consumerType": {
+      "@id": "outsystems:consumerType",
+      "@type": "xsd:string"
+    },
+    "indirectLibraryHint": {
+      "@id": "outsystems:indirectLibraryHint",
+      "@type": "xsd:string"
+    },
+    "indirectDependencies": {
+      "@id": "outsystems:indirectDependencies",
+      "@container": "@list"
+    },
+    "PublicDeletionAnalysisReportPublicAnalysisResult": "outsystems:PublicDeletionAnalysisReportPublicAnalysisResult",
+    "processStatus": {
+      "@id": "outsystems:processStatus"
+    },
+    "error": {
+      "@id": "outsystems:error"
+    },
+    "report": {
+      "@id": "outsystems:report"
+    },
+    "startedAt": {
+      "@id": "outsystems:startedAt",
+      "@type": "xsd:dateTime"
+    },
+    "PublicDependencyPath": "outsystems:PublicDependencyPath",
+    "indirectElements": {
+      "@id": "outsystems:indirectElements",
+      "@container": "@list"
+    },
+    "ImpactedDomain": "outsystems:ImpactedDomain",
+    "hostname": {
+      "@id": "outsystems:hostname",
+      "@type": "xsd:string"
+    },
+    "environmentName": {
+      "@id": "outsystems:environmentName",
+      "@type": "xsd:string"
+    },
+    "PublicDeletionAnalysisReport": "outsystems:PublicDeletionAnalysisReport",
+    "deployedEnvironments": {
+      "@id": "outsystems:deployedEnvironments",
+      "@container": "@list"
+    },
+    "impactedDomains": {
+      "@id": "outsystems:impactedDomains",
+      "@container": "@list"
+    },
+    "impactedAssets": {
+      "@id": "outsystems:impactedAssets",
+      "@container": "@list"
+    },
+    "DeployedAssetPagedListResponse": "outsystems:DeployedAssetPagedListResponse",
+    "DeployedAsset": "outsystems:DeployedAsset",
+    "isBuiltIn": {
+      "@id": "outsystems:isBuiltIn",
+      "@type": "xsd:boolean"
+    },
+    "deployments": {
+      "@id": "outsystems:deployments",
+      "@container": "@list"
+    },
+    "Deployment": "outsystems:Deployment",
+    "deploymentKey": {
+      "@id": "outsystems:deploymentKey",
+      "@type": "xsd:string"
+    },
+    "deploymentDateTime": {
+      "@id": "outsystems:deploymentDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "deploymentUserId": {
+      "@id": "outsystems:deploymentUserId",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "outsystems:url",
+      "@type": "xsd:string"
+    },
+    "taggingUserKey": {
+      "@id": "outsystems:taggingUserKey",
+      "@type": "xsd:string"
+    },
+    "taggingDateTime": {
+      "@id": "outsystems:taggingDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "ApplicationIssue": "outsystems:ApplicationIssue",
+    "conflictType": {
+      "@id": "outsystems:conflictType"
+    },
+    "conflictSeverity": {
+      "@id": "outsystems:conflictSeverity"
+    },
+    "hint": {
+      "@id": "outsystems:hint",
+      "@type": "xsd:string"
+    },
+    "ApplicationConflictType": "outsystems:ApplicationConflictType",
+    "PublicLaunchDeploymentAnalysisRequest": "outsystems:PublicLaunchDeploymentAnalysisRequest",
+    "ElementIssue": "outsystems:ElementIssue",
+    "incompatibilityType": {
+      "@id": "outsystems:incompatibilityType"
+    },
+    "PublicApplicationReport": "outsystems:PublicApplicationReport",
+    "referenceType": {
+      "@id": "outsystems:referenceType"
+    },
+    "elementLevelIssues": {
+      "@id": "outsystems:elementLevelIssues",
+      "@container": "@list"
+    },
+    "applicationLevelIssues": {
+      "@id": "outsystems:applicationLevelIssues",
+      "@container": "@list"
+    },
+    "IncompatibilityType": "outsystems:IncompatibilityType",
+    "ElementConflictType": "outsystems:ElementConflictType",
+    "PublicDeploymentAnalysisReport": "outsystems:PublicDeploymentAnalysisReport",
+    "PublicDeploymentAnalysisReportPublicAnalysisResult": "outsystems:PublicDeploymentAnalysisReportPublicAnalysisResult",
+    "ReferenceType": "outsystems:ReferenceType"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "OutSystems API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects OutSystems's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-03) from openapi/outsystems-analysis-status-api-openapi.yml, openapi/outsystems-application-roles-api-openapi.yml, openapi/outsystems-assets-api-openapi.yml.",
+  "dcterms:created": "2026-10-03",
+  "dcterms:source": [
+    "openapi/outsystems-analysis-status-api-openapi.yml",
+    "openapi/outsystems-application-roles-api-openapi.yml",
+    "openapi/outsystems-assets-api-openapi.yml",
+    "openapi/outsystems-assets-quality-metrics-api-openapi.yml",
+    "openapi/outsystems-build-api-openapi.yml"
+  ]
+}

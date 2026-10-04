@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-adhoc-analysis-request-v1-schema.json",
+  "title": "CodeAnalysisRequest",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-code-analyses-api-openapi.yml#/components/schemas/AdhocAnalysisRequestV1",
+  "required": [
+    "assetKey",
+    "assetRevision"
+  ],
+  "type": "object",
+  "properties": {
+    "assetKey": {
+      "minLength": 1,
+      "type": "string",
+      "description": "Unique identifier of the asset to analyze."
+    },
+    "assetRevision": {
+      "maximum": 2147483647,
+      "minimum": 1,
+      "type": "integer",
+      "description": "Revision number of the asset to analyze.",
+      "format": "int32"
+    }
+  },
+  "additionalProperties": false
+}

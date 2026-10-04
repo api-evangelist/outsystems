@@ -1,0 +1,496 @@
+openapi: 3.2.0
+info:
+  title: LifeTime REST /teams API
+  description: The LifeTime API allows you to manage applications, modules, environments, deployments, users, teams, roles and deployment zones of your OutSystems infrastructure.
+  version: v2
+servers:
+- url: /lifetimeapi/rest/v2
+tags:
+- name: /teams
+paths:
+  /teams/:
+    get:
+      tags:
+      - /teams
+      summary: Lists all the teams
+      operationId: Teams_List
+      parameters:
+      - name: IncludeUsers
+        in: query
+        required: false
+        description: Defines if it is to include a list of users that belong to the team.
+        schema:
+          type: boolean
+          default: false
+      - name: IncludeApplications
+        in: query
+        required: false
+        description: Defines if it is to include a list of applications that belong to the team.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: List of teams successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+                description: A list of Team records including Users and Applications sub-lists, if requested.
+        '204':
+          description: No teams defined
+        '403':
+          description: User has no permissions to retrieve teams list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    post:
+      tags:
+      - /teams
+      summary: Creates a team with the specified details
+      description: The operation only creates the team. Users and Applications should be associated using specific endpoints.
+      operationId: Teams_Create
+      responses:
+        '201':
+          description: Team created with success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Failed to create team due to invalid team name.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to create a new team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+        description: The team to be created.
+        required: true
+  /teams/{TeamKey}/:
+    get:
+      tags:
+      - /teams
+      summary: Returns the details of a given team
+      operationId: Teams_Get
+      parameters:
+      - name: TeamKey
+        in: path
+        required: true
+        description: Team key to retrieve.
+        schema:
+          type: string
+      - name: IncludeUsers
+        in: query
+        required: false
+        description: Defines if it is to include a list of users that belong to the team.
+        schema:
+          type: boolean
+          default: false
+      - name: IncludeApplications
+        in: query
+        required: false
+        description: Defines if it is to include a list of applications that belong to the team.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Record of Team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '403':
+          description: User don't have permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Team not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    put:
+      tags:
+      - /teams
+      summary: Updates a team with the specified details
+      description: The operation only affects the Team details. Users and Applications should be associated or dissociated using specific endpoints.
+      operationId: Teams_Update
+      parameters:
+      - name: TeamKey
+        in: path
+        required: true
+        description: Team key to update.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Team updated with success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Failed to update team due to invalid team name.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Team not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+        description: The team to be updated.
+        required: true
+    delete:
+      tags:
+      - /teams
+      summary: Deletes a team
+      operationId: Teams_Delete
+      parameters:
+      - name: TeamKey
+        in: path
+        required: true
+        description: Team key to delete.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Team deleted with success.
+        '403':
+          description: No permissions to delete a team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Team not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /teams/{TeamKey}/applications/:
+    post:
+      tags:
+      - /teams
+      summary: Adds the specified application to a given team
+      operationId: Teams_AddApplication
+      parameters:
+      - name: TeamKey
+        in: path
+        required: true
+        description: The key of the team where to add the applications.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Application added with success.
+        '400':
+          description: Failed to add application to team because application doesn't exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Team not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationShortInfo'
+        description: The application information to be added.
+        required: true
+  /teams/{TeamKey}/applications/{ApplicationKey}:
+    delete:
+      tags:
+      - /teams
+      summary: Removes application from the given team
+      operationId: Teams_RemApplication
+      parameters:
+      - name: TeamKey
+        in: path
+        required: true
+        description: The team unique identifier.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The application unique identifier.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Application removed with success.
+        '400':
+          description: Failed to remove application to team because application doesn't exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Team or application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /teams/{TeamKey}/users/:
+    post:
+      tags:
+      - /teams
+      summary: Adds a user to a team with a specified role
+      operationId: Teams_AddUser
+      parameters:
+      - name: TeamKey
+        in: path
+        required: true
+        description: The key of the team where the add the user.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: User added with success.
+        '400':
+          description: Failed to add user to team because user doesn't exist or role doesn't exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Team not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRoleShortInfo'
+        description: The user and role information to be added.
+        required: true
+  /teams/{TeamKey}/users/{UserKey}/:
+    delete:
+      tags:
+      - /teams
+      summary: Removes a user from the given team
+      operationId: Teams_RemUser
+      parameters:
+      - name: TeamKey
+        in: path
+        required: true
+        description: The key of the team where the remove the user.
+        schema:
+          type: string
+      - name: UserKey
+        in: path
+        required: true
+        description: The key of the user to be removed.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User removed with success.
+        '400':
+          description: Failed to remove user from team because user doesn't exist or role doesn't exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Team or user not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+components:
+  schemas:
+    UserRole:
+      description: Pair User and Role information.
+      type: object
+      properties:
+        UserKey:
+          type: string
+          default: ''
+        Name:
+          type: string
+          default: ''
+        Username:
+          type: string
+          default: ''
+        RoleKey:
+          type: string
+          default: ''
+        RoleName:
+          type: string
+          default: ''
+    UserRoleShortInfo:
+      description: Pair User Key and Role Key minimal information.
+      type: object
+      properties:
+        userKey:
+          type: string
+          default: ''
+        roleKey:
+          type: string
+          default: ''
+    ApplicationShortInfo:
+      description: A simplification of application structure.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Application unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of the application.
+      required:
+      - Key
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.
+    Team:
+      description: Definition of a team
+      type: object
+      properties:
+        key:
+          type: string
+          default: ''
+          readOnly: true
+        name:
+          type: string
+          default: ''
+        description:
+          type: string
+          default: ''
+        users:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/UserRole'
+        applications:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ApplicationShortInfo'

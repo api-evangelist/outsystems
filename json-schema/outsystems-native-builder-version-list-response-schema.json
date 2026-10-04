@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-native-builder-version-list-response-schema.json",
+  "title": "NativeBuilderVersionListResponse",
+  "description": "Represents a response containing a list of results.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-nativebuilderversions-api-openapi.yml#/components/schemas/NativeBuilderVersionListResponse",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/NativeBuilderVersion"
+      },
+      "description": "List of results."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "MobileFramework": {
+      "enum": [
+        "Capacitor",
+        "Cordova"
+      ],
+      "type": "string",
+      "description": "This enum is used to specify which framework should be used when building mobile applications"
+    },
+    "NativeBuilderVersion": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The MABS version"
+        },
+        "state": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NativeBuilderVersionState"
+            }
+          ],
+          "description": "The MABS version state"
+        },
+        "supportedMobileFrameworks": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/MobileFramework"
+          },
+          "description": "Supported Mobile Frameworks for the given MABS version"
+        },
+        "defaultMobileFramework": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MobileFramework"
+            }
+          ],
+          "description": "The Default Mobile Framework for the given MABS version"
+        },
+        "endOfSupportDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The End of Support Date for the given MABS version in DateOnly format (MM-dd-yyyy)",
+          "format": "date"
+        },
+        "endOfLifeDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The End of Life Date for the given MABS version in DateOnly format (MM-dd-yyyy)",
+          "format": "date"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Native builder version"
+    },
+    "NativeBuilderVersionState": {
+      "enum": [
+        "Active",
+        "Beta",
+        "Canary",
+        "Deprecated",
+        "Obsolete"
+      ],
+      "type": "string",
+      "description": "Native Builder Version State"
+    }
+  }
+}

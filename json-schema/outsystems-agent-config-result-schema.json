@@ -1,0 +1,360 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-agent-config-result-schema.json",
+  "title": "AgentConfigResult",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-environments-api-openapi.yml#/components/schemas/AgentConfigResult",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The key identifier of the configuration"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The name of the configuration"
+    },
+    "revisionBaseline": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Revision of the application",
+      "format": "int32"
+    },
+    "revisionDeployed": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Revision deployed of the application",
+      "format": "int32"
+    },
+    "settings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/GenericConfigResult"
+      },
+      "description": "Settings of the application"
+    },
+    "timers": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/TimerResult"
+      },
+      "description": "Timer configurations"
+    },
+    "integrations": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/IntegrationResult"
+      },
+      "description": "Integration configurations"
+    },
+    "libraries": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/LibraryConfigResult"
+      },
+      "description": "Libraries configurations"
+    },
+    "deployedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Date of the last deployment of the configuration",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "DataType": {
+      "enum": [
+        "Text",
+        "Integer",
+        "LongInteger",
+        "Decimal",
+        "Boolean",
+        "DateTime",
+        "Date",
+        "Time",
+        "PhoneNumber",
+        "Email",
+        "Currency",
+        "EntityIdentifierType",
+        "BinaryUrl"
+      ],
+      "type": "string"
+    },
+    "GenericConfigResult": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the configuration"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Description of the configuration"
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/DataType"
+            }
+          ],
+          "description": "Type of the configuration"
+        },
+        "defaultValue": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Default value of the configuration"
+        },
+        "deployedValue": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Current deployed value of the configuration"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Last set value of the configuration"
+        },
+        "valueOrigin": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Origin"
+            }
+          ],
+          "description": "The origin of the value (e.g: Environment, Application, Library)"
+        },
+        "deployedValueOrigin": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Origin"
+            }
+          ],
+          "description": "The origin of the current deployed value (e.g: Environment, Application, Library)"
+        },
+        "isSecret": {
+          "type": "boolean",
+          "description": "If the configuration is a secret"
+        },
+        "valueSetAfterDeploy": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "If a secret was set after the last successful deployment"
+        },
+        "updatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Date of the last update of the configuration",
+          "format": "date-time"
+        },
+        "filename": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "For binary values, the original file name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "IntegrationResult": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the configuration"
+        },
+        "pluginType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The type of the Integration used (e.g: RestConsumer, RestExpose)"
+        },
+        "configs": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigResult"
+          },
+          "description": "List of configurations properties"
+        }
+      },
+      "additionalProperties": false
+    },
+    "LibraryConfigResult": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the configuration"
+        },
+        "revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The revision of the library",
+          "format": "int32"
+        },
+        "revisionBaseline": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Base revision of the library",
+          "format": "int32"
+        },
+        "systemConfigurations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigResult"
+          },
+          "description": "System Configurations for the Environment configurations"
+        },
+        "settings": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigResult"
+          },
+          "description": "Settings of the application"
+        },
+        "integrations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/IntegrationResult"
+          },
+          "description": "Integration configurations"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Origin": {
+      "enum": [
+        "EnvironmentLevelOverride",
+        "EnvironmentLevelDefault",
+        "ApplicationLevelOverride",
+        "ApplicationLevelDefault",
+        "LibraryLevelOverride",
+        "LibraryLevelDefault"
+      ],
+      "type": "string"
+    },
+    "TimerResult": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The key identifier of the configuration"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The name of the configuration"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Description of the Timer configuration"
+        },
+        "configs": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/GenericConfigResult"
+          },
+          "description": "List of configurations properties"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

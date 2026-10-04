@@ -1,0 +1,282 @@
+openapi: 3.2.0
+info:
+  title: LifeTime REST /modules API
+  description: The LifeTime API allows you to manage applications, modules, environments, deployments, users, teams, roles and deployment zones of your OutSystems infrastructure.
+  version: v2
+servers:
+- url: /lifetimeapi/rest/v2
+tags:
+- name: /modules
+paths:
+  /modules/:
+    get:
+      tags:
+      - /modules
+      summary: Returns a list of modules that exist in the infrastructure
+      operationId: Modules_List
+      parameters:
+      - name: IncludeEnvStatus
+        in: query
+        required: false
+        x-example: false
+        description: When set to true, the module status per environment is also returned. The default value is false.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Modules list successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Module'
+                description: A list of Module records.
+        '204':
+          description: No modules found in the infrastructure.
+        '500':
+          description: Failed to list modules.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /modules/{ModuleKey}/:
+    get:
+      tags:
+      - /modules
+      summary: Returns the details of a given module
+      operationId: Modules_Get
+      parameters:
+      - name: ModuleKey
+        in: path
+        required: true
+        description: Key of the module to list the details from.
+        schema:
+          type: string
+      - name: IncludeEnvStatus
+        in: query
+        required: false
+        x-example: false
+        description: Boolean to indicate if status per env should be returned. Default is false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Module details successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '403':
+          description: 'Failed to retrieve the module with key: <ModuleKey>. The user does not have the required permissions.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: 'Failed to retrieve the module with key: <ModuleKey>.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to retrieve the module with key <ModuleKey>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /modules/{ModuleKey}/versions/:
+    get:
+      tags:
+      - /modules
+      summary: Returns a list of versions of a given module
+      operationId: ModuleVersions_List
+      parameters:
+      - name: ModuleKey
+        in: path
+        required: true
+        description: The module from where to retrieve the versions from.
+        schema:
+          type: string
+      - name: MaximumVersionsToReturn
+        in: query
+        required: false
+        x-example: 0
+        description: Maximum number of versions to return. Default is 5.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: List of module versions successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleVersion_v2'
+                description: A list of ModuleVersion records.
+        '400':
+          description: Invalid request due to invalid max versions to return (less than 0).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: 'Failed to retrieve the module with key: <ModuleKey>. The user does not have the required permissions.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: 'Failed to retrieve the module with key: <ModuleKey>.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to list module versions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+  /modules/{ModuleKey}/versions/{ModuleVersionKey}/:
+    get:
+      tags:
+      - /modules
+      summary: Returns the details of a given module version
+      operationId: ModuleVersion_Get
+      parameters:
+      - name: ModuleKey
+        in: path
+        required: true
+        description: The module from where to retrieve the versions from.
+        schema:
+          type: string
+      - name: ModuleVersionKey
+        in: path
+        required: true
+        description: Key of the module version to return.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Module version details successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleVersion_v2'
+        '403':
+          description: 'Failed to retrieve the module with key: <ModuleKey>. The user does not have the required permissions.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: 'Failed to retrieve the module with key: <ModuleKey>, or failed to retrieve the module version with key: <ModuleVersionKey>'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to access the details of a module version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+components:
+  schemas:
+    ModuleVersion_v2:
+      description: A module version and its information.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Module version unique identifier.
+        ModuleKey:
+          type: string
+          default: ''
+          description: Module unique identifier.
+        CreatedOn:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+          description: Date and time of the module version creation.
+        CreatedBy:
+          type: string
+          default: ''
+          description: Name of the user that created the version.
+        CreatedByUsername:
+          type: string
+          default: ''
+          description: Username of the user that created the version.
+        GeneralHash:
+          type: string
+          default: ''
+          description: Non-unique hash of the module version. Can be used to validate if two module versions have semantic differences.
+        DirectUpgradeFromHash:
+          type: string
+          default: ''
+          description: If this module version is the result of a direct upgrade of another version, then this field contains the key of that version
+    ModuleStatusInEnv:
+      description: Status of module in a given environment.
+      type: object
+      properties:
+        ApplicationKey:
+          type: string
+          default: ''
+          description: Application unique identifier.
+        EnvironmentKey:
+          type: string
+          default: ''
+          description: Environment unique identifier.
+        ModuleVersionKey:
+          type: string
+          default: ''
+          description: Module version unique identifier.
+        ConsistencyStatus:
+          type: string
+          default: ''
+          description: Indicates the module consistency status.
+        ConsistencyStatusMessages:
+          type: string
+          default: ''
+          description: Messages regarding the consistency status of the module.
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.
+    Module:
+      description: Module information and the status in the environments where the modules are running.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: Module unique identifier.
+        Name:
+          type: string
+          default: ''
+          description: Name of the module.
+        Description:
+          type: string
+          default: ''
+          description: Description of the module.
+        Kind:
+          type: string
+          default: ''
+          description: Module type (eSpace or Extension).
+        ModuleStatusInEnv:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleStatusInEnv'
+          description: Status of the module in environments

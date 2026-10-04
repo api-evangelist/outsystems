@@ -1,0 +1,392 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-identity-provider-response-schema.json",
+  "title": "IdentityProviderResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-identity-providers-api-openapi.yml#/components/schemas/IdentityProviderResponse",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Gets or sets the key associated with the identity provider.",
+      "format": "uuid"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the name of the identity provider."
+    },
+    "oidcConfiguration": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/OidcConfigurationResponse"
+        }
+      ],
+      "description": "Gets or sets the OIDC configuration of the identity provider."
+    },
+    "samlConfiguration": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/SamlConfigurationItemModel"
+      },
+      "description": "Gets or sets the SAML configuration as a dynamic JSON object."
+    },
+    "tokenNormalizations": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/TokenNormalizationModel"
+      },
+      "description": "Gets or sets a list of token normalization map of the identity provider."
+    },
+    "lastUpdatedDate": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the last updated date of the identity provider.",
+      "format": "date-time"
+    },
+    "type": {
+      "enum": [
+        "OIDC",
+        "SAML",
+        "Cognito"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProviderTypeServiceModel"
+        }
+      ],
+      "description": "Gets or sets the provider type."
+    },
+    "subtype": {
+      "enum": [
+        "Custom",
+        "AppleId",
+        "Google",
+        "Facebook",
+        "LinkedIn",
+        "OutSystems11"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProviderSubtypeServiceModel"
+        }
+      ],
+      "description": "Gets or sets the provider subtype."
+    },
+    "emailTrustType": {
+      "enum": [
+        "None",
+        "EmailVerifiedClaim",
+        "All"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/EmailTrustTypeServiceModel"
+        }
+      ],
+      "description": "Gets or sets the email trust type of the identity provider."
+    },
+    "hosting": {
+      "enum": [
+        "oscloud",
+        "selfhosted"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/HostingServiceModel"
+        }
+      ],
+      "description": "Gets or sets the hosting type of the identity provider."
+    },
+    "autoCreateProfiles": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether to automatically create profiles."
+    },
+    "profileLinkingField": {
+      "enum": [
+        "Email",
+        "Username",
+        "None"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProfileLinkingFieldServiceModel"
+        }
+      ],
+      "description": "Gets or sets the profile linking field."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ClientAssertionSigningAlgorithmServiceModel": {
+      "enum": [
+        "ES256",
+        "ES384",
+        "ES512",
+        "HS256",
+        "HS384",
+        "HS512",
+        "PS256",
+        "PS384",
+        "PS512",
+        "RS256",
+        "RS384",
+        "RS512"
+      ],
+      "type": "string"
+    },
+    "ClientAuthenticationMethodServiceModel": {
+      "enum": [
+        "client_secret_post",
+        "client_secret_basic",
+        "client_secret_jwt",
+        "private_key_jwt"
+      ],
+      "type": "string"
+    },
+    "EmailTrustTypeServiceModel": {
+      "enum": [
+        "None",
+        "EmailVerifiedClaim",
+        "All"
+      ],
+      "type": "string"
+    },
+    "HostingServiceModel": {
+      "enum": [
+        "oscloud",
+        "selfhosted"
+      ],
+      "type": "string"
+    },
+    "OidcConfigurationResponse": {
+      "type": "object",
+      "properties": {
+        "discoveryUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets discovery url of the identity provider."
+        },
+        "authorizationUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets authorization url of the identity provider."
+        },
+        "tokenUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets token url of the identity provider."
+        },
+        "userInfoUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets userInfo url of the identity provider."
+        },
+        "logoutUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets logout url of the identity provider."
+        },
+        "jwksUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets json web key sets url of the identity provider."
+        },
+        "issuer": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets issuer of the identity provider."
+        },
+        "clientAuthenticationMethod": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ClientAuthenticationMethodServiceModel"
+            }
+          ],
+          "description": "Gets or sets client authentication method of the identity provider."
+        },
+        "clientAssertionSigningAlgorithm": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ClientAssertionSigningAlgorithmServiceModel"
+            }
+          ],
+          "description": "Gets or sets client assertation signing algorithm of the identity provider."
+        },
+        "scopes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Gets or sets list of scopes supported by the identity provider."
+        },
+        "clientId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets client id provided by the identity provider."
+        },
+        "clientSecret": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets client secret provided by the identity provider."
+        },
+        "usePkce": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether true if authorization code flow should be used."
+        },
+        "pkceMethod": {
+          "enum": [
+            "plain",
+            "S256"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/$defs/PkceMethodServiceModel"
+            }
+          ],
+          "description": "Gets or sets pkceMethod of the identity provider."
+        },
+        "providerCustomConfig": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ProviderCustomConfigModel"
+            }
+          ],
+          "description": "Gets or sets ProviderCustomConfig of the identity provider."
+        },
+        "suppressNonceVerification": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether gets or Sets the field SuppressNonceVerification."
+        }
+      },
+      "additionalProperties": false
+    },
+    "PkceMethodServiceModel": {
+      "enum": [
+        "plain",
+        "S256"
+      ],
+      "type": "string"
+    },
+    "ProfileLinkingFieldServiceModel": {
+      "enum": [
+        "Email",
+        "Username",
+        "None"
+      ],
+      "type": "string"
+    },
+    "ProviderCustomConfigModel": {
+      "type": "object",
+      "properties": {
+        "keyId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the KeyId value."
+        },
+        "teamId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the TeamId value."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProviderSubtypeServiceModel": {
+      "enum": [
+        "Custom",
+        "AppleId",
+        "Google",
+        "Facebook",
+        "LinkedIn",
+        "OutSystems11"
+      ],
+      "type": "string"
+    },
+    "ProviderTypeServiceModel": {
+      "enum": [
+        "OIDC",
+        "SAML",
+        "Cognito"
+      ],
+      "type": "string"
+    },
+    "SamlConfigurationItemModel": {
+      "type": "object",
+      "properties": {
+        "configName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the ConfigName value."
+        },
+        "configValue": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the ConfigValue value."
+        }
+      },
+      "additionalProperties": false
+    },
+    "TokenNormalizationModel": {
+      "type": "object",
+      "properties": {
+        "normalClaim": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the NormalClaim value."
+        },
+        "foreignClaim": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets the ForeignClaim value."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

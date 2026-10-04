@@ -387,25 +387,207 @@ paths:
       x-os-permissions: You need the **Asset management > Open** permission.
 components:
   schemas:
-    GeneratedCodePackagingError:
+    BuildResponse:
+      type: object
+      properties:
+        buildKey:
+          type: string
+          description: A unique identifier generated for the Build. Can be used to retrieve or outputs the status of associated build.
+          format: uuid
+        isSuccessful:
+          type: boolean
+          description: Signals whether the build start successfully
+      additionalProperties: false
+      description: The response of a build request
+    BuildFeedbackDetails:
       type: object
       properties:
         timestamp:
           type: string
           description: The timestamp representing the instant when the message was issued
           format: date-time
+        type:
+          type:
+          - string
+          - 'null'
+          description: An identifier for the message
         severity:
           type:
           - string
           - 'null'
-          description: 'The severity of the error: Error, Info, Warning, etc.'
+          description: 'The severity of the message: Error, Info, Warning, etc.'
         message:
           type:
           - string
           - 'null'
-          description: The content of the error
+          description: The content of the message
+        stepId:
+          type:
+          - string
+          - 'null'
+          description: The identifier of the stage the message corresponds to
+        assetKey:
+          type: string
+          description: The key of the application being processed by the build
+          format: uuid
+        errorCode:
+          type:
+          - string
+          - 'null'
+          description: A unique identifier for the error message
       additionalProperties: false
-      description: A message issued during the packaging of a build's generated code
+      description: A message issued during the build process
+    GeneratedCodePackageResponse:
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/GeneratedCodePackagingStatus'
+          description: The current status of the packaging.
+        uri:
+          type:
+          - string
+          - 'null'
+          description: The URI of the generated code package.
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeneratedCodePackagingError'
+          description: The list of errors that occurred while packaging.
+      additionalProperties: false
+      description: Represents the result of packaging a build's generated code.
+    SecurityVulnerabilities:
+      type: object
+      properties:
+        vulnerabilities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SecurityVulnerability'
+          description: A list of the security vulnerabilities
+      additionalProperties: false
+      description: Security Vulnerabilities
+    BuildDetails:
+      required:
+      - assetKey
+      - assetRevision
+      - buildKey
+      - buildType
+      type: object
+      properties:
+        buildKey:
+          type: string
+          description: The key of build
+          format: uuid
+        assetKey:
+          type: string
+          description: The particular asset being built
+          format: uuid
+        assetRevision:
+          type: integer
+          description: The particular revision being built
+          format: int32
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/BuildType'
+          description: The type of build
+        startedDateTime:
+          type:
+          - string
+          - 'null'
+          description: The timestamp, in UTC, of when the built was started
+          format: date-time
+        finishedDateTime:
+          type:
+          - string
+          - 'null'
+          description: The timestamp, in UTC, of when the built was finished
+          format: date-time
+        builtBy:
+          type:
+          - string
+          - 'null'
+          description: The key of the subject (user, service account, etc.) which requested the build
+        status:
+          allOf:
+          - $ref: '#/components/schemas/BuildStatus'
+          description: The current status of the build
+        securityAudit:
+          allOf:
+          - $ref: '#/components/schemas/SecurityVulnerabilities'
+          description: The Security audit with list of security vulnerabilities
+      additionalProperties: false
+      description: The status of a particular build
+    GeneratedCodePackagingStatus:
+      enum:
+      - NotStarted
+      - Running
+      - Finished
+      - TimedOut
+      - Failed
+      type: string
+    BuildStatus:
+      enum:
+      - Pending
+      - Finished
+      - FinishedWithErrors
+      - Running
+      - Deleted
+      - ToBeDeleted
+      type: string
+    GeneratedCodePackagingResponse:
+      type: object
+      properties:
+        isSuccessful:
+          type: boolean
+          description: Indicates whether the packaging was initiated successfully.
+      additionalProperties: false
+      description: Represents the response from initiating the packaging of a build's generated code.
+    BuildDetailsBuildListResponse:
+      type: object
+      properties:
+        builds:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BuildDetails'
+          description: The list of builds
+      additionalProperties: false
+      description: The list of builds that match provided criteria
+    BuildOperationDetails:
+      type: object
+      properties:
+        assetKey:
+          type: string
+          description: Specifies the key of the asset to be built
+          format: uuid
+        assetRevision:
+          type: integer
+          description: Specifies the revision of the asset to be built
+          format: int32
+        buildType:
+          allOf:
+          - $ref: '#/components/schemas/BuildType'
+          description: 'Specifies the type of build to be created. Accepts: ''Debug'' or ''Release'''
+          default: Debug
+      additionalProperties: false
+      description: The specification of a build request
+    BuildFeedbackDetailsResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BuildFeedbackDetails'
+          description: The messages issued during a build
+      additionalProperties: false
+      description: All messages issued during a build
     ProblemDetails:
       type: object
       properties:
@@ -472,207 +654,25 @@ components:
       - Release
       type: string
       description: The type of build
-    BuildResponse:
-      type: object
-      properties:
-        buildKey:
-          type: string
-          description: A unique identifier generated for the Build. Can be used to retrieve or outputs the status of associated build.
-          format: uuid
-        isSuccessful:
-          type: boolean
-          description: Signals whether the build start successfully
-      additionalProperties: false
-      description: The response of a build request
-    BuildFeedbackDetailsResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BuildFeedbackDetails'
-          description: The messages issued during a build
-      additionalProperties: false
-      description: All messages issued during a build
-    GeneratedCodePackagingStatus:
-      enum:
-      - NotStarted
-      - Running
-      - Finished
-      - TimedOut
-      - Failed
-      type: string
-    GeneratedCodePackagingResponse:
-      type: object
-      properties:
-        isSuccessful:
-          type: boolean
-          description: Indicates whether the packaging was initiated successfully.
-      additionalProperties: false
-      description: Represents the response from initiating the packaging of a build's generated code.
-    BuildOperationDetails:
-      type: object
-      properties:
-        assetKey:
-          type: string
-          description: Specifies the key of the asset to be built
-          format: uuid
-        assetRevision:
-          type: integer
-          description: Specifies the revision of the asset to be built
-          format: int32
-        buildType:
-          allOf:
-          - $ref: '#/components/schemas/BuildType'
-          description: 'Specifies the type of build to be created. Accepts: ''Debug'' or ''Release'''
-          default: Debug
-      additionalProperties: false
-      description: The specification of a build request
-    BuildStatus:
-      enum:
-      - Pending
-      - Finished
-      - FinishedWithErrors
-      - Running
-      - Deleted
-      - ToBeDeleted
-      type: string
-    BuildDetails:
-      required:
-      - assetKey
-      - assetRevision
-      - buildKey
-      - buildType
-      type: object
-      properties:
-        buildKey:
-          type: string
-          description: The key of build
-          format: uuid
-        assetKey:
-          type: string
-          description: The particular asset being built
-          format: uuid
-        assetRevision:
-          type: integer
-          description: The particular revision being built
-          format: int32
-        buildType:
-          allOf:
-          - $ref: '#/components/schemas/BuildType'
-          description: The type of build
-        startedDateTime:
-          type:
-          - string
-          - 'null'
-          description: The timestamp, in UTC, of when the built was started
-          format: date-time
-        finishedDateTime:
-          type:
-          - string
-          - 'null'
-          description: The timestamp, in UTC, of when the built was finished
-          format: date-time
-        builtBy:
-          type:
-          - string
-          - 'null'
-          description: The key of the subject (user, service account, etc.) which requested the build
-        status:
-          allOf:
-          - $ref: '#/components/schemas/BuildStatus'
-          description: The current status of the build
-        securityAudit:
-          allOf:
-          - $ref: '#/components/schemas/SecurityVulnerabilities'
-          description: The Security audit with list of security vulnerabilities
-      additionalProperties: false
-      description: The status of a particular build
-    GeneratedCodePackageResponse:
-      type: object
-      properties:
-        status:
-          allOf:
-          - $ref: '#/components/schemas/GeneratedCodePackagingStatus'
-          description: The current status of the packaging.
-        uri:
-          type:
-          - string
-          - 'null'
-          description: The URI of the generated code package.
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GeneratedCodePackagingError'
-          description: The list of errors that occurred while packaging.
-      additionalProperties: false
-      description: Represents the result of packaging a build's generated code.
-    BuildFeedbackDetails:
+    GeneratedCodePackagingError:
       type: object
       properties:
         timestamp:
           type: string
           description: The timestamp representing the instant when the message was issued
           format: date-time
-        type:
-          type:
-          - string
-          - 'null'
-          description: An identifier for the message
         severity:
           type:
           - string
           - 'null'
-          description: 'The severity of the message: Error, Info, Warning, etc.'
+          description: 'The severity of the error: Error, Info, Warning, etc.'
         message:
           type:
           - string
           - 'null'
-          description: The content of the message
-        stepId:
-          type:
-          - string
-          - 'null'
-          description: The identifier of the stage the message corresponds to
-        assetKey:
-          type: string
-          description: The key of the application being processed by the build
-          format: uuid
-        errorCode:
-          type:
-          - string
-          - 'null'
-          description: A unique identifier for the error message
+          description: The content of the error
       additionalProperties: false
-      description: A message issued during the build process
-    BuildDetailsBuildListResponse:
-      type: object
-      properties:
-        builds:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BuildDetails'
-          description: The list of builds
-      additionalProperties: false
-      description: The list of builds that match provided criteria
-    SecurityVulnerabilities:
-      type: object
-      properties:
-        vulnerabilities:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SecurityVulnerability'
-          description: A list of the security vulnerabilities
-      additionalProperties: false
-      description: Security Vulnerabilities
+      description: A message issued during the packaging of a build's generated code
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-group-api-response-schema.json",
+  "title": "GroupApiResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-groups-api-openapi.yml#/components/schemas/GroupApiResponse",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The key of the group.",
+      "format": "uuid"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The name of the group."
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The description of the group."
+    },
+    "environmentKey": {
+      "type": "string",
+      "description": "The environment key.",
+      "format": "uuid"
+    },
+    "portfolioKey": {
+      "type": "string",
+      "description": "The portfolio key associated with the environment.",
+      "format": "uuid"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "The last updated date and time of the group.",
+      "format": "date-time"
+    },
+    "groupIdpClaimMappings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/GroupIdpClaimMappingEmbedded"
+      },
+      "description": "The group's identity providers claim mappings."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ForeignClaimModel": {
+      "required": [
+        "name",
+        "value"
+      ],
+      "type": "object",
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string",
+          "description": "Gets or sets Name of the claim to match in the foreign token."
+        },
+        "valueDelimiter": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Gets or sets string to split the foreign claim value on."
+        },
+        "value": {
+          "minLength": 1,
+          "type": "string",
+          "description": "Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified."
+        }
+      },
+      "additionalProperties": false
+    },
+    "GroupIdpClaimMappingEmbedded": {
+      "required": [
+        "foreignClaim",
+        "key",
+        "providerKey"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Claim mapping identifier.",
+          "format": "uuid"
+        },
+        "providerKey": {
+          "type": "string",
+          "description": "The key of the associated IdP object.",
+          "format": "uuid"
+        },
+        "foreignClaim": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ForeignClaimModel"
+            }
+          ],
+          "description": "Foreign Claim."
+        },
+        "lastUpdatedDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The last updated date field.",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

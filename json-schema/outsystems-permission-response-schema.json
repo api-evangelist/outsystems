@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-permission-response-schema.json",
+  "title": "PermissionResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-permissions-api-openapi.yml#/components/schemas/PermissionResponse",
+  "required": [
+    "allowedScopes",
+    "inherits"
+  ],
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Gets or sets the permission key.",
+      "format": "uuid"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the permission name."
+    },
+    "category": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the category for the permission."
+    },
+    "purpose": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the purpose for the permission."
+    },
+    "visibility": {
+      "enum": [
+        "Hidden",
+        "Public",
+        "Internal"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/OrgRolePermissionsVisibility"
+        }
+      ],
+      "description": "Gets or sets the visibility for the permission."
+    },
+    "inherits": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/PermissionInheritance"
+      },
+      "description": "Gets or sets the inherits."
+    },
+    "allowStages": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether permission applies to a specific stage."
+    },
+    "allowPortfolios": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether permission applies to a specific portfolio."
+    },
+    "allowedScopes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/AssetContext"
+      },
+      "description": "Gets or sets the allowed scopes."
+    },
+    "claimName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the claim name."
+    },
+    "remarks": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Gets or sets the remarks for the permission."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AssetContext": {
+      "enum": [
+        "Organization",
+        "Asset"
+      ],
+      "type": "string"
+    },
+    "OrgRolePermissionsVisibility": {
+      "enum": [
+        "Hidden",
+        "Public",
+        "Internal"
+      ],
+      "type": "string"
+    },
+    "PermissionInheritance": {
+      "required": [
+        "realmStages"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Gets or sets the permission key.",
+          "format": "uuid"
+        },
+        "realmStages": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/StageServiceModel"
+          },
+          "description": "Gets or sets the realm stage list."
+        },
+        "realmPortfolio": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/PortfolioInheritanceServiceModel"
+            }
+          ],
+          "description": "Gets or sets the realm portfolio."
+        }
+      },
+      "additionalProperties": false
+    },
+    "PortfolioInheritanceServiceModel": {
+      "enum": [
+        "SAME_PORTFOLIO",
+        "MAIN_PORTFOLIO",
+        "ALL_PORTFOLIO"
+      ],
+      "type": "string"
+    },
+    "StageServiceModel": {
+      "enum": [
+        "PRD",
+        "QA",
+        "DEV",
+        "SAME_STAGE"
+      ],
+      "type": "string"
+    }
+  }
+}

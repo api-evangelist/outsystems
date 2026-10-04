@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-operation-request-schema.json",
+  "title": "BuildOperationRequest",
+  "description": "Build operation request",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/BuildOperationRequest",
+  "type": "object",
+  "properties": {
+    "buildKey": {
+      "type": "string",
+      "description": "Unique identifier of the build",
+      "format": "uuid"
+    },
+    "revision": {
+      "type": "integer",
+      "description": "App revision",
+      "format": "int32"
+    },
+    "mobileVersionNumber": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Mobile package Version: incremental number with the format major.minor.patch"
+    },
+    "mobileVersionCode": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Mobile package Version Code: an incremental integer",
+      "format": "int32"
+    },
+    "mobilePlatform": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobilePlatform"
+        }
+      ],
+      "description": "Mobile platform"
+    },
+    "environmentKey": {
+      "type": "string",
+      "description": "Unique identifier of the environment",
+      "format": "uuid"
+    },
+    "applicationKey": {
+      "type": "string",
+      "description": "Unique identifier of the application",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "MobilePlatform": {
+      "enum": [
+        "Android",
+        "iOS"
+      ],
+      "type": "string",
+      "description": "Mobile platform"
+    }
+  }
+}

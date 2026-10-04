@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-asset-signature-schema.json",
+  "title": "AssetSignature",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetSignature",
+  "type": "object",
+  "properties": {
+    "signatureBinaryUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "URL to fetch the signature binary, to perform dependency analysis"
+    },
+    "signatureDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Digest that allows checking if the the signature of any of the public elements of the application has changes.",
+      "format": "uuid"
+    },
+    "compatibilitySignatureDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Digest that allows checking if the signature of any of the public elements of the application might have breaking changes.",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-log-messages-response-schema.json",
+  "title": "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationLogMessagesResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-generationoperations-api-openapi.yml#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationLogMessagesResponse",
+  "type": "object",
+  "properties": {
+    "validationMessages": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationValidationMessageResponse"
+      },
+      "description": "List of validation messages"
+    },
+    "finishedAt": {
+      "type": "string",
+      "description": "Timestamp of when the creation process ended, in UTC",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "OutSystems.ExternalLibraryGeneration.Application.Enums.JobValidationMessageType": {
+      "enum": [
+        "None",
+        "Information",
+        "Warning",
+        "Error"
+      ],
+      "type": "string"
+    },
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationValidationMessageResponse": {
+      "type": "object",
+      "properties": {
+        "errorCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Error Code for reference"
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Detailed message of the error"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Application.Enums.JobValidationMessageType"
+            }
+          ],
+          "description": "Type of the validation message"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

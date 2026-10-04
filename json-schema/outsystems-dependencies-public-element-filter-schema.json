@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-dependencies-public-element-filter-schema.json",
+  "title": "DependenciesPublicElementFilter",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-public-elements-api-openapi.yml#/components/schemas/DependenciesPublicElementFilter",
+  "type": "object",
+  "properties": {
+    "elementNameContains": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Filter where the element name must contain the keyword if specified"
+    },
+    "elementNameOrDescriptionContains": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Filter where the element name or description must contain the keyword if specified"
+    },
+    "elementType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Filter where the element must be of this type if specified"
+    },
+    "includeHidden": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Filter if hidden elements should be included or not"
+    },
+    "consumerPortfolioKeys": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Filter by one or more portfolio keys"
+    },
+    "limit": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Limits the number of returned elements",
+      "format": "int32"
+    },
+    "offset": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Offsets the returned elements",
+      "format": "int32"
+    },
+    "sort": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sorts the returned elements by the specified field"
+    },
+    "sortAscending": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Specifies if the sort order should be ascending or descending"
+    },
+    "assetFilters": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/ApplicationFilter"
+      },
+      "description": "Filters which asset elements to search by"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "ApplicationFilter": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Key of the application to filter by"
+        },
+        "digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Digest of the application to filter by, if empty will use the latest revision"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

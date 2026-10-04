@@ -132,54 +132,24 @@ paths:
       description: Requires **Portfolio management > Manage portfolio** permission.
 components:
   schemas:
-    ProblemDetails:
+    PortfolioPagedListResponse:
       type: object
       properties:
-        type:
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotals'
+          description: Page information.
+          readOnly: true
+        results:
           type:
-          - string
+          - array
           - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    PatchPortfolioRequest:
-      type: object
-      properties:
-        name:
-          maxLength: 50
-          minLength: 1
-          type:
-          - string
-          - 'null'
-          description: New portfolio name (min 1, max 50 characters)
+          items:
+            $ref: '#/components/schemas/Portfolio'
+          description: List of results.
+          readOnly: true
       additionalProperties: false
-      description: Request to update a portfolio's name
+      description: Represents a response containing a paged set of results.
     PageInfoWithTotals:
       type: object
       properties:
@@ -244,24 +214,54 @@ components:
           format: int32
       additionalProperties: false
       description: Portfolio
-    PortfolioPagedListResponse:
+    PatchPortfolioRequest:
       type: object
       properties:
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotals'
-          description: Page information.
-          readOnly: true
-        results:
+        name:
+          maxLength: 50
+          minLength: 1
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Portfolio'
-          description: List of results.
-          readOnly: true
+          description: New portfolio name (min 1, max 50 characters)
       additionalProperties: false
-      description: Represents a response containing a paged set of results.
+      description: Request to update a portfolio's name
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support to track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster  troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagonose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
   securitySchemes:
     bearerAuth:
       type: http

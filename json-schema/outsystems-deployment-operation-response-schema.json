@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-deployment-operation-response-schema.json",
+  "title": "DeploymentOperationResponse",
+  "description": "Information about one deployment",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-deployment-operations-api-openapi.yml#/components/schemas/DeploymentOperationResponse",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique identifier of the deployment-operation.",
+      "format": "uuid"
+    },
+    "status": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Status"
+        }
+      ],
+      "description": "Deployment-operation status."
+    },
+    "startedDateTime": {
+      "type": "string",
+      "description": "When the deployment-operation started.",
+      "format": "date-time"
+    },
+    "finishedDateTime": {
+      "type": "string",
+      "description": "When the deployment-operation finished.",
+      "format": "date-time"
+    },
+    "deployedBy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Unique identifier of the requesting subject."
+    },
+    "assetKey": {
+      "type": "string",
+      "description": "Unique identifier of the asset.",
+      "format": "uuid"
+    },
+    "revisions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "description": "List of revisions that had the action performed."
+    },
+    "buildKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Unique identifier of the asset build.",
+      "format": "uuid"
+    },
+    "assetName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Asset name."
+    },
+    "operation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/DeploymentOperationsType"
+        }
+      ],
+      "description": "Executed Operation."
+    },
+    "portfolioKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Portfolio Key.",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "DeploymentOperationsType": {
+      "enum": [
+        "Deploy",
+        "Undeploy",
+        "ApplyConfigs"
+      ],
+      "type": "string"
+    },
+    "Status": {
+      "enum": [
+        "Running",
+        "FinishedWithError",
+        "Finished"
+      ],
+      "type": "string"
+    }
+  }
+}

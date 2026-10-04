@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-asset-version-creation-request-schema.json",
+  "title": "AssetVersionCreationRequest",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-assets-api-openapi.yml#/components/schemas/AssetVersionCreationRequest",
+  "type": "object",
+  "properties": {
+    "tag": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "SemVer tag to associate with the revision to be created.\nMust not exist and be of the “Major#.Minor#.Patch#” format"
+    },
+    "releaseNotes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The release notes associated with the asset. Can’t be present if no tag is provided."
+    },
+    "skipSequentialVersionValidation": {
+      "type": "boolean",
+      "description": "If set to true, skips the sequential revision validation."
+    },
+    "commitMessage": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "An optional commit message that can be populated when creating or updating an asset version."
+    },
+    "portfolioKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "(Optional) The key of the portfolio to associate the asset with.\nFor new assets: If not provided, uses the main portfolio.\nFor existing assets: If provided, must match existing portfolio or an error is returned.",
+      "format": "uuid"
+    },
+    "fileUri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "(Optional) Allows providing application source code for the new version (OML or XIF formats are supported). \nIf an OML or XIF is provided, its key is used to associate to the correct application - The application key must always match the OML/XIF key",
+      "format": "uri"
+    },
+    "assetCreationDetails": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AssetCreateFromTemplateRequest"
+        }
+      ],
+      "description": "(Optional) Allows providing a configuration to create a new asset as first revision, either from a template or as an empty OML \nOnly usable when the source file is not provided."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AssetCreateFromTemplateRequest": {
+      "type": "object",
+      "properties": {
+        "assetName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template."
+        },
+        "assetType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Type of the new asset to be created. Mandatory when creating an empty asset or an asset based on a template.\nRecognized values are [WebApplication, MobileApplication, MobileLibrary, LowCodeLibrary, Agent, Workflow]"
+        },
+        "templateKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Asset key to be used as template for the new asset, optional and can be null. To get the template key, use GET /assets and filter by template type (refer to the endpoint description)"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Description of the asset. Optional and can be null."
+        },
+        "iconBase64": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Base64 data containing the icon for the new asset. Optional and can be null."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

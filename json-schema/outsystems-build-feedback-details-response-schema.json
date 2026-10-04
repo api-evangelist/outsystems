@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-feedback-details-response-schema.json",
+  "title": "BuildFeedbackDetailsResponse",
+  "description": "All messages issued during a build",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildFeedbackDetailsResponse",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/BuildFeedbackDetails"
+      },
+      "description": "The messages issued during a build"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "BuildFeedbackDetails": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "description": "The timestamp representing the instant when the message was issued",
+          "format": "date-time"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "An identifier for the message"
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The severity of the message: Error, Info, Warning, etc."
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The content of the message"
+        },
+        "stepId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The identifier of the stage the message corresponds to"
+        },
+        "assetKey": {
+          "type": "string",
+          "description": "The key of the application being processed by the build",
+          "format": "uuid"
+        },
+        "errorCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A unique identifier for the error message"
+        }
+      },
+      "additionalProperties": false,
+      "description": "A message issued during the build process"
+    }
+  }
+}

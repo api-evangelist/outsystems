@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-details-schema.json",
+  "title": "BuildDetails",
+  "description": "The status of a particular build",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-build-api-openapi.yml#/components/schemas/BuildDetails",
+  "required": [
+    "assetKey",
+    "assetRevision",
+    "buildKey",
+    "buildType"
+  ],
+  "type": "object",
+  "properties": {
+    "buildKey": {
+      "type": "string",
+      "description": "The key of build",
+      "format": "uuid"
+    },
+    "assetKey": {
+      "type": "string",
+      "description": "The particular asset being built",
+      "format": "uuid"
+    },
+    "assetRevision": {
+      "type": "integer",
+      "description": "The particular revision being built",
+      "format": "int32"
+    },
+    "buildType": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BuildType"
+        }
+      ],
+      "description": "The type of build"
+    },
+    "startedDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The timestamp, in UTC, of when the built was started",
+      "format": "date-time"
+    },
+    "finishedDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The timestamp, in UTC, of when the built was finished",
+      "format": "date-time"
+    },
+    "builtBy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The key of the subject (user, service account, etc.) which requested the build"
+    },
+    "status": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/BuildStatus"
+        }
+      ],
+      "description": "The current status of the build"
+    },
+    "securityAudit": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/SecurityVulnerabilities"
+        }
+      ],
+      "description": "The Security audit with list of security vulnerabilities"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "BuildStatus": {
+      "enum": [
+        "Pending",
+        "Finished",
+        "FinishedWithErrors",
+        "Running",
+        "Deleted",
+        "ToBeDeleted"
+      ],
+      "type": "string"
+    },
+    "BuildType": {
+      "enum": [
+        "Debug",
+        "Release"
+      ],
+      "type": "string",
+      "description": "The type of build"
+    },
+    "SecurityVulnerabilities": {
+      "type": "object",
+      "properties": {
+        "vulnerabilities": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/SecurityVulnerability"
+          },
+          "description": "A list of the security vulnerabilities"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Security Vulnerabilities"
+    },
+    "SecurityVulnerability": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The Id the vulnerability"
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The Severity level of the vulnerability"
+        },
+        "details": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The Link to the vulnerability description"
+        },
+        "publishedDate": {
+          "type": "string",
+          "description": "The Published date of the vulnerability",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Security Vulnerability"
+    }
+  }
+}

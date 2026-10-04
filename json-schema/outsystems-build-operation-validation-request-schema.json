@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-build-operation-validation-request-schema.json",
+  "title": "BuildOperationValidationRequest",
+  "description": "Native build validation request for public API",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-buildoperations-api-openapi.yml#/components/schemas/BuildOperationValidationRequest",
+  "type": "object",
+  "properties": {
+    "environmentKey": {
+      "type": "string",
+      "description": "Unique identifier of the environment",
+      "format": "uuid"
+    },
+    "applicationKey": {
+      "type": "string",
+      "description": "Unique identifier of the application",
+      "format": "uuid"
+    },
+    "buildKey": {
+      "type": "string",
+      "description": "Unique identifier of the build",
+      "format": "uuid"
+    },
+    "revision": {
+      "type": "integer",
+      "description": "App revision",
+      "format": "int32"
+    },
+    "mobilePlatform": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/MobilePlatform"
+        }
+      ],
+      "description": "Mobile platform (optional). If not specified, returns validation for all platforms."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "MobilePlatform": {
+      "enum": [
+        "Android",
+        "iOS"
+      ],
+      "type": "string",
+      "description": "Mobile platform"
+    }
+  }
+}

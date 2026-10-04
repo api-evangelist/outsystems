@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-bulk-user-profile-operation-api-record-bulk-api-response-schema.json",
+  "title": "BulkUserProfileOperationApiRecordBulkApiResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-users-api-openapi.yml#/components/schemas/BulkUserProfileOperationApiRecordBulkApiResponse",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The identiifer of the bulk operation record",
+      "format": "uuid"
+    },
+    "status": {
+      "enum": [
+        "FinishedWithErrors",
+        "Finished",
+        "Processing",
+        "Pending"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/BulkApiStatus"
+        }
+      ],
+      "description": "Bullk API statuses Pending, Processing, Finished and FinishedWithErrors"
+    },
+    "errorCode": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Self Service error code for the overall bulk API operation.\nFor example, when the operation times out."
+    },
+    "errorMessage": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Self Service error message for the overall bulk API operation.\nFor example, when the operation times out."
+    },
+    "operations": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/BulkUserProfileOperationApiRecordBulkApiOperation"
+      },
+      "description": "Details of each operation performed in the bulk request.\nAvailable when the bulk operation has Finished or FinishedWithErrors.\nThis will be an empty list when the bulk operation is Pending or Progressing."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "BulkApiOperationStatus": {
+      "enum": [
+        "Error",
+        "Inserted",
+        "Updated",
+        "Deleted"
+      ],
+      "type": "string"
+    },
+    "BulkApiStatus": {
+      "enum": [
+        "FinishedWithErrors",
+        "Finished",
+        "Processing",
+        "Pending"
+      ],
+      "type": "string"
+    },
+    "BulkUserProfileOperationApiRecord": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "User profile record key",
+          "format": "uuid"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Email of the user"
+        },
+        "username": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The user's username for the IdP"
+        },
+        "subject": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The user's subject claim value for the IdP"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BulkUserProfileOperationApiRecordBulkApiOperation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "Error",
+            "Inserted",
+            "Updated",
+            "Deleted"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/$defs/BulkApiOperationStatus"
+            }
+          ],
+          "description": "Status of the individual operation in the list of bulk operations.\nFor example: Inserted, Updated, Errored"
+        },
+        "errorCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Self-support error code for the one operation if any error occured."
+        },
+        "errorMessage": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Self-support error message for the one operation if any error occured."
+        },
+        "record": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/BulkUserProfileOperationApiRecord"
+            }
+          ],
+          "description": "A JSON object containing some extra info about the record in this operation.\nThis could contain some pieces of request info as well as additional info from the operation output."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

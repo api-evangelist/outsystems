@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: User and Access Management Users API
-  description: REST endpoints for retrieving and managing user and access in your organization.
-  version: v1
+  title: Outsystems Users API
+  version: '1.0'
+  description: 'Operations tagged users across 2 of this provider''s published API definitions: outsystems-user-access-management-api-v1-openapi.json, lifetime-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
   description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
@@ -12,8 +12,7 @@ servers:
     odc-portal-domain:
       default: ODC_PORTAL_DOMAIN
       description: The domain of your organization
-security:
-- bearerAuth: []
+- url: /lifetimeapi/rest/v2
 tags:
 - name: Users
 paths:
@@ -75,6 +74,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/bulk/{key}:
     get:
       tags:
@@ -139,6 +149,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/{key}/application-roles/{roleKey}:
     post:
       tags:
@@ -198,6 +219,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage end-user access** permission.
+      security:
+      - bearerAuth: []
     delete:
       tags:
       - Users
@@ -256,6 +279,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage end-user access** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/{key}/application-roles:
     get:
       tags:
@@ -393,6 +427,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > View end users** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/{key}/organization-roles:
     get:
       tags:
@@ -478,6 +523,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > View members** or **User management > Manage users** permissions.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/{key}/organization-roles/{roleKey}:
     post:
       tags:
@@ -548,6 +604,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage member access** permission.
+      security:
+      - bearerAuth: []
     delete:
       tags:
       - Users
@@ -617,6 +675,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage member access** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/count:
     get:
       tags:
@@ -727,6 +796,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users:
     post:
       tags:
@@ -780,6 +860,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
     get:
       tags:
       - Users
@@ -940,6 +1022,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/{key}:
     delete:
       tags:
@@ -992,6 +1085,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
     get:
       tags:
       - Users
@@ -1054,6 +1149,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > View end users** or **User management > View members** or **User management > Manage users** permissions. If API Client has the **User management > View end users** permission, retrieves the list of users with end-user roles. If API Client has the **User management > View members** permission, retrieves the list of users with organization roles. To get a list of all users (with or without roles), the API client needs either both the **User management > View end users** and **User management > View members** permissions, or the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
     patch:
       tags:
       - Users
@@ -1116,6 +1213,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage users** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
   /users/{key}/groups:
     get:
       tags:
@@ -1223,19 +1331,505 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       x-os-permissions: API Client needs the **User management > Manage end-user groups** permission.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://ODC_PORTAL_DOMAIN/api/identity/v1
+      description: Replace ODC_PORTAL_DOMAIN with the domain of your organization.
+    - url: https://{odc-portal-domain}/api/identity/v1
+      description: User and Access Management API
+      variables:
+        odc-portal-domain:
+          default: ODC_PORTAL_DOMAIN
+          description: The domain of your organization
+  /users/:
+    get:
+      tags:
+      - Users
+      summary: Lists all the users
+      description: By default shows only active users.
+      operationId: Users_List
+      parameters:
+      - name: IncludeInactive
+        in: query
+        required: false
+        description: Defines if it is to include a list of inactive users.
+        schema:
+          type: boolean
+          default: false
+      - name: IncludeTeams
+        in: query
+        required: false
+        description: Defines if it is to include a list of teams that the users belong to.
+        schema:
+          type: boolean
+          default: false
+      - name: IncludeApplicationRoles
+        in: query
+        required: false
+        description: Defines if it is to include a list of applications that the users are associated with.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: List of users successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                description: A list of User records.
+        '204':
+          description: No Users defined
+        '403':
+          description: User has no permissions to retrieve users list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    post:
+      tags:
+      - Users
+      summary: Creates a user with the specified details
+      description: The operation only creates the user. Teams and Applications should be associated using specific endpoints.
+      operationId: Users_Create
+      responses:
+        '201':
+          description: User created with success.
+          content:
+            application/json:
+              schema:
+                type: string
+                default: ''
+                description: The key of the newly created user.
+        '400':
+          description: Failed to create user due to invalid username, name or role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to create a new user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: The user to be created.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /users/{UserKey}/:
+    get:
+      tags:
+      - Users
+      summary: Returns the details of a given user
+      operationId: Users_Get
+      parameters:
+      - name: UserKey
+        in: path
+        required: true
+        description: User key to retrieve.
+        schema:
+          type: string
+      - name: includeTeams
+        in: query
+        required: false
+        description: Defines if it is to include a list of teams that the user belong to.
+        schema:
+          type: boolean
+          default: false
+      - name: includeApplicationRoles
+        in: query
+        required: false
+        description: Defines if it is to include a list of applications that the user is associated with.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Record of User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '403':
+          description: User doesn't have permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    put:
+      tags:
+      - Users
+      summary: Updates a user with the specified details
+      description: The operation only updates the user details. Teams and Applications should be associated using specific endpoints.
+      operationId: Users_Update
+      parameters:
+      - name: UserKey
+        in: path
+        required: true
+        description: User key to update.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User updated with success.
+          content:
+            text/plain:
+              schema:
+                type: string
+                default: ''
+                description: The key of the updated user.
+        '400':
+          description: Failed to update user due to invalid username, name or role.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the user.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: User not found.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: The user to be updated.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /users/{UserKey}/blockedlogins/:
+    get:
+      tags:
+      - Users
+      summary: Gets the users blocked login attempts
+      operationId: User_BlockedLogins_Get
+      parameters:
+      - name: UserKey
+        in: path
+        required: true
+        description: User key to retrieve.
+        schema:
+          type: string
+      - name: EnvironmentKey
+        in: query
+        required: false
+        description: Key for the environment to check, if empty all environments are returned
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: Blocked login attempts retrieved successfully.
+          headers:
+            Success:
+              x-example: false
+              description: True if the method was successful, False otherwise.
+              schema:
+                type: boolean
+            StatusCode:
+              x-example: 0
+              schema:
+                type: integer
+                format: int32
+            Message:
+              schema:
+                type: string
+                default: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlatformLoginAttempt'
+        '403':
+          description: Failed to delete login attempts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to delete login attempts due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to delete login attempts due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '501':
+          description: Feature not supported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    delete:
+      tags:
+      - Users
+      summary: Unblocks a given user
+      operationId: User_BlockedLogins_Unblock
+      parameters:
+      - name: UserKey
+        in: path
+        required: true
+        description: User key to unblock.
+        schema:
+          type: string
+      - name: EnvironmentKey
+        in: query
+        required: false
+        description: Key for the environment to unblock, if empty all environments are unblocked.
+        schema:
+          type: string
+          default: ''
+      - name: IpAddress
+        in: query
+        required: false
+        description: IP address to unblock the user. All if no IP is passed.
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: User unblocked successfully.
+          headers:
+            Success:
+              x-example: false
+              description: True if the method was successful, False otherwise.
+              schema:
+                type: boolean
+            StatusCode:
+              x-example: 0
+              schema:
+                type: integer
+                format: int32
+            Message:
+              schema:
+                type: string
+                default: ''
+        '403':
+          description: Failed to delete login attempts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: Failed to delete login attempts due to invalid environment key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Failed to delete login attempts due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '501':
+          description: Feature not supported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /users/{UserKey}/setpassword/:
+    post:
+      tags:
+      - Users
+      summary: Allows to change a password of a given user
+      operationId: Users_SetPassword
+      parameters:
+      - name: UserKey
+        in: path
+        required: true
+        description: User key to update.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User password updated with success.
+        '400':
+          description: Failed to change password because password is invalid.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to update the user password.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: User not found.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '405':
+          description: Failed to change password because external authentication provider is in use.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Password'
+        description: The new password value.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /users/{UserKey}/applications/:
+    post:
+      tags:
+      - Users
+      summary: Grants a given role to the given application to the user
+      operationId: Users_GrantApp
+      parameters:
+      - name: UserKey
+        in: path
+        required: true
+        description: User key to grant permissions.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Permissions granted with success.
+        '400':
+          description: Failed to add application to user because application or role are invalid.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '403':
+          description: No permissions to change User permissions.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: User not found.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRole'
+        description: The key of the application and Role to grant permissions.
+        required: true
+    servers:
+    - url: /lifetimeapi/rest/v2
+  /users/{UserKey}/applications/{ApplicationKey}/:
+    delete:
+      tags:
+      - Users
+      summary: Revokes user's role in application permission
+      operationId: Users_RevokeApp
+      parameters:
+      - name: UserKey
+        in: path
+        required: true
+        description: User key to grant permissions.
+        schema:
+          type: string
+      - name: ApplicationKey
+        in: path
+        required: true
+        description: The key of the application to grant permissions.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Permissions revoked with success.
+        '403':
+          description: No permissions to change User permissions.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '404':
+          description: User or permission not found.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+        '500':
+          description: Internal error raised.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Exception'
+    servers:
+    - url: /lifetimeapi/rest/v2
 components:
   schemas:
-    AssignmentSource:
-      enum:
-      - Direct
-      - GroupAssigned
-      - GroupMapped
-      type: string
-    UserProfileEmbedType:
-      enum:
-      - ApplicationRoles
-      - UserIdentityProviders
-      type: string
     BulkApiStatus:
       enum:
       - FinishedWithErrors
@@ -1243,13 +1837,24 @@ components:
       - Processing
       - Pending
       type: string
-    GrantDetailsRequest:
+    UserProfileApiResponsePaginatedResponseApi:
       type: object
       properties:
-        grantPeriod:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserProfileApiResponse'
+          description: The List of results.
+        page:
           allOf:
-          - $ref: '#/components/schemas/GrantPeriodApiModel'
-          description: Gets or sets the grant period.
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    RevokeDetailsRequest:
+      type: object
+      properties:
         assetKeys:
           type:
           - array
@@ -1258,124 +1863,6 @@ components:
             type: string
             format: uuid
           description: Gets or sets the asset keys.
-        portfolioKey:
-          type:
-          - string
-          - 'null'
-          description: 'Gets or sets the portfolio key this assignment belongs to. Optional; applies only to asset-scoped grants
-
-            and, when omitted, the assignment is associated with the tenant''s main portfolio.'
-          format: uuid
-      additionalProperties: false
-    UserProfileAccessResponse:
-      type: object
-      properties:
-        hasOrganizationRoles:
-          type: boolean
-          description: User has organization-level roles
-        hasApplicationRoles:
-          type: boolean
-          description: User has application roles
-      additionalProperties: false
-    BulkUserProfileOperationApiRecordBulkApiOperation:
-      type: object
-      properties:
-        status:
-          enum:
-          - Error
-          - Inserted
-          - Updated
-          - Deleted
-          allOf:
-          - $ref: '#/components/schemas/BulkApiOperationStatus'
-          description: 'Status of the individual operation in the list of bulk operations.
-
-            For example: Inserted, Updated, Errored'
-        errorCode:
-          type:
-          - string
-          - 'null'
-          description: Self-support error code for the one operation if any error occured.
-        errorMessage:
-          type:
-          - string
-          - 'null'
-          description: Self-support error message for the one operation if any error occured.
-        record:
-          allOf:
-          - $ref: '#/components/schemas/BulkUserProfileOperationApiRecord'
-          description: 'A JSON object containing some extra info about the record in this operation.
-
-            This could contain some pieces of request info as well as additional info from the operation output.'
-      additionalProperties: false
-    UserProfileCreateApiRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The user's name.
-        email:
-          type:
-          - string
-          - 'null'
-          description: The user’s email address.
-        isActive:
-          type: boolean
-          description: Sets the user as active. Default is true (active).
-        photoUrl:
-          type:
-          - string
-          - 'null'
-          description: The user’s photo url.
-        addToBuiltInIdentityProvider:
-          type: boolean
-          description: Creates the user in the built-in identity provider. Default is false (not created in the built-in identity provider).
-        identityProviderKey:
-          type:
-          - string
-          - 'null'
-          description: The identity provider key. When provided, a UserIdpProfile will be created or linked.
-          format: uuid
-        subject:
-          type:
-          - string
-          - 'null'
-          description: The user’s subject claim value for this IdP.
-        username:
-          type:
-          - string
-          - 'null'
-          description: The user’s username for this IdP.
-      additionalProperties: false
-    UserProfileStatus:
-      enum:
-      - Active
-      - Invited
-      - Inactive
-      - PendingRegistration
-      type: string
-    OrganizationRoleAssignmentScope:
-      enum:
-      - Organization
-      - Asset
-      type: string
-      description: API query scope for listing a user's organization role assignments.
-    UserApplicationRoleApiResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
       additionalProperties: false
     UserApplicationRoleApiResponse:
       type: object
@@ -1421,23 +1908,150 @@ components:
             $ref: '#/components/schemas/AssignedGroupInfoApiResponse'
           description: The application groups through which the user inherits this role, if any.
       additionalProperties: false
-    UserGroupResponse:
+    GroupIdpClaimMappingEmbedded:
       required:
-      - group
-      - membershipTypes
+      - foreignClaim
+      - key
+      - providerKey
       type: object
       properties:
-        membershipTypes:
+        key:
+          type: string
+          description: Claim mapping identifier.
+          format: uuid
+        providerKey:
+          type: string
+          description: The key of the associated IdP object.
+          format: uuid
+        foreignClaim:
+          allOf:
+          - $ref: '#/components/schemas/ForeignClaimModel'
+          description: Foreign Claim.
+        lastUpdatedDate:
+          type:
+          - string
+          - 'null'
+          description: The last updated date field.
+          format: date-time
+      additionalProperties: false
+    OrganizationRoleAssignmentScope:
+      enum:
+      - Organization
+      - Asset
+      type: string
+      description: API query scope for listing a user's organization role assignments.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code applicable to the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of the error.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI that identifies the specific occurrence of the problem.
+        traceId:
+          type: string
+          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
+        errorCode:
+          type: string
+          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
+      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
+    UserProfileCreateResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The user's key.
+          format: uuid
+      additionalProperties: false
+    UserGroupResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/MembershipType'
-          description: The list of membership types of the user in this group. Allowed values are 'Assigned' (if directly added to the group) or 'Mapped' (if added via group mappings).
-        group:
+            $ref: '#/components/schemas/UserGroupResponse'
+          description: The List of results.
+        page:
           allOf:
-          - $ref: '#/components/schemas/GroupApiResponse'
-          description: A group that a user is part of.
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    UserIdpProfileResponse:
+      type: object
+      properties:
+        userKey:
+          type: string
+          description: The user key.
+          format: uuid
+        identityProviderKey:
+          type: string
+          description: 'The identity provider key (format: guid).'
+          format: uuid
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The subject claims in the token issued by the IdP.
+        username:
+          type:
+          - string
+          - 'null'
+          description: The username.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The user's full name.
+        email:
+          type:
+          - string
+          - 'null'
+          description: The user's email address.
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: The user's photo URL.
+        firstLoginAt:
+          type:
+          - string
+          - 'null'
+          description: The timestamp of the first login for this user using the idp in UTC.
+          format: date-time
+        lastLoginAt:
+          type:
+          - string
+          - 'null'
+          description: The timestamp of the last login for this user using the idp in UTC.
+          format: date-time
+        isEmailVerified:
+          type:
+          - boolean
+          - 'null'
+          description: The value indicating whether or not the user's email is verified.
       additionalProperties: false
     AssignedGroupInfoApiResponse:
       type: object
@@ -1459,10 +2073,139 @@ components:
           - $ref: '#/components/schemas/MembershipType'
           description: The membership type of the user in the application group.
       additionalProperties: false
-    MembershipType:
+    ForeignClaimModel:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+          description: Gets or sets Name of the claim to match in the foreign token.
+        valueDelimiter:
+          type:
+          - string
+          - 'null'
+          description: Gets or sets string to split the foreign claim value on.
+        value:
+          minLength: 1
+          type: string
+          description: Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified.
+      additionalProperties: false
+    UserProfileCountApiResponse:
+      type: object
+      properties:
+        userCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GroupApiResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key of the group.
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the group.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the group.
+        environmentKey:
+          type: string
+          description: The environment key.
+          format: uuid
+        portfolioKey:
+          type: string
+          description: The portfolio key associated with the environment.
+          format: uuid
+        updatedAt:
+          type: string
+          description: The last updated date and time of the group.
+          format: date-time
+        groupIdpClaimMappings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GroupIdpClaimMappingEmbedded'
+          description: The group's identity providers claim mappings.
+      additionalProperties: false
+    PageInfoWithTotalsApi:
+      required:
+      - count
+      - limit
+      - offset
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The results of the current page.
+          format: int32
+        limit:
+          type: integer
+          description: The limit of results per page.
+          format: int32
+        offset:
+          type: integer
+          description: The offset of the current page of results.
+          format: int32
+        totalResults:
+          type:
+          - integer
+          - 'null'
+          description: The total number of results.
+          format: int32
+        nextPageOffset:
+          type:
+          - integer
+          - 'null'
+          description: The offset of the next page of results. (optional)
+          format: int32
+          readOnly: true
+        totalPages:
+          type:
+          - integer
+          - 'null'
+          description: The total number of pages with results.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    BulkUserProfileOperationApiRecord:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: User profile record key
+          format: uuid
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email of the user
+        username:
+          type:
+          - string
+          - 'null'
+          description: The user's username for the IdP
+        subject:
+          type:
+          - string
+          - 'null'
+          description: The user's subject claim value for the IdP
+      additionalProperties: false
+    UserProfileEmbedType:
       enum:
-      - Assigned
-      - Mapped
+      - ApplicationRoles
+      - UserIdentityProviders
       type: string
     BulkUserProfileOperationApiRecordBulkApiResponse:
       type: object
@@ -1505,248 +2248,6 @@ components:
             Available when the bulk operation has Finished or FinishedWithErrors.
 
             This will be an empty list when the bulk operation is Pending or Progressing.'
-      additionalProperties: false
-    ForeignClaimModel:
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          minLength: 1
-          type: string
-          description: Gets or sets Name of the claim to match in the foreign token.
-        valueDelimiter:
-          type:
-          - string
-          - 'null'
-          description: Gets or sets string to split the foreign claim value on.
-        value:
-          minLength: 1
-          type: string
-          description: Gets or sets exact match string for the entire foreign claim value or one of the, split elements if a delimiter was specified.
-      additionalProperties: false
-    UserProfilePatchRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The user's name.
-        isActive:
-          type:
-          - boolean
-          - 'null'
-          description: The user as active or inactive.
-        photoUrl:
-          type:
-          - string
-          - 'null'
-          description: The user's photo url.
-      additionalProperties: false
-    UserProfileCreateResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The user's key.
-          format: uuid
-      additionalProperties: false
-    UserProfileApiResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserProfileApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the problem type.
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem.
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code applicable to the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of the error.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI that identifies the specific occurrence of the problem.
-        traceId:
-          type: string
-          description: This field helps OutSystems support track and investigate specific error occurrences. Providing this identifier when reporting an issue allows for more precise and faster troubleshooting.
-        errorCode:
-          type: string
-          description: This error code serves the purpose to communicate with OutSystems Support and help diagnose errors.
-      description: A standardized error response as per RFC 7807 (Problem Details for HTTP APIs).
-    OrganizationRoleByUserApiResponsePaginatedResponseApi:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrganizationRoleByUserApiResponse'
-          description: The List of results.
-        page:
-          allOf:
-          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
-          description: The details of the page information.
-      additionalProperties: false
-    RevokeDetailsRequest:
-      type: object
-      properties:
-        assetKeys:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: Gets or sets the asset keys.
-      additionalProperties: false
-    GroupApiResponse:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key of the group.
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the group.
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of the group.
-        environmentKey:
-          type: string
-          description: The environment key.
-          format: uuid
-        portfolioKey:
-          type: string
-          description: The portfolio key associated with the environment.
-          format: uuid
-        updatedAt:
-          type: string
-          description: The last updated date and time of the group.
-          format: date-time
-        groupIdpClaimMappings:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GroupIdpClaimMappingEmbedded'
-          description: The group's identity providers claim mappings.
-      additionalProperties: false
-    BulkApiOperationStatus:
-      enum:
-      - Error
-      - Inserted
-      - Updated
-      - Deleted
-      type: string
-    UserProfileCountApiResponse:
-      type: object
-      properties:
-        userCount:
-          type: integer
-          format: int32
-      additionalProperties: false
-    PageInfoWithTotalsApi:
-      required:
-      - count
-      - limit
-      - offset
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The results of the current page.
-          format: int32
-        limit:
-          type: integer
-          description: The limit of results per page.
-          format: int32
-        offset:
-          type: integer
-          description: The offset of the current page of results.
-          format: int32
-        totalResults:
-          type:
-          - integer
-          - 'null'
-          description: The total number of results.
-          format: int32
-        nextPageOffset:
-          type:
-          - integer
-          - 'null'
-          description: The offset of the next page of results. (optional)
-          format: int32
-          readOnly: true
-        totalPages:
-          type:
-          - integer
-          - 'null'
-          description: The total number of pages with results.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-    GroupIdpClaimMappingEmbedded:
-      required:
-      - foreignClaim
-      - key
-      - providerKey
-      type: object
-      properties:
-        key:
-          type: string
-          description: Claim mapping identifier.
-          format: uuid
-        providerKey:
-          type: string
-          description: The key of the associated IdP object.
-          format: uuid
-        foreignClaim:
-          allOf:
-          - $ref: '#/components/schemas/ForeignClaimModel'
-          description: Foreign Claim.
-        lastUpdatedDate:
-          type:
-          - string
-          - 'null'
-          description: The last updated date field.
-          format: date-time
       additionalProperties: false
     UserProfileApiResponse:
       type: object
@@ -1809,117 +2310,90 @@ components:
 
             e.g. `embed=applicationRoles`'
       additionalProperties: false
-    UserProfileCreateApiRequestBulkApiRequest:
+    UserGroupResponse:
       required:
-      - records
+      - group
+      - membershipTypes
       type: object
       properties:
-        records:
+        membershipTypes:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/UserProfileCreateApiRequest'
-          description: The list of requests
+            $ref: '#/components/schemas/MembershipType'
+          description: The list of membership types of the user in this group. Allowed values are 'Assigned' (if directly added to the group) or 'Mapped' (if added via group mappings).
+        group:
+          allOf:
+          - $ref: '#/components/schemas/GroupApiResponse'
+          description: A group that a user is part of.
       additionalProperties: false
-    UserIdpProfileResponse:
+    UserProfileStatus:
+      enum:
+      - Active
+      - Invited
+      - Inactive
+      - PendingRegistration
+      type: string
+    UserProfilePatchRequest:
       type: object
       properties:
-        userKey:
-          type: string
-          description: The user key.
-          format: uuid
-        identityProviderKey:
-          type: string
-          description: 'The identity provider key (format: guid).'
-          format: uuid
-        subject:
-          type:
-          - string
-          - 'null'
-          description: The subject claims in the token issued by the IdP.
-        username:
-          type:
-          - string
-          - 'null'
-          description: The username.
         name:
           type:
           - string
           - 'null'
-          description: The user's full name.
-        email:
+          description: The user's name.
+        isActive:
           type:
-          - string
+          - boolean
           - 'null'
-          description: The user's email address.
+          description: The user as active or inactive.
         photoUrl:
           type:
           - string
           - 'null'
-          description: The user's photo URL.
-        firstLoginAt:
-          type:
-          - string
-          - 'null'
-          description: The timestamp of the first login for this user using the idp in UTC.
-          format: date-time
-        lastLoginAt:
-          type:
-          - string
-          - 'null'
-          description: The timestamp of the last login for this user using the idp in UTC.
-          format: date-time
-        isEmailVerified:
-          type:
-          - boolean
-          - 'null'
-          description: The value indicating whether or not the user's email is verified.
+          description: The user's photo url.
       additionalProperties: false
-    UserProfileWithApplicationRolesEmbeddedResponse:
+    UserProfileCreateApiRequest:
       type: object
       properties:
-        applicationRoles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
-          description: 'List of application roles. Each role includes whether it is directly assigned to the user
-
-            and the application groups through which the user inherits it, if any.'
-        userIdentityProviders:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserIdpProfileResponse'
-          description: List of user identity providers.
-      additionalProperties: false
-    BulkUserProfileOperationApiRecord:
-      type: object
-      properties:
-        key:
+        name:
           type:
           - string
           - 'null'
-          description: User profile record key
-          format: uuid
+          description: The user's name.
         email:
           type:
           - string
           - 'null'
-          description: Email of the user
-        username:
+          description: The user’s email address.
+        isActive:
+          type: boolean
+          description: Sets the user as active. Default is true (active).
+        photoUrl:
           type:
           - string
           - 'null'
-          description: The user's username for the IdP
+          description: The user’s photo url.
+        addToBuiltInIdentityProvider:
+          type: boolean
+          description: Creates the user in the built-in identity provider. Default is false (not created in the built-in identity provider).
+        identityProviderKey:
+          type:
+          - string
+          - 'null'
+          description: The identity provider key. When provided, a UserIdpProfile will be created or linked.
+          format: uuid
         subject:
           type:
           - string
           - 'null'
-          description: The user's subject claim value for the IdP
+          description: The user’s subject claim value for this IdP.
+        username:
+          type:
+          - string
+          - 'null'
+          description: The user’s username for this IdP.
       additionalProperties: false
     OrganizationRoleByUserApiResponse:
       type: object
@@ -1966,7 +2440,7 @@ components:
           description: The end date and time in utc.
           format: date-time
       additionalProperties: false
-    UserGroupResponsePaginatedResponseApi:
+    OrganizationRoleByUserApiResponsePaginatedResponseApi:
       type: object
       properties:
         results:
@@ -1974,16 +2448,295 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/UserGroupResponse'
+            $ref: '#/components/schemas/OrganizationRoleByUserApiResponse'
           description: The List of results.
         page:
           allOf:
           - $ref: '#/components/schemas/PageInfoWithTotalsApi'
           description: The details of the page information.
       additionalProperties: false
+    UserApplicationRoleApiResponsePaginatedResponseApi:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
+          description: The List of results.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/PageInfoWithTotalsApi'
+          description: The details of the page information.
+      additionalProperties: false
+    GrantDetailsRequest:
+      type: object
+      properties:
+        grantPeriod:
+          allOf:
+          - $ref: '#/components/schemas/GrantPeriodApiModel'
+          description: Gets or sets the grant period.
+        assetKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the asset keys.
+        portfolioKey:
+          type:
+          - string
+          - 'null'
+          description: 'Gets or sets the portfolio key this assignment belongs to. Optional; applies only to asset-scoped grants
+
+            and, when omitted, the assignment is associated with the tenant''s main portfolio.'
+          format: uuid
+      additionalProperties: false
+    MembershipType:
+      enum:
+      - Assigned
+      - Mapped
+      type: string
+    AssignmentSource:
+      enum:
+      - Direct
+      - GroupAssigned
+      - GroupMapped
+      type: string
+    BulkApiOperationStatus:
+      enum:
+      - Error
+      - Inserted
+      - Updated
+      - Deleted
+      type: string
+    UserProfileCreateApiRequestBulkApiRequest:
+      required:
+      - records
+      type: object
+      properties:
+        records:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserProfileCreateApiRequest'
+          description: The list of requests
+      additionalProperties: false
+    UserProfileWithApplicationRolesEmbeddedResponse:
+      type: object
+      properties:
+        applicationRoles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserApplicationRoleApiResponse'
+          description: 'List of application roles. Each role includes whether it is directly assigned to the user
+
+            and the application groups through which the user inherits it, if any.'
+        userIdentityProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserIdpProfileResponse'
+          description: List of user identity providers.
+      additionalProperties: false
+    UserProfileAccessResponse:
+      type: object
+      properties:
+        hasOrganizationRoles:
+          type: boolean
+          description: User has organization-level roles
+        hasApplicationRoles:
+          type: boolean
+          description: User has application roles
+      additionalProperties: false
+    BulkUserProfileOperationApiRecordBulkApiOperation:
+      type: object
+      properties:
+        status:
+          enum:
+          - Error
+          - Inserted
+          - Updated
+          - Deleted
+          allOf:
+          - $ref: '#/components/schemas/BulkApiOperationStatus'
+          description: 'Status of the individual operation in the list of bulk operations.
+
+            For example: Inserted, Updated, Errored'
+        errorCode:
+          type:
+          - string
+          - 'null'
+          description: Self-support error code for the one operation if any error occured.
+        errorMessage:
+          type:
+          - string
+          - 'null'
+          description: Self-support error message for the one operation if any error occured.
+        record:
+          allOf:
+          - $ref: '#/components/schemas/BulkUserProfileOperationApiRecord'
+          description: 'A JSON object containing some extra info about the record in this operation.
+
+            This could contain some pieces of request info as well as additional info from the operation output.'
+      additionalProperties: false
+    Password:
+      description: Definition of a password.
+      type: object
+      properties:
+        password:
+          type: string
+          default: ''
+          description: Password value.
+    PlatformLoginAttempt:
+      description: Login attempts information.
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 0
+          format: int32
+        username:
+          type: string
+          default: ''
+        success:
+          type: boolean
+          example: false
+        instant:
+          type: string
+          format: date-time
+          example: '2014-12-31T23:59:59.938Z'
+        ipAddress:
+          type: string
+          default: ''
+        usernameFailureCount:
+          type: integer
+          example: 0
+          format: int32
+        originAddressFailureCount:
+          type: integer
+          example: 0
+          format: int32
+        userAgent:
+          type: string
+          default: ''
+        visitor:
+          type: string
+          default: ''
+        requestKey:
+          type: string
+          default: ''
+        result:
+          type: string
+          default: ''
+        environmentId:
+          type: integer
+          example: 0
+          format: int32
+        environmentName:
+          type: string
+          default: ''
+      required:
+      - UserId
+      - Username
+      - Success
+      - Instant
+      - IPAddress
+      - UsernameFailureCount
+      - OriginAddressFailureCount
+      - UserAgent
+      - Visitor
+      - RequestKey
+      - Result
+    User:
+      description: Definition of a user. Also includes the teams to which the user belongs and the roles in specific applications.
+      type: object
+      properties:
+        Key:
+          type: string
+          default: ''
+          description: readonly
+        Username:
+          type: string
+          default: ''
+        Name:
+          type: string
+          default: ''
+        Email:
+          type: string
+          default: ''
+        IsActive:
+          type: boolean
+          default: 'true'
+        RoleKey:
+          type: string
+          default: ''
+        RoleName:
+          type: string
+          default: ''
+          description: readonly
+        ApplicationRoles:
+          type: array
+          default: ''
+          items:
+            $ref: '#/components/schemas/ApplicationRole'
+        Teams:
+          type: array
+          default: ''
+          items:
+            $ref: '#/components/schemas/TeamRole'
+    TeamRole:
+      description: Pair Team and Role information.
+      type: object
+      properties:
+        TeamKey:
+          type: string
+          default: ''
+        TeamName:
+          type: string
+          default: ''
+        RoleKey:
+          type: string
+          default: ''
+        RoleName:
+          type: string
+          default: ''
+    Exception:
+      type: object
+      properties:
+        Errors:
+          type: array
+          items:
+            type: string
+            description: Full detail of the error
+        StatusCode:
+          type: integer
+          default: 500
+          description: Status code raised with the error.
+    ApplicationRole:
+      description: Represents a set of an application and a role.
+      type: object
+      properties:
+        applicationKey:
+          type: string
+        applicationName:
+          type: string
+        roleKey:
+          type: string
+        roleName:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http
       description: Enter your bearer token in the format 'Bearer {token}'
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- outsystems-user-access-management-api-v1-openapi.json
+- lifetime-api.json

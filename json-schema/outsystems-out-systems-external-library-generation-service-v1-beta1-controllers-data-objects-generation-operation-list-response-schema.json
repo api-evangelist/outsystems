@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/outsystems/main/json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-list-response-schema.json",
+  "title": "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationListResponse",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/outsystems-generationoperations-api-openapi.yml#/components/schemas/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationListResponse",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationResponse"
+      },
+      "description": "List of generation operations, sorted by CreatedAt descending"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Controllers.DataObjects.GenerationOperationResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Id of the external library generation operation.",
+          "format": "uuid"
+        },
+        "filename": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the file containing the high code package."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp of when the operation was created, in UTC",
+          "format": "date-time"
+        },
+        "libraryKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Key of the library generated from the high code package. Only available after status is ReadyForReview inclusive",
+          "format": "uuid"
+        },
+        "libraryName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the library generated from the high code package. Only available after status is ReadyForReview inclusive"
+        },
+        "libraryDescription": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Description of the library generated from the high code package. Only available after status is ReadyForReview inclusive"
+        },
+        "libraryIconUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Uri to be used to fetch the library's icon. This Uri will have an expiration time of 30 minutes"
+        },
+        "libraryUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Uri to be used to fetch the library."
+        },
+        "isNewLibrary": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "States if the external library was already published before. Only available after status is ReadyForReview inclusive"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.GenerationOperationStatus"
+            }
+          ],
+          "description": "Status of the external library generation operation"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Response object for generation operations."
+    },
+    "OutSystems.ExternalLibraryGeneration.Service.V1Beta1.Enums.GenerationOperationStatus": {
+      "enum": [
+        "None",
+        "Generating",
+        "GenerationError",
+        "ReadyForReview",
+        "Downloading",
+        "DownloadError",
+        "Completed"
+      ],
+      "type": "string",
+      "description": "Status of a generation operation in the v1beta1 API"
+    }
+  }
+}
