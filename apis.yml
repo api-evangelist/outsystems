@@ -58,7 +58,6 @@ tags:
 - Platform-as-a-Service
 - DevOps
 - Deployment
-- Identity and Access Management
 - Artificial Intelligence
 - Enterprise Software
 - Mobile Development
@@ -69,7 +68,6 @@ tags_raw:
 - Platform as a Service
 - DevOps
 - Deployment
-- Identity and Access Management
 - Artificial Intelligence
 - Enterprise Software
 - Mobile Development
@@ -607,3 +605,5 @@ common:
   url: skills/_index.yml
 - type: AgenticAccess
   url: agentic-access/outsystems-agentic-access.yml
+x-tags-removed:
+- Identity and Access Management
