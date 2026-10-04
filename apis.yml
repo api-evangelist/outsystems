@@ -1,13 +1,16 @@
 aid: outsystems
 name: OutSystems
-description: OutSystems is an enterprise low-code and AI-assisted application development platform company, founded in 2001 and headquartered
-  in Boston, Massachusetts with engineering in Lisbon, Portugal. Its two product lines are OutSystems 11 (O11), the self-managed/PaaS platform,
-  and OutSystems Developer Cloud (ODC), the cloud-native successor. ODC publishes a documented set of public REST APIs covering user and access
-  management, portfolio, asset repository, asset and environment configurations, build operations, deployments, dependency and impact analysis,
-  code quality, native mobile builds, external library generation, and subscription/entitlement usage. All ODC REST APIs authenticate with OAuth
-  2.0 client-credentials via a per-tenant OIDC discovery document, use offset/limit pagination, and are rate limited per API domain. OutSystems
-  also ships a remote MCP server (early alpha) that exposes app inspection, the Mentor OML editing session, publishing, deployments, external
-  libraries and environments to AI coding agents.
+description: OutSystems is an enterprise low-code and AI-assisted application development platform company,
+  founded in 2001 and headquartered in Boston, Massachusetts with engineering in Lisbon, Portugal. Its
+  two product lines are OutSystems 11 (O11), the self-managed/PaaS platform, and OutSystems Developer
+  Cloud (ODC), the cloud-native successor. ODC publishes a documented set of public REST APIs covering
+  user and access management, portfolio, asset repository, asset and environment configurations, build
+  operations, deployments, dependency and impact analysis, code quality, native mobile builds, external
+  library generation, and subscription/entitlement usage. All ODC REST APIs authenticate with OAuth 2.0
+  client-credentials via a per-tenant OIDC discovery document, use offset/limit pagination, and are rate
+  limited per API domain. OutSystems also ships a remote MCP server (early alpha) that exposes app inspection,
+  the Mentor OML editing session, publishing, deployments, external libraries and environments to AI coding
+  agents.
 url: https://raw.githubusercontent.com/api-evangelist/outsystems/refs/heads/main/apis.yml
 deliveryModel:
   model: saas
@@ -169,10 +172,10 @@ common:
 apis:
 - aid: outsystems:remote-mcp
   name: OutSystems Remote MCP Server
-  description: >-
-    Official OutSystems remote Model Context Protocol server (early alpha), exposed per tenant over streamable
-    HTTP with OAuth Dynamic Client Registration. Tool domains cover Apps, the read-only Context Service
-    lookups, the Mentor OML editing session, Publish, Deployments, External libraries and Environments.
+  description: Official OutSystems remote Model Context Protocol server (early alpha), exposed per tenant
+    over streamable HTTP with OAuth Dynamic Client Registration. Tool domains cover Apps, the read-only
+    Context Service lookups, the Mentor OML editing session, Publish, Deployments, External libraries
+    and Environments.
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
@@ -189,8 +192,7 @@ apis:
 - aid: outsystems:outsystems-analysis-status-api
   name: OutSystems Analysis Status API
   description: The Analysis Status API from OutSystems — 1 operation(s) for analysis status.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Analysis Status
@@ -202,8 +204,7 @@ apis:
 - aid: outsystems:outsystems-application-roles-api
   name: OutSystems Application Roles API
   description: The application-roles API from OutSystems — 2 operation(s) for application-roles.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Application Roles
@@ -219,8 +220,7 @@ apis:
 - aid: outsystems:outsystems-assets-api
   name: OutSystems Assets API
   description: The Assets API from OutSystems — 19 operation(s) for assets.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Assets
@@ -241,10 +241,8 @@ apis:
     url: json-schema/outsystems-asset-version-patch-request-schema.json
 - aid: outsystems:outsystems-assets-quality-metrics-api
   name: OutSystems Assets Quality Metrics API
-  description: >-
-    The Assets Quality Metrics API from OutSystems — 1 operation(s) for assets quality metrics.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  description: The Assets Quality Metrics API from OutSystems — 1 operation(s) for assets quality metrics.
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Assets Quality Metrics
@@ -256,8 +254,7 @@ apis:
 - aid: outsystems:outsystems-build-api
   name: OutSystems Build API
   description: The Build API from OutSystems — 4 operation(s) for build.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Builds
@@ -281,8 +278,7 @@ apis:
 - aid: outsystems:outsystems-buildoperations-api
   name: OutSystems Build Operations API
   description: The BuildOperations API from OutSystems — 5 operation(s) for buildoperations.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - BuildOperations
@@ -304,8 +300,7 @@ apis:
 - aid: outsystems:outsystems-code-analyses-api
   name: OutSystems Code Analyses API
   description: The Code Analyses API from OutSystems — 2 operation(s) for code analyses.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Code Analyses
@@ -321,8 +316,7 @@ apis:
 - aid: outsystems:outsystems-deletion-analyses-api
   name: OutSystems Deletion Analyses API
   description: The Deletion Analyses API from OutSystems — 2 operation(s) for deletion analyses.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Deletion Analyses
@@ -330,8 +324,7 @@ apis:
   - type: OpenAPI
     url: openapi/outsystems-deletion-analyses-api-openapi.yml
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-public-deletion-analysis-report-public-analysis-result-schema.json
+    url: json-schema/outsystems-public-deletion-analysis-report-public-analysis-result-schema.json
   - type: JSONSchema
     url: json-schema/outsystems-public-launch-deletion-analysis-request-schema.json
   - type: JSONSchema
@@ -339,8 +332,7 @@ apis:
 - aid: outsystems:outsystems-deployed-assets-api
   name: OutSystems Deployed Assets API
   description: The deployed-assets API from OutSystems — 1 operation(s) for deployed-assets.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - deployed-assets
@@ -352,8 +344,7 @@ apis:
 - aid: outsystems:outsystems-deployment-analyses-api
   name: OutSystems Deployment Analyses API
   description: The Deployment Analyses API from OutSystems — 2 operation(s) for deployment analyses.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Deployment Analyses
@@ -361,18 +352,15 @@ apis:
   - type: OpenAPI
     url: openapi/outsystems-deployment-analyses-api-openapi.yml
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-public-deployment-analysis-report-public-analysis-result-schema.json
+    url: json-schema/outsystems-public-deployment-analysis-report-public-analysis-result-schema.json
   - type: JSONSchema
     url: json-schema/outsystems-public-launch-deployment-analysis-request-schema.json
   - type: JSONSchema
     url: json-schema/outsystems-reference-key-response-schema.json
 - aid: outsystems:outsystems-deployment-operations-api
   name: OutSystems Deployment Operations API
-  description: >-
-    The deployment-operations API from OutSystems — 3 operation(s) for deployment-operations.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  description: The deployment-operations API from OutSystems — 3 operation(s) for deployment-operations.
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Deployment Operations
@@ -386,16 +374,13 @@ apis:
   - type: JSONSchema
     url: json-schema/outsystems-deployment-operation-request-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-string-message-details-v1-task-progress-message-paged-list-response-schema.json
+    url: json-schema/outsystems-string-message-details-v1-task-progress-message-paged-list-response-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-int32-nullable-deployment-operation-response-paged-list-response-schema.json
+    url: json-schema/outsystems-int32-nullable-deployment-operation-response-paged-list-response-schema.json
 - aid: outsystems:outsystems-domains-api
   name: OutSystems Domains API
   description: Manage custom domains for environments.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Domains
@@ -417,8 +402,7 @@ apis:
 - aid: outsystems:outsystems-environments-api
   name: OutSystems Environments API
   description: The Environments API from OutSystems — 12 operation(s) for environments.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Environment
@@ -436,15 +420,13 @@ apis:
   - type: JSONSchema
     url: json-schema/outsystems-agent-config-patch-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-unified-entitlement-by-asset-block-paged-list-response-schema.json
+    url: json-schema/outsystems-unified-entitlement-by-asset-block-paged-list-response-schema.json
   - type: JSONSchema
     url: json-schema/outsystems-environment-entitlements-schema.json
 - aid: outsystems:outsystems-findings-api
   name: OutSystems Findings API
   description: The Findings API from OutSystems — 1 operation(s) for findings.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Findings
@@ -456,8 +438,7 @@ apis:
 - aid: outsystems:outsystems-findings-summary-api
   name: OutSystems Findings Summary API
   description: The Findings Summary API from OutSystems — 1 operation(s) for findings summary.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Findings Summary
@@ -469,8 +450,7 @@ apis:
 - aid: outsystems:outsystems-findings-trend-api
   name: OutSystems Findings Trend API
   description: The Findings Trend API from OutSystems — 1 operation(s) for findings trend.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Findings Trend
@@ -482,8 +462,7 @@ apis:
 - aid: outsystems:outsystems-generationoperations-api
   name: OutSystems Generation Operations API
   description: The GenerationOperations API from OutSystems — 4 operation(s) for generationoperations.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - GenerationOperations
@@ -491,28 +470,21 @@ apis:
   - type: OpenAPI
     url: openapi/outsystems-generationoperations-api-openapi.yml
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-response-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-response-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-contents-response-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-contents-response-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-log-messages-response-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-log-messages-response-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-models-generation-operation-creation-request-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-models-generation-operation-creation-request-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-list-response-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-list-response-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-creation-operation-response-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-creation-operation-response-schema.json
 - aid: outsystems:outsystems-groups-api
   name: OutSystems Groups API
   description: The groups API from OutSystems — 5 operation(s) for groups.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Group
@@ -532,8 +504,7 @@ apis:
 - aid: outsystems:outsystems-identity-providers-api
   name: OutSystems Identity Providers API
   description: The identity-providers API from OutSystems — 2 operation(s) for identity-providers.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Identity Providers
@@ -549,8 +520,7 @@ apis:
 - aid: outsystems:outsystems-ip-filters-api
   name: OutSystems IP filters API
   description: Create, update, and delete IP filter groups and rules.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - IP filters
@@ -570,8 +540,7 @@ apis:
 - aid: outsystems:outsystems-libraries-api
   name: OutSystems Libraries API
   description: The Libraries API from OutSystems — 1 operation(s) for libraries.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Library
@@ -584,10 +553,8 @@ apis:
     url: json-schema/outsystems-library-paged-list-response-schema.json
 - aid: outsystems:outsystems-nativebuilderversions-api
   name: OutSystems Native Builder Versions API
-  description: >-
-    The NativeBuilderVersions API from OutSystems — 1 operation(s) for nativebuilderversions.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  description: The NativeBuilderVersions API from OutSystems — 1 operation(s) for nativebuilderversions.
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - NativeBuilderVersions
@@ -598,10 +565,8 @@ apis:
     url: json-schema/outsystems-native-builder-version-list-response-schema.json
 - aid: outsystems:outsystems-nativebuildextensibilitysettings-api
   name: OutSystems Native Build Extensibility Settings API
-  description: >-
-    The NativeBuildExtensibilitySettings API from OutSystems — 1 operation(s) for nativebuildextensibilitysettings.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  description: The NativeBuildExtensibilitySettings API from OutSystems — 1 operation(s) for nativebuildextensibilitysettings.
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - NativeBuildExtensibilitySettings
@@ -614,10 +579,8 @@ apis:
     url: json-schema/outsystems-extensibility-settings-response-schema.json
 - aid: outsystems:outsystems-nativemobileconfigurations-api
   name: OutSystems Native Mobile Configurations API
-  description: >-
-    The NativeMobileConfigurations API from OutSystems — 2 operation(s) for nativemobileconfigurations.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  description: The NativeMobileConfigurations API from OutSystems — 2 operation(s) for nativemobileconfigurations.
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - NativeMobileConfigurations
@@ -635,8 +598,7 @@ apis:
 - aid: outsystems:outsystems-organization-api
   name: OutSystems Organization API
   description: The Organization API from OutSystems — 3 operation(s) for organization.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Organization
@@ -652,8 +614,7 @@ apis:
 - aid: outsystems:outsystems-organization-roles-api
   name: OutSystems Organization Roles API
   description: The organization-roles API from OutSystems — 3 operation(s) for organization-roles.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Organization Roles
@@ -677,8 +638,7 @@ apis:
 - aid: outsystems:outsystems-patterns-api
   name: OutSystems Patterns API
   description: The Patterns API from OutSystems — 2 operation(s) for patterns.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Patterns
@@ -690,8 +650,7 @@ apis:
 - aid: outsystems:outsystems-permissions-api
   name: OutSystems Permissions API
   description: The permissions API from OutSystems — 2 operation(s) for permissions.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Permissions
@@ -707,8 +666,7 @@ apis:
 - aid: outsystems:outsystems-portfolios-api
   name: OutSystems Portfolios API
   description: The Portfolios API from OutSystems — 2 operation(s) for portfolios.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Portfolio
@@ -724,8 +682,7 @@ apis:
 - aid: outsystems:outsystems-private-gateways-api
   name: OutSystems Private gateways API
   description: Activate, deactivate, and manage private gateways.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Private gateways
@@ -739,8 +696,7 @@ apis:
 - aid: outsystems:outsystems-public-elements-api
   name: OutSystems Public Elements API
   description: The Public Elements API from OutSystems — 1 operation(s) for public elements.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Public Elements
@@ -754,8 +710,7 @@ apis:
 - aid: outsystems:outsystems-publish-operations-api
   name: OutSystems Publish Operations API
   description: The publish-operations API from OutSystems — 3 operation(s) for publish-operations.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - publish-operations
@@ -767,16 +722,13 @@ apis:
   - type: JSONSchema
     url: json-schema/outsystems-publish-operation-request-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-string-message-details-v1-task-progress-message-paged-list-response-schema.json
+    url: json-schema/outsystems-string-message-details-v1-task-progress-message-paged-list-response-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-int32-nullable-publish-operation-response-paged-list-response-schema.json
+    url: json-schema/outsystems-int32-nullable-publish-operation-response-paged-list-response-schema.json
 - aid: outsystems:outsystems-sourcecodedownload-api
   name: OutSystems Source Code Download API
   description: The SourceCodeDownload API from OutSystems — 2 operation(s) for sourcecodedownload.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - SourceCodeDownload
@@ -784,16 +736,13 @@ apis:
   - type: OpenAPI
     url: openapi/outsystems-sourcecodedownload-api-openapi.yml
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-source-code-download-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-source-code-download-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-creation-operation-response-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-creation-operation-response-schema.json
 - aid: outsystems:outsystems-upload-api
   name: OutSystems Upload API
   description: The Upload API from OutSystems — 1 operation(s) for upload.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Upload
@@ -801,13 +750,11 @@ apis:
   - type: OpenAPI
     url: openapi/outsystems-upload-api-openapi.yml
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-upload-response-schema.json
+    url: json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-upload-response-schema.json
 - aid: outsystems:outsystems-uploads-api
   name: OutSystems Uploads API
   description: The Uploads API from OutSystems — 1 operation(s) for uploads.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - Uploads
@@ -819,8 +766,7 @@ apis:
 - aid: outsystems:outsystems-users-api
   name: OutSystems Users API
   description: The users API from OutSystems — 10 operation(s) for users.
-  humanURL: >-
-    https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
+  humanURL: https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/
   baseURL: https://{odc-portal-domain}/api/identity/v1
   tags:
   - User
@@ -832,18 +778,15 @@ apis:
   - type: JSONSchema
     url: json-schema/outsystems-user-profile-api-response-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-bulk-user-profile-operation-api-record-bulk-api-response-schema.json
+    url: json-schema/outsystems-bulk-user-profile-operation-api-record-bulk-api-response-schema.json
   - type: JSONSchema
     url: json-schema/outsystems-user-profile-create-api-request-schema.json
   - type: JSONSchema
     url: json-schema/outsystems-grant-details-request-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-organization-role-by-user-api-response-paginated-response-api-schema.json
+    url: json-schema/outsystems-organization-role-by-user-api-response-paginated-response-api-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/outsystems-user-application-role-api-response-paginated-response-api-schema.json
+    url: json-schema/outsystems-user-application-role-api-response-paginated-response-api-schema.json
 - aid: outsystems:outsystems-applications-api
   name: OutSystems /applications API
   description: The /applications API from OutSystems — 6 operation(s) for /applications.
