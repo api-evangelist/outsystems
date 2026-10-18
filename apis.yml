@@ -793,6 +793,8 @@ apis:
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
+  - Application
+  tags_raw:
   - /applications
   properties:
   - type: OpenAPI
@@ -803,6 +805,8 @@ apis:
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
+  - Authentication
+  tags_raw:
   - /auth
   properties:
   - type: OpenAPI
@@ -813,6 +817,8 @@ apis:
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
+  - Deployment
+  tags_raw:
   - /deployments
   properties:
   - type: OpenAPI
@@ -823,6 +829,8 @@ apis:
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
+  - Modules
+  tags_raw:
   - /modules
   properties:
   - type: OpenAPI
@@ -833,6 +841,8 @@ apis:
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
+  - Roles
+  tags_raw:
   - /roles
   properties:
   - type: OpenAPI
@@ -843,6 +853,8 @@ apis:
   humanURL: https://github.com/OutSystems/outsystems-mcp
   baseURL: https://{tenant}.outsystems.dev/mcp
   tags:
+  - Team
+  tags_raw:
   - /teams
   properties:
   - type: OpenAPI
