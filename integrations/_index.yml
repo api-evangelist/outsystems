@@ -185,3 +185,32 @@
     detected: '2026-10-21'
   status: not-a-workflow
   arazzo: null
+- slug: outsystems-first-forum-of-incident-response-and-security-teams
+  label: FIRST (Forum of Incident Response and Security Teams)
+  partner_name: FIRST (Forum of Incident Response and Security Teams)
+  category: Incident response / PSIRT (FIRST member team)
+  type: register
+  channel: standard-directory
+  evidence: https://www.first.org/members/teams/outsystems_csirt
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: FIRST member teams (api.first.org/data/v1/teams, public JSON API)
+    standard: FIRST (Forum of Incident Response and Security Teams) membership
+    spec_file: null
+    role: first-member-team
+    registered_name: OutSystems
+    matched_domain: outsystems.com
+    matched_by: domain
+    teams:
+    - id: outsystems_csirt
+      team: OutSystems CSIRT
+      team_type: PSIRT, CSIRT
+      member_since: August 27, 2018
+      country: PT
+    signal_note: FIRST full membership of an incident-response / product-security team = participation; team_type
+      names CSIRT / PSIRT / SOC; never a count
+    detected_by: sweep-vulnerability-disclosure-cna.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
