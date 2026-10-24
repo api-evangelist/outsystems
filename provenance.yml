@@ -6,6 +6,9 @@ artifacts:
   agentic-access/outsystems-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  asyncapi/outsystems-webhooks.yml:
+    method: searched
+    evidence: declared in the artifact
   authentication/outsystems-authentication.yml:
     method: derived
     evidence: declared in the artifact
@@ -252,127 +255,331 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  hosts/outsystems-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
     method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+    evidence: carries an API Evangelist house phrase
+  integrations/outsystems-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  json-ld/outsystems-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-adhoc-analysis-request-v1-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-agent-config-patch-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-agent-config-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-android-build-configuration-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-android-build-configuration-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-application-config-patch-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-application-config-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-application-role-api-response-paginated-response-api-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-application-version-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-apps-overview-response-v1-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-asset-metadata-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-asset-revision-v1-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-asset-signature-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-asset-version-creation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-asset-version-patch-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-base-ip-filter-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-details-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-feedback-details-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-operation-details-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-operation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-operation-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-operation-validation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-operation-validation-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-build-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-bulk-user-profile-operation-api-record-bulk-api-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-code-analysis-response-v1-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-code-analysis-status-response-v1-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-dependencies-public-element-filter-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-deployed-asset-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-deployment-operation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-deployment-operation-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-domain-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-domain-patch-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-domain-patch-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-domain-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-domain-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-entitlement-usage-item-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-environment-entitlements-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-extensibility-settings-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-extensibility-settings-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-findings-response-v1-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-findings-summary-response-v1-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-findings-trend-response-v1-results-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-generated-code-package-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-generated-code-packaging-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-grant-details-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-group-api-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-group-create-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-identity-provider-response-paginated-response-api-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-identity-provider-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-int32-nullable-deployment-operation-response-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-int32-nullable-publish-operation-response-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-ios-build-configuration-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-ios-build-configuration-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-ip-filter-group-key-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-ip-filter-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-ip-filter-groups-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-library-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-native-build-versions-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-native-builder-version-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-configurations-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-entitlements-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-role-api-response-paginated-response-api-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-role-api-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-role-by-user-api-response-paginated-response-api-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-role-create-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-role-create-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-organization-role-update-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-creation-operation-response-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-contents-response-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-list-response-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-log-messages-response-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-generation-operation-response-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-source-code-download-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-controllers-data-objects-upload-response-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  ? json-schema/outsystems-out-systems-external-library-generation-service-v1-beta1-models-generation-operation-creation-request-schema.json
+  : method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-patch-default-domain-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-patch-group-application-roles-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-patch-ip-filter-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-patch-portfolio-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-patch-users-by-group-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-patterns-response-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-permission-response-paginated-response-api-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-permission-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-portfolio-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-public-deletion-analysis-report-public-analysis-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-public-deployment-analysis-report-public-analysis-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-public-element-string-types-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-public-launch-deletion-analysis-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-public-launch-deployment-analysis-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-publish-operation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-publish-operation-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-reference-key-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-role-user-response-paginated-response-api-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-secure-gateway-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-secure-gateway-token-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-status-sync-response-v1-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-string-message-details-v1-task-progress-message-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-unified-entitlement-by-asset-block-paged-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-uploads-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-user-application-role-api-response-paginated-response-api-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-user-profile-api-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-user-profile-create-api-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/outsystems-version-suggestions-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -456,9 +663,27 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/outsystems-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/outsystems-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/outsystems-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
@@ -468,6 +693,10 @@ artifacts:
   mcp/outsystems-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
+  openapi/_original/lifetime-api.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/outsystems-asset-configurations-api-v1-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -526,10 +755,16 @@ artifacts:
   openapi/outsystems-application-roles-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/outsystems-applications-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-assets-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-assets-quality-metrics-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/outsystems-auth-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-build-api-openapi.yml:
@@ -551,6 +786,9 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-deployment-operations-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/outsystems-deployments-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-domains-api-openapi.yml:
@@ -581,6 +819,9 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-libraries-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/outsystems-modules-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-nativebuilderversions-api-openapi.yml:
@@ -616,7 +857,13 @@ artifacts:
   openapi/outsystems-publish-operations-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/outsystems-roles-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-sourcecodedownload-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/outsystems-teams-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/outsystems-upload-api-openapi.yml:
@@ -628,43 +875,151 @@ artifacts:
   openapi/outsystems-users-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  overlays/outsystems-asset-configurations-api-v1-overlay.yaml:
+  overlays/outsystems-analysis-status-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/outsystems-application-roles-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-asset-configurations-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/outsystems-asset-repository-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-assets-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-assets-quality-metrics-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-build-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-build-operations-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-buildoperations-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-code-analyses-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-code-quality-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-deletion-analyses-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-dependency-management-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-deployed-assets-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-deployment-analyses-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-deployment-operations-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-deployments-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-domains-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-environment-configurations-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-environments-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-external-library-generation-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-findings-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-findings-summary-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-findings-trend-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-generationoperations-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-groups-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-identity-providers-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-ip-filters-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-libraries-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-native-application-orchestration-service-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-nativebuilderversions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-nativebuildextensibilitysettings-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-nativemobileconfigurations-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-organization-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-organization-roles-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-patterns-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-permissions-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-portfolio-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-portfolio-api-v2-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-portfolios-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
-  overlays/outsystems-portfolio-api-v2-overlay.yaml:
+  overlays/outsystems-private-gateways-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-public-elements-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-publish-operations-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-sourcecodedownload-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-subscription-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-upload-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/outsystems-uploads-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/outsystems-user-access-management-api-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/outsystems-users-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   packages/outsystems-packages.yml:
@@ -675,6 +1030,12 @@ artifacts:
     evidence: declared in the artifact
   rate-limits/outsystems-rate-limits.yml:
     method: searched
+    evidence: declared in the artifact
+  regulatory/outsystems-regulatory-posture.yml:
+    method: unknown
+    evidence: no authorship recorded
+  rules/outsystems-rules.yml:
+    method: generated
     evidence: declared in the artifact
   scopes/outsystems-scopes.yml:
     method: derived
@@ -708,6 +1069,12 @@ artifacts:
     evidence: no authorship recorded
   skills/outsystems-run-code-quality-analysis.md:
     method: generated
+    evidence: declared in the artifact
+  vendors/outsystems-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/outsystems-vocabulary.yml:
+    method: derived
     evidence: declared in the artifact
   well-known/outsystems-security.txt:
     method: unknown
